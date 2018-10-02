@@ -51,7 +51,7 @@ export default class Slides extends Component {
         <li class="collection-header"><h4>Spelling</h4></li>
         <li class="collection-item"><div>Page 1<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
         <li class="collection-item"><div>Page 2<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-        <li class="collection-item"><div>Page 3<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+        <li class="collection-item red-text"><div>Page 3<a href="#!" class="secondary-content"><i class="material-icons red-text">thumb_up</i></a></div></li>
         <li class="collection-item"><div>Page 4<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
         <li class="collection-item"><div>Page 5<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
         <li class="collection-item"><div>Page 6<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
