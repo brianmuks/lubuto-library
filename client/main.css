@@ -2,9 +2,22 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
-.blur{
+.blur {
   /* -webkit-filter: grayscale(50%); */
   /* -webkit-filter: blur(5px); */
   -webkit-filter: sepia(70%);
+}
+.sidebar {
+  width: 100%;
+  float: left;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+}
 
+.main {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
 }
