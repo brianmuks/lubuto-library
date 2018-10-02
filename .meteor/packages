@@ -19,3 +19,11 @@ shell-server@0.3.1            # Server-side component of the `meteor shell` comm
 
 autopublish@1.0.7             # Publish all data to the clients (for prototyping)
 insecure@1.0.7                # Allow all DB writes from clients (for prototyping)
+kadira:flow-router
+react-meteor-data
+accounts-base@1.4.2
+tomi:upload-server
+tomi:upload-jquery
+ostrio:files
+meteorhacks:picker
+meteortoys:allthings
