@@ -48,7 +48,10 @@ export default class LessonView extends Component {
             <a href='/overview'>Create Lesson </a>
           </div>
           <div className="col s12 m8 l9 main teal lighten-1">
+
+                <h4 className='center white-text'>
                 { content }
+                </h4>
           </div>
         </div>
 
