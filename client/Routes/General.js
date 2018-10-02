@@ -35,6 +35,13 @@ const userRoutes = FlowRouter.group({
 });
 
 FlowRouter.route('/', {
+  name: 'Lesson',
+  action() {
+      mount(LessonView, {});
+  }
+});
+
+FlowRouter.route('/page/:_id', {
   name: 'Lessons',
   action() {
       mount(LessonView, {});
