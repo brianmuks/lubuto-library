@@ -3,12 +3,13 @@ import React, {Component} from 'react';
 import {mount} from 'react-mounter';
 
 
-import Home from '../../imports/Home';
-import NewLesson from '../../imports/NewLessons';
-import ReadingTest from '../../imports/ReadingTest';
-import ReadingLesson from '../../imports/ReadingLesson';
-import LessonCreator from '../../imports/LessonCreator';
-import LessonCreator1 from '../../imports/LessonCreator1';
+import Home from '../../imports/ui/Home';
+import NewLesson from '../../imports/ui/NewLessons';
+import ReadingTest from '../../imports/ui/ReadingTest';
+import ReadingLesson from '../../imports/ui/ReadingLesson';
+import LessonCreator from '../../imports/ui/LessonCreator';
+import LessonCreator1 from '../../imports/ui/LessonCreator1';
+import LessonView from '../../imports/ui/Components/LessonView'
 
 
 // console.log('USER:',Meteor.user());
@@ -34,6 +35,20 @@ const userRoutes = FlowRouter.group({
 });
 
 FlowRouter.route('/', {
+  name: 'Lesson',
+  action() {
+      mount(LessonView, {});
+  }
+});
+
+FlowRouter.route('/page/:_id', {
+  name: 'Lessons',
+  action() {
+      mount(LessonView, {});
+  }
+});
+
+FlowRouter.route('/overview', {
   name: 'Home',
   action() {
       mount(Home, {});
