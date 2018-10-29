@@ -1,11 +1,19 @@
 import React, {Component} from 'react';
 
+// import {loadCss} from './methods'
+import './lesson1.css';
+
+import Draggable, {DraggableCore} from 'react-draggable'; // Both at the same time
+
 
 
 export default class Slides extends Component {
 
 
   componentDidMount(){
+
+    // loadCss()
+
    
 
     $(document).ready(function(){
@@ -24,14 +32,26 @@ export default class Slides extends Component {
   
   }
 
+
+  drag(pos){
+    console.log(pos)
+    // return
+
+    // var offset = $('#move').offset();
+    // var xPos = offset.left;
+    // var yPos = offset.top;
+
+    $('#move').css({'backgroundColor':'yellow','positions':'absolute',left:pos.x/2-10,top:pos.y/2-10});
+
+    $('#move').text('x:'+pos.x)
+    $('#move').text('y:'+pos.y)
+  }
+
   render() {
       return (
     
 
         <div>
-
-
-
 
 
          <div className="row">
@@ -45,32 +65,47 @@ export default class Slides extends Component {
         
 
     <div className="col offset-m3 s12 m7">
-      <div className="card">
+      <div className="card pink">
         <div className="card-image">
-          <img className='blur' height={250} src="http://wallpaintingmumbai.in/wp-content/uploads/2012/05/Gallery-Image-20.png" />
-          <span className="card-title col s12 offset-m1">
-  <a href="#!" className='white-text center '>
-  <h1>A
-  <i className="material-icons large red-text">trending_flat</i>A for Apple
-  </h1>
- </a>
+          <span className="card-title col s12 offset-m1">Muks</span>
+        </div>
+        <div className="card-content lesson-container">
 
-</span>
+        <div className="col m4">
+        <p className="col m12 ">Muks</p>
+        <p className="col m12 ">Muks</p>
+        <p className="col m12 ">Muks</p>
+        <p className="col m12 ">Muks</p>
+        </div>
 
+
+
+
+          <div id='move'>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</div>
         </div>
-        <div className="card-content">
-          <p>I am a very simple card. I am good at containing small bits of information.
-          I am convenient because I require little markup to use effectively.</p>
-        </div>
-        <div className="card-action">
-        <a className='green-text' href="#">A</a>
-        <a className='red-text' href="#">B</a>
-        <a className='green-text' href="#">C</a>
-          <a className='yellow-text' href="#">C</a>
-       
-        </div>
+     
       </div>
+
+   
+
     </div>
+
+             <div className="col m2 red">
+             <Draggable
+              onStop={(x,y)=>{this.drag(x,y)}}
+             >
+             <h1 className="react-draggable react-draggable-dragged" style={{touchAction:'none',transform:'translate(-767px, 104px)'}}>HI2</h1>
+
+        
+
+
+             </Draggable>
+
+
+</div>
+
+
   </div>
 
 

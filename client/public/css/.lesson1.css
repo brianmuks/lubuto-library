@@ -1,6 +1,7 @@
 body {
   padding: 10px;
   font-family: sans-serif;
+  background-color: red;
 }
 .blur{
   /* -webkit-filter: grayscale(50%); */
@@ -10,7 +11,4 @@ body {
 }
 .lesson-container{
 height: 500px;
-}
-#move{
-  position: absolute;
 }
