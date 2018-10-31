@@ -12,7 +12,7 @@ module.exports = {
 
   app: {
     // TODO: change app name and path
-    name: 'lubuto-library',
+    name: 'lubuto',
     path: '../',
 
     servers: {
