@@ -2,10 +2,10 @@ module.exports = {
   servers: {
     one: {
       // TODO: set host address, username, and authentication method
-      host: '159.65.235.125',
+      host: '',
       username: 'root',
       // pem: './path/to/pem'
-      password: 'Lubuto9'
+      password: ''
       // or neither for authenticate from ssh-agent
     }
   },
