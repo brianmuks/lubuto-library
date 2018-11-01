@@ -1,61 +1,87 @@
 import React, { Component, Fragment } from "react";
 
 export default class LessonView extends Component {
-
     state = {
-        content: 'Welcome to Lubuto Library',
-    }
-     updateState = content => {
-        this.setState({ content })
+        tasks: [
+            {name:"Box 1",category:"origin", bgcolor: "red"},
+            {name:"Box 2", category:"origin", bgcolor:"teal"},
+            {name:"Box 3", category:"complete", bgcolor:"skyblue"}
+          ],
     }
 
-    renderMainPage = () =>  {
-        const pathId = FlowRouter.getParam('_id');
-        switch (parseInt(pathId)) {
-            case 1:
-                this.updateState('This is Page 1, listen carefully and answer', )
-            break;
-            case 2:
-                this.updateState('This is Page 2, You have to finish the previous question')
-            break;
-            case 2:
-                this.updateState('This is Page 3, Keep up the pace')
-            break;
-            case 3:
-                this.updateState('This is Page 4, Page 4 is quite special, it has a different language')
-            break;
-            default:
-                this.updateState(`I have no Idea what is on Page ${pathId}`)
-                break;
+    onDragStart = (ev, id) => {
+        ev.dataTransfer.setData("id", id);
+    }
+
+    onDragOver = (ev) => {
+        ev.preventDefault();
+    }
+
+    //cat ==> category
+    onDrop = (ev, cat) => {
+       let id = ev.dataTransfer.getData("id");
+       console.log('dropping:',id);
+       const { tasks } = this.state;
+       let filteredTasks = tasks.filter(task => {
+           if (task.name === id) {
+               task.category = cat;
+           }
+           return task;
+       });
+       const el = ev.currentTarget;
+       const boxLocation = el.getBoundingClientRect();
+       const { left, top, right, bottom, x, y, width, height } = boxLocation
+       
+       this.setState({
+           ...this.state,
+           filteredTasks,
+           left, 
+           top, 
+           right, 
+           bottom,
+           x, 
+           y, 
+           width, height
+       });
+  
+    }
+
+    render() {
+        var tasks = {
+            origin: [],
+            complete: []
         }
-    }
+        this.state.tasks.forEach ((t) => {
+            tasks[t.category].push(
+                <div key={t.name} 
+                    onDragStart = {(e) => this.onDragStart(e, t.name)}
+                    draggable
+                    className="draggable"
+                    style = {{backgroundColor: t.bgcolor}}
+                >
+                    {t.name}
+                </div>
+            );
+        });
+        
+        return (
+            <div className="container-drag">
+                <h2 className="header">Draggable Lessons</h2>
+                <div className="origin"
+                    onDragOver={(e)=>this.onDragOver(e)}
+                    onDrop={(e)=>{this.onDrop(e, "origin")}}>
+                    <span className="task-header">Origin</span>
+                    {tasks.origin}
+                </div>
+                <div className="droppable" 
+                    onDragOver={(e)=>this.onDragOver(e)}
+                    onDrop={(e)=>this.onDrop(e, "complete")}>
+                     <span className="task-header">COMPLETED</span>
+                     {tasks.complete}
+                </div>
 
-  render() {
-    const { content } = this.state;
-    return (
-      <Fragment>
-        <div className="row">
-          <div
-            className="col s12 m4 l3 sidebar"
-          >
-             <div className="collection">
-                <a href="/page/1" onClick={this.renderMainPage} className='collection-item'>Page 1</a>
-                <a href="/page/2" onClick={this.renderMainPage} className='collection-item'>Page 2</a>
-                <a href="/page/3" onClick={this.renderMainPage} className='collection-item'>Page 3</a>
-                <a href="/page/4" onClick={this.renderMainPage} className='collection-item'>Page 4</a>
+
             </div>
-            
-            <a href='/overview'>Create Lesson </a>
-          </div>
-          <div className="col s12 m8 l9 main teal lighten-1">
-
-                <h4 className='center white-text'>
-                { content }
-                </h4>
-          </div>
-        </div>
-
-      </Fragment>
-    );
-  }
+        );
+    }
 }
