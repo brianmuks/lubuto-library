@@ -14,13 +14,10 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.5.2",
-<<<<<<< HEAD
+
     "react-draggable": "^3.0.5",
     "react-mounter": "^1.2.0"
-=======
-    "react-mounter": "^1.2.0",
-    "react-draggable": "^3.0.5"
->>>>>>> cbec008c685284c97171c89e9c0d14d6c4b43997
+
   },
   "meteor": {
     "mainModule": {
