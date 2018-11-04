@@ -1,12 +1,14 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { Title, List } from './Components/App'
+import Lessons  from './Components/Lessons'
+import { Icons } from './Dashboard/createIcons'
+
 
 const Routes = () => (
     <Router>
         <div>
-            <Route exact  path="/" component={Title} />
-            <Route  path="/list" component={List} />
+            <Route exact  path="/" component={Icons} />
+            <Route  path="/lessons" component={Lessons} />
         </div>
     </Router>
 )
