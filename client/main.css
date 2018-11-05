@@ -85,13 +85,17 @@ body {
 }
 
 .staged-editor{
-  margin-left: 5px;
+  /* margin-left: 0px; */
 }
 
 .resource-editor{
   margin-top: 15px;
   max-height: 200px;
   height: 200px;
+}
+
+.img-logo{
+  width: 300px;
 }
 
 

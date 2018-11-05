@@ -8,7 +8,7 @@ function StagedTools(){
     return (
         <div className='red right col m2 staged-resource editor'>
 
-dfdsgsfgsfgsdfgdsfgdsfgdfgdfsgsdfgfds
+        STAGGED TOOLS
         </div>
     )
 
