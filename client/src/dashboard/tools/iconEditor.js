@@ -1,9 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Meteor } from 'meteor/meteor'
+import { withTracker } from 'meteor/react-meteor-data'
+import { Tools } from '../../../../lib/Collections';
+import { cleanData, isIconValid } from '../../utilities/utils'
 
-const IconEditor = () => (
-    <div>
-        Icons will be created here, current home page
-    </div>
-)
 
-export default IconEditor
+function IconEditor(props){
+    const [name, setName] = useState('name')
+    const [error, setError ] = useState('')
+    
+    function handleIconSave (){
+        if (isIconValid(cleanData(), name)) {
+            Meteor.call('createIcon', name, err => err ? setError(err.reason) : setName(''))
+        } else {
+            setError('The specified icon is not valid')
+        }
+    }
+
+    return (
+        <div className='col m3'>
+            <input placeholder="Placeholder" type="text" className="validate" onChange={e => setName(e.target.value)} />
+            Icons will be created here, current home page<br />
+            <i className='material-icons'>home</i>
+            <button onClick={handleIconSave}>Save</button>
+            <p>
+            {
+                error.length ? error : null
+            }
+            </p>
+            <ul>
+                {
+                    props.tools.map(icon => (
+                        <i key={icon._id} className='material-icons'>{icon.name}</i>
+                    ))
+                }
+            </ul>
+
+        </div>
+    )
+}
+
+export default withTracker(() => {
+    Meteor.subscribe('tools')
+    return {
+        tools: Tools.find().fetch()
+    }
+})(IconEditor)
+
