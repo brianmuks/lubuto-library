@@ -7,7 +7,7 @@ const Routes = () => (
     <Router>
         <div>
             <Route exact  path="/" component={IconEditor} />
-            {/* <Route  path="/lessons" component={IconEditor} /> */}
+            {/* <Route  path="/lessons" component={} /> */}
         </div>
     </Router>
 )
