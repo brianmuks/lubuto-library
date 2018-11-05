@@ -1,5 +1,5 @@
-import { Meteor } from 'meteor/meteor';
+// The main entry for all server files
 
-Meteor.startup(() => {
-  // code to run on server at startup
-});
+import '../lib/Collections'
+import './Tools/methods'
+import './Tools/publications'
