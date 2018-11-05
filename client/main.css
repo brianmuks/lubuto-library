@@ -76,3 +76,22 @@ body {
   margin: 5px auto;
   line-height: 5em;
 }
+
+.editor{
+  max-height: 500px;
+  height: 500px;
+  /* margin-top: 15px; */
+
+}
+
+.staged-editor{
+  margin-left: 5px;
+}
+
+.resource-editor{
+  margin-top: 15px;
+  max-height: 200px;
+  height: 200px;
+}
+
+

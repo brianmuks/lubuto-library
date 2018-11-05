@@ -2,14 +2,23 @@
 
 import React from 'react'
 import Tools from './Tools'
+import MainEditor from './MainEditor'
+import StagedTools from './StagedTools'
+import ResourceEditor from './ResourceEditor'
 
 
 function CreateLesson(){
 
 return (
-    <div>
+    <section>
     <Tools />
+
+    <div className='row'>
+    <MainEditor />
+    <StagedTools />
+    <ResourceEditor />
     </div>
+    </section>
 )
 
 }

@@ -10,10 +10,8 @@ function Tools(){
 
     return (
         <>
-  <nav> </nav>
-
-  <ul id="slide-out" className="sidenav">
-    <li><div className="user-view">
+  <ul id="slide-out" className="sidenav green sidenav-fixed">
+    <li><div className="user-view ">
       <div className="background">
         <img src="images/office.jpg" />
       </div>
@@ -28,7 +26,6 @@ function Tools(){
     <li><a className="waves-effect" href="#!">Third Link With Waves</a></li>
   </ul>
   <a href="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons">menu</i></a>
-        
         </>
     )
 
