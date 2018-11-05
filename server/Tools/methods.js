@@ -6,9 +6,8 @@ import { Tools } from '../../lib/Collections'
 
 // Todo: Clean 
 Meteor.methods({
-    createIcon(name, size){
+    createIcon(name){
         check(name, String)
-        check(size, String)
-        Tools.insert({name})
+        Tools.insert({name}, err => err ? console.log(err.reason) : 'success')
     }
 })
