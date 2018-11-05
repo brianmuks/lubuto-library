@@ -1,6 +1,5 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+import React from "react";
+import ReactDOM from "react-dom";
+import Routes from './src/Routes'
 
-import './main.html';
-import './Routes/General';
-
+ReactDOM.render(<Routes />, document.getElementById("app"));
