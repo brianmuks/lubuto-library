@@ -11,7 +11,7 @@ function IconEditor(props){
     
     function handleIconSave (){
         if (isIconValid(cleanData(), name)) {
-            Meteor.call('createIcon', name, err => err ? console.log(err.reason) : 'success')
+            Meteor.call('createIcon', name, err => err ? setError(err.reason) : setName(''))
         } else {
             setError('The specified icon is not valid')
         }
@@ -28,6 +28,13 @@ function IconEditor(props){
                 error.length ? error : null
             }
             </p>
+            <ul>
+                {
+                    props.tools.map(icon => (
+                        <i key={icon._id} className='material-icons'>{icon.name}</i>
+                    ))
+                }
+            </ul>
 
         </div>
     )
