@@ -1,27 +1,23 @@
 //NOTE holds all create lesson components
 
-import React from 'react'
-import Tools from './Tools'
-import MainEditor from './MainEditor'
-import StagedTools from './StagedTools'
-import ResourceEditor from './ResourceEditor'
+import React from "react";
+import Tools from "./Tools";
+import MainEditor from "./MainEditor";
+import StagedTools from "./StagedTools";
+import ResourceEditor from "./ResourceEditor";
 
-
-function CreateLesson(){
-
-return (
+function CreateLesson() {
+  return (
     <section>
-    <Tools />
+      <Tools />
 
-    <div className='row'>
-    <MainEditor />
-    <StagedTools />
-    <ResourceEditor />
-    </div>
+      <div className="row">
+        <MainEditor />
+        <StagedTools />
+        <ResourceEditor />
+      </div>
     </section>
-)
-
+  );
 }
-
 
 export default CreateLesson;
