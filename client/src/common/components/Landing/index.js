@@ -1,15 +1,17 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from "react"
+import './landing.css'
 
 const Landing = () => (
   <Fragment>
-    <nav className="light-blue lighten-1" role="navigation">
+      <div className='container-fluid'>
+    <nav className="light-blue lighten-1 container-fluid" role="navigation">
       <div className="nav-wrapper container">
         <a id="logo-container" href="#" className="brand-logo">
-          Logo
+            Library
         </a>
         <ul className="right hide-on-med-and-down">
           <li>
-            <a href="#">Navbar Link</a>
+            <a href="#">Dashboard</a>
           </li>
         </ul>
 
@@ -23,14 +25,15 @@ const Landing = () => (
         </a>
       </div>
     </nav>
+    </div>
     <div className="section no-pad-bot" id="index-banner">
       <div className="container">
         <br />
         <br />
-        <h1 className="header center orange-text">Starter Template</h1>
+        <h1 className="header center orange-text">Modern Lessons</h1>
         <div className="row center">
           <h5 className="header col s12 light">
-            A modern responsive front-end framework based on Material Design
+          Libraries transforming Africa's next generation
           </h5>
         </div>
         <div className="row center">
@@ -57,7 +60,7 @@ const Landing = () => (
               </h2>
               <h5 className="center">Speeds up development</h5>
 
-              <p className="light">
+              <p className="light center">
                 We did most of the heavy lifting for you to provide a default
                 stylings that incorporate our custom components. Additionally,
                 we refined animations and transitions to provide a smoother
@@ -73,7 +76,7 @@ const Landing = () => (
               </h2>
               <h5 className="center">User Experience Focused</h5>
 
-              <p className="light">
+              <p className="light center">
                 By utilizing elements and principles of Material Design, we were
                 able to create a framework that incorporates components and
                 animations that provide more feedback to users. Additionally, a
@@ -90,7 +93,7 @@ const Landing = () => (
               </h2>
               <h5 className="center">Easy to work with</h5>
 
-              <p className="light">
+              <p className="light center">
                 We have provided detailed documentation as well as specific code
                 examples to help new users get started. We are also always open
                 to feedback and can answer any questions a user may have about
@@ -110,59 +113,32 @@ const Landing = () => (
           <div className="col l6 s12">
             <h5 className="white-text">Company Bio</h5>
             <p className="grey-text text-lighten-4">
-              We are a team of college students working on this project like
-              it's our full time job. Any amount would help support and continue
-              development on this project and is greatly appreciated.
+              Doing the best to provide with the best lessons 
             </p>
           </div>
           <div className="col l3 s12">
-            <h5 className="white-text">Settings</h5>
+            <h5 className="white-text">Students</h5>
             <ul>
               <li>
                 <a className="white-text" href="#!">
-                  Link 1
+                  Learn
                 </a>
               </li>
               <li>
                 <a className="white-text" href="#!">
-                  Link 2
-                </a>
-              </li>
-              <li>
-                <a className="white-text" href="#!">
-                  Link 3
-                </a>
-              </li>
-              <li>
-                <a className="white-text" href="#!">
-                  Link 4
+                  Languages
                 </a>
               </li>
             </ul>
           </div>
           <div className="col l3 s12">
-            <h5 className="white-text">Connect</h5>
+            <h5 className="white-text">Teachers</h5>
             <ul>
               <li>
                 <a className="white-text" href="#!">
-                  Link 1
+                  Create Lessons
                 </a>
-              </li>
-              <li>
-                <a className="white-text" href="#!">
-                  Link 2
-                </a>
-              </li>
-              <li>
-                <a className="white-text" href="#!">
-                  Link 3
-                </a>
-              </li>
-              <li>
-                <a className="white-text" href="#!">
-                  Link 4
-                </a>
-              </li>
+                </li>
             </ul>
           </div>
         </div>
@@ -170,12 +146,7 @@ const Landing = () => (
       <div className="footer-copyright">
         <div className="container">
           Made by{" "}
-          <a
-            className="orange-text text-lighten-3"
-            href="http://materializecss.com"
-          >
-            Materialize
-          </a>
+            BrianMuks Co 
         </div>
       </div>
     </footer>
