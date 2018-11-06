@@ -1,16 +1,19 @@
 <head>
-  <title>lubuto-library</title>
-      <!-- Compiled and minified CSS -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-      <!-- Compiled and minified JavaScript -->
-         
+  <title>lubuto-library</title>  
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">    
 </head>
 
 <body>
   <div id='app'></div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    // Initialize all materialize instances from here(works)
+   document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav')
+     instances = M.Sidenav.init(elems, {}) // I think it is best to keep this global
+  })
 
+  </script>
 </body>
 
 
