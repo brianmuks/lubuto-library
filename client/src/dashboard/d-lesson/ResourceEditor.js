@@ -7,7 +7,7 @@ import { ToolsState } from './CreateLesson'
 
 function ResourceEditor({tools}) {
   const [value, dispatch]  = useContext(ToolsState)
-  const { data: { x, y } } = value
+  const { data: { x, y, node } } = value
   const dragHandlers = {onDrag: handleDrag, onStop: handleDrop}
   
   function handleDrag(e, pos){
@@ -27,7 +27,7 @@ function ResourceEditor({tools}) {
                     ))
                 }
                 <br/>
-                {` ${x} and ${y} for the moving icon`}
+                {` ${x} and ${y} for the ${node && node.innerHTML}  moving icon`}
     </div>
   );
 }

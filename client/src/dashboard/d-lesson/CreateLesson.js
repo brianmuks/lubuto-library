@@ -12,6 +12,7 @@ export const ToolsState = createContext();
 const initialState = {
   x: 0,
   y: 0,
+  node: {}
 }
 
 function reducer(state, action) {
