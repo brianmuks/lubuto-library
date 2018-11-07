@@ -8,6 +8,7 @@ function Tools() {
       <ul id="slide-out" className="sidenav  sidenav-fixed">
         <li>
           <div className="user-view ">
+          {/* Commented out these for public purposes */}
             {/* <div className="background">
               <img
                 className="img-logo"
