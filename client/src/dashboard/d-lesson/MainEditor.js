@@ -8,7 +8,10 @@ function MainEditor() {
   <div className="col m7 offset-m3 grey editor">
      MAIN EDITOR <br />
 
-     {` ${x} and ${y} for the ${node && node.innerHTML}  moving icon`}
+     
+     x: { x }  <br />
+     y: { y }  <br />
+     iconName: { node && node.innerHTML }
   </div>)
 }
 

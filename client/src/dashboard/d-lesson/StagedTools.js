@@ -9,7 +9,10 @@ function StagedTools() {
     <div className="red right col m2 staged-resource editor">
     STAGGED TOOLS <br />
 
-    {` ${x} and ${y} for the ${node && node.innerHTML}  moving icon`}
+         
+     x: { x }  <br />
+     y: { y }  <br />
+     iconName: { node && node.innerHTML }
     
     </div>
   );
