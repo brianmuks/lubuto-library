@@ -9,16 +9,20 @@ import ResourceEditor from "./ResourceEditor";
 
 export const ToolsState = createContext();
 
+
 const initialState = {
   x: 0,
   y: 0,
-  node: {}
+  node: {},
+  icons: []
 }
+
+// todo: Push the icon name to the icon array, as items that have been moved
 
 function reducer(state, action) {
   switch (action.type) {
     case 'DROP':
-      return { ...action };
+      return { ...action,};
     case 'DRAG':
       return { ...action };
     default:
