@@ -12,7 +12,7 @@ const Landing = () => (
           </a>
           <ul className="right hide-on-med-and-down">
             <li>
-              <a href="#">Dashboard</a>
+              <Link to='/dashboard/create-lesson'>Dashboard</Link>
             </li>
           </ul>
 

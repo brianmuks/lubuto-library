@@ -5,7 +5,7 @@ import { Tools } from '../../../../lib/Collections';
 import { cleanData, isIconValid } from '../../utilities/utils'
 
 
-function IconEditor(props){
+function IconEditor({tools}){
     const [name, setName] = useState('name')
     const [error, setError ] = useState('')
     
@@ -30,7 +30,7 @@ function IconEditor(props){
             </p>
             <ul>
                 {
-                    props.tools.map(icon => (
+                    tools.map(icon => (
                         <i key={icon._id} className='material-icons'>{icon.name}</i>
                     ))
                 }

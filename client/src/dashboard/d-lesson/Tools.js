@@ -1,27 +1,28 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 
 function Tools() {
 
   return (
     <>
-      <ul id="slide-out" className="sidenav green sidenav-fixed">
+      <ul id="slide-out" className="sidenav  sidenav-fixed">
         <li>
           <div className="user-view ">
-            <div className="background">
+            {/* <div className="background">
               <img
                 className="img-logo"
                 src="https://static1.squarespace.com/static/557edb36e4b0c3993dee95d1/t/558172d3e4b07ca0ea5976c1/1541192743311/?format=1500w"
               />
-            </div>
-            <a href="#user">
+            </div> 
+            <Link to='/'>
               <img
                 className="circle "
                 src="https://avatars1.githubusercontent.com/u/11255454?s=88&v=4"
               />
-            </a>
-            <a href="#name">
+            </Link>
+            {/* <a href="#name">
               <span className="white-text name">LUBUTO LIBRARY</span>
-            </a>
+            </a> */}
             <a href="#email">
               <span className="white-text email">olivier@gmail.com</span>
             </a>
