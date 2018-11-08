@@ -1,6 +1,6 @@
 //NOTE holds all create lesson components
 
-import React, { createContext, useState, useReducer } from "react";
+import React, { createContext, useReducer } from "react";
 import Tools from "./Tools";
 import MainEditor from "./MainEditor";
 import StagedTools from "./StagedTools";
@@ -13,7 +13,9 @@ const initialState = {
   x: 0,
   y: 0,
   node: {},
-  icons: []
+  icons: [],
+  _id: '',
+  name: ''
 }
 
 // todo: Push the icon name to the icon array, as items that have been moved
@@ -25,13 +27,12 @@ function reducer(state, action) {
     case 'DRAG':
       return { ...action };
     default:
-    return initialState;
+    return state;
   }
 }
 
 
 function CreateLesson() {
-
 
   const value = useReducer(reducer, { data: initialState })
 

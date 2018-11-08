@@ -8,19 +8,20 @@ function ResourceEditor({ tools }) {
 
   const { x, y, node, dispatch } = useDragging()
   
-  function handleDrag(e, pos) {
+  function handleDrag(e, pos, icon) {
     dispatch({ type: "DRAG", data: pos });
   }
-  function handleDrop(e, pos) {
-    dispatch({ type: "DROP", data: pos });
+  function handleDrop(e, pos, icon) {
+    dispatch({ type: "DROP", data: { ...pos, ...icon } });
   }
-  
-  const dragHandlers = { onDrag: handleDrag, onStop: handleDrop };
   
   return (
     <div className="col m7 offset-m3 blue resource-editor">
       {tools.map(icon => (
-        <Draggable key={icon._id} {...dragHandlers}>
+        <Draggable key={icon._id} 
+          onDrag={ (e, data) =>  handleDrag(e, data, icon)}
+          onStop={(e, data) =>  handleDrop(e, data, icon)}
+        >
           <i className="material-icons">{icon.name}</i>
         </Draggable>
       ))}
@@ -43,8 +44,6 @@ export default withTracker(() => {
 
 export function useDragging(){
   const [value, dispatch] = useContext(ToolsState);
-  const {
-    data: { x, y, node }
-  } = value;
-  return {x, y, node, dispatch}
+  const { data } = value;
+  return { ...data, dispatch }
 }
