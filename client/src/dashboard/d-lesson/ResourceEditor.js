@@ -7,20 +7,13 @@ import { ToolsState } from "./CreateLesson";
 function ResourceEditor({ tools }) {
 
   const { x, y, node, dispatch } = useDragging()
-  
-  function handleDrag(e, pos, icon) {
-    dispatch({ type: "DRAG", data: pos });
-  }
-  function handleDrop(e, pos, icon) {
-    dispatch({ type: "DROP", data: { ...pos, ...icon } });
-  }
-  
+
   return (
     <div className="col m7 offset-m3 blue resource-editor">
       {tools.map(icon => (
         <Draggable key={icon._id} 
-          onDrag={ (e, data) =>  handleDrag(e, data, icon)}
-          onStop={(e, data) =>  handleDrop(e, data, icon)}
+          onDrag={ (e, data) =>  useHandlers(e, data, icon, dispatch, 'DRAG')}
+          onStop={(e, data) =>  useHandlers(e, data, icon, dispatch, 'DROP')}
         >
           <i className="material-icons">{icon.name}</i>
         </Draggable>
@@ -46,4 +39,16 @@ export function useDragging(){
   const [value, dispatch] = useContext(ToolsState);
   const { data } = value;
   return { ...data, dispatch }
+}
+
+/**
+ * 
+ */
+export function useHandlers(e, pos, icon, action, type){
+  switch (type) {
+    case 'DRAG':
+      return action({ type, data: { ...pos, ...icon } });
+    case 'DROP':
+      return action({ type, data: { ...pos, ...icon } });
+  }
 }
