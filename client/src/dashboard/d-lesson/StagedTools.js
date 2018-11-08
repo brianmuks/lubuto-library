@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
-import { ToolsState } from './CreateLesson'
+import React from "react";
+import { useDragging } from './ResourceEditor'
 
 
 function StagedTools() {
-  const [value, dispatch]  = useContext(ToolsState)
-  const { data: { x, y, node } } = value
+  const { x, y, node } = useDragging()
   return (
     <div className="red right col m2 staged-resource editor">
     STAGGED TOOLS <br />

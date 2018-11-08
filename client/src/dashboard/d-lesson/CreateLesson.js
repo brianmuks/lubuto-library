@@ -9,7 +9,6 @@ import ResourceEditor from "./ResourceEditor";
 
 export const ToolsState = createContext();
 
-
 const initialState = {
   x: 0,
   y: 0,

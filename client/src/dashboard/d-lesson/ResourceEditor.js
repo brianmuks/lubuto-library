@@ -5,19 +5,18 @@ import { Tools } from "../../../../lib/Collections";
 import { ToolsState } from "./CreateLesson";
 
 function ResourceEditor({ tools }) {
-  const [value, dispatch] = useContext(ToolsState);
-  const {
-    data: { x, y, node }
-  } = value;
-  const dragHandlers = { onDrag: handleDrag, onStop: handleDrop };
 
+  const { x, y, node, dispatch } = useDragging()
+  
   function handleDrag(e, pos) {
     dispatch({ type: "DRAG", data: pos });
   }
   function handleDrop(e, pos) {
     dispatch({ type: "DROP", data: pos });
   }
-
+  
+  const dragHandlers = { onDrag: handleDrag, onStop: handleDrop };
+  
   return (
     <div className="col m7 offset-m3 blue resource-editor">
       {tools.map(icon => (
@@ -39,3 +38,13 @@ export default withTracker(() => {
     tools: Tools.find().fetch()
   };
 })(ResourceEditor);
+
+
+
+export function useDragging(){
+  const [value, dispatch] = useContext(ToolsState);
+  const {
+    data: { x, y, node }
+  } = value;
+  return {x, y, node, dispatch}
+}

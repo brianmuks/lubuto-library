@@ -1,18 +1,17 @@
-import React, { useContext } from "react";
-import { ToolsState } from './CreateLesson'
+import React from "react";
+import { useDragging } from './ResourceEditor'
 
 function MainEditor() {
-  const [value, dispatch]  = useContext(ToolsState)
-  const { data: { x, y, node } } = value
+    const { x, y, node } = useDragging()
   return (
   <div className="col m7 offset-m3 grey editor">
      MAIN EDITOR <br />
-
      
      x: { x }  <br />
      y: { y }  <br />
      iconName: { node && node.innerHTML }
-  </div>)
+  </div>
+  )
 }
 
 export default MainEditor;
