@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
-import { withTracker } from "meteor/react-meteor-data";
 import Draggable from "react-draggable";
-import { Tools } from "../../../../lib/Collections";
 import {TOOLS_STATE} from './../d-context';
 
 
@@ -34,12 +32,7 @@ function ResourceEditor({ tools }) {
   );
 }
 
-export default withTracker(() => {
-  Meteor.subscribe("tools");
-  return {
-    tools: Tools.find().fetch()
-  };
-})(ResourceEditor);
+
 
 
 
@@ -48,3 +41,6 @@ export function useDragging(){
   const { data } = value;
   return { ...data, dispatch }
 }
+
+
+export default ResourceEditor;

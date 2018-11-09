@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from 'react-router-dom'
+import { COL_TOOLS } from "../../../../lib/Collections";
+import { withTracker } from "meteor/react-meteor-data";
 
-function Tools() {
+
+
+function Tools(props) {
 
   return (
     <>
@@ -29,32 +33,39 @@ function Tools() {
             </a>
           </div>
         </li>
+      
         <li>
-          <a href="#!">
-            <i className="material-icons">cloud</i>
-            First Link With Icon
-          </a>
-        </li>
-        <li>
-          <a href="#!">Second Link</a>
+          <a href="#!">Tools</a>
         </li>
         <li>
           <div className="divider" />
         </li>
-        <li>
-          <a className="subheader">Subheader</a>
-        </li>
-        <li>
-          <a className="waves-effect" href="#!">
-            Third Link With Waves
-          </a>
-        </li>
+       <RenderTools tools={props.tools} /> 
       </ul>
-      <a href="#" data-target="slide-out" className="sidenav-trigger">
-        <i className="material-icons">menu</i>
-      </a>
+      
     </>
   );
 }
 
-export default Tools;
+
+function RenderTools(props){
+
+  return props.tools.map((tools,index)=>(
+      <li key={index}>
+      <a href="#!">
+        <i className="material-icons">{tools.name}</i>
+        {tools.label}
+      </a>
+    </li>
+    ));
+}
+
+
+
+export default withTracker(() => {
+  Meteor.subscribe("col_tools");
+  return {
+    tools: COL_TOOLS.find().fetch()
+  };
+})(Tools);
+

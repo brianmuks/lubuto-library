@@ -34,7 +34,7 @@ function reducer(state, action) {
 function CreateLesson() {
 
   const value = useReducer(reducer, { data: initialState })
-
+  const addedTools = [];
   return (
     <TOOLS_STATE.Provider value={value}>
       <section>
@@ -42,7 +42,7 @@ function CreateLesson() {
         <div className="row">
           <MainEditor />
           <StagedTools />
-          <ResourceEditor />
+          <ResourceEditor  tools={addedTools}/>
         </div>
       </section>
     </TOOLS_STATE.Provider>
