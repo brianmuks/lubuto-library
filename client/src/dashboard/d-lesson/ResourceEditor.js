@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import Draggable from "react-draggable";
 import { Tools } from "../../../../lib/Collections";
-import { ToolsState } from "./CreateLesson";
+import {TOOLS_STATE} from './../d-context';
+
 
 function ResourceEditor({ tools }) {
 
@@ -43,7 +44,7 @@ export default withTracker(() => {
 
 
 export function useDragging(){
-  const [value, dispatch] = useContext(ToolsState);
+  const [value, dispatch] = useContext(TOOLS_STATE);
   const { data } = value;
   return { ...data, dispatch }
 }
