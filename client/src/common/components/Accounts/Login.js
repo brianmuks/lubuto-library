@@ -1,6 +1,13 @@
 import React from "react";
+import { useFormInput } from './Register'
 
 function Login() {
+    const email = useFormInput('Email Address')
+    const password = useFormInput('Password')
+
+    // log the user in 
+    
+
   return (
     <div className="row">
       <div className="col s4" />
@@ -15,7 +22,7 @@ function Login() {
                     id="email"
                     type="text"
                     className="validate"
-                    name="email"
+                    {...email}
                     required
                   />
                   <label htmlFor="email">Email</label>
@@ -29,7 +36,7 @@ function Login() {
                     id="password"
                     type="password"
                     className="validate"
-                    name="password"
+                    {...password}
                     required
                   />
                   <label htmlFor="password">Password</label>
