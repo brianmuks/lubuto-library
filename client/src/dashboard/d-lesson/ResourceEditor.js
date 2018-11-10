@@ -1,19 +1,28 @@
 import React, { useContext } from "react";
-import { withTracker } from "meteor/react-meteor-data";
 import Draggable from "react-draggable";
-import { Tools } from "../../../../lib/Collections";
-import { ToolsState } from "./CreateLesson";
+import {TOOLS_STATE} from './../d-context';
 
-function ResourceEditor({ tools }) {
+
+function ResourceEditor() {
+
+  const {state} = useContext(TOOLS_STATE);
+  const tools = state.addedTools;
 
   const { x, y, node, dispatch } = useDragging()
+  
+  function handleDrag(e, pos, icon) {		
+    dispatch({ type: "DRAG", data: pos });		
+  }		
+  function handleDrop(e, pos, icon) {		
+    dispatch({ type: "DROP", data: { ...pos, ...icon } });		
+  }
 
   return (
     <div className="col m7 offset-m3 blue resource-editor">
-      {tools.map(icon => (
-        <Draggable key={icon._id} 
-          onDrag={ (e, data) =>  useHandlers(e, data, icon, dispatch, 'DRAG')}
-          onStop={(e, data) =>  useHandlers(e, data, icon, dispatch, 'DROP')}
+      {tools.map((icon,index) => (
+        <Draggable key={index} 
+          onDrag={ (e, data) =>  handleDrag(e, data, icon)}
+          onStop={(e, data) =>  handleDrop(e, data, icon)}
         >
           <i className="material-icons">{icon.name}</i>
         </Draggable>
@@ -26,29 +35,13 @@ function ResourceEditor({ tools }) {
   );
 }
 
-export default withTracker(() => {
-  Meteor.subscribe("tools");
-  return {
-    tools: Tools.find().fetch()
-  };
-})(ResourceEditor);
-
 
 
 export function useDragging(){
-  const [value, dispatch] = useContext(ToolsState);
-  const { data } = value;
+  const {state, dispatch} = useContext(TOOLS_STATE);
+  const { data } = state;
   return { ...data, dispatch }
 }
 
-/**
- * 
- */
-export function useHandlers(e, pos, icon, action, type){
-  switch (type) {
-    case 'DRAG':
-      return action({ type, data: { ...pos, ...icon } });
-    case 'DROP':
-      return action({ type, data: { ...pos, ...icon } });
-  }
-}
+
+export default ResourceEditor;

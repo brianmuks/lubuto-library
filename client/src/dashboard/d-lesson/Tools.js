@@ -1,7 +1,14 @@
-import React from "react";
-import { Link } from 'react-router-dom'
+import React, {  useContext,useEffect } from "react";
 
-function Tools() {
+import { Link } from 'react-router-dom'
+import { COL_TOOLS } from "../../../../lib/Collections";
+import { withTracker } from "meteor/react-meteor-data";
+import {TOOLS_STATE} from './../d-context';
+import {addTool} from  './../d-redux/actions/lessonActions'
+
+
+
+function Tools(props) {
 
   return (
     <>
@@ -29,32 +36,47 @@ function Tools() {
             </a>
           </div>
         </li>
+      
         <li>
-          <a href="#!">
-            <i className="material-icons">cloud</i>
-            First Link With Icon
-          </a>
-        </li>
-        <li>
-          <a href="#!">Second Link</a>
+          <a href="#!">Tools</a>
         </li>
         <li>
           <div className="divider" />
         </li>
-        <li>
-          <a className="subheader">Subheader</a>
-        </li>
-        <li>
-          <a className="waves-effect" href="#!">
-            Third Link With Waves
-          </a>
-        </li>
+       <RenderTools tools={props.tools} /> 
       </ul>
-      <a href="#" data-target="slide-out" className="sidenav-trigger">
-        <i className="material-icons">menu</i>
-      </a>
+      
     </>
   );
 }
 
-export default Tools;
+
+function RenderTools(props){
+
+  const {state,dispatch} = useContext(TOOLS_STATE);
+
+  useEffect(()=>{
+    console.log(state.addedTools)
+  });
+
+
+
+  return props.tools.map((tool,index,tools)=>(
+      <li key={index} onClick={()=>{dispatch(addTool(tool,tools))}}>
+      <a href="#!">
+        <i className="material-icons">{tool.name}</i>
+        {tool.label}
+      </a>
+    </li>
+    ));
+}
+
+
+
+export default withTracker(() => {
+  Meteor.subscribe("col_tools");
+  return {
+    tools: COL_TOOLS.find().fetch()
+  };
+})(Tools);
+

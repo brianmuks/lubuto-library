@@ -1,13 +1,13 @@
 import { Meteor } from 'meteor/meteor'
 import { check } from 'meteor/check'
-import { Tools } from '../../lib/Collections'
+import { COL_TOOLS } from '../../lib/Collections'
 
 // create an icon reference
 
 // Todo: Clean 
 Meteor.methods({
-    createIcon(name){
+    createIcon(name,label){
         check(name, String)
-        Tools.insert({name}, err => err ? console.log(err.reason) : 'success')
+        COL_TOOLS.insert({name,label}, err => err ? console.log(err.reason) : 'success')
     }
 })

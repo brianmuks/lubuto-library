@@ -1,52 +1,43 @@
 //NOTE holds all create lesson components
 
-import React, { createContext, useReducer } from "react";
+import React, {  useReducer } from "react";
 import Tools from "./Tools";
 import MainEditor from "./MainEditor";
 import StagedTools from "./StagedTools";
 import ResourceEditor from "./ResourceEditor";
-
-
-export const ToolsState = createContext();
+import {TOOLS_STATE} from './../d-context';
+import {lessonReducer} from  './../d-redux/reducers/lessonReducer'
 
 const initialState = {
-  x: 0,
-  y: 0,
-  node: {},
-  icons: [],
-  _id: '',
-  name: ''
+  data:{  x: 0,
+    y: 0,
+    node: {},
+    icons: [],
+    _id: '',
+    name: ''},
+  tools:[],
+  addedTools:[]
 }
 
 // todo: Push the icon name to the icon array, as items that have been moved
 
-function reducer(state, action) {
-  switch (action.type) {
-    case 'DROP':
-      return { ...action,};
-    case 'DRAG':
-      return { ...action };
-    default:
-    return state;
-  }
-}
+
 
 
 function CreateLesson() {
 
-  const value = useReducer(reducer, { data: initialState })
-
+  const [state,dispatch] = useReducer(lessonReducer,initialState)
   return (
-    <ToolsState.Provider value={value}>
+    <TOOLS_STATE.Provider  value={{state,dispatch}}>
       <section>
         <Tools />
         <div className="row">
           <MainEditor />
           <StagedTools />
-          <ResourceEditor />
+          <ResourceEditor  />
         </div>
       </section>
-    </ToolsState.Provider>
+    </TOOLS_STATE.Provider>
   );
 }
 

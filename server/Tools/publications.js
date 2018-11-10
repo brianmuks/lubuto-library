@@ -1,4 +1,4 @@
 import { Meteor } from 'meteor/meteor'
-import { Tools } from '../../lib/Collections'
+import { COL_TOOLS } from '../../lib/Collections'
 
-Meteor.publish('tools', () => Tools.find({}))
+Meteor.publish('tools', () => COL_TOOLS.find({}))

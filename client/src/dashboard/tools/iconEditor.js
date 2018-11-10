@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
 import { Meteor } from 'meteor/meteor'
 import { withTracker } from 'meteor/react-meteor-data'
-import { Tools } from '../../../../lib/Collections';
+import { COL_TOOLS } from '../../../../lib/Collections';
 import { cleanData, isIconValid } from '../../utilities/utils'
 
 
 function IconEditor({tools}){
     const [name, setName] = useState('name')
+    const [label, setLabel] = useState('name')
     const [error, setError ] = useState('')
     
     function handleIconSave (){
         if (isIconValid(cleanData(), name)) {
-            Meteor.call('createIcon', name, err => err ? setError(err.reason) : setName(''))
+            Meteor.call('createIcon', name,label, err => err ? setError(err.reason) : setName(''))
         } else {
             setError('The specified icon is not valid')
         }
@@ -19,7 +20,12 @@ function IconEditor({tools}){
 
     return (
         <div className='col m3'>
-            <input placeholder="Placeholder" type="text" className="validate" onChange={e => setName(e.target.value)} />
+           <a href='https://material.io/tools/icons/?style=baseline'>
+                    <i className='material-icons'>search</i>
+                Find Icon</a>
+            <input placeholder="name" type="text" className="validate" onChange={e => setName(e.target.value)} />
+             
+            <input placeholder="Icon label e.g my big icon" type="text" className="validate" onChange={e => setLabel(e.target.value)} />
             Icons will be created here, current home page<br />
             <i className='material-icons'>home</i>
             <button onClick={handleIconSave}>Save</button>
@@ -43,7 +49,7 @@ function IconEditor({tools}){
 export default withTracker(() => {
     Meteor.subscribe('tools')
     return {
-        tools: Tools.find().fetch()
+        tools: COL_TOOLS.find().fetch()
     }
 })(IconEditor)
 
