@@ -1,14 +1,9 @@
 import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
-// we might need to use the roles package
-// or we can just use set it as another field
+// This same as Admin routes needs rafactoring
+// another way this can be done is check the if the user doesn't have priviledges and route them hom
 
-
-const User = ({role, ...props}) => {
-
-    return role === 'user' &&  (<Route { ...props }/>) 
-    // : (<Redirect to='/' />)
-}
+const User = ({role, ...props}) => role === 'user' &&  (<Route { ...props }/>) 
 
 export default User

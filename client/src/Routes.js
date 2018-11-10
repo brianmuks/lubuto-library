@@ -13,21 +13,17 @@ const role = "admin";
 const Routes = () => (
   <Router>
     <Switch>
-      {/* <Route exact  path="/" component={Landing} /> */}
       <Admin
         role={role}
         exact
         path="/dashboard/create-lesson"
         component={CreateLesson}
       />
-      {/* <Route path="/dashboard/create-lesson" component={CreateLesson} /> */}
       <User exact role={"user"} path="/" component={Landing} />
+      <Route path="/add_icons" component={IconEditor} />
       <Route component={NotFound} />
     </Switch>
   </Router>
 );
-{
-  /* role={'user'} path="/add_icons" component={IconEditor} /> */
-}
 
 export default Routes;
