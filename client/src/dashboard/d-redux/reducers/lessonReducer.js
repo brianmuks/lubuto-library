@@ -23,9 +23,13 @@ import {DROP,DRAG,ADD_TOOL} from './../constants';
 export function lessonReducer(state,action) {
     switch (action.type) {
       case DROP:
-        return { ...action,};
+      return Object.assign({...state},{
+        data:action.data
+    });
       case DRAG:
-        return { ...action };
+      return Object.assign({...state},{
+        data:action.data
+    });
         case ADD_TOOL:
       console.log('ADD_TOOL',state,action)
 
