@@ -24,7 +24,7 @@ function Register({role}) {
       <div className="col s4 " style={{ paddingTop: 30, margin: 0 }}>
         <div className="card">
           <div className="row">
-            <div className="col s12 center-align"> Register</div>
+            <div className="col s12 center-align"> Register the {role}</div>
             <form className="col s12" onSubmit={handleRegister}>
               <div className="row">
                 <div className="input-field col s10" style={{ marginLeft: 15 }}>
@@ -73,12 +73,6 @@ function Register({role}) {
                   <button className="waves-effect waves-light btn">
                     Register
                   </button>
-                </div>
-              </div>
-              {/* The following is only here for prototyping */}
-              <div className="row center">
-                <div className="input-field col s12">
-                    {`This register is for ${role}`}
                 </div>
               </div>
               <div className='center row'>
