@@ -1,7 +1,10 @@
-import React from "react";
+import React, {  useContext,useEffect } from "react";
+
 import { Link } from 'react-router-dom'
 import { COL_TOOLS } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
+import {TOOLS_STATE} from './../d-context';
+import {addTool} from  './../d-redux/actions/lessonActions'
 
 
 
@@ -50,11 +53,19 @@ function Tools(props) {
 
 function RenderTools(props){
 
-  return props.tools.map((tools,index)=>(
-      <li key={index}>
+  const {state,dispatch} = useContext(TOOLS_STATE);
+
+  useEffect(()=>{
+    console.log(state.addedTools)
+  });
+
+
+
+  return props.tools.map((tool,index,tools)=>(
+      <li key={index} onClick={()=>{dispatch(addTool(tool,tools))}}>
       <a href="#!">
-        <i className="material-icons">{tools.name}</i>
-        {tools.label}
+        <i className="material-icons">{tool.name}</i>
+        {tool.label}
       </a>
     </li>
     ));

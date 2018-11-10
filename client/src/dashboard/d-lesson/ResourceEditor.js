@@ -3,7 +3,10 @@ import Draggable from "react-draggable";
 import {TOOLS_STATE} from './../d-context';
 
 
-function ResourceEditor({ tools }) {
+function ResourceEditor() {
+
+  const {state} = useContext(TOOLS_STATE);
+  const tools = state.addedTools;
 
   const { x, y, node, dispatch } = useDragging()
   
@@ -16,8 +19,8 @@ function ResourceEditor({ tools }) {
   
   return (
     <div className="col m7 offset-m3 blue resource-editor">
-      {tools.map(icon => (
-        <Draggable key={icon._id} 
+      {tools.map((icon,index) => (
+        <Draggable key={index} 
           onDrag={ (e, data) =>  handleDrag(e, data, icon)}
           onStop={(e, data) =>  handleDrop(e, data, icon)}
         >
@@ -37,8 +40,8 @@ function ResourceEditor({ tools }) {
 
 
 export function useDragging(){
-  const [value, dispatch] = useContext(TOOLS_STATE);
-  const { data } = value;
+  const {state, dispatch} = useContext(TOOLS_STATE);
+  const { data } = state;
   return { ...data, dispatch }
 }
 

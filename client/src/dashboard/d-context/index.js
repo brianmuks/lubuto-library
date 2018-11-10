@@ -1,5 +1,6 @@
 import React, { createContext } from "react";
 
 
+const initialState = {tools:[]}
 
-export const TOOLS_STATE = createContext(null);
+export const TOOLS_STATE = createContext(initialState);
