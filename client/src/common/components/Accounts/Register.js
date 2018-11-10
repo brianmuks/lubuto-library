@@ -1,11 +1,21 @@
 import React, { useState } from "react";
+import {useFormInput, validatePassword} from './accountsUtils'
 
 function Register({role}) {
     const email = useFormInput('Email Address')
     const password = useFormInput('Password')
     const confirmedPassword = useFormInput('Confirm Password')
+    const isValid = validatePassword(password.value, confirmedPassword.value)
 
-    // create an account from here
+    function handleRegister(e){
+        e.preventDefault()
+        if (!isValid) {
+            console.log('Yes I am not valid');
+            return;
+        }
+        // create an account from here
+        
+    }
 
   return (
     <div className="row">
@@ -14,7 +24,7 @@ function Register({role}) {
         <div className="card">
           <div className="row">
             <div className="col s12 center-align"> LOGIN</div>
-            <form className="col s12" role="form" method="post" action="login">
+            <form className="col s12" onSubmit={handleRegister}>
               <div className="row">
                 <div className="input-field col s10" style={{ marginLeft: 15 }}>
                   <input
@@ -78,15 +88,5 @@ function Register({role}) {
 }
 
 
-export function useFormInput(initialValue){
-    const [value, setValue] = useState(initialValue)
-    function handleChange(e){
-        setValue(e.target.value)
-    }
-    return {
-        value,
-        onChange: handleChange
-    }
-}
 
 export default Register

@@ -1,5 +1,7 @@
 import React from "react";
-import { useFormInput } from './Register'
+import { Link } from 'react-router-dom'
+import { useFormInput } from './accountsUtils'
+
 
 function Login() {
     const email = useFormInput('Email Address')
@@ -49,6 +51,9 @@ function Login() {
                     Login
                   </button>
                 </div>
+              </div>
+              <div className='center row'>
+                <Link to='/register'>Register</Link>
               </div>
             </form>
           </div>
