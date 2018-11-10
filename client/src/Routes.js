@@ -17,6 +17,11 @@ import Register from './common/components/Accounts/Register'
 const adminRole = "admin";
 const userRole = 'user';
 
+/*
+  Admin and User are component that will render other components based on either the role 
+  or the authentication of the current user
+*/
+
 const Routes = () => (
   <Router>
     <Switch>
@@ -31,7 +36,7 @@ const Routes = () => (
           exact
           path="/dashboard/register"
           render={() => <Register role={adminRole}/>}
-          />
+      />
       <User exact role={"user"} path="/" component={Landing} />
       <Route path="/add_icons" component={IconEditor} />
       <Route path='/login' component={Login} />

@@ -6,10 +6,12 @@ import { useFormInput } from './accountsUtils'
 function Login() {
     const email = useFormInput('Email Address')
     const password = useFormInput('Password')
-
-    // log the user in 
     
-
+    // log the user in 
+    function handleLogin(e){
+        e.preventDefault()
+        
+    }
   return (
     <div className="row">
       <div className="col s4" />
@@ -17,7 +19,7 @@ function Login() {
         <div className="card">
           <div className="row">
             <div className="col s12 center-align"> LOGIN</div>
-            <form className="col s12" >
+            <form className="col s12" onSubmit={handleLogin}>
               <div className="row">
                 <div className="input-field col s10" style={{ marginLeft: 15 }}>
                   <input

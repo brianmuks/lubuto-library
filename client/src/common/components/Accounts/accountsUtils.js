@@ -20,7 +20,7 @@ export function useFormInput(initialValue) {
 }
 
 /**
- * 
+ * @todo this can be enhanced
  * @param {String} password 
  * @param {String} password2 
  * @description checks if the 2 given password are longer than 6chars and are equal

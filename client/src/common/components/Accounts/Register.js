@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from 'react-router-dom'
 import {useFormInput, validatePassword} from './accountsUtils'
 
 function Register({role}) {
@@ -10,10 +11,10 @@ function Register({role}) {
     function handleRegister(e){
         e.preventDefault()
         if (!isValid) {
-            console.log('Yes I am not valid');
+            console.log('Yes I am not valid indeed');
             return;
         }
-        // create an account from here
+        // an account will created from here
         
     }
 
@@ -23,13 +24,13 @@ function Register({role}) {
       <div className="col s4 " style={{ paddingTop: 30, margin: 0 }}>
         <div className="card">
           <div className="row">
-            <div className="col s12 center-align"> LOGIN</div>
+            <div className="col s12 center-align"> Register</div>
             <form className="col s12" onSubmit={handleRegister}>
               <div className="row">
                 <div className="input-field col s10" style={{ marginLeft: 15 }}>
                   <input
                     id="email"
-                    type="text"
+                    type="email"
                     className="validate"
                     {...email}
                     required
@@ -70,14 +71,18 @@ function Register({role}) {
               <div className="row">
                 <div className="input-field center col s12">
                   <button className="waves-effect waves-light btn">
-                    Login
+                    Register
                   </button>
                 </div>
               </div>
-              <div className="row">
+              {/* The following is only here for prototyping */}
+              <div className="row center">
                 <div className="input-field col s12">
                     {`This register is for ${role}`}
                 </div>
+              </div>
+              <div className='center row'>
+                <Link to='/login'>Login</Link>
               </div>
             </form>
           </div>
