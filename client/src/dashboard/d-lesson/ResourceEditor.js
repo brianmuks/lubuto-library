@@ -10,13 +10,13 @@ function ResourceEditor() {
 
   const { x, y, node, dispatch } = useDragging()
   
-  function handleDrag(e, pos, icon) {
-    dispatch({ type: "DRAG", data: pos });
+  function handleDrag(e, pos, icon) {		
+    dispatch({ type: "DRAG", data: pos });		
+  }		
+  function handleDrop(e, pos, icon) {		
+    dispatch({ type: "DROP", data: { ...pos, ...icon } });		
   }
-  function handleDrop(e, pos, icon) {
-    dispatch({ type: "DROP", data: { ...pos, ...icon } });
-  }
-  
+
   return (
     <div className="col m7 offset-m3 blue resource-editor">
       {tools.map((icon,index) => (
@@ -34,8 +34,6 @@ function ResourceEditor() {
     </div>
   );
 }
-
-
 
 
 
