@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, Redirect } from 'react-router-dom'
 import { Accounts } from 'meteor/accounts-base'
 import {useFormInput, useError, validatePassword} from './accountsUtils'
@@ -10,6 +10,7 @@ function Register({role}) {
     const confirmedPassword = useFormInput('')
     const isValid = validatePassword(password.value, confirmedPassword.value)
     const {error, setError} = useError('')
+    const [isAuth, setAuth] = useState(false)
 
     function handleRegister(e){
         e.preventDefault()
@@ -26,9 +27,11 @@ function Register({role}) {
           password: password.value,
           profile,
         }
-        Accounts.createUser(user, err => err ? setError(err.reason) : <Redirect to='/' /> )
+        Accounts.createUser(user, err => err ? setError(err.reason) : setAuth(true) )
     }
-
+  if(isAuth){
+    return <Redirect to='/' />
+  }  
   return (
     <div className="row">
       <div className="col s4" />
