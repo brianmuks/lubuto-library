@@ -1,5 +1,6 @@
 // utilities for accounts
 import { useState } from "react";
+import { Meteor } from "meteor/meteor";
 
 /**
  * @name useFormInput
@@ -45,3 +46,17 @@ export function useError(initialError){
         setError
     }
 }
+
+/**
+ * 
+ * 
+ */
+
+ function checkUserRole(){
+     const user =  Meteor.user()
+     if(!user){
+        return null
+    }
+    return user.profile.role
+ }
+ export { checkUserRole }
