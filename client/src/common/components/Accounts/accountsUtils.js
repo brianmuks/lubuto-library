@@ -17,7 +17,6 @@ export function useFormInput(initialValue) {
     onChange: handleChange
   };
 }
-
 /**
  * @todo this can be enhanced
  * @param {String} password 
@@ -26,7 +25,7 @@ export function useFormInput(initialValue) {
  * @returns {Boolea}
  */
 export function validatePassword(password, password2){
-    if (password.length > 6 ) {
+    if (password.length < 6 ) {
         return false
     } else if (password.trim() !== password2.trim()) {
         return false

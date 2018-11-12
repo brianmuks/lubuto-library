@@ -45,7 +45,6 @@ function Login() {
               <div className="row">
                 <div className="input-field col s10 " style={{ marginLeft: 15 }}>
                   <input
-                    placeholder="Password"
                     id="password"
                     type="password"
                     className="validate"

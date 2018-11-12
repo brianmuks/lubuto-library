@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Link, Redirect } from 'react-router-dom'
+import { Link, Redirect, withRouter } from 'react-router-dom'
 import { Accounts } from 'meteor/accounts-base'
 import {useFormInput, useError, validatePassword} from './accountsUtils'
 
-function Register({role}) {
+function Register(props) {
     const email = useFormInput('')
     const name = useFormInput('')
     const password = useFormInput('')
@@ -11,16 +11,18 @@ function Register({role}) {
     const isValid = validatePassword(password.value, confirmedPassword.value)
     const {error, setError} = useError('')
     const [isAuth, setAuth] = useState(false)
-
+    const { location: { pathname } } = props
+    
     function handleRegister(e){
-        e.preventDefault()
-        if (!isValid) {
-            setError('There was a problem with the password')
-            return;
-        }
-        const profile = {
-          name: name.value,
-          createdAt: new Date(),
+      e.preventDefault()
+      if (!isValid) {
+        setError('There was a problem with the password')
+        return;
+      }
+      const profile = {
+        name: name.value,
+        createdAt: new Date(),
+        role: pathname === '/dashboard/register' ? 'admin' : 'user'
         }
         const user = {
           email: email.value,
@@ -38,7 +40,7 @@ function Register({role}) {
       <div className="col s4 " style={{ paddingTop: 30, margin: 0 }}>
         <div className="card">
           <div className="row">
-            <div className="col s12 center-align"> Register the {role}</div>
+            <div className="col s12 center-align"> Register the {props.role}</div>
             <form className="col s12" onSubmit={handleRegister}>
               <div className="row">
                 <div className="input-field col s10" style={{ marginLeft: 15 }}>
@@ -68,7 +70,6 @@ function Register({role}) {
               <div className="row">
                 <div className="input-field col s10 " style={{ marginLeft: 15 }}>
                   <input
-                    placeholder="Password"
                     id="password"
                     type="password"
                     className="validate"
@@ -82,7 +83,6 @@ function Register({role}) {
               <div className="row">
                 <div className="input-field col s10 " style={{ marginLeft: 15 }}>
                   <input
-                    placeholder="Confirm Password"
                     id="confirm-password"
                     type="password"
                     className="validate"
@@ -121,4 +121,4 @@ function Register({role}) {
 
 
 
-export default Register
+export default withRouter(Register)
