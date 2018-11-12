@@ -14,30 +14,7 @@ const Landing = () => {
   return (
   <Fragment>
     <div className="container-fluid">
-      <nav className="light-blue lighten-1 container-fluid" role="navigation">
-        <div className="nav-wrapper">
-          <a id="logo-container" href="#" className="brand-logo">
-          {/* brevity */}
-             Libra 
-          </a>
-          <ul className="right hide-on-med-and-down">
-            <li >
-            <span className='btn light-blue' onClick={logOutUser}>
-              Logout
-            </span>
-            </li>
-          </ul>
-
-          <ul id="nav-mobile" className="sidenav">
-            <li>
-              <a href="#">Navbar Link</a>
-            </li>
-          </ul>
-          <a href="#" data-target="nav-mobile" className="sidenav-trigger">
-            <i className="material-icons">menu</i>
-          </a>
-        </div>
-      </nav>
+    <NavBar logOutUser={logOutUser} /> 
     </div>
     <div className="section no-pad-bot" id="index-banner">
       <div className="container">
@@ -165,6 +142,37 @@ const Landing = () => {
     </footer>
   </Fragment>
 )
+}
+
+export function NavBar({logOutUser}){
+  return(
+    <nav className="light-blue lighten-1 container-fluid" role="navigation">
+      <div className="nav-wrapper">
+        <Link to="/">
+          <span id="logo-container"  className="brand-logo">
+            {/* brevity */}
+            Libra
+          </span>
+        </Link>
+        <ul className="right hide-on-med-and-down">
+          <li >
+            <span className='btn light-blue' onClick={logOutUser}>
+              Logout
+        </span>
+          </li>
+        </ul>
+
+        <ul id="nav-mobile" className="sidenav">
+          <li>
+            <a href="#">Navbar Link</a>
+          </li>
+        </ul>
+        <a href="#" data-target="nav-mobile" className="sidenav-trigger">
+          <i className="material-icons">menu</i>
+        </a>
+      </div>
+    </nav>
+  )
 }
 
 export default Landing;

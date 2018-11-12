@@ -1,15 +1,11 @@
 import React from "react";
 import './style.css'
+import { NavBar } from '../Landing'
 
 function LessonView() {
   return (
     <div className="row">
-    <div className='col s12'>
-    
-        <h6 className='center'>
-            Header
-        </h6>
-    </div>
+      <NavBar />
       <div
         className="col s12 m4 l3 sidebar blue-grey lighten-2"
       >
