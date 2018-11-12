@@ -1,15 +1,19 @@
 import React from "react";
-import { Link } from 'react-router-dom'
-import { useFormInput } from './accountsUtils'
+import { Link, Redirect } from 'react-router-dom'
+import { Meteor } from 'meteor/meteor'
+import { useFormInput, useError } from './accountsUtils'
 
 
 function Login() {
-    const email = useFormInput('Email Address')
-    const password = useFormInput('Password')
-    
+    const email = useFormInput('')
+    const password = useFormInput('')
+    const {error, setError} = useError('')
     // log the user in 
     function handleLogin(e){
         e.preventDefault()
+        Meteor.loginWithPassword(email.value, password.value, err => {
+          err ? setError(err.reason) : <Redirect from='/login' to='/' />
+        })
         
     }
   return (
@@ -56,6 +60,13 @@ function Login() {
               </div>
               <div className='center row'>
                 <Link to='/register'>Register</Link>
+              </div>
+              <div className='center row'>
+                <p className='red-text'>
+                    {
+                      error.length ? error : null 
+                    }
+                </p>
               </div>
             </form>
           </div>

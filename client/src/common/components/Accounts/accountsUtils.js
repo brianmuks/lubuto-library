@@ -34,3 +34,15 @@ export function validatePassword(password, password2){
         return true
     }
 }
+
+/**
+ * @param {String} initialError
+ * @returns {Object} error, setError
+ */
+export function useError(initialError){
+    const [error, setError] = useState(initialError)
+    return {
+        error,
+        setError
+    }
+}

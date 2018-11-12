@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link, Redirect } from 'react-router-dom'
 import { Accounts } from 'meteor/accounts-base'
-import {useFormInput, validatePassword} from './accountsUtils'
+import {useFormInput, useError, validatePassword} from './accountsUtils'
 
 function Register({role}) {
     const email = useFormInput('')
@@ -9,7 +9,7 @@ function Register({role}) {
     const password = useFormInput('')
     const confirmedPassword = useFormInput('')
     const isValid = validatePassword(password.value, confirmedPassword.value)
-    const [error, setError] = useState('')
+    const {error, setError} = useError('')
 
     function handleRegister(e){
         e.preventDefault()
@@ -26,7 +26,7 @@ function Register({role}) {
           password: password.value,
           profile,
         }
-        Accounts.createUser(user, err => err ? setError(err.reason) : console.log('Register was successful'))
+        Accounts.createUser(user, err => err ? setError(err.reason) : <Redirect to='/' /> )
     }
 
   return (
@@ -102,7 +102,7 @@ function Register({role}) {
                 <Link to='/login'>Login</Link>
               </div>
               <div className='center row'>
-                <p>
+                <p className='red-text'>
                   {
                     error.length ? error : null
                   }
