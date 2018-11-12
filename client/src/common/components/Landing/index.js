@@ -73,7 +73,15 @@ const Landing = () => {
 
               <p className="light center">
                 Learners will find this an easy way to learn
+
               </p>
+                <div className='center'>
+                  <Link to="/lesson">
+                    <button className="btn-large waves-effect waves-light blue" >
+                      Lessons
+                    </button>
+                  </Link>
+                </div>
             </div>
           </div>
 

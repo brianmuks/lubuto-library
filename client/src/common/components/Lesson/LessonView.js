@@ -5,6 +5,7 @@ function LessonView() {
   return (
     <div className="row">
     <div className='col s12'>
+    
         <h6 className='center'>
             Header
         </h6>
