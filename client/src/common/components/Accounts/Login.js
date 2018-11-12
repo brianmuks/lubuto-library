@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, Redirect } from 'react-router-dom'
 import { Meteor } from 'meteor/meteor'
 import { useFormInput, useError } from './accountsUtils'
@@ -8,14 +8,19 @@ function Login() {
     const email = useFormInput('')
     const password = useFormInput('')
     const {error, setError} = useError('')
+    const [isAuth, setAuth] = useState(false)
     // log the user in 
     function handleLogin(e){
         e.preventDefault()
         Meteor.loginWithPassword(email.value, password.value, err => {
-          err ? setError(err.reason) : <Redirect from='/login' to='/' />
+          err ? setError(err.reason) : setAuth(true)
         })
         
     }
+    // 
+  if(isAuth){
+    return <Redirect to='/' />
+  }  
   return (
     <div className="row">
       <div className="col s4" />
