@@ -1,21 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom'
+import { Accounts } from 'meteor/accounts-base'
 import {useFormInput, validatePassword} from './accountsUtils'
 
 function Register({role}) {
-    const email = useFormInput('Email Address')
-    const password = useFormInput('Password')
-    const confirmedPassword = useFormInput('Confirm Password')
+    const email = useFormInput('')
+    const name = useFormInput('')
+    const password = useFormInput('')
+    const confirmedPassword = useFormInput('')
     const isValid = validatePassword(password.value, confirmedPassword.value)
+    const [error, setError] = useState('')
 
     function handleRegister(e){
         e.preventDefault()
         if (!isValid) {
-            console.log('Yes I am not valid indeed');
+            setError('There was a problem with the password')
             return;
         }
-        // an account will created from here
-        
+        const profile = {
+          name: name.value,
+          createdAt: new Date(),
+        }
+        const user = {
+          email: email.value,
+          password: password.value,
+          profile,
+        }
+        Accounts.createUser(user, err => err ? setError(err.reason) : console.log('Register was successful'))
     }
 
   return (
@@ -26,6 +37,18 @@ function Register({role}) {
           <div className="row">
             <div className="col s12 center-align"> Register the {role}</div>
             <form className="col s12" onSubmit={handleRegister}>
+              <div className="row">
+                <div className="input-field col s10" style={{ marginLeft: 15 }}>
+                  <input
+                    id="name"
+                    type="text"
+                    className="validate"
+                    {...name}
+                    required
+                  />
+                  <label htmlFor="name">Full Name</label>
+                </div>
+              </div>
               <div className="row">
                 <div className="input-field col s10" style={{ marginLeft: 15 }}>
                   <input
@@ -77,6 +100,13 @@ function Register({role}) {
               </div>
               <div className='center row'>
                 <Link to='/login'>Login</Link>
+              </div>
+              <div className='center row'>
+                <p>
+                  {
+                    error.length ? error : null
+                  }
+                </p>
               </div>
             </form>
           </div>

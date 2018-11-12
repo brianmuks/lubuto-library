@@ -75,6 +75,7 @@ function RenderTools(props){
 
 export default withTracker(() => {
   Meteor.subscribe("col_tools");
+  Meteor.subscribe('users')
   return {
     tools: COL_TOOLS.find().fetch()
   };
