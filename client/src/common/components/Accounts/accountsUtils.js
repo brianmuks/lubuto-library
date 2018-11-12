@@ -48,8 +48,8 @@ export function useError(initialError){
 }
 
 /**
- * 
- * 
+ * @description checks if the user is logged in or not
+ * @returns the role of the user is they are logged in and null if not logged in
  */
 
  function checkUserRole(){
