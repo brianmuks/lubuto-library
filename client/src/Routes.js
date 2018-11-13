@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Meteor } from 'meteor/meteor'
 import IconEditor from "./dashboard/tools/iconEditor";
 import CreateLesson from "./dashboard/d-lesson/CreateLesson";
 import Landing from "./common/components/Landing";

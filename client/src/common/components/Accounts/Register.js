@@ -1,31 +1,59 @@
-import React from "react";
-import { Link } from 'react-router-dom'
-import {useFormInput, validatePassword} from './accountsUtils'
+import React, { useState } from "react";
+import { Link, Redirect, withRouter } from 'react-router-dom'
+import { Accounts } from 'meteor/accounts-base'
+import {useFormInput, useError, validatePassword} from './accountsUtils'
 
-function Register({role}) {
-    const email = useFormInput('Email Address')
-    const password = useFormInput('Password')
-    const confirmedPassword = useFormInput('Confirm Password')
+function Register(props) {
+    const email = useFormInput('')
+    const name = useFormInput('')
+    const password = useFormInput('')
+    const confirmedPassword = useFormInput('')
     const isValid = validatePassword(password.value, confirmedPassword.value)
-
+    const {error, setError} = useError('')
+    const [isAuth, setAuth] = useState(false)
+    const { location: { pathname } } = props
+    
     function handleRegister(e){
-        e.preventDefault()
-        if (!isValid) {
-            console.log('Yes I am not valid indeed');
-            return;
+      e.preventDefault()
+      if (!isValid) {
+        setError('There was a problem with the password')
+        return;
+      }
+      const profile = {
+        name: name.value,
+        createdAt: new Date(),
+        role: pathname === '/dashboard/register' ? 'admin' : 'user'
         }
-        // an account will created from here
-        
+        const user = {
+          email: email.value,
+          password: password.value,
+          profile,
+        }
+        Accounts.createUser(user, err => err ? setError(err.reason) : setAuth(true) )
     }
-
+  if(isAuth){
+    return <Redirect to='/' />
+  }  
   return (
     <div className="row">
       <div className="col s4" />
       <div className="col s4 " style={{ paddingTop: 30, margin: 0 }}>
         <div className="card">
           <div className="row">
-            <div className="col s12 center-align"> Register the {role}</div>
+            <div className="col s12 center-align"> Register the {props.role}</div>
             <form className="col s12" onSubmit={handleRegister}>
+              <div className="row">
+                <div className="input-field col s10" style={{ marginLeft: 15 }}>
+                  <input
+                    id="name"
+                    type="text"
+                    className="validate"
+                    {...name}
+                    required
+                  />
+                  <label htmlFor="name">Full Name</label>
+                </div>
+              </div>
               <div className="row">
                 <div className="input-field col s10" style={{ marginLeft: 15 }}>
                   <input
@@ -42,7 +70,6 @@ function Register({role}) {
               <div className="row">
                 <div className="input-field col s10 " style={{ marginLeft: 15 }}>
                   <input
-                    placeholder="Password"
                     id="password"
                     type="password"
                     className="validate"
@@ -56,7 +83,6 @@ function Register({role}) {
               <div className="row">
                 <div className="input-field col s10 " style={{ marginLeft: 15 }}>
                   <input
-                    placeholder="Confirm Password"
                     id="confirm-password"
                     type="password"
                     className="validate"
@@ -78,6 +104,13 @@ function Register({role}) {
               <div className='center row'>
                 <Link to='/login'>Login</Link>
               </div>
+              <div className='center row'>
+                <p className='red-text'>
+                  {
+                    error.length ? error : null
+                  }
+                </p>
+              </div>
             </form>
           </div>
         </div>
@@ -88,4 +121,4 @@ function Register({role}) {
 
 
 
-export default Register
+export default withRouter(Register)
