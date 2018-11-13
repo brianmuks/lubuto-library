@@ -14,7 +14,7 @@ const Landing = () => {
   return (
   <Fragment>
     <div className="container-fluid">
-    <NavBar logOutUser={logOutUser} /> 
+    <NavBar logOutUser={logOutUser} color={'light-blue'} /> 
     </div>
     <div className="section no-pad-bot" id="index-banner">
       <div className="container">
@@ -144,9 +144,9 @@ const Landing = () => {
 )
 }
 
-export function NavBar({logOutUser}){
+export function NavBar({logOutUser, color}){
   return(
-    <nav className="light-blue lighten-1 container-fluid" role="navigation">
+    <nav className={`${color} lighten-1 container-fluid`} role="navigation">
       <div className="nav-wrapper">
         <Link to="/">
           <span id="logo-container"  className="brand-logo">
@@ -156,7 +156,7 @@ export function NavBar({logOutUser}){
         </Link>
         <ul className="right hide-on-med-and-down">
           <li >
-            <span className='btn light-blue' onClick={logOutUser}>
+            <span className={`btn ${color}`} onClick={logOutUser}>
               Logout
         </span>
           </li>
