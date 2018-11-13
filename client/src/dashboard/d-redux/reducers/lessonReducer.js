@@ -24,11 +24,17 @@ export function lessonReducer(state,action) {
     switch (action.type) {
       case DROP:
       return Object.assign({...state},{
-        data:action.data
+        data:action.data,
+        staggedTools:[...state.staggedTools,action.tool]
     });
       case DRAG:
       return Object.assign({...state},{
-        data:action.data
+        //NEED HELP : data here seems a bit general. are we able to 
+        // find a more specific name for readbility purposes
+        //keeping in mind that redux stores all items in one container
+        //when examining the store we might not be able to tell what data
+        // is for  
+        data:action.data 
     });
         case ADD_TOOL:
       console.log('ADD_TOOL',state,action)

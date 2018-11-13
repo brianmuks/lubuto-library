@@ -16,7 +16,8 @@ const initialState = {
     _id: '',
     name: ''},
   tools:[],
-  addedTools:[]
+  addedTools:[],
+  staggedTools:[],
 }
 
 // todo: Push the icon name to the icon array, as items that have been moved
