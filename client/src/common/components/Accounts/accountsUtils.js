@@ -1,6 +1,6 @@
 // utilities for accounts
 import { useState } from "react";
-
+import { Meteor } from "meteor/meteor";
 
 /**
  * @name useFormInput
@@ -18,7 +18,6 @@ export function useFormInput(initialValue) {
     onChange: handleChange
   };
 }
-
 /**
  * @todo this can be enhanced
  * @param {String} password 
@@ -27,7 +26,7 @@ export function useFormInput(initialValue) {
  * @returns {Boolea}
  */
 export function validatePassword(password, password2){
-    if (password.length > 6 ) {
+    if (password.length < 6 ) {
         return false
     } else if (password.trim() !== password2.trim()) {
         return false
@@ -35,3 +34,29 @@ export function validatePassword(password, password2){
         return true
     }
 }
+
+/**
+ * @param {String} initialError
+ * @returns {Object} error, setError
+ */
+export function useError(initialError){
+    const [error, setError] = useState(initialError)
+    return {
+        error,
+        setError
+    }
+}
+
+/**
+ * @description checks if the user is logged in or not
+ * @returns the role of the user is they are logged in and null if not logged in
+ */
+
+ function checkUserRole(){
+     const user =  Meteor.user()
+     if(!user){
+        return null
+    }
+    return user.profile.role
+ }
+ export { checkUserRole }

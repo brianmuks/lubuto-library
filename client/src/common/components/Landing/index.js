@@ -1,18 +1,30 @@
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import React, { Fragment, useState } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { Meteor } from 'meteor/meteor'
 import "./landing.css";
 
-const Landing = () => (
+
+const Landing = () => {
+  const [isLoggedOut, setLogout] = useState(false)
+  const logOutUser = () => Meteor.logout(err => err ? M.toast({html: err.reason}) : setLogout(true))
+  
+  if(isLoggedOut){
+    return <Redirect to='/login'/>
+  }
+  return (
   <Fragment>
     <div className="container-fluid">
       <nav className="light-blue lighten-1 container-fluid" role="navigation">
         <div className="nav-wrapper">
           <a id="logo-container" href="#" className="brand-logo">
-            Lubuto Library
+          {/* brevity */}
+             Libra 
           </a>
           <ul className="right hide-on-med-and-down">
-            <li>
-              <Link to='/dashboard/create-lesson'>Dashboard</Link>
+            <li >
+            <span className='btn light-blue' onClick={logOutUser}>
+              Logout
+            </span>
             </li>
           </ul>
 
@@ -144,6 +156,7 @@ const Landing = () => (
       </div>
     </footer>
   </Fragment>
-);
+)
+}
 
 export default Landing;
