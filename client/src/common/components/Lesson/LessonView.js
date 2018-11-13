@@ -26,7 +26,7 @@ function LessonView({match}) {
       </div>
       <Lesson 
         id={id} 
-        imageUrl={'/pencils.jpg'}
+        imageUrl={`/${id}.jpg`}
         caption={`This is for learning lesson ${id}`}
         />
     </div>

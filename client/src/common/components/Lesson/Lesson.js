@@ -4,12 +4,16 @@ import PropTypes from 'prop-types'
 function Lesson({id, caption, imageUrl}){
     return(
         <div className="col s12 m8 l9 main teal lighten-1">
-            Page {id} Loaded
-            <i className='material-icons right'>volume_up</i>
+            <span className='white-text'>
+            Page {id} in Lesson 1
+            </span>
+            <i className='material-icons medium right'>volume_up</i>
             <figure>
                 <img src={imageUrl} className='responsive-img ' alt={`image for lesson ${id}`}/>
                 <figcaption>
-                    {caption}
+                    <span className='white-text'>
+                        {caption}
+                    </span>
                 </figcaption>
             </figure>
         </div>
