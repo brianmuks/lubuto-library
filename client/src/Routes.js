@@ -43,7 +43,7 @@ const Routes = () => (
       />
       <User exact role={"user"} path="/" component={Landing} />
       <User exact role={"user"} path="/lesson" component={LessonView} />
-      <User exact role={"user"} path="/page/:id" component={LessonView} />
+      <User exact role={"user"} path="/lesson/page/:id" component={LessonView} />
       
       <Route path="/add_icons" component={IconEditor} />
       <Route path='/login' component={Login} />
