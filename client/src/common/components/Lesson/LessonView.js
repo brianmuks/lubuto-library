@@ -6,6 +6,7 @@ import Lesson from './Lesson'
 
 function LessonView({match}) {
   const { params: { id }  } = match
+  
   return (
     <div className="row">
       <NavBar color={'light-blue '}/>
