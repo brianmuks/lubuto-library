@@ -26,6 +26,7 @@ export const USER = 'USER';
 export const ADD_TOOL = 'ADD_TOOL';
 export const DROP = 'DROP';
 export const DRAG = 'DRAG';
+export const EDIT_TOOL = 'EDIT_TOOL';
 
 
 

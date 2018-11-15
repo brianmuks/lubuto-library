@@ -18,6 +18,7 @@ const initialState = {
   tools:[],
   addedTools:[],
   staggedTools:[],
+  editTool:{}
 }
 
 // todo: Push the icon name to the icon array, as items that have been moved

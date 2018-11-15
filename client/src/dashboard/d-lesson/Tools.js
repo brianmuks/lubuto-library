@@ -14,6 +14,8 @@ function Tools(props) {
     <>
       <ul id="slide-out" className="sidenav  sidenav-fixed">
         <li>
+  <buuton className='btn right red'>Save</buuton>
+
           <div className="user-view ">
           {/* Commented out these for public purposes */}
             {/* <div className="background">
@@ -56,13 +58,13 @@ function RenderTools(props){
   const {state,dispatch} = useContext(TOOLS_STATE);
 
   useEffect(()=>{
-    console.log(state.addedTools)
+    // console.log(state.addedTools)
   });
 
 
 
-  return props.tools.map((tool,index,tools)=>(
-      <li key={index} onClick={()=>{dispatch(addTool(tool,tools))}}>
+  return props.tools.map((tool,index)=>(
+      <li key={index} onClick={()=>{dispatch(addTool(tool))}}>
       <a href="#!">
         <i className="material-icons">{tool.name}</i>
         {tool.label}

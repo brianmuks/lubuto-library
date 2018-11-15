@@ -6,31 +6,46 @@ import {TOOLS_STATE} from './../d-context';
 function ResourceEditor() {
 
   const {state} = useContext(TOOLS_STATE);
-  const tools = state.addedTools;
+  const {staggedTools,editTool} = state;
 
   const { x, y, node, dispatch } = useDragging()
   
   function handleDrag(e, pos, icon) {		
-    dispatch({ type: "DRAG", data: pos });		
+  //  dispatch({ type: "DRAG", data: pos });		
   }		
-  function handleDrop(e, pos, icon) {		
-    dispatch({ type: "DROP", data: { ...pos, ...icon } });		
+  function handleDrop(e, pos, tool) {	
+    // NOTE: each time an elem is drgged, a new tool gets added to 
+    // staggedTools. This should not be the case.
+    //
+   //dispatch({ type: "DROP", tool:{pos,tool} });
   }
 
+  const styles = ['Color','Background Color','size','spacing']
+
   return (
-    <div className="col m7 offset-m3 blue resource-editor">
-      {tools.map((icon,index) => (
-        <Draggable key={index} 
-          onDrag={ (e, data) =>  handleDrag(e, data, icon)}
-          onStop={(e, data) =>  handleDrop(e, data, icon)}
-        >
-          <i className="material-icons">{icon.name}</i>
-        </Draggable>
-      ))}
+    <div className="col m7 offset-m3 grey lighten-3 resource-editor">
+    <h6>Edit Tool</h6>
+    
+      <div className="row ">
+    {styles.map((style,key)=>(
+    <div key={key} className="input-field col s2">
+      <input defaultValue="" id="first_name2" type="text" className="validate" />
+      <label className="active" htmlFor="first_name2">{style}</label>
+    </div>
+    ))}
+
+  <buuton className='btn '>Ok</buuton>
+  </div>
+
+     <div className={ 'col s6 center'} >
+    <i className="material-icons">{editTool.name}</i>
+    </div>
+
+
+
+
       <br />
-      x: {x} <br />
-      y: {y} <br />
-      iconName: {node && node.innerHTML}
+   
     </div>
   );
 }

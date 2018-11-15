@@ -1,5 +1,5 @@
 
-import {DROP,DRAG,ADD_TOOL} from './../constants';
+import {DROP,DRAG,ADD_TOOL,EDIT_TOOL} from './../constants';
 
 
 
@@ -37,10 +37,12 @@ export function lessonReducer(state,action) {
         data:action.data 
     });
         case ADD_TOOL:
-      console.log('ADD_TOOL',state,action)
-
         return Object.assign({...state},{
-            addedTools:[...state.addedTools,action.tool]
+          staggedTools:[...state.staggedTools,action.tool]
+        });
+        case EDIT_TOOL:
+        return Object.assign({...state},{
+          editTool:action.tool
         });
       default:
       
