@@ -13,6 +13,9 @@ import User from "./Routes/User";
 import Login from './common/components/Accounts/Login'
 import Register from './common/components/Accounts/Register'
 
+// Lessons
+import LessonView from './common/components/Lesson/LessonView'
+
 
 // Only here for prototyping
 const adminRole = "admin";
@@ -39,6 +42,9 @@ const Routes = () => (
           render={() => <Register role={adminRole}/>}
       />
       <User exact role={"user"} path="/" component={Landing} />
+      <User exact role={"user"} path="/lesson" component={LessonView} />
+      <User exact role={"user"} path="/lesson/page/:id" component={LessonView} />
+      
       <Route path="/add_icons" component={IconEditor} />
       <Route path='/login' component={Login} />
       <Route path='/register' render={() => <Register role={userRole}/>} />

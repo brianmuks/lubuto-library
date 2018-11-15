@@ -25,7 +25,7 @@ function Admin(props) {
 
 }
 
-function useMount(callback) {
+export function useMount(callback) {
   useEffect(callback, []);
 }
 export default Admin;
