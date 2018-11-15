@@ -1,0 +1,17 @@
+.sidebar {
+    width: 100%;
+    float: left;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+  }
+         
+  .main {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+  }
+  a {
+    text-decoration: none
+  }
