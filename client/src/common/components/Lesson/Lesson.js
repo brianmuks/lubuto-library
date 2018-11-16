@@ -3,12 +3,18 @@ import { Redirect } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 function Lesson({id, caption, imageUrl, goToNext, goToPrevious}){
+
+    function playSound(){
+        alert('This will play some sound ')
+    }
     return(
         <div className="col s12 m8 l9 main teal lighten-1">
             <span className='white-text'>
             PageId {id || 0} in Lesson 1
             </span>
-            <i className='material-icons medium right'>volume_up</i>
+            <i className='material-icons medium right' onClick={playSound}>
+            volume_up
+            </i>
             {
                 !id ? (
                     <figure>
