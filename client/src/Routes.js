@@ -41,9 +41,9 @@ const Routes = () => (
           path="/dashboard/register"
           render={() => <Register role={adminRole}/>}
       />
-      <User exact role={"user"} path="/" component={Landing} />
-      <User exact role={"user"} path="/lesson" component={LessonView} />
-      <User exact role={"user"} path="/lesson/page/:id" component={LessonView} />
+      <User exact role={"user"} path="/" render={Landing} />
+      <User exact role={"user"} path="/lesson" render={LessonView} />
+      <User exact role={"user"} path="/lesson/page/:id" render={LessonView} />
       
       <Route path="/add_icons" component={IconEditor} />
       <Route path='/login' component={Login} />

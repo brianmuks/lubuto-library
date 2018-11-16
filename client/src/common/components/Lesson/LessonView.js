@@ -4,9 +4,26 @@ import './style.css'
 import { NavBar } from '../Landing'
 import Lesson from './Lesson'
 
-function LessonView({match}) {
+
+function LessonView({match, history}) {
   const { params: { id }  } = match
-  
+
+  // It would be good to know how many pages a lesson has
+  function goToNext(){
+    return history.push(`/lesson/page/${parseInt(id || 0) + 1}`)
+  }
+  function goToPrevious(){
+    if (!id) {
+      console.log('There is no previous page')
+      new M.Toast({html: 'There is no previous page'})
+      return false
+    } else if (parseInt(id) === 1) {
+      return history.push(`/lesson`)
+    } else {
+      return history.push(`/lesson/page/${parseInt(id) - 1}`)
+    }
+
+  }
   return (
     <div className="row">
       <NavBar color={'light-blue '}/>
@@ -29,6 +46,8 @@ function LessonView({match}) {
         id={id} 
         imageUrl={`/${id}.jpg`}
         caption={`This is for learning lesson ${id}`}
+        goToNext={goToNext}
+        goToPrevious={goToPrevious}
         />
     </div>
   );
