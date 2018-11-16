@@ -1,34 +1,36 @@
 import React from "react";
-import { Link, withRouter, NavLink } from 'react-router-dom'
+import { withRouter, NavLink } from 'react-router-dom'
 import './style.css'
 import { NavBar } from '../Landing'
 import Lesson from './Lesson'
 
 // It would be good to know how many pages a lesson has
+// It will be easy since these will be auto-generated
 const pages = 4
 const style = {
     fontWeight: "bold",
     color: "teal",
 }
+
 function LessonView({match, history}) {
   const { params: { id }  } = match
-
+  const parsedId = parseInt(id)
   function goToNext(){
-    if (parseInt(id) === pages) {
+    if (parsedId === pages) {
       new M.Toast({html: 'There is no next page', classes: 'red'})
       return false
     }
-    return history.push(`/lesson/page/${parseInt(id || 0) + 1}`)
+    return history.push(`/lesson/page/${(parsedId || 0) + 1}`)
   }
   function goToPrevious(){
     if (!id) {
       new M.Toast({html: 'There is no previous page', classes: 'red'})
       return false
-    } else if (parseInt(id) === 1) {
+    } else if (parsedId === 1) {
       return history.push(`/lesson`)
     }
     else {
-      return history.push(`/lesson/page/${parseInt(id) - 1}`)
+      return history.push(`/lesson/page/${parsedId - 1}`)
     }
 
   }
