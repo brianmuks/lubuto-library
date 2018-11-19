@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor'
 import "./landing.css";
 
 
-const Landing = () => {
+function Landing() {
   const [isLoggedOut, setLogout] = useState(false)
   const logOutUser = () => Meteor.logout(err => err ? M.toast({html: err.reason}) : setLogout(true))
   
