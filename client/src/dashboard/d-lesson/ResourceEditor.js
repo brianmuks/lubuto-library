@@ -8,17 +8,7 @@ function ResourceEditor() {
   const {state} = useContext(TOOLS_STATE);
   const {staggedTools,editTool} = state;
 
-  const { x, y, node, dispatch } = useDragging()
-  
-  function handleDrag(e, pos, icon) {		
-  //  dispatch({ type: "DRAG", data: pos });		
-  }		
-  function handleDrop(e, pos, tool) {	
-    // NOTE: each time an elem is drgged, a new tool gets added to 
-    // staggedTools. This should not be the case.
-    //
-   //dispatch({ type: "DROP", tool:{pos,tool} });
-  }
+
 
   const styles = ['Color','Background Color','size','spacing']
 
@@ -36,27 +26,16 @@ function ResourceEditor() {
 
   <buuton className='btn '>Ok</buuton>
   </div>
-
      <div className={ 'col s6 center'} >
     <i className="material-icons">{editTool.name}</i>
     </div>
-
-
-
-
       <br />
-   
     </div>
   );
 }
 
 
 
-export function useDragging(){
-  const {state, dispatch} = useContext(TOOLS_STATE);
-  const { data } = state;
-  return { ...data, dispatch }
-}
 
 
 export default ResourceEditor;
