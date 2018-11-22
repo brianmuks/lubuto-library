@@ -1,6 +1,8 @@
-import React, { createContext } from "react";
+import { createContext } from "react";
 
 
-const initialState = {tools:[]}
+const initialState = {
+    tools: []
+}
 
 export const TOOLS_STATE = createContext(initialState);

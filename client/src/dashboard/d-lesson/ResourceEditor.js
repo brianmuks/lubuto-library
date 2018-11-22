@@ -6,9 +6,7 @@ function ResourceEditor() {
   const { state } = useContext(TOOLS_STATE);
   const { staggedTools, editTool } = state;
 
-  const { x, y, node, dispatch } = useDragging();
-
-
+  console.log(staggedTools)
   const styles = ["Color", "Background Color", "size", "spacing"];
 
   return (
