@@ -8,15 +8,6 @@ function ResourceEditor() {
 
   const { x, y, node, dispatch } = useDragging();
 
-  function handleDrag(e, pos, icon) {
-    //  dispatch({ type: "DRAG", data: pos });
-  }
-  function handleDrop(e, pos, tool) {
-    // NOTE: each time an elem is drgged, a new tool gets added to
-    // staggedTools. This should not be the case.
-    //
-    //dispatch({ type: "DROP", tool:{pos,tool} });
-  }
 
   const styles = ["Color", "Background Color", "size", "spacing"];
 
