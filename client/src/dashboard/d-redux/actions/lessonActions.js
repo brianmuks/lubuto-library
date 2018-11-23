@@ -13,10 +13,11 @@ export function editTool(tool) {
   return { type: EDIT_TOOL,tool  };
 }
 
-export function updateTool(color, size='', spacing=''){
+export function updateTool(color, bgColor, size='', spacing=''){
   return {
     type: UPDATE_TOOL,
     color,
+    bgColor,
     size,
     spacing
   }

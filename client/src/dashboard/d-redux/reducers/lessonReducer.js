@@ -43,11 +43,12 @@ export function lessonReducer(state, action) {
       );
     // changing color and other stuff
     case UPDATE_TOOL:
-      const { color, size, spacing } = action;
+      const { color, bgColor, size, spacing } = action;
       return Object.assign(
         { ...state },
         {
           color,
+          bgColor,
           size,
           spacing
         }

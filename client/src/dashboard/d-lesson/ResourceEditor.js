@@ -6,19 +6,26 @@ import { updateTool } from '../d-redux/actions/lessonActions'
 function ResourceEditor() {
   const { state, dispatch } = useContext(TOOLS_STATE);
   const { staggedTools, editTool } = state;
-  const [value, setColor ] = useState('color')
+  const [color, setColor ] = useState('color')
+  const [bgColor, setbgColor ] = useState('color')
   
   function handleValueChange(e, field){
     switch (field) {
-      case 'Color':
-      setColor(e.target.value)
-        dispatch(updateTool(value))   
+      case 'color':
+          setColor(e.target.value)  
         break;
+        case 'bgColor':
+          setbgColor(e.target.value)   
+      break;
       default:
         break;
     }
   }
+  function handleEditTools(){
+    dispatch(updateTool(color, bgColor)) 
+  }
 
+  // I am going to make this static for now, if there is need 
   const styles = ["Color", "Background Color", "size", "spacing"];
  
   return (
@@ -26,22 +33,32 @@ function ResourceEditor() {
       <h6>Edit Tool</h6>
 
       <div className="row ">
-        {styles.map((style, key) => (
-          <div key={key} className="input-field col s2">
+        <div className="input-field col s2">
             <input
-              value={value}
+              value={color}
               id="color"
               type="text"
               className="validate"
-              onChange={e => handleValueChange(e, style)}
+              onChange={e => handleValueChange(e, 'color')}
             />
             <label className="active" htmlFor="color">
-              {style}
+              {'Color'}
             </label>
           </div>
-        ))}
+          <div className="input-field col s2">
+            <input
+              value={bgColor}
+              id="color"
+              type="text"
+              className="validate"
+              onChange={e => handleValueChange(e, 'bgColor')}
+            />
+            <label className="active" htmlFor="color">
+              {'Color'}
+            </label>
+          </div>
 
-        <button className="btn ">Ok</button>
+        <button className="btn " onClick={handleEditTools}>Ok</button>
       </div>
 
       <div className={"col s6 center"}>
