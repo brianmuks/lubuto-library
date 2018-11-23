@@ -1,4 +1,4 @@
-import { DROP, DRAG, ADD_TOOL,EDIT_TOOL } from "./../constants";
+import { DROP, UPDATE_TOOL, ADD_TOOL,EDIT_TOOL } from "./../constants";
 
 /**
  *
@@ -13,4 +13,12 @@ export function editTool(tool) {
   return { type: EDIT_TOOL,tool  };
 }
 
+export function updateTool(color, size='', spacing=''){
+  return {
+    type: UPDATE_TOOL,
+    color,
+    size,
+    spacing
+  }
+}
 

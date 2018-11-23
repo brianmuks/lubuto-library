@@ -1,4 +1,4 @@
-import { DROP, DRAG, ADD_TOOL, EDIT_TOOL } from "./../constants";
+import { DROP, DRAG, ADD_TOOL, EDIT_TOOL, UPDATE_TOOL } from "./../constants";
 
 /**
  *
@@ -39,6 +39,17 @@ export function lessonReducer(state, action) {
         { ...state },
         {
           editTool: action.tool
+        }
+      );
+    // changing color and other stuff
+    case UPDATE_TOOL:
+      const { color, size, spacing } = action;
+      return Object.assign(
+        { ...state },
+        {
+          color,
+          size,
+          spacing
         }
       );
     default:

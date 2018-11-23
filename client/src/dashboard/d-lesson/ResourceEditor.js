@@ -1,14 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Draggable from "react-draggable";
 import { TOOLS_STATE } from "./../d-context";
+import { updateTool } from '../d-redux/actions/lessonActions'
 
 function ResourceEditor() {
-  const { state } = useContext(TOOLS_STATE);
+  const { state, dispatch } = useContext(TOOLS_STATE);
   const { staggedTools, editTool } = state;
+  const [value, setColor ] = useState('color')
+  
+  function handleValueChange(e, field){
+    switch (field) {
+      case 'Color':
+      setColor(e.target.value)
+        dispatch(updateTool(value))   
+        break;
+      default:
+        break;
+    }
+  }
 
-  console.log(staggedTools)
   const styles = ["Color", "Background Color", "size", "spacing"];
-
+ 
   return (
     <div className="col m7 offset-m3 grey lighten-3 resource-editor">
       <h6>Edit Tool</h6>
@@ -17,12 +29,13 @@ function ResourceEditor() {
         {styles.map((style, key) => (
           <div key={key} className="input-field col s2">
             <input
-              defaultValue=""
-              id="first_name2"
+              value={value}
+              id="color"
               type="text"
               className="validate"
+              onChange={e => handleValueChange(e, style)}
             />
-            <label className="active" htmlFor="first_name2">
+            <label className="active" htmlFor="color">
               {style}
             </label>
           </div>

@@ -5,13 +5,14 @@ import Draggable from "react-draggable";
 
 function MainEditor() {
   const { state } = useContext(TOOLS_STATE);
-  const { staggedTools } = state;
-
+  const { staggedTools, color } = state;
+  
+  
   const { x, y, node, _id, name } = useDragging();
   return (
     <div className="col m7 offset-m3 grey lighten-3 editor">
       MAIN EDITOR <br />
-      <RenderTools tools={staggedTools} />
+      <RenderTools tools={staggedTools} color={color} />
     </div>
   );
 }
@@ -25,16 +26,15 @@ function handleDrop(e, pos, tool) {
   //
   //dispatch({ type: "DROP", tool:{pos,tool} });
 }
-
-function RenderTools({ tools }) {
+function RenderTools({ tools, color }) {
   return tools.map((tool, index) => (
     <Draggable
       key={index}
       onDrag={(e, data) => handleDrag(e, data, tool)}
       onStop={(e, data) => handleDrop(e, data, tool)}
     >
-      <div className={tool.css || "col s1"} styl={tool.style}>
-        <i className="material-icons">{tool.name}</i>
+      <div className={tool.css || "col s1"} style={tool.style}>
+        <i className="material-icons" style={{color: color && 'blue'}}>{tool.name}</i>
       </div>
     </Draggable>
   ));
