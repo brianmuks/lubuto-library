@@ -35,8 +35,7 @@ const Routes = () => (
         path="/dashboard/create-lesson"
         component={CreateLesson}
       />
-      <Admin
-          role={adminRole}
+      <Route
           exact
           path="/dashboard/register"
           component={() => <Register role={adminRole}/>}

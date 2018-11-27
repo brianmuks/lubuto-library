@@ -31,8 +31,8 @@ function ResourceEditor() {
   return (
     <div className="col m7 offset-m3 grey lighten-3 resource-editor">
       <h6>Edit Tool</h6>
-
       <div className="row ">
+      
         <div className="input-field col s2">
             <input
               value={color}
@@ -57,6 +57,7 @@ function ResourceEditor() {
               {'Color'}
             </label>
           </div>
+
 
         <button className="btn " onClick={handleEditTools}>Ok</button>
       </div>
