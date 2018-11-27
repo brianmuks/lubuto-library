@@ -6,8 +6,6 @@ import Draggable from "react-draggable";
 function MainEditor() {
   const { state } = useContext(TOOLS_STATE);
   const { staggedTools, color, bgColor } = state;
-  
-    console.log(bgColor)
   const { x, y, node, _id, name } = useDragging();
   return (
     <div className="col m7 offset-m3 grey lighten-3 editor">

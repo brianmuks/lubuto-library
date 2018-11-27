@@ -2,37 +2,70 @@ import React, { useContext, useState } from "react";
 import Draggable from "react-draggable";
 import { TOOLS_STATE } from "./../d-context";
 import { updateTool } from '../d-redux/actions/lessonActions'
+import { useFormInput } from '../../common/components/Accounts/accountsUtils'
 
 function ResourceEditor() {
   const { state, dispatch } = useContext(TOOLS_STATE);
   const { staggedTools, editTool } = state;
-  const [color, setColor ] = useState('color')
-  const [bgColor, setbgColor ] = useState('color')
+  const color = useFormInput('color')
+  const bgColor = useFormInput('bgColor')
+  const size = useFormInput('size')
+  const space = useFormInput('space')
+
   
-  function handleValueChange(e, field){
-    switch (field) {
-      case 'color':
-          setColor(e.target.value)  
-        break;
-        case 'bgColor':
-          setbgColor(e.target.value)   
-      break;
-      default:
-        break;
-    }
-  }
+  // function handleValueChange(e, field) {
+  //   switch (field) {
+  //     case 'Color':
+  //       setColor(e.target.value)
+  //       break;
+  //     case 'BackgroundColor':
+  //       setbgColor(e.target.value)
+  //       break;
+  //     case 'size':
+  //       setSize(e.target.value)
+  //       break;
+  //     case 'spacing':
+  //       setSpace(e.target.value)
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }
   function handleEditTools(){
-    dispatch(updateTool(color, bgColor)) 
+    dispatch(updateTool(color.value, bgColor.value, size.value, space.value)) 
   }
 
   // I am going to make this static for now, if there is need 
-  const styles = ["Color", "Background Color", "size", "spacing"];
+  // const styles = ["Color", "Background Color", "size", "spacing"];
+  const styles = [
+    { name: "Color", "value": color },
+    { name: "BackgroundColor", "value": bgColor },
+    { name: "size", "value": size },
+    { name: "spacing", "value": space },
+  ]
  
   return (
     <div className="col m7 offset-m3 grey lighten-3 resource-editor">
       <h6>Edit Tool</h6>
       <div className="row ">
-      
+      {
+        styles.map((style, i) => (
+          <div className="input-field col s2" key={i}>
+          <input
+            // value={style.value}
+            id="color"
+            type="text"
+            className="validate"
+            // onChange={e => handleValueChange(e, style.name)}
+            {...style.value}
+          />
+          <label className="active" htmlFor="color">
+            {style.name}
+          </label>
+        </div>
+        ))
+      }
+{/*       
         <div className="input-field col s2">
             <input
               value={color}
@@ -56,7 +89,7 @@ function ResourceEditor() {
             <label className="active" htmlFor="color">
               {'Color'}
             </label>
-          </div>
+          </div> */}
 
 
         <button className="btn " onClick={handleEditTools}>Ok</button>
