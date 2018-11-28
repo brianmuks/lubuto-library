@@ -157,7 +157,7 @@ export function NavBar({logOutUser, color}){
         <ul className="right hide-on-med-and-down">
           <li >
             <span className={`btn ${color}`} onClick={logOutUser}>
-              Logout
+              {Meteor.userId() ? 'Logout' : 'Login'}
         </span>
           </li>
         </ul>

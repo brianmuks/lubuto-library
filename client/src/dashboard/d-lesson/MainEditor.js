@@ -5,14 +5,16 @@ import Draggable from "react-draggable";
 
 function MainEditor() {
   const { state } = useContext(TOOLS_STATE);
-  const { staggedTools, color, bgColor } = state;
-  
-    console.log(bgColor)
+  const { staggedTools, color, bgColor, size, spacing } = state;
   const { x, y, node, _id, name } = useDragging();
   return (
     <div className="col m7 offset-m3 grey lighten-3 editor">
       MAIN EDITOR <br />
       <RenderTools tools={staggedTools} color={color} bgColor={bgColor}/>
+      <span>{color}</span> <br />
+      <span>{size}</span>  <br />
+      <span>{spacing}</span> <br />
+      <span>{bgColor}</span>
     </div>
   );
 }
