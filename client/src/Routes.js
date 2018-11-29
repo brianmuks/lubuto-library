@@ -22,7 +22,7 @@ const adminRole = "admin";
 const userRole = 'user';
 
 /*
-  Admin and User are component that will render other components based on either the role 
+  Admin and User are component that will component other components based on either the role 
   or the authentication of the current user
 */
 
@@ -39,7 +39,7 @@ const Routes = () => (
           role={adminRole}
           exact
           path="/dashboard/register"
-          render={() => <Register role={adminRole}/>}
+          component={() => <Register role={adminRole}/>}
       />
       <User exact role={"user"} path="/" component={Landing} />
       <User exact role={"user"} path="/lesson" component={LessonView} />
@@ -47,7 +47,7 @@ const Routes = () => (
       
       <Route path="/add_icons" component={IconEditor} />
       <Route path='/login' component={Login} />
-      <Route path='/register' render={() => <Register role={userRole}/>} />
+      <Route path='/register' component={() => <Register role={userRole}/>} />
       <Route component={NotFound} />
     </Switch>
   </Router>
