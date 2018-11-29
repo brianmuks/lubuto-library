@@ -27,6 +27,8 @@ export const ADD_TOOL = 'ADD_TOOL';
 export const DROP = 'DROP';
 export const DRAG = 'DRAG';
 export const EDIT_TOOL = 'EDIT_TOOL';
+export const EDIT_STAGGED_TOOL = 'EDIT_STAGGED_TOOL';
+export const UPDATE_TOOL = 'UPDATE_TOOL';
 
 
 

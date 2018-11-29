@@ -1,42 +1,65 @@
-import React, { useContext,useState } from "react";
+import React, { useContext,useState,useReducer } from "react";
 import Draggable from "react-draggable";
 import {TOOLS_STATE} from './../d-context';
+import { addTool,editStaggedTools } from "./../d-redux/actions/lessonActions";
 
 const initialState = {
-  color:null,
-  backGroundColor:null,
-  size:null,
-  padding:0,
-  styles:{}
+ 
+}
+
+const EDIT_TOOL = 'EDIT_TOOL';
+
+function reducer(state,action){
+
+  switch (action.type) {
+    case EDIT_TOOL:
+      console.log(state)
+    return Object.assign(
+      {...state},
+      {...action.newStyle}
+    )
+    default:
+      return state
+  }
+
 }
 
 function ResourceEditor() {
 
-  const {state} = useContext(TOOLS_STATE);
+  const [stateStyles,_dispatch] = useReducer(reducer,initialState);
+
+  const {state,dispatch} = useContext(TOOLS_STATE);
   const {staggedTools,editTool} = state;
 
-
-
   const styles = [{name:'color',label:'Color'},{label:'Background Color',name:'background-color'}
+                  ,{name:'padding',label:'Padding'},{name:'fontSize',label:'Size'}
                   ,{name:'width',label:'Container Width'},{name:'height',label:'Container Height'}
                  ]
 
+       const done = ()=>{
+
+        //remove edited tool as way of replacing it
+
+        const targertoolId = editTool._id;
+        let tools = staggedTools.filter(i=> i.index !== targertoolId )
+        tools = [...tools,{...editTool,style:stateStyles,index:editTool.index}];
+
+        dispatch(editStaggedTools(tools))
+       }         
+
+
   return (
     <div className="col m7 offset-m3 grey lighten-3 resource-editor">
-    <h6>Edit Tool</h6>
-    
-      <div className="row ">
+    <h6>Design</h6>
+      <div className="row">
     {styles.map((style,key)=>(
-    <div key={key} className="input-field col s2">
-      <input defaultValue=""  id="first_name2" onChange={()=>{}} type="text" className="validate" />
-      <label className="active" htmlFor="first_name2">{style.name}</label>
-    </div>
+      <StyleTool _dispatch={_dispatch} label={style.label} name={style.name}  key={key} index={key} />
     ))}
 
-  <buuton className='btn '>Ok</buuton>
+  <button onClick={done} className='btn'>Ok</button>
   </div>
-     <div className={ 'col s6 center'} >
-    <i style={{color:'red',padding:'20px'}}  className="fa material-icons">{editTool.name}</i>
+     <div  className={ 'col s6 center'} >
+    <i  style={stateStyles} className={`fa material-icons ${stateStyles.size}`}>{editTool.name}</i>
     </div>
       <br />
     </div>
@@ -44,22 +67,23 @@ function ResourceEditor() {
 }
 
 
-function useOnEdit(name,val){
-  
-      const [styles,onChange] = useState(initialState.styles);
+function StyleTool({name,label,index,_dispatch}){
+ const {onChange,styles} =  useOnEdit(name,_dispatch);
+  return <div key={index} className="input-field col s2">
+  <input defaultValue=""  id={name} onChange={onChange} type="text" className="validate" />
+  <label className="active" htmlFor={name}>{label}</label>
+</div>
+} 
+
+function useOnEdit(name,_dispatch){
       let newStyle = {};
-
-      const formatStyles = (val,name)=>(
-          newStyle[name] =val
-      )  
-
-
-      return{
-      
+      const formatStyle = (e)=>{
+        newStyle[name] =e.target.value;
+        return newStyle;
       }
-
+      return{
+        onChange:e=>_dispatch({type:EDIT_TOOL,newStyle:formatStyle(e)}),
+              }
 }
-
-
 
 export default ResourceEditor;

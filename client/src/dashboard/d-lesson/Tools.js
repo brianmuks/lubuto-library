@@ -43,7 +43,7 @@ function RenderTools(props) {
     <li
       key={index}
       onClick={() => {
-        dispatch(addTool(tool));
+        dispatch(addTool(tool,index));
       }}
     >
       <a href="#!">
