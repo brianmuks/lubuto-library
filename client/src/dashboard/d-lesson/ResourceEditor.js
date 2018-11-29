@@ -43,8 +43,7 @@ function ResourceEditor() {
         const targertoolId = editTool._id;
         let tools = staggedTools.filter(i=> i.index !== targertoolId )
         tools = [...tools,{...editTool,style:stateStyles,index:editTool.index}];
-
-        dispatch(editStaggedTools(tools))
+        Object.keys(editTool).length && dispatch(editStaggedTools(tools))
        }         
 
 
