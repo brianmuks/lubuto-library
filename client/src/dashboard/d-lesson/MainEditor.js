@@ -37,11 +37,8 @@ function RenderTools({ tools, color='' , bgColor=''}) {
       onDrag={(e, data) => handleDrag(e, data, tool)}
       onStop={(e, data) => handleDrop(e, data, tool)}
     >
-      <div className={tool.css || "col s1"} style={tool.style}>
+      <div >
         <i className="material-icons" style={tool.style}>{tool.name}</i>
-      <p className='red-text'>
-        {bgColor}
-      </p>
       </div>
     </Draggable>
   ));
