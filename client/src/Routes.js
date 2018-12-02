@@ -15,6 +15,7 @@ import Register from './common/components/Accounts/Register'
 
 // Lessons
 import LessonView from './common/components/Lesson/LessonView'
+import UserProfile from './common/components/Profile/UserProfile'
 
 
 // Only here for prototyping
@@ -47,6 +48,7 @@ const Routes = () => (
       <Route path="/add_icons" component={IconEditor} />
       <Route path='/login' component={Login} />
       <Route path='/register' component={() => <Register role={userRole}/>} />
+      <Route path='/user/:id' component={UserProfile} />
       <Route component={NotFound} />
     </Switch>
   </Router>

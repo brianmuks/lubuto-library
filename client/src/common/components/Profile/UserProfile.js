@@ -3,7 +3,9 @@ import React from 'react'
 function UserProfile(){
 
 return (
-    <table>
+    <div className='container'>
+        <h4>Olivier JM </h4>
+    <table className='highlight'>
         <thead>
             <th>Name</th>
             <th>Age</th>
@@ -11,12 +13,15 @@ return (
             <th>Center</th>
         </thead>
         <tbody>
-            <tr>Olivier JM</tr>
-            <tr>25</tr>
-            <tr>Male</tr>
-            <tr>Lusaka</tr>
+            <tr>
+                <td>Olivier JM</td>
+                <td>25 </td>
+                <td>Male </td>
+                <td>Lusaka </td>
+                </tr>
         </tbody>
     </table>
+</div>
 )
 }
 
