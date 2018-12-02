@@ -1,4 +1,14 @@
 import React from "react";
+import User from './User'
+
+const users = [
+    {
+        name: 'Olivier',
+        age: '25',
+        sex: 'male',
+        center: 'lusaka'
+    }
+]
 
 function UserProfile() {
   return (
@@ -12,12 +22,7 @@ function UserProfile() {
           <th>Center</th>
         </thead>
         <tbody>
-          <tr>
-            <td>Olivier JM</td>
-            <td>25 </td>
-            <td>Male </td>
-            <td>Lusaka </td>
-          </tr>
+            <User users={users}/>
         </tbody>
       </table>
     </div>
