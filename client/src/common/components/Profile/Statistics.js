@@ -1,4 +1,32 @@
 import React from "react";
+import User from './User'
+
+const users = [
+    {
+        name: 'Olivier',
+        age: '25',
+        sex: 'male',
+        center: 'lusaka'
+    },
+    {
+        name: 'Jean',
+        age: '25',
+        sex: 'male',
+        center: 'lusaka'
+    },
+    {
+        name: 'Mani',
+        age: '25',
+        sex: 'male',
+        center: 'lusaka'
+    },
+    {
+        name: 'Michael',
+        age: '25',
+        sex: 'male',
+        center: 'lusaka'
+    }
+]
 
 function Statistics() {
   return (
@@ -6,36 +34,15 @@ function Statistics() {
       <h4>Users </h4>
       <table className="highlight">
         <thead>
-          <th>Name</th>
-          <th>Age</th>
-          <th>Sex</th>
-          <th>Center</th>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Center</th>
+            </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Olivier JM</td>
-            <td>25 </td>
-            <td>Male </td>
-            <td>Lusaka </td>
-          </tr>
-          <tr>
-            <td>Olivier JM</td>
-            <td>25 </td>
-            <td>Male </td>
-            <td>Lusaka </td>
-          </tr>
-          <tr>
-            <td>Olivier JM</td>
-            <td>25 </td>
-            <td>Male </td>
-            <td>Lusaka </td>
-          </tr>
-          <tr>
-            <td>Olivier JM</td>
-            <td>25 </td>
-            <td>Male </td>
-            <td>Lusaka </td>
-          </tr>
+         <User users={users} />
         </tbody>
       </table>
     </div>

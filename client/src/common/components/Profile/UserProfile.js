@@ -1,7 +1,11 @@
 import React from "react";
+import { Meteor } from 'meteor/meteor'
 import User from './User'
 
-const users = [
+
+// to-do: get the data of the currently logged in user
+const currentUser = Meteor.user()
+const user = [
     {
         name: 'Olivier',
         age: '25',
@@ -22,7 +26,7 @@ function UserProfile() {
           <th>Center</th>
         </thead>
         <tbody>
-            <User users={users}/>
+            <User users={user}/>
         </tbody>
       </table>
     </div>
