@@ -12,10 +12,11 @@ import User from "./Routes/User";
 // Accounts
 import Login from './common/components/Accounts/Login'
 import Register from './common/components/Accounts/Register'
+import UserProfile from './common/components/Profile/UserProfile'
+import Statistics from './common/components/Profile/Statistics'
 
 // Lessons
 import LessonView from './common/components/Lesson/LessonView'
-import UserProfile from './common/components/Profile/UserProfile'
 
 
 // Only here for prototyping
@@ -49,6 +50,7 @@ const Routes = () => (
       <Route path='/login' component={Login} />
       <Route path='/register' component={() => <Register role={userRole}/>} />
       <Route path='/user/:id' component={UserProfile} />
+      <Route path='/users' component={Statistics} />
       <Route component={NotFound} />
     </Switch>
   </Router>
