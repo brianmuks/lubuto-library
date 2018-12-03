@@ -17,6 +17,10 @@ function Register(props) {
     
     function handleRegister(e){
       e.preventDefault()
+      if (!gender.value.length) {
+        setError('You need to choose a gender')
+        return;
+      }
       if (!isValid) {
         setError('There was a problem with the password')
         return;
