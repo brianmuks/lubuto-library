@@ -3,10 +3,11 @@ import React from "react";
 function User(props = []) {
   return props.users.map((user, i) => (
     <tr key={i}>
-      <td>{user.name}</td>
-      <td>{user.age} </td>
-      <td>{user.sex} </td>
-      <td>{user.center} </td>
+      <td>{i}</td>
+      <td>{user.profile.name}</td>
+      <td>{user.profile.age || ''} </td>
+      <td>{user.profile.sex || ''} </td>
+      <td>{user.profile.center || ''} </td>
     </tr>
   ));
 }

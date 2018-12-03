@@ -1,40 +1,18 @@
 import React from "react";
+import { Meteor } from "meteor/meteor";
+import { withTracker } from 'meteor/react-meteor-data'
 import User from './User'
 
-const users = [
-    {
-        name: 'Olivier',
-        age: '25',
-        sex: 'male',
-        center: 'lusaka'
-    },
-    {
-        name: 'Jean',
-        age: '25',
-        sex: 'male',
-        center: 'lusaka'
-    },
-    {
-        name: 'Mani',
-        age: '25',
-        sex: 'male',
-        center: 'lusaka'
-    },
-    {
-        name: 'Michael',
-        age: '25',
-        sex: 'male',
-        center: 'lusaka'
-    }
-]
+const getAllUsers = users => users.length && <User users={users} />
 
-function Statistics() {
+function Statistics({users}) {
   return (
     <div className="container">
       <h4>Users </h4>
       <table className="highlight">
         <thead>
             <tr>
+                <th>#</th>
                 <th>Name</th>
                 <th>Age</th>
                 <th>Sex</th>
@@ -49,4 +27,10 @@ function Statistics() {
   );
 }
 
-export default Statistics;
+
+export default withTracker(() => {
+    Meteor.subscribe('users')
+    return {
+        users: Meteor.users.find().fetch()
+    }
+})(Statistics);
