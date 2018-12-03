@@ -8,6 +8,7 @@ function Register(props) {
     const name = useFormInput('')
     const password = useFormInput('')
     const confirmedPassword = useFormInput('')
+    const gender = useFormInput('')
     const age = useFormInput('')
     const isValid = validatePassword(password.value, confirmedPassword.value)
     const {error, setError} = useError('')
@@ -23,6 +24,7 @@ function Register(props) {
       const profile = {
         name: name.value,
         age: age.value,
+        gender: gender.value,
         createdAt: new Date(),
         role: pathname === '/dashboard/register' ? 'admin' : 'user'
         }
@@ -81,8 +83,8 @@ function Register(props) {
                 </div>
               </div>
               <div className="input-field col s10">
-                <select>
-                  <option value="" disabled defaultSelected>Choose your gender</option>
+                <select {...gender}>
+                  <option value="" disabled defaultValue>Choose your gender</option>
                   <option value="female">Female</option>
                   <option value="male">Male</option>
                   <option value="other">Other</option>
