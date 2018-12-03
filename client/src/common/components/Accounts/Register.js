@@ -8,6 +8,7 @@ function Register(props) {
     const name = useFormInput('')
     const password = useFormInput('')
     const confirmedPassword = useFormInput('')
+    const age = useFormInput('')
     const isValid = validatePassword(password.value, confirmedPassword.value)
     const {error, setError} = useError('')
     const [isAuth, setAuth] = useState(false)
@@ -21,6 +22,7 @@ function Register(props) {
       }
       const profile = {
         name: name.value,
+        age: age.value,
         createdAt: new Date(),
         role: pathname === '/dashboard/register' ? 'admin' : 'user'
         }
@@ -64,6 +66,18 @@ function Register(props) {
                     required
                   />
                   <label htmlFor="email">Email</label>
+                </div>
+              </div>
+              <div className="row">
+                <div className="input-field col s10" style={{ marginLeft: 15 }}>
+                  <input
+                    id="number"
+                    type="number"
+                    className="validate"
+                    {...age}
+                    required
+                  />
+                  <label htmlFor="number">Age</label>
                 </div>
               </div>
 
