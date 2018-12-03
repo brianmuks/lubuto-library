@@ -1,27 +1,35 @@
 import React from "react";
-import { Meteor } from 'meteor/meteor'
-import User from './User'
+import { Meteor } from "meteor/meteor";
+import { withRouter } from "react-router-dom";
+import { withTracker } from 'meteor/react-meteor-data'
+import User from "./User";
 
-const users = Meteor.users.find().fetch()
-function UserProfile() {
+function UserProfile({ user }) {
   return (
     <div className="container">
       <h4>Olivier JM </h4>
       <table className="highlight">
         <thead>
-            <tr>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Sex</th>
-                <th>Center</th>
-            </tr>
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Sex</th>
+            <th>Center</th>
+          </tr>
         </thead>
         <tbody>
-            <User users={users}/>
+          <User users={user} />
         </tbody>
       </table>
     </div>
   );
 }
 
-export default UserProfile;
+const RouterProfile =  withRouter(UserProfile);
+
+export default withTracker((props) => {
+    Meteor.subscribe('users')
+    return {
+        user: Meteor.users.find({_id: props.match.params.id}).fetch()
+    }
+})(RouterProfile)
