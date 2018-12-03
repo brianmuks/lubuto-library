@@ -162,7 +162,7 @@ export function NavBar({logOutUser, color}){
           </li>
           <li >
             <Link to="/users">
-              Profile
+              Dashboard
             </Link>
           </li>
         </ul>

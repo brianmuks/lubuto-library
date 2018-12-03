@@ -1,38 +1,48 @@
 import React from "react";
-import { Meteor } from 'meteor/meteor'
-import User from './User'
+import { Meteor } from "meteor/meteor";
+import { withRouter } from "react-router-dom";
+import { withTracker } from 'meteor/react-meteor-data'
+import User, { StatsRow } from "./User";
+import { USER_STATS } from '../../../../../lib/Collections'
+import UserStats from './UserStats'
 
-
-// to-do: get the data of the currently logged in user
-const currentUser = Meteor.user()
-const user = [
-    {
-        name: 'Olivier',
-        age: '25',
-        sex: 'male',
-        center: 'lusaka'
-    }
-]
-
-function UserProfile() {
+function UserProfile({ user, stats }) {
   return (
     <div className="container">
-      <h4>Olivier JM </h4>
+      <h4>{user && user.profile.name } </h4>
       <table className="highlight">
         <thead>
-            <tr>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Sex</th>
-                <th>Center</th>
-            </tr>
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Sex</th>
+            <th>Center</th>
+          </tr>
         </thead>
         <tbody>
-            <User users={user}/>
+          <User user={user} />
         </tbody>
       </table>
+      {/* 
+        we will use breaks for now
+      */}
+      <br />
+      <br />
+      <br />
+      <div>
+          <UserStats children={<StatsRow stats={stats}/>}/>
+      </div>
     </div>
   );
 }
 
-export default UserProfile;
+// avoiding chanined wraps of two higher components
+const RouterProfile =  withRouter(UserProfile); 
+
+export default withTracker(props => {
+    Meteor.subscribe('user', props.match.params.id)
+    return {
+        user: Meteor.users.findOne({_id: props.match.params.id}),
+        stats: USER_STATS.find({_id: props.match.params.id}).fetch(),
+    }
+})(RouterProfile)
