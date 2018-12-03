@@ -18,18 +18,19 @@ function UserProfile({ user }) {
           </tr>
         </thead>
         <tbody>
-          <User users={user} />
+          <User user={user} />
         </tbody>
       </table>
     </div>
   );
 }
 
-const RouterProfile =  withRouter(UserProfile);
+// avoiding chanined wraps of two higher components
+const RouterProfile =  withRouter(UserProfile); 
 
-export default withTracker((props) => {
-    Meteor.subscribe('users')
+export default withTracker(props => {
+    Meteor.subscribe('user', props.match.params.id)
     return {
-        user: Meteor.users.find({_id: props.match.params.id}).fetch()
+        user: Meteor.users.findOne({_id: props.match.params.id})
     }
 })(RouterProfile)
