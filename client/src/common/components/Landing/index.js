@@ -158,7 +158,12 @@ export function NavBar({logOutUser, color}){
           <li >
             <span className={`btn ${color}`} onClick={logOutUser}>
               {Meteor.userId() ? 'Logout' : 'Login'}
-        </span>
+          </span>
+          </li>
+          <li >
+            <Link to="/users">
+              Profile
+            </Link>
           </li>
         </ul>
 

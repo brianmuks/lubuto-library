@@ -20,10 +20,12 @@ function UserProfile() {
       <h4>Olivier JM </h4>
       <table className="highlight">
         <thead>
-          <th>Name</th>
-          <th>Age</th>
-          <th>Sex</th>
-          <th>Center</th>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Center</th>
+            </tr>
         </thead>
         <tbody>
             <User users={user}/>
