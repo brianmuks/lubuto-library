@@ -9,9 +9,9 @@ function UserRow({ user, count = 0, i = 0 }) {
         <td>
           <Link to={`/user/${user._id}`}>{user.profile.name}</Link>
         </td>
-        <td>{user.profile.age || ""} </td>
-        <td>{user.profile.gender || ""} </td>
-        <td>{user.profile.center || ""} </td>
+        <td>{user.profile.age }</td>
+        <td>{user.profile.gender } </td>
+        <td>{user.profile.center} </td>
       </tr>
     )
     || null

@@ -3,6 +3,7 @@ import { Meteor } from "meteor/meteor";
 import { withRouter } from "react-router-dom";
 import { withTracker } from 'meteor/react-meteor-data'
 import User from "./User";
+import { USER_STATS } from '../../../../../lib/Collections'
 
 function UserProfile({ user }) {
   return (
@@ -34,6 +35,7 @@ const RouterProfile =  withRouter(UserProfile);
 export default withTracker(props => {
     Meteor.subscribe('user', props.match.params.id)
     return {
-        user: Meteor.users.findOne({_id: props.match.params.id})
+        user: Meteor.users.findOne({_id: props.match.params.id}),
+        stats: USER_STATS.find({_id: props.match.params.id}).fetch(),
     }
 })(RouterProfile)
