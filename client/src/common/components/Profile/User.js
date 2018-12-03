@@ -1,13 +1,16 @@
 import React from "react";
+import { Redirect, Link } from "react-router-dom";
 
-function User(props = []) {
-  return props.users.map((user, i) => (
+function User({ users = [] }) {
+  return users.map((user, i) => (
     <tr key={i}>
       <td>{i}</td>
-      <td>{user.profile.name}</td>
-      <td>{user.profile.age || ''} </td>
-      <td>{user.profile.sex || ''} </td>
-      <td>{user.profile.center || ''} </td>
+      <td>
+        <Link to={`/user/${user._id}`}>{user.profile.name}</Link>
+      </td>
+      <td>{user.profile.age || ""} </td>
+      <td>{user.profile.gender || ""} </td>
+      <td>{user.profile.center || ""} </td>
     </tr>
   ));
 }
