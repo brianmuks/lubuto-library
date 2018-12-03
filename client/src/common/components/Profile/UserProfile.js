@@ -7,7 +7,7 @@ import User from "./User";
 function UserProfile({ user }) {
   return (
     <div className="container">
-      <h4>Olivier JM </h4>
+      <h4>{user && user.profile.name } </h4>
       <table className="highlight">
         <thead>
           <tr>
@@ -21,6 +21,9 @@ function UserProfile({ user }) {
           <User user={user} />
         </tbody>
       </table>
+      <div>
+          More info can be displayed here
+      </div>
     </div>
   );
 }
