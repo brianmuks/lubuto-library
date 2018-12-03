@@ -18,4 +18,21 @@ function UserRow({ user, count = 0, i = 0 }) {
   );
 }
 
+export function StatsRow({stats}){
+  return(
+    stats.length && (
+      <tr>
+        <td>
+          <Link to={`/stats/${stats._id}`}>{stats.number}</Link>
+        </td>
+        <td>{stats.completed }</td>
+        <td>{stats.started } </td>
+        <td>{stats.completed} </td>
+      </tr>
+    )
+    || null
+  )
+}
+
 export default UserRow;
+

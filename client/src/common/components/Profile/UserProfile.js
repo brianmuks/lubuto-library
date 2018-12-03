@@ -2,10 +2,11 @@ import React from "react";
 import { Meteor } from "meteor/meteor";
 import { withRouter } from "react-router-dom";
 import { withTracker } from 'meteor/react-meteor-data'
-import User from "./User";
+import User, { StatsRow } from "./User";
 import { USER_STATS } from '../../../../../lib/Collections'
+import UserStats from './UserStats'
 
-function UserProfile({ user }) {
+function UserProfile({ user, stats }) {
   return (
     <div className="container">
       <h4>{user && user.profile.name } </h4>
@@ -22,8 +23,14 @@ function UserProfile({ user }) {
           <User user={user} />
         </tbody>
       </table>
+      {/* 
+        we will use breaks for now
+      */}
+      <br />
+      <br />
+      <br />
       <div>
-          More info can be displayed here
+          <UserStats children={<StatsRow stats={stats}/>}/>
       </div>
     </div>
   );

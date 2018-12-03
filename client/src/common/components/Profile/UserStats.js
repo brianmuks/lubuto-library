@@ -1,32 +1,21 @@
 import React from "react";
 
-function UserStats() {
+// we will call the stats here
+function UserStats({ children }) {
   return (
     <table className="highlight">
       <thead>
         <tr>
+          <th>#</th>
           <th>Lesson Number</th>
           <th>Completed</th>
           <th>Started</th>
           <th>Completed</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-            <td>1</td>
-            <td>true</td>
-            <td>1/01/01</td>
-            <td>10/10/10</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>true</td>
-            <td>1/01/01</td>
-            <td>10/10/10</td>
-        </tr>
-      </tbody>
+      <tbody>{children}</tbody>
     </table>
   );
 }
 
-export default UserStats
+export default UserStats;
