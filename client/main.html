@@ -12,7 +12,8 @@
     var elems = document.querySelectorAll('.sidenav')
     var select = document.querySelectorAll('select')
      instances = M.Sidenav.init(elems, {}) // I think it is best to keep this global
-     
+    var select = document.querySelectorAll('select');
+     _instances = M.FormSelect.init(select, {});
   })
   </script>
 </body>
