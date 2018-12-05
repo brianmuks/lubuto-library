@@ -25,6 +25,12 @@ function Statistics({ users }) {
     })
   }
 
+  function deleteUser(){
+    Meteor.call('removeUser', userId, err => {
+      err ? setError(err.reason) : setModal(!isOpen)
+    })
+  }
+
   function editUser(e, id){
     setModal(true)
     setUserId(id)
@@ -49,56 +55,61 @@ function Statistics({ users }) {
                 
               }}
             >
-            <div className="row">
-                <div className="input-field col s10" style={{ marginLeft: 15 }}>
-                  <input
-                    id="name"
-                    type="text"
-                    className="validate"
-                    {...name}
-                    required
-                  />
-                  <label htmlFor="name">Full Name</label>
-                </div>
+            <div className='container'>
+              <div className='row'>
+                <div className="row">
+                    <div className="input-field col s10" style={{ marginLeft: 15 }}>
+                      <input
+                        id="name"
+                        type="text"
+                        className="validate"
+                        {...name}
+                        required
+                      />
+                      <label htmlFor="name">Full Name</label>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="input-field col s10" style={{ marginLeft: 15 }}>
+                      <input
+                        id="number"
+                        type="number"
+                        className="validate"
+                        {...age}
+                        required
+                      />
+                      <label htmlFor="number">Age</label>
+                    </div>
+                  </div>
+              <button className='btn ' onClick={saveChanges}>Save Changes</button>
+              <button className='btn red center' onClick={deleteUser}>Delete User</button>
+              <button className='btn right' onClick={checkModal}>Close Modal</button>
+              <div className='row'>
+                  <p className='red-text'>{error}</p>
               </div>
-              <div className="row">
-                <div className="input-field col s10" style={{ marginLeft: 15 }}>
-                  <input
-                    id="number"
-                    type="number"
-                    className="validate"
-                    {...age}
-                    required
-                  />
-                  <label htmlFor="number">Age</label>
-                </div>
               </div>
-          <button className='btn ' onClick={saveChanges}>Save Changes</button>
-          <button className='btn right' onClick={checkModal}>Close Modal</button>
-          <div className='row'>
-              <p className='red-text'>{error}</p>
-          </div>
+            </div>
         </ReactModal>
-    <div className="container">
-      <h4>Users </h4>
-      <table className="highlight">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Sex</th>
-            <th>Center</th>
-            <th>Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(user => (
-            <User key={user._id} user={user} count={users.length} i={index++} editUser={e => editUser(e, user._id)} />
-          ))}
-        </tbody>
-      </table>
-    </div>
+      <div className="container">
+        <h4>Users </h4>
+        <table className="highlight">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Sex</th>
+              <th>Center</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map(user => (
+              <User key={user._id} user={user} count={users.length} i={index++} editUser={e => editUser(e, user._id)} />
+            ))}
+          </tbody>
+        </table>
+      </div>
     </>
   )
 }

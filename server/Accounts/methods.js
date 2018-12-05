@@ -15,5 +15,9 @@ Meteor.methods({
                 }
             }
         )
+    },
+    removeUser(id){
+        check(id, String)
+        Meteor.users.remove({_id: id})
     }
 })
