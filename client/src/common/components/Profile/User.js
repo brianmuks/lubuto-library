@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from "react"
+import { Link } from "react-router-dom"
 
 function UserRow({ user, count = 0, i = 0 }) {
   return (
@@ -15,21 +15,27 @@ function UserRow({ user, count = 0, i = 0 }) {
       </tr>
     )
     || null
-  );
+  )
 }
 
-export function StatsRow({stats}){
+export function StatsRow({stats, route}){
+  let count = 1
+
+  function viewDetails(e, id){
+    return route.push(`/stats/${id}`)
+  }
   return(
-    stats.length && (
-      <tr>
+    stats.length && stats.map(stat => (
+      <tr key={stat._id} onClick={e => viewDetails(e, stat._id)}>
+        <td>{count++}</td>
         <td>
-          <Link to={`/stats/${stats._id}`}>{stats.number}</Link>
+        {stat.lessonNumber}
         </td>
-        <td>{stats.completed }</td>
-        <td>{stats.started } </td>
-        <td>{stats.completed} </td>
+        <td>{ stat.isDone && 'Yes' || 'No' }</td>
+        <td>{ stat.started.toLocaleString() } </td>
+        <td>{ stat.isDone && stat.completed.toLocaleString() || 'Not Yet'} </td>
       </tr>
-    )
+    ))
     || null
   )
 }
