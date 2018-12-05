@@ -86,7 +86,7 @@ function Register(props) {
                   <label htmlFor="number">Age</label>
                 </div>
               </div>
-              <div className="input-field col s10">
+              {/* <div className="input-field col s10">
                 <select {...gender}>
                   <option value="" disabled defaultValue>Choose your gender</option>
                   <option value="female">Female</option>
@@ -94,7 +94,7 @@ function Register(props) {
                   <option value="other">Other</option>
                 </select>
                 <label>Gender</label>
-              </div>
+              </div> */}
 
               <div className="row">
                 <div className="input-field col s10 " style={{ marginLeft: 15 }}>
