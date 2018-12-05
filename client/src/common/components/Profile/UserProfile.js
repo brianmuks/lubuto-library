@@ -6,7 +6,8 @@ import User, { StatsRow } from "./User";
 import { USER_STATS } from '../../../../../lib/Collections'
 import UserStats from './UserStats'
 
-function UserProfile({ user, stats }) {
+function UserProfile({ user, stats, history }) {
+  console.log(history)
   return (
     <div className="container">
       <h4>{user && user.profile.name } </h4>
@@ -25,12 +26,13 @@ function UserProfile({ user, stats }) {
       </table>
       {/* 
         we will use breaks for now
-      */}
+      */
+     }
       <br />
       <br />
       <br />
       <div>
-          <UserStats children={<StatsRow stats={stats}/>}/>
+          <UserStats children={<StatsRow stats={stats} history={history} />}/>
       </div>
     </div>
   );
