@@ -27,9 +27,9 @@ export function StatsRow({stats}){
         <td>
           <Link to={`/stats/${stat._id}`}>{stat.lessonNumber}</Link>
         </td>
-        <td>{stat.isDone }</td>
+        <td>{stat.isDone && 'Yes' || 'No' }</td>
         <td>{ stat.started.toLocaleString() } </td>
-        <td>{ stat.completed.toLocaleString()} </td>
+        <td>{ stat.isDone && stat.completed.toLocaleString() || 'Not Yet'} </td>
       </tr>
     ))
     || null
