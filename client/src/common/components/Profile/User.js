@@ -18,11 +18,11 @@ function UserRow({ user, count = 0, i = 0 }) {
   )
 }
 
-export function StatsRow({stats, history}){
+export function StatsRow({stats, route}){
   let count = 1
 
   function viewDetails(e, id){
-    return history.push(`/stats/${id}`)
+    return route.push(`/stats/${id}`)
   }
   return(
     stats.length && stats.map(stat => (

@@ -32,7 +32,7 @@ function UserProfile({ user, stats, history }) {
       <br />
       <br />
       <div>
-          <UserStats children={<StatsRow stats={stats} history={history} />}/>
+          <UserStats children={<StatsRow stats={stats} route={history} />}/>
       </div>
     </div>
   );
@@ -46,7 +46,7 @@ export default withTracker(props => {
     Meteor.subscribe('userStats')
     return {
         user: Meteor.users.findOne({_id: props.match.params.id}),
-        // stats: USER_STATS.find({_id: props.match.params.id}).fetch(),
-        stats: USER_STATS.find({}).fetch(),
+        stats: USER_STATS.find({userId: props.match.params.id}).fetch(),
+        // stats: USER_STATS.find({}).fetch(),
     }
 })(RouterProfile)
