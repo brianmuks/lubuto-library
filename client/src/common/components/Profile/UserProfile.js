@@ -44,6 +44,7 @@ export default withTracker(props => {
     Meteor.subscribe('userStats')
     return {
         user: Meteor.users.findOne({_id: props.match.params.id}),
-        stats: USER_STATS.find({_id: props.match.params.id}).fetch(),
+        // stats: USER_STATS.find({_id: props.match.params.id}).fetch(),
+        stats: USER_STATS.find({}).fetch(),
     }
 })(RouterProfile)

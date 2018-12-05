@@ -19,17 +19,19 @@ function UserRow({ user, count = 0, i = 0 }) {
 }
 
 export function StatsRow({stats}){
+  let count = 1
   return(
-    stats.length && (
-      <tr>
+    stats.length && stats.map((stat, i) => (
+      <tr key={stat._id}>
+        <td>{count++}</td>
         <td>
-          <Link to={`/stats/${stats._id}`}>{stats.number}</Link>
+          <Link to={`/stats/${stat._id}`}>{stat.lessonNumber}</Link>
         </td>
-        <td>{stats.completed }</td>
-        <td>{stats.started } </td>
-        <td>{stats.completed} </td>
+        <td>{stat.isDone }</td>
+        <td>{ stat.started.toLocaleString() } </td>
+        <td>{ stat.completed.toLocaleString()} </td>
       </tr>
-    )
+    ))
     || null
   )
 }
