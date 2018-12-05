@@ -5,4 +5,6 @@ import './Tools/methods'
 import './Tools/publications'
 import './Accounts/methods'
 import './Accounts/publications'
+import './Stats/methods'
+import './Stats/publications'
 
