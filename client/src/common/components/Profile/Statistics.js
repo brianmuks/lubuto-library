@@ -3,26 +3,31 @@ import { Meteor } from "meteor/meteor"
 import { withTracker } from "meteor/react-meteor-data"
 import User from "./User"
 import ReactModal from 'react-modal'
-import { useFormInput } from '../Accounts/accountsUtils'
+import { useFormInput, useError } from '../Accounts/accountsUtils'
 
 const getAllUsers = users => users.length && <User users={users} />;
 let index = 0
 
 function Statistics({ users }) {
   const [isOpen, setModal ] = useState(false)
+  const [userId, setUserId] = useState('')
   const name = useFormInput('')
   const age = useFormInput('')
-
+  const {error, setError } = useError('')
 
   function checkModal(){
     setModal(!isOpen)
   }
+
   function saveChanges(){
-    console.log(name.value, age.value)
+    Meteor.call('updateUser', userId, name.value, age.value, err => {
+      err ? setError(err.reason) : setModal(!isOpen)
+    })
   }
-  function editUser(e, user){
-    console.log(user)
+
+  function editUser(e, id){
     setModal(true)
+    setUserId(id)
   }
   return (
     <>
@@ -70,6 +75,9 @@ function Statistics({ users }) {
               </div>
           <button className='btn ' onClick={saveChanges}>Save Changes</button>
           <button className='btn right' onClick={checkModal}>Close Modal</button>
+          <div className='row'>
+              <p className='red-text'>{error}</p>
+          </div>
         </ReactModal>
     <div className="container">
       <h4>Users </h4>
@@ -86,7 +94,7 @@ function Statistics({ users }) {
         </thead>
         <tbody>
           {users.map(user => (
-            <User key={user._id} user={user} count={users.length} i={index++} editUser={e => editUser(e, user)} />
+            <User key={user._id} user={user} count={users.length} i={index++} editUser={e => editUser(e, user._id)} />
           ))}
         </tbody>
       </table>
