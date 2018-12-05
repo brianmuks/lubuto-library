@@ -32,6 +32,7 @@ function Statistics({ users }) {
 
 export default withTracker(() => {
   Meteor.subscribe("users");
+  Meteor.subscribe("userStats");
   return {
     users: Meteor.users.find({}).fetch()
   };
