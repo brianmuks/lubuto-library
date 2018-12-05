@@ -7,7 +7,6 @@ import { USER_STATS } from '../../../../../lib/Collections'
 import UserStats from './UserStats'
 
 function UserProfile({ user, stats, history }) {
-  console.log(history)
   return (
     <div className="container">
       <h4>{user && user.profile.name } </h4>
@@ -47,6 +46,5 @@ export default withTracker(props => {
     return {
         user: Meteor.users.findOne({_id: props.match.params.id}),
         stats: USER_STATS.find({userId: props.match.params.id}).fetch(),
-        // stats: USER_STATS.find({}).fetch(),
     }
 })(RouterProfile)

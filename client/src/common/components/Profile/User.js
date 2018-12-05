@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-function UserRow({ user, count = 0, i = 0 }) {
+function UserRow({ user, editUser, count = 0, i = 0 }) {
   return (
     user && (
       <tr>
@@ -12,6 +12,7 @@ function UserRow({ user, count = 0, i = 0 }) {
         <td>{user.profile.age }</td>
         <td>{user.profile.gender } </td>
         <td>{user.profile.center} </td>
+        <td onClick={editUser}>Edit</td>
       </tr>
     )
     || null
