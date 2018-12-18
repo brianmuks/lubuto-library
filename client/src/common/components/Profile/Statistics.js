@@ -3,7 +3,11 @@ import { Meteor } from "meteor/meteor"
 import { withTracker } from "meteor/react-meteor-data"
 import User from "./User"
 import ReactModal from 'react-modal'
+import { Redirect } from 'react-router-dom'
 import { useFormInput, useError } from '../Accounts/accountsUtils'
+import { useLogout } from '../Accounts/accountsUtils'
+import { NavBar } from '../Landing'
+
 
 const getAllUsers = users => users.length && <User users={users} />;
 let index = 0
@@ -14,7 +18,8 @@ function Statistics({ users }) {
   const name = useFormInput('')
   const age = useFormInput('')
   const {error, setError } = useError('')
-
+  const { isLoggedOut, logOutUser } = useLogout()
+ 
   function checkModal(){
     setModal(!isOpen)
   }
@@ -35,8 +40,13 @@ function Statistics({ users }) {
     setModal(true)
     setUserId(id)
   }
+
+  if(isLoggedOut){
+    return <Redirect to='/login'/>
+  }
   return (
     <>
+    <NavBar logOutUser={logOutUser} color={'light-blue'} /> 
          <ReactModal 
               isOpen={isOpen}
               contentLabel="Minimal Modal Example"

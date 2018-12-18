@@ -5,7 +5,8 @@ import { withTracker } from 'meteor/react-meteor-data'
 import User, { StatsRow } from "./User";
 import { USER_STATS } from '../../../../../lib/Collections'
 import UserStats from './UserStats'
-import { NavBar, useLogout } from '../Landing'
+import { useLogout } from '../Accounts/accountsUtils'
+import { NavBar } from '../Landing'
 
 function UserProfile({ user, stats, history }) {
   const { isLoggedOut, logOutUser } = useLogout()

@@ -48,6 +48,18 @@ export function useError(initialError){
 }
 
 /**
+ * 
+ */
+export function useLogout(){
+    const [isLoggedOut, setLogout] = useState(false)
+    const logOutUser = () => Meteor.logout(err => err ? M.toast({html: err.reason}) : setLogout(true))
+    return {
+      isLoggedOut,
+      logOutUser
+    }
+  }
+
+/**
  * @description checks if the user is logged in or not
  * @returns the role of the user is they are logged in and null if not logged in
  */

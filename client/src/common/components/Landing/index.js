@@ -1,6 +1,7 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Meteor } from 'meteor/meteor'
+import { useLogout } from '../Accounts/accountsUtils'
 import "./landing.css";
 
 
@@ -143,14 +144,7 @@ function Landing() {
 )
 }
 
-export function useLogout(){
-  const [isLoggedOut, setLogout] = useState(false)
-  const logOutUser = () => Meteor.logout(err => err ? M.toast({html: err.reason}) : setLogout(true))
-  return {
-    isLoggedOut,
-    logOutUser
-  }
-}
+
 
 export function NavBar({logOutUser, color}){
   return(
