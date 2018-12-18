@@ -49,8 +49,10 @@ const Routes = () => (
       <Route path="/add_icons" component={IconEditor} />
       <Route path='/login' component={Login} />
       <Route path='/register' component={() => <Register role={userRole}/>} />
+
       <Route path='/user/:id' component={UserProfile} />
       <Route path='/users' component={Statistics} />
+      
       <Route component={NotFound} />
     </Switch>
   </Router>

@@ -1,12 +1,12 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Meteor } from 'meteor/meteor'
+import { useLogout } from '../Accounts/accountsUtils'
 import "./landing.css";
 
 
 function Landing() {
-  const [isLoggedOut, setLogout] = useState(false)
-  const logOutUser = () => Meteor.logout(err => err ? M.toast({html: err.reason}) : setLogout(true))
+  const { isLoggedOut, logOutUser } = useLogout()
   
   if(isLoggedOut){
     return <Redirect to='/login'/>
@@ -144,13 +144,15 @@ function Landing() {
 )
 }
 
+
+
 export function NavBar({logOutUser, color}){
   return(
     <nav className={`${color} lighten-1 container-fluid`} role="navigation">
       <div className="nav-wrapper">
         <Link to="/">
           <span id="logo-container"  className="brand-logo">
-            {/* brevity */}
+            {/* removed for brevity */}
             Libra
           </span>
         </Link>
@@ -160,7 +162,7 @@ export function NavBar({logOutUser, color}){
               {Meteor.userId() ? 'Logout' : 'Login'}
           </span>
           </li>
-          <li >
+          <li>
             <Link to="/users">
               Dashboard
             </Link>
