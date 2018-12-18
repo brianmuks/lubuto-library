@@ -1,13 +1,20 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Meteor } from "meteor/meteor";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { withTracker } from 'meteor/react-meteor-data'
 import User, { StatsRow } from "./User";
 import { USER_STATS } from '../../../../../lib/Collections'
 import UserStats from './UserStats'
+import { NavBar, useLogout } from '../Landing'
 
 function UserProfile({ user, stats, history }) {
+  const { isLoggedOut, logOutUser } = useLogout()
+  if(isLoggedOut){
+    return <Redirect to='/login'/>
+  }
   return (
+  <Fragment>
+    <NavBar logOutUser={logOutUser} color={'light-blue'} /> 
     <div className="container">
       <h4>{user && user.profile.name } </h4>
       <table className="highlight">
@@ -34,6 +41,7 @@ function UserProfile({ user, stats, history }) {
           <UserStats children={<StatsRow stats={stats} route={history} />}/>
       </div>
     </div>
+    </Fragment>
   );
 }
 
