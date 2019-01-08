@@ -32,7 +32,7 @@ function ResourceEditor() {
   const {staggedTools,editTool} = state;
 
   const styles = [{name:'color',label:'Color'},{label:'Background Color',name:'background-color'}
-                  ,{name:'padding',label:'Padding'},{name:'fontSize',label:'Size'}
+                  ,{name:'padding',label:'Padding'},{name:'fontSize',label:'Size'},{name:'border-radius',label:'Border'}
                   ,{name:'width',label:'Container Width'},{name:'height',label:'Container Height'}
                  ]
 
