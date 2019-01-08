@@ -1,5 +1,5 @@
 <head>
-  <title>lubuto-library</title>  
+  <title>library</title>  
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">    
 </head>
@@ -10,7 +10,9 @@
     // Initialize all materialize instances from here(works)
    document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.sidenav')
+    var select = document.querySelectorAll('select')
      instances = M.Sidenav.init(elems, {}) // I think it is best to keep this global
+     _instances = M.FormSelect.init(select, {});
   })
   </script>
 </body>

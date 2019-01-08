@@ -8,6 +8,8 @@ function Register(props) {
     const name = useFormInput('')
     const password = useFormInput('')
     const confirmedPassword = useFormInput('')
+    const gender = useFormInput('')
+    const age = useFormInput('')
     const isValid = validatePassword(password.value, confirmedPassword.value)
     const {error, setError} = useError('')
     const [isAuth, setAuth] = useState(false)
@@ -15,12 +17,18 @@ function Register(props) {
     
     function handleRegister(e){
       e.preventDefault()
+      if (!gender.value.length) {
+        setError('You need to choose a gender')
+        return;
+      }
       if (!isValid) {
         setError('There was a problem with the password')
         return;
       }
       const profile = {
         name: name.value,
+        age: age.value,
+        gender: gender.value,
         createdAt: new Date(),
         role: pathname === '/dashboard/register' ? 'admin' : 'user'
         }
@@ -66,6 +74,27 @@ function Register(props) {
                   <label htmlFor="email">Email</label>
                 </div>
               </div>
+              <div className="row">
+                <div className="input-field col s10" style={{ marginLeft: 15 }}>
+                  <input
+                    id="number"
+                    type="number"
+                    className="validate"
+                    {...age}
+                    required
+                  />
+                  <label htmlFor="number">Age</label>
+                </div>
+              </div>
+              {/* <div className="input-field col s10">
+                <select {...gender}>
+                  <option value="" disabled defaultValue>Choose your gender</option>
+                  <option value="female">Female</option>
+                  <option value="male">Male</option>
+                  <option value="other">Other</option>
+                </select>
+                <label>Gender</label>
+              </div> */}
 
               <div className="row">
                 <div className="input-field col s10 " style={{ marginLeft: 15 }}>
