@@ -1,17 +1,40 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 //import { useDragging } from "./ResourceEditor";
-import { TOOLS_STATE } from "./../d-context";
+import { TOOLS_STATE } from "../d-context";
 import Draggable from "react-draggable";
-import { editStaggedTools } from "../d-redux/actions/lessonActions";
+import { editStaggedTools, addTool } from "../d-redux/actions/lessonActions";
+import { COL_Lessons } from "../../../../lib/Collections";
+import { withTracker } from "meteor/react-meteor-data";
 
-function MainEditor() {
-  const { state } = useContext(TOOLS_STATE);
-  const { staggedTools, color, bgColor, size, spacing } = state;
+function LessonPreview(props) {
+
+  const { state, dispatch} = useContext(TOOLS_STATE);
+  const [tools, setTools] = useState([]);
+
+
+    useEffect(()=>{
+
+      if (!props.lesson) {
+        return
+      }
+      let x =  (props.lesson);
+      var result = Object.keys(x).map(function (key) {
+        return x[key];
+      });
+      setTools(result)
+      console.log(result);
+      // dispatch(editStaggedTools(result));
+    },[props.lesson]);
+
+
+
+  // const { state } = useContext(TOOLS_STATE);
+  const { staggedTools, color, bgColor, size, spacing } = state || {};
   const { x, y, node, _id, name } = useDragging();
   return (
     <div className="col m7 offset-m3 grey lighten-3 editor">
       MAIN EDITOR <br />
-      <RenderTools tools={staggedTools} color={color} bgColor={bgColor}/>
+      <RenderTools tools={tools} color={color} bgColor={bgColor}/>
       <span>{color}</span> <br />
       <span>{size}</span>  <br />
       <span>{spacing}</span> <br />
@@ -19,6 +42,7 @@ function MainEditor() {
     </div>
   );
 }
+
 
 function handleDrag(e, pos, icon) {
   //  dispatch({ type: "DRAG", data: pos });
@@ -52,7 +76,7 @@ function RenderTools({ tools, color='' , bgColor=''}) {
       onStop={(e, data) => handleDrop(dispatch,e, data, tool,tools)}
     >
       <div className={` col m1 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
-        <i className="material-icons" style={tool.style}>{tool.name}</i>
+        <i className="material-icons" style={tool.style && { ...tool.style, left: tool.style.x, top: tool.style.y}}>{tool.name}</i>
       </div>
     </Draggable>
   ));
@@ -60,9 +84,17 @@ function RenderTools({ tools, color='' , bgColor=''}) {
 
 export function useDragging(){
   const {state, dispatch} = useContext(TOOLS_STATE);
-  const { data } = state;
+  const { data } = state || {};
   return { ...data, dispatch }
 }
 
 
-export default MainEditor;
+
+
+export default withTracker(() => {
+  Meteor.subscribe("lessons");
+  Meteor.subscribe("users");
+  return {
+    lesson: COL_Lessons.findOne()
+  };
+})(LessonPreview);

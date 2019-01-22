@@ -40,4 +40,17 @@ body {
   width: 30git 0px;
 }
 
+@keyframes stagged-tool-highlight {
+ 	0% {
+ 		background: #ffff99; /* lovely yellow colour */
+ 	}
+ 	100% {
+ 		background: none;
+ 	}
+}
+
+.stagged-tool-highlight {
+    animation: stagged-tool-highlight 2s;
+}
+
 

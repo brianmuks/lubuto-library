@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { TOOLS_STATE } from "./../d-context";
-import { editTool } from "./../d-redux/actions/lessonActions";
+import { editTool, editStaggedTools } from "./../d-redux/actions/lessonActions";
 
 function StagedTools() {
   const { state, dispatch } = useContext(TOOLS_STATE);
@@ -20,9 +20,23 @@ function StagedTools() {
 }
 
 function RenderStaggedTools({ tools, dispatch }) {
+
+
+  
+  
+  
+  const highlight = ({ editTool, _tools, ishighlight=false}) =>{
+    const elem = document.getElementById(`added-tool${editTool.index}`)
+    ishighlight && $(elem).addClass('stagged-tool-highlight')
+      || $(elem).removeClass('stagged-tool-highlight');
+  }
+
+
   return tools.map((tool, key) => (
     <li
       key={key}
+      onMouseOver={() => highlight({ editTool: tool, _tools: tools, ishighlight:true})}
+      onMouseOut={() => highlight({ editTool:tool, _tools:tools})}
       className="collection-item"
       onClick={() => {
         dispatch(editTool(tool));

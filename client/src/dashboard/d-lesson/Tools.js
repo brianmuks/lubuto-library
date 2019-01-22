@@ -6,13 +6,31 @@ import { withTracker } from "meteor/react-meteor-data";
 import { TOOLS_STATE } from "./../d-context";
 import { addTool } from "./../d-redux/actions/lessonActions";
 
+const saveLesson = states=>{
+
+  console.log(states);
+
+  const lesson = states.staggedTools;
+
+  Meteor.call('saveLesson',lesson,(err,ok)=>{
+    console.log(err,ok);
+    err && alert('Sorry error occured') || alert('Lesson saved!')
+  })
+}
+
+
+
+
 function Tools(props) {
+  const { state, dispatch } = useContext(TOOLS_STATE);
+
   return (
     <>
-      <ul id="slide-out" className="sidenav  sidenav-fixed">
-        <li>
-          <button className="btn right red">Save</button>
+      <Link to={'/dashboard/lesson_prev'} className="btn right red">Preview</Link>
 
+      <ul id="slide-out" className="sidenav  sidenav-fixed">
+        <li onClick={() => saveLesson(state)}>
+          <button className="btn right red">Save</button>
           <div className="user-view ">
             <a href="#email">
               <span className="white-text email">olivier@gmail.com</span>
@@ -43,7 +61,7 @@ function RenderTools(props) {
     <li
       key={index}
       onClick={() => {
-        dispatch(addTool(tool,index));
+        dispatch(addTool(tool, Math.random() + index));
       }}
     >
       <a href="#!">
