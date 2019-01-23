@@ -7,7 +7,7 @@ function StagedTools() {
   const tools = state.staggedTools;
 
   return (
-    <div className=" right col m2 staged-resource editor">
+    <div className="  staged-resource staged-editor">
       <ul className="collection with-header">
         <li className="collection-header ">
           <h6>STAGGED</h6>

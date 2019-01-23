@@ -4,14 +4,15 @@ import { TOOLS_STATE } from "./../d-context";
 import Draggable from "react-draggable";
 import { editStaggedTools } from "../d-redux/actions/lessonActions";
 
-function MainEditor() {
+function MainEditor(props) {
   const { state } = useContext(TOOLS_STATE);
   const { staggedTools, color, bgColor, size, spacing } = state;
   const { x, y, node, _id, name } = useDragging();
   return (
-    <div className="col m7 offset-m3 grey lighten-3 editor">
+    // col m7 offset - m3
+    <div className=" grey lighten-3 editor">
       MAIN EDITOR <br />
-      <RenderTools tools={staggedTools} color={color} bgColor={bgColor}/>
+      <RenderTools isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
       <span>{color}</span> <br />
       <span>{size}</span>  <br />
       <span>{spacing}</span> <br />
@@ -32,17 +33,21 @@ function handleDrop(dispatch,e, pos, tool, tools) {
   //
   //dispatch({ type: "DROP", tool:{pos,tool} });
 
-  tools = tools.filter(i => i.index !== tool.index);
+  // tools = tools.filter(i => i.index !== tool.index);
 
-  tools = [...tools, { ...tool, style: { ...tool.style, position: 'absolute',x:pos.x,y:pos.y}}]
+  tools =tools.map(i=>(
+    i.index == tool.index && { ...tool, style: { ...tool.style, position: 'absolute', x: pos.x, y: pos.y } } || i
+  ))
 
-  dispatch(editStaggedTools(tools))
+
+  // tools = [...tools, { ...tool, style: { ...tool.style, position: 'absolute',x:pos.x,y:pos.y}}]
+  dispatch(editStaggedTools(tools));
 
   console.log(tools);
 
 }
 
-function RenderTools({ tools, color='' , bgColor=''}) {
+function RenderTools({isPreview, tools, color='' , bgColor=''}) {
   const { state, dispatch } = useContext(TOOLS_STATE);
 
   return tools.map((tool, index) => (
@@ -52,7 +57,7 @@ function RenderTools({ tools, color='' , bgColor=''}) {
       onStop={(e, data) => handleDrop(dispatch,e, data, tool,tools)}
     >
       <div className={` col m1 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
-        <i className="material-icons" style={tool.style}>{tool.name}</i>
+        <i className="material-icons" style={tool.style && isPreview && { ...tool.style, marginLeft: tool.style.x, marginTop: tool.style.y } || tool.style}>{tool.name}</i>
       </div>
     </Draggable>
   ));

@@ -17,7 +17,7 @@ import Statistics from './common/components/Profile/Statistics'
 
 // Lessons
 import LessonView from './common/components/Lesson/LessonView'
-import LessonPreview from "./dashboard/d-lesson/LessonPreview";
+import LessonPreview from "./dashboard/d-lesson//LessonPreview";
 
 
 // Only here for prototyping

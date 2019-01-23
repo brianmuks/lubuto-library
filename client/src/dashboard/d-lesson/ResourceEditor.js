@@ -37,12 +37,12 @@ function ResourceEditor() {
                  ]
 
        const done = ()=>{
-        //remove edited tool as way of replacing it
         const toolIndex = editTool.index;
-         console.log(editTool, 'editTool', staggedTools,'staggedTools');
-        let tools = staggedTools.filter(i=> i.index !== toolIndex );
-        tools = [...tools,{...editTool,style:stateStyles,index:editTool.index}];
-        Object.keys(editTool).length && dispatch(editStaggedTools(tools))
+         let tools=  staggedTools.map(i => (
+           i.index == toolIndex && { ...i, style: {...i.style,...stateStyles} } || i
+         ))
+
+         Object.keys(editTool).length && dispatch(editStaggedTools(tools))
        }         
 
 
