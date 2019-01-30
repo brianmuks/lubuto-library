@@ -42,7 +42,7 @@ body {
   right:0%;
   top:40px;
   width: 500px;
-  background-color: red
+  /* background-color: red */
   /* margin-left: 0px; */
 }
 
@@ -58,7 +58,9 @@ body {
 
 @keyframes stagged-tool-highlight {
  	0% {
- 		background: #ffff99; /* lovely yellow colour */
+     background: #ee6306; /* lovely yellow colour */
+     /* transform: rotateY(10deg) */
+     padding: 1%;
  	}
  	100% {
  		background: none;

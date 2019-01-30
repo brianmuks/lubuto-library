@@ -6,6 +6,7 @@ import { withTracker } from "meteor/react-meteor-data";
 import { TOOLS_STATE } from "./../d-context";
 import { addTool } from "./../d-redux/actions/lessonActions";
 import { editLesson, saveLesson } from "./methods";
+import { ALPHABET } from "../../utilities/constants";
 
 
 function Tools(props) {
@@ -28,6 +29,12 @@ function Tools(props) {
         <li>
           <a href="#!">Tools</a>
         </li>
+
+        <li className='row'>
+          <Renderalphabet />
+        </li>
+
+
         <li>
           <div className="divider" />
         </li>
@@ -56,6 +63,31 @@ function RenderTools(props) {
         {tool.label}
       </a>
     </li>
+  ));
+}
+
+
+function Renderalphabet(props) {
+  const { state, dispatch } = useContext(TOOLS_STATE);
+
+  useEffect(() => {
+    // console.log(state.addedTools)
+  });
+
+  return ALPHABET.map((tool, index) => (
+   
+      <a 
+      className=' col m2'
+      key={index}
+      onClick={() => {
+        dispatch(addTool({
+          ...tool, _id: new Meteor.Collection.ObjectID().valueOf()
+        }, Math.random() + index));
+      }}
+      href="#!">
+        <i className="material-icons">{tool.name}</i>
+      </a>
+  
   ));
 }
 

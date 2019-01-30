@@ -7,6 +7,7 @@ import { COL_Lessons } from '../../lib/Collections'
 // Todo: Clean 
 Meteor.methods({
     saveLesson(lesson){
+        lesson['createdAt'] = new Date();
         COL_Lessons.insert(lesson, err => err ? console.log(err.reason) : 'success')
     },
     editLesson(lesson) {

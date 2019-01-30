@@ -15,3 +15,22 @@ export const editLesson = lesson => {
         err && alert('Sorry error occured') || alert('Lesson saved!')
     })
 }
+
+
+export const getSound = src => {
+
+    return new Promise((resolve, reject) => {
+        Meteor.call('Tool.getSound', src, (err, ok) => {
+
+            console.log(err, ok);
+            if (err) {
+                reject(err)
+            }else{
+                resolve(ok);
+            }
+
+        })
+    });
+
+
+}

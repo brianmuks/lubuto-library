@@ -1,22 +1,49 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 //import { useDragging } from "./ResourceEditor";
 import { TOOLS_STATE } from "./../d-context";
 import Draggable from "react-draggable";
 import { editStaggedTools } from "../d-redux/actions/lessonActions";
+import { AUDIO_URL } from "../../utilities/constants";
+const LANG = '1_Kiikaonde';  
+
+
 
 function MainEditor(props) {
+  const [audioFile, setAudioFile] = useState([])
+
   const { state } = useContext(TOOLS_STATE);
   const { staggedTools, color, bgColor, size, spacing } = state;
   const { x, y, node, _id, name } = useDragging();
+
+  function playAudio(audioFile){
+
+            if (!audioFile) {
+            return  
+            }
+
+         var audio = document.getElementById("audio");
+          const src =AUDIO_URL+LANG+'/'+audioFile;
+    audio.src = src;
+          audio.play()
+}
+console.log(
+
+);
   return (
     // col m7 offset - m3
     <div className=" grey lighten-3 editor">
+      <audio  src={'http://127.0.0.1:4000/1_Kiikaonde/ESAKANYA_BISOPLOKATA_NE_BICHE_BYA_MAFUMU.wav'}   id="audio" >
+        {/* <source   type="audio/wav" /> */}
+
+      </audio>
       MAIN EDITOR <br />
-      <RenderTools isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
+      <RenderTools playAudio={playAudio} isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
       <span>{color}</span> <br />
       <span>{size}</span>  <br />
       <span>{spacing}</span> <br />
       <span>{bgColor}</span>
+
+
     </div>
   );
 }
@@ -47,16 +74,17 @@ function handleDrop(dispatch,e, pos, tool, tools) {
 
 }
 
-function RenderTools({isPreview, tools, color='' , bgColor=''}) {
+function RenderTools({playAudio, isPreview, tools, color='' , bgColor=''}) {
   const { state, dispatch } = useContext(TOOLS_STATE);
 
   return tools.map((tool, index) => (
     <Draggable
+      
       key={index}
       onDrag={(e, data) => handleDrag(e, data, tool)}
       onStop={(e, data) => handleDrop(dispatch,e, data, tool,tools)}
     >
-      <div className={` col m1 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
+      <div onClick={()=>playAudio(tool.audioFile)} className={` col m1 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
         <i className="material-icons" style={tool.style && isPreview && { ...tool.style, marginLeft: tool.style.x, marginTop: tool.style.y } || tool.style}>{tool.name}</i>
       </div>
     </Draggable>

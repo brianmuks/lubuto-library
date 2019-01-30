@@ -69,6 +69,6 @@ export default withTracker(() => {
     Meteor.subscribe("lessons");
     Meteor.subscribe("users");
     return {
-        lesson: COL_Lessons.findOne()
+        lesson: COL_Lessons.findOne({}, { sort: { createdAt:-1}})
     };
 })(LessonPreview);
