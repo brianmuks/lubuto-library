@@ -1,27 +1,37 @@
 import React, { useContext, useState } from "react";
 //import { useDragging } from "./ResourceEditor";
-import { TOOLS_STATE } from "./../d-context";
+import { TOOLS_STATE } from "./../s-context";
 import Draggable from "react-draggable";
-import { editStaggedTools } from "../d-redux/actions/lessonActions";
+import { editStaggedTools } from "../s-redux/actions/lessonActions";
 import { AUDIO_URL } from "../../utilities/constants";
 const LANG = '1_Kiikaonde';  
 
 
 
-function MainEditor(props) {
+function MainScreen(props) {
   const [audioFile, setAudioFile] = useState([])
 
   const { state } = useContext(TOOLS_STATE);
   const { staggedTools, color, bgColor, size, spacing } = state;
   const { x, y, node, _id, name } = useDragging();
 
+  function playAudio(audioFile){
 
+            if (!audioFile) {
+            return  
+            }
+
+         var audio = document.getElementById("audio");
+          const src =AUDIO_URL+LANG+'/'+audioFile;
+    audio.src = src;
+          audio.play()
+}
 console.log(
 
 );
   return (
     // col m7 offset - m3
-    <div className=" grey lighten-3 editor">
+    <div className=" grey lighten-3 main-screen-4-lesson">
       <audio  src={'http://127.0.0.1:4000/1_Kiikaonde/ESAKANYA_BISOPLOKATA_NE_BICHE_BYA_MAFUMU.wav'}   id="audio" >
         {/* <source   type="audio/wav" /> */}
 
@@ -68,52 +78,17 @@ function RenderTools({playAudio, isPreview, tools, color='' , bgColor=''}) {
   const { state, dispatch } = useContext(TOOLS_STATE);
 
   return tools.map((tool, index) => (
-    <Draggable
+    <div
+      
       key={index}
       onDrag={(e, data) => handleDrag(e, data, tool)}
       onStop={(e, data) => handleDrop(dispatch,e, data, tool,tools)}
     >
-    <div>
-      {
-        tool.type == 'text' && <RenderText tool={tool} /> ||
-          <RenderIcon tool={tool} />
-      }
+      <div onClick={()=>playAudio(tool.audioFile)} className={` col m1 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
+        <i className="material-icons" style={tool.style && isPreview && { ...tool.style, marginLeft: tool.style.x, marginTop: tool.style.y } || tool.style}>{tool.name}</i>
       </div>
- 
-    </Draggable>
+    </div>
   ));
-}
-
-
-function RenderIcon({tool}){
-  return(
-    <div onClick={() => playAudio(tool.audioFile)} className={` col m1 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
-      <i className="material-icons" style={tool.style}>{tool.name}</i>
-    </div>
-  )
-}
-
-
-function RenderText({tool}){
-
-  return (
-    <div onClick={() => playAudio(tool.audioFile)} className={` col m12 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
-      <i className="l-tool-text" style={tool.style}>{tool.text}</i>
-    </div>
-  )
-
-}
-
-function playAudio(audioFile) {
-
-  if (!audioFile) {
-    return
-  }
-
-  var audio = document.getElementById("audio");
-  const src = AUDIO_URL + LANG + '/' + audioFile;
-  audio.src = src;
-  audio.play()
 }
 
 export function useDragging(){
@@ -123,4 +98,4 @@ export function useDragging(){
 }
 
 
-export default MainEditor;
+export default MainScreen;

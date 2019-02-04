@@ -27,7 +27,7 @@ function Landing() {
           </h5>
         </div>
         <div className="row center">
-           <Link to="/dashboard/create-lesson">
+            <Link to="/dashboard/create_lesson_type">
               <button  className="btn-large waves-effect waves-light blue" >
               Create Lessons
               </button>

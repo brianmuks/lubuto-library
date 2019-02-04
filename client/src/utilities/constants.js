@@ -34,4 +34,31 @@ export const ALPHABET = [{ name: 'A', label: "A" },
 { name: 'Z', label: "Z" }
 ]
 
+export const NUNMBERS = [
+{ name: 'B', label: " 1" },
+{ name: 'C', label: "2" },
+{ name: 'D', label: "3" },
+{ name: 'E', label: "4" },
+{ name: 'F', label: "5" },
+{ name: 'G', label: "6" },
+{ name: 'H', label: "7" },
+{ name: 'I', label: "8" },
+{ name: 'J', label: "9" },
+{ name: 'K', label: "10" },
+{ name: 'L', label: "11" },
+{ name: 'M', label: "12" },
+{ name: 'N', label: "13" },
+{ name: 'O', label: "14" },
+{ name: 'P', label: "15" },
+{ name: 'Q', label: "16" },
+{ name: 'R', label: "17" },
+{ name: 'T', label: "18" },
+{ name: 'U', label: "19" },
+{ name: 'V', label: "20" },
+{ name: 'W', label: "21" },
+{ name: 'X', label: "22" },
+{ name: 'Y', label: "23" },
+{ name: 'Z', label: "24" }
+]
+
 

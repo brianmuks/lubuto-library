@@ -38,6 +38,10 @@ function Tools(props) {
         <li>
           <div className="divider" />
         </li>
+        <RenderalSpecialTools />
+        <li>
+          <div className="divider" />
+        </li>
         <RenderTools tools={props.tools} />
       </ul>
     </>
@@ -55,7 +59,7 @@ function RenderTools(props) {
     <li
       key={index}
       onClick={() => {
-        dispatch(addTool(tool, Math.random() + index));
+        dispatch(addTool({ ...tool, type: 'icon'}, Math.random() + index));
       }}
     >
       <a href="#!">
@@ -81,7 +85,7 @@ function Renderalphabet(props) {
       key={index}
       onClick={() => {
         dispatch(addTool({
-          ...tool, _id: new Meteor.Collection.ObjectID().valueOf()
+          ...tool,type:'icon', _id: new Meteor.Collection.ObjectID().valueOf()
         }, Math.random() + index));
       }}
       href="#!">
@@ -90,6 +94,38 @@ function Renderalphabet(props) {
   
   ));
 }
+
+
+
+function RenderalSpecialTools() {
+  const { state, dispatch } = useContext(TOOLS_STATE);
+
+
+  
+  const specialTools = [
+    { name:'sort_by_alpha',label:'Text',type:'text',text:'Some text to be edited'},
+  ];
+
+  return specialTools.map((tool, index) => (
+
+    <li
+      key={index}
+      onClick={() => {
+        dispatch(addTool(tool, Math.random() + index));
+      }}
+    >
+      <a href="#!">
+        <i className="material-icons">{tool.name}</i>
+        {tool.label}
+      </a>
+    </li>
+
+  ));
+}
+
+
+
+
 
 export default withTracker(() => {
   Meteor.subscribe("col_tools");

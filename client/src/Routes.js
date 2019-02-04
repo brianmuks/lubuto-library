@@ -18,6 +18,8 @@ import Statistics from './common/components/Profile/Statistics'
 // Lessons
 import LessonView from './common/components/Lesson/LessonView'
 import LessonPreview from "./dashboard/d-lesson//LessonPreview";
+import StudentLesson from "./student/s-lesson";
+import CreateLessonSelector from "./dashboard/d-lesson/CreateLessonSelector";
 
 
 // Only here for prototyping
@@ -35,7 +37,7 @@ const Routes = () => (
       <Route
         // role={adminRole}
         exact
-        path="/dashboard/create-lesson"
+        path="/dashboard/create-lesson/:id"
         component={CreateLesson}
       />
       <Route
@@ -43,8 +45,21 @@ const Routes = () => (
           path="/dashboard/register"
           component={() => <Register role={adminRole}/>}
       />
+
+      <Route
+        exact
+        path="/dashboard/"
+        component={Landing}
+      />
+      <Route
+        exact
+        path="/dashboard/create_lesson_type"
+        component={CreateLessonSelector}
+      />
+
+
       <User exact role={"user"} path="/" component={Landing} />
-      <User exact role={"user"} path="/lesson" component={LessonView} />
+      <User exact role={"user"} path="/lesson" component={StudentLesson} />
       <User exact role={"user"} path="/lesson/page/:id" component={LessonView} />
       
       <Route path="/add_icons" component={IconEditor} />
@@ -54,7 +69,10 @@ const Routes = () => (
       <Route path='/user/:id' component={UserProfile} />
       <Route path='/users' component={Statistics} />
       <Route path='/dashboard/lesson_prev' component={LessonPreview} />
-      
+  
+
+
+
       <Route component={NotFound} />
     </Switch>
   </Router>

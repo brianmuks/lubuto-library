@@ -44,7 +44,10 @@ function RenderStaggedTools({ tools, dispatch }) {
     >
       <div>
         {tool.label}
-        <a href="#!" className="secondary-content">
+        <a href="#!" 
+          data-tooltip="I am a tooltip"
+          data-position="bottom"
+        className="secondary-content tooltipped">
           <i className="material-icons">{tool.name}</i>
           <i
             className="material-icons red-text right"

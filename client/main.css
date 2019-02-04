@@ -25,15 +25,31 @@ body {
   /* margin-left: 120px !important; */
   position: relative;
   max-width: 600px;
-  left:25%;
+  left:30%;
   width: 600px;
   top:40px;
+  margin-bottom: 10px;
 
   /* margin-top: 15px; */
 
 }
 
-.staged-editor{
+.main-screen-4-lesson{
+  max-height: 500px;
+  height: 500px;
+  /* margin-left: 120px !important; */
+  position: relative;
+  max-width: 600px;
+  left:33%;
+  width: 600px;
+  top:40px;
+  margin-bottom: 10px;
+
+  /* margin-top: 15px; */
+
+}
+
+.pages-container{
     max-height: 500px;
   height: 500px;
   /* margin-left: 120px !important; */
@@ -46,10 +62,37 @@ body {
   /* margin-left: 0px; */
 }
 
+
+  .staged-editor{
+    max-height: 500px;
+  height: 500px;
+  /* margin-left: 120px !important; */
+  position: absolute;
+  max-width: 300px;
+  right:0%;
+  top:40px;
+  width: 500px;
+  overflow: auto;
+  /* background-color: red */
+  /* margin-left: 0px; */
+}
+
+.score-board{
+  margin-top: 45px;
+  max-height: 600px;
+  height: 600px;
+  width: 600px;
+  left:53%;
+  position: absolute;
+  bottom: 130px;
+
+
+}
+
 .resource-editor{
   margin-top: 45px;
-  max-height: 200px;
-  height: 200px;
+  max-height: 500px;
+  height: 500px;
 }
 
 .img-logo{
