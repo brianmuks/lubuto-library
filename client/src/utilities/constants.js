@@ -3,8 +3,7 @@
 
 
 export const AUDIO_URL = 'http://127.0.0.1:4000/'
-
-
+export const IMAGE_EXTERNAL_URL = 'http://127.0.0.1:4000/images'
 
 
 export const ALPHABET = [{ name: 'A', label: "A" }, 

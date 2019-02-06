@@ -11,3 +11,11 @@ export const initModal =(selector)=>{
         $(selector).modal();
     });
 }
+
+export const initAutocomplete =(selector)=>{
+   return document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.autocomplete');
+        return instances = M.Autocomplete.init(elems, options);
+    });
+
+}
