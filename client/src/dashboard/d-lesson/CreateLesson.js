@@ -7,6 +7,7 @@ import StagedTools from "./StagedTools";
 import ResourceEditor from "./ResourceEditor";
 import { TOOLS_STATE } from "./../d-context";
 import { lessonReducer } from "./../d-redux/reducers/lessonReducer";
+import ImageList from "./ImageList";
 
 const initialState = {
   data:{  x: 0,
@@ -32,8 +33,10 @@ function CreateLesson() {
     <TOOLS_STATE.Provider value={{ state, dispatch }}>
       <section>
         <Tools />
+
         <div className="row">
           <MainEditor />
+          {/* <ImageList /> */}
           <StagedTools />
           <ResourceEditor />
         </div>

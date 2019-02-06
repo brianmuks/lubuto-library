@@ -7,14 +7,28 @@ import { TOOLS_STATE } from "./../d-context";
 import { addTool } from "./../d-redux/actions/lessonActions";
 import { editLesson, saveLesson } from "./methods";
 import { ALPHABET } from "../../utilities/constants";
+import ImageList, {  MODAL_ID as ImageList_MODAL_ID,  openImageList,  } from "./ImageList";
 
 
 function Tools(props) {
   const { state, dispatch } = useContext(TOOLS_STATE);
 
+
+  useEffect(() => {
+    // initModal('#' + MODAL_ID);
+    // _openImageList()
+  })
+
+
+  const _openImageList = ()=>{
+    openImageList()
+  }
+
   return (
     <>
       <Link to={'/dashboard/lesson_prev'} className="btn right red">Preview</Link>
+      <ImageList />
+      <button className="btn right red" onClick={_openImageList}>Click me</button>
 
       <ul id="slide-out" className="sidenav  sidenav-fixed">
         <li onClick={() => props.isPreview && editLesson(state.staggedTools) || saveLesson(state.staggedTools)}>
@@ -33,12 +47,10 @@ function Tools(props) {
         <li className='row'>
           <Renderalphabet />
         </li>
-
-
         <li>
           <div className="divider" />
         </li>
-        <RenderalSpecialTools />
+        <RenderalSpecialTools _openImageList={_openImageList}/>
         <li>
           <div className="divider" />
         </li>
@@ -70,7 +82,6 @@ function RenderTools(props) {
   ));
 }
 
-
 function Renderalphabet(props) {
   const { state, dispatch } = useContext(TOOLS_STATE);
 
@@ -79,7 +90,6 @@ function Renderalphabet(props) {
   });
 
   return ALPHABET.map((tool, index) => (
-   
       <a 
       className=' col m2'
       key={index}
@@ -96,35 +106,44 @@ function Renderalphabet(props) {
 }
 
 
-
 function RenderalSpecialTools() {
   const { state, dispatch } = useContext(TOOLS_STATE);
-
-
   
   const specialTools = [
     { name:'sort_by_alpha',label:'Text',type:'text',text:'Some text to be edited'},
+    { name:'add_a_photo',label:'Image',type:'image',link:'some link'},
   ];
 
   return specialTools.map((tool, index) => (
 
+    tool.type === 'image' && <RenderImageTool tool={tool} index={index} /> ||
     <li
       key={index}
-      onClick={() => {
+      onClick={()=>{
         dispatch(addTool(tool, Math.random() + index));
       }}
     >
-      <a href="#!">
+      <a href={`#`} >
         <i className="material-icons">{tool.name}</i>
         {tool.label}
       </a>
     </li>
 
   ));
+
+
+  function RenderImageTool({tool,index}){
+    return <li
+      key={index}
+    >
+      <a href={`#${ImageList_MODAL_ID}`} className='waves-effect waves-light  modal-trigger'>
+        <i className="material-icons">{tool.name}</i>
+        {tool.label}
+      </a>
+    </li>
+  }
+
 }
-
-
-
 
 
 export default withTracker(() => {

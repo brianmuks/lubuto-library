@@ -35,6 +35,27 @@ export const getSound = src => {
 
 }
 
+
+export const getImages = src => {
+
+    return new Promise((resolve, reject) => {
+        Meteor.call('Tool.getSound', src, (err, ok) => {
+
+            console.log(err, ok);
+            if (err) {
+                reject(err)
+            } else {
+                resolve(ok);
+            }
+
+        })
+    });
+
+
+}
+
+
+
 export const getResourceEditorStyles = ()=>(
     [
         { name: 'color', label: 'Color' },
