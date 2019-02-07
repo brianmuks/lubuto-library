@@ -105,9 +105,9 @@ function RenderImage({ tool }) {
 
   return (
     <div onClick={() => playAudio(tool.audioFile)} className={` col m12 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
-      <i className="l-tool-text" style={tool.style}>
-        <img className="col m3" src={`${IMAGE_EXTERNAL_URL}/${tool.path}`}   />
-      </i>
+      {/* <i className="l-tool-img" style={tool.style}> */}
+        <img className="col m3" style={tool.style} src={`${IMAGE_EXTERNAL_URL}/${tool.path}`}   />
+      {/* </i> */}
     </div>
   )
 }

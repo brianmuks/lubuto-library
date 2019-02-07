@@ -65,7 +65,7 @@ export const getResourceEditorStyles = ()=>(
         { name: 'border-radius', label: 'Border' }
         , { name: 'width', label: 'Container Width' }, 
         { name: 'height', label: 'Container Height' },
-        { name: 'z-index', label: 'Z-index' }, 
-        { name: 'text', label: 'Text' }
+        { name: 'width', label: 'Width' }, 
+        { name: 'height', label: 'Height' }
     ]
 )
