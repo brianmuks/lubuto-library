@@ -13,9 +13,10 @@ export const initModal =(selector)=>{
 }
 
 export const initAutocomplete =(selector)=>{
-   return document.addEventListener('DOMContentLoaded', function () {
+
+    document.addEventListener('DOMContentLoaded', function () {
         var elems = document.querySelectorAll('.autocomplete');
-        return instances = M.Autocomplete.init(elems, options);
+         instances = M.Autocomplete.init(elems, options);
     });
 
 }

@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { TOOLS_STATE } from "./../d-context";
 import Draggable from "react-draggable";
 import { editStaggedTools } from "../d-redux/actions/lessonActions";
-import { AUDIO_URL } from "../../utilities/constants";
+import { AUDIO_URL, IMAGE_EXTERNAL_URL } from "../../utilities/constants";
 const LANG = '1_Kiikaonde';  
 
 
@@ -74,12 +74,8 @@ function RenderTools({playAudio, isPreview, tools, color='' , bgColor=''}) {
       onStop={(e, data) => handleDrop(dispatch,e, data, tool,tools)}
     >
     <div>
-      {
-        tool.type == 'text' && <RenderText tool={tool} /> ||
-          <RenderIcon tool={tool} />
-      }
+        <RenderToolDelegator tool={tool}  />
       </div>
- 
     </Draggable>
   ));
 }
@@ -97,12 +93,39 @@ function RenderIcon({tool}){
 function RenderText({tool}){
 
   return (
-    <div onClick={() => playAudio(tool.audioFile)} className={` col m12 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
+    <div onClick={() => playAudio(tool.audioFile)} className={` col  m12 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
       <i className="l-tool-text" style={tool.style}>{tool.text}</i>
     </div>
   )
 
 }
+
+
+function RenderImage({ tool }) {
+
+  return (
+    <div onClick={() => playAudio(tool.audioFile)} className={` col m12 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
+      <i className="l-tool-text" style={tool.style}>
+        <img className="col m3" src={`${IMAGE_EXTERNAL_URL}/${tool.path}`}   />
+      </i>
+    </div>
+  )
+}
+
+
+
+function RenderToolDelegator({tool}){
+const COMPONENTS = {
+  icon:RenderIcon,
+  text:RenderText,
+  image:RenderImage
+}
+   const Tool =  COMPONENTS[tool.type];
+  return <Tool tool={tool} />
+}
+
+
+
 
 function playAudio(audioFile) {
 

@@ -4,9 +4,7 @@ import { getImages } from "./methods";
 import { IMAGE_EXTERNAL_URL } from "../../utilities/constants";
 export const MODAL_ID = 'image-list-tool-modal';    
 
-function ImageList(){
-
-  
+function ImageList({ onImageSelect}){
 
     const [imageFiles, setimageFiles] = useState([]);
     const [imageFilesFiltered, setimageFilesFiltered] = useState([]);
@@ -44,14 +42,13 @@ function ImageList(){
 
 
 
-
     return(
         <>
             <div id={MODAL_ID} className="modal bottom-sheet">
                 <RenderAutoComplete onFilter={onFilter}/>
                 <div className="modal-content">
                    <div className="row">
-                        <RenderImages imageFiles={imageFilesFiltered} />
+                        <RenderImages onImageSelect={onImageSelect} imageFiles={imageFilesFiltered} />
                    </div>
                 </div>
                 <div className="modal-footer">
@@ -88,20 +85,16 @@ function RenderAutoComplete({ onFilter}){
 
 
 
-function RenderImages({imageFiles}){
-    
-
- 
-
+function RenderImages({ imageFiles, onImageSelect}){
 
     return imageFiles.map((item,index)=>(
-        <div key={index} className="col s2">
+        <div onClick={() => onImageSelect(item,index)} key={index} className="col s2">
             <div className="card">
                 <div className="card-image ">
                     <img className='image-list-img' src={`${IMAGE_EXTERNAL_URL}/${item }`} />
                 </div>
                 <div className="card-action">
-                    <a className='teal-text' href="#">Select</a>
+                    <a  className='teal-text' href="#">Select</a>
                 </div>
             </div>
         </div>

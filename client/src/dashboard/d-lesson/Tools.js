@@ -19,15 +19,28 @@ function Tools(props) {
     // _openImageList()
   })
 
-
   const _openImageList = ()=>{
     openImageList()
   }
 
+    const onImageSelect =(path,index)=>{
+
+      let dotIndex = path.indexOf('.');
+      dotIndex = dotIndex > 10 && 10 || dotIndex;
+
+      // console.log(index,path);
+      
+      const label = path.toString().substr(0, dotIndex);
+      dispatch(addTool({
+        name:'add_a_photo', label, path, type: 'image', _id: new Meteor.Collection.ObjectID().valueOf()
+      }, Math.random() + index + Math.random()));//avaoid acceidentally generating the same index as icons tools
+    }
+
+
   return (
     <>
       <Link to={'/dashboard/lesson_prev'} className="btn right red">Preview</Link>
-      <ImageList />
+      <ImageList onImageSelect={onImageSelect} />
       <button className="btn right red" onClick={_openImageList}>Click me</button>
 
       <ul id="slide-out" className="sidenav  sidenav-fixed">
@@ -142,7 +155,6 @@ function RenderalSpecialTools() {
       </a>
     </li>
   }
-
 }
 
 
