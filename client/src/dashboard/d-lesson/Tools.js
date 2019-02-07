@@ -129,7 +129,7 @@ function RenderalSpecialTools() {
 
   return specialTools.map((tool, index) => (
 
-    tool.type === 'image' && <RenderImageTool tool={tool} index={index} /> ||
+    tool.type === 'image' && <RenderImageTool tool={tool} key={index} index={index} /> ||
     <li
       key={index}
       onClick={()=>{

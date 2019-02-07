@@ -12,6 +12,13 @@ export const initModal =(selector)=>{
     });
 }
 
+
+export const initSelectFields =(selector)=>{
+    $(document).ready(function () {
+        $('select').formSelect();
+    });
+}
+
 export const initAutocomplete =(selector)=>{
 
     document.addEventListener('DOMContentLoaded', function () {

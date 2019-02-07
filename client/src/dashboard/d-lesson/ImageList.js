@@ -78,7 +78,7 @@ function RenderAutoComplete({ onFilter}){
                     <div className="input-field col s12">
                         <i className="material-icons prefix">search</i>
                         <input onChange={onFilter} type="text" id="image-list-autocomplete-input" className="autocomplete" />
-                            <label for="autocomplete-input">SEARCH</label>
+                            <label htmlFor="autocomplete-input">SEARCH</label>
         </div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
-import { initModal } from "../../utilities/Form";
-import { TOOLS_STATE } from './../d-context';
-
+import { initModal } from "../../../utilities/Form";
+import { TOOLS_STATE } from '../../d-context';
+import SetRightAnsView from "./SetRightAns";
 
 
 
@@ -24,10 +24,14 @@ function ToolConfig(){
         <div id={TOOL_CONFIG_MODAL_ID} className="modal bottom-sheet">
             <div className="modal-content">
                 <h4>Lesson Settings</h4>
-                <p>A bunch of text</p>
+
+
+                <SetRightAnsView dispatch={dispatch} staggedTools={state.staggedTools} />
+
+
             </div>
             <div className="modal-footer">
-                <a href="#!" className="modal-close waves-effect waves-green btn-flat">Agree</a>
+                <a href="#!" className="modal-close waves-effect waves-green btn-flat">Done</a>
             </div>
         </div>
     )

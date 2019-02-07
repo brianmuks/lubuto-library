@@ -38,6 +38,7 @@ function ResourceEditor() {
   }, [editTool.text])
 
   const styles = getResourceEditorStyles();
+
        const done = ()=>{
         const toolIndex = editTool.index;
          let tools=  staggedTools.map(i => (
@@ -116,11 +117,9 @@ function RenderSoundPicker({ onSoundSet, _dispatch}){
 
   return (
     <div>
-
-
       <div className="input-field col s6">
-        <select onChange={val => fetchAudio(val.target.value)}>
-          <option value="" disabled selected>source</option>
+        <select defaultValue={''} onChange={val => fetchAudio(val.target.value)}>
+          <option value="" disabled >source</option>
           <option value="1">Lesson 1</option>
           <option value="2">Lesson 2</option>
           <option value="3">Lesson 3</option>
@@ -128,8 +127,8 @@ function RenderSoundPicker({ onSoundSet, _dispatch}){
         <label>Sound Source</label>
       </div>
       <div className="input-field col s6">
-        <select onChange={val => onSoundSet(val.target.value)} className="browser-default" >
-          <option value={null}  selected>Sound</option>
+        <select defaultValue={''} onChange={val => onSoundSet(val.target.value)} className="browser-default" >
+          <option value={''}  >Sound</option>
           <RenderAudioOptions audioFiles={audioFiles} />
         </select>
       </div>

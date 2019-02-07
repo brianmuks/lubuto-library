@@ -8,10 +8,11 @@ import ResourceEditor from "./ResourceEditor";
 import { TOOLS_STATE } from "./../d-context";
 import { lessonReducer } from "./../d-redux/reducers/lessonReducer";
 import ImageList from "./ImageList";
-import ToolConfig, { TOOL_CONFIG_MODAL_ID} from "./ToolConfig";
+import ToolConfig, { TOOL_CONFIG_MODAL_ID} from "./config/ToolConfig";
 
 const initialState = {
   data:{  x: 0,
+    //TODO: REMOVE
     y: 0,
     node: {},
     icons: [],
@@ -37,7 +38,6 @@ function CreateLesson() {
         <RenderConfigBtnTrigger  />
         <div className="row">
           <ToolConfig />
-        
           <MainEditor />
           {/* <ImageList /> */}
           <StagedTools />
