@@ -127,3 +127,21 @@ body {
   width: 100%;
   top: 280px;
 }
+
+.tool-config{
+     /* position: absolute; */
+    display: flex;
+    flex-direction: row;
+    /* width: 100%; */
+    /* align-items: center; */
+    background-color: rebeccapurple;
+}
+
+.tool-config > a{
+    align-self: center;
+    /* position: absolute; */
+    left: 500px;
+    flex: 1;
+    margin: auto;
+    width: 100px;
+}

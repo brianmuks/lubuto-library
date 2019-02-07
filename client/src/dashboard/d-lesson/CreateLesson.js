@@ -8,6 +8,7 @@ import ResourceEditor from "./ResourceEditor";
 import { TOOLS_STATE } from "./../d-context";
 import { lessonReducer } from "./../d-redux/reducers/lessonReducer";
 import ImageList from "./ImageList";
+import ToolConfig, { TOOL_CONFIG_MODAL_ID} from "./ToolConfig";
 
 const initialState = {
   data:{  x: 0,
@@ -19,22 +20,24 @@ const initialState = {
   tools:[],
   addedTools:[],
   staggedTools:[],
-  editTool:{}
+  editTool:{},
+  imageFiles:[],
+  audioFiles:[],
 }
 
 // todo: Push the icon name to the icon array, as items that have been moved
 
 function CreateLesson() {
   const [state, dispatch] = useReducer(lessonReducer, initialState);
-
- 
-
   return (
     <TOOLS_STATE.Provider value={{ state, dispatch }}>
       <section>
-        <Tools />
 
+        <Tools />
+        <RenderConfigBtnTrigger  />
         <div className="row">
+          <ToolConfig />
+        
           <MainEditor />
           {/* <ImageList /> */}
           <StagedTools />
@@ -45,6 +48,13 @@ function CreateLesson() {
   );
 }
 
+function RenderConfigBtnTrigger(){
+  return(
+    <div className="tool-config">
+      <a href={`#${TOOL_CONFIG_MODAL_ID}`} className='waves-effect  waves-light  white-text  modal-trigger'>Seetings</a>
+    </div>
+  )
 
+}
 
 export default CreateLesson;

@@ -15,10 +15,6 @@ function MainEditor(props) {
   const { staggedTools, color, bgColor, size, spacing } = state;
   const { x, y, node, _id, name } = useDragging();
 
-
-console.log(
-
-);
   return (
     // col m7 offset - m3
     <div className=" grey lighten-3 editor">
@@ -32,8 +28,6 @@ console.log(
       <span>{size}</span>  <br />
       <span>{spacing}</span> <br />
       <span>{bgColor}</span>
-
-
     </div>
   );
 }
@@ -100,9 +94,7 @@ function RenderText({tool}){
 
 }
 
-
 function RenderImage({ tool }) {
-
   return (
     <div onClick={() => playAudio(tool.audioFile)} className={` col m12 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
       {/* <i className="l-tool-img" style={tool.style}> */}
@@ -111,7 +103,6 @@ function RenderImage({ tool }) {
     </div>
   )
 }
-
 
 
 function RenderToolDelegator({tool}){

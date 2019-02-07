@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { initModal, initAutocomplete } from "../../utilities/Form";
 import { getImages } from "./methods";
+import { TOOLS_STATE } from './../d-context';
 import { IMAGE_EXTERNAL_URL } from "../../utilities/constants";
+import { addImageFiles } from "../d-redux/actions/lessonActions";
 export const MODAL_ID = 'image-list-tool-modal';    
 
 function ImageList({ onImageSelect}){
 
+    const { state, dispatch } = useContext(TOOLS_STATE);
+    //TODO: use imageFiles from context
     const [imageFiles, setimageFiles] = useState([]);
+
     const [imageFilesFiltered, setimageFilesFiltered] = useState([]);
     const x = 1;
 
@@ -16,6 +21,7 @@ function ImageList({ onImageSelect}){
             .then(res => {
                 setimageFiles(res);
                 setimageFilesFiltered(res);
+                dispatch(addImageFiles(res))
             })
             .catch(err => {
                 console.log('getImages():Error', err);
@@ -81,8 +87,6 @@ function RenderAutoComplete({ onFilter}){
     )
 
 }
-
-
 
 
 function RenderImages({ imageFiles, onImageSelect}){

@@ -1,7 +1,7 @@
 import React, { useContext,useState,useReducer,useEffect } from "react";
 import Draggable from "react-draggable";
 import {TOOLS_STATE} from './../d-context';
-import { addTool,editStaggedTools } from "./../d-redux/actions/lessonActions";
+import { addTool,editStaggedTools, addAudioFiles } from "./../d-redux/actions/lessonActions";
 import { getSound, getResourceEditorStyles } from "./methods";
 
 const initialState = {
@@ -50,7 +50,7 @@ function ResourceEditor() {
   return (
     <div className="col m7 offset-m3 grey lighten-3 resource-editor">
     <h6>Design</h6>
-      <RenderSoundPicker onSoundSet={audioFile => setAudioFile(audioFile)} />
+      <RenderSoundPicker _dispatch={_dispatch} onSoundSet={audioFile => setAudioFile(audioFile)} />
       <div className="row">
         {styles.map((style,key)=>(
              <RenderStyleTool  _dispatch={_dispatch} label={style.label} name={style.name}  key={key} index={key} />
@@ -97,7 +97,7 @@ function useOnEdit(name,_dispatch){
               }
 }
 
-function RenderSoundPicker({onSoundSet}){
+function RenderSoundPicker({ onSoundSet, _dispatch}){
 
   const [audioFiles, setAudioFiles] = useState([])
 
@@ -105,6 +105,7 @@ function RenderSoundPicker({onSoundSet}){
     console.log(src);
     getSound('1_Kiikaonde')
     .then(files=>{
+      _dispatch(addAudioFiles(files));
       setAudioFiles(files)
     })
     .catch(err=>{
@@ -126,12 +127,9 @@ function RenderSoundPicker({onSoundSet}){
         </select>
         <label>Sound Source</label>
       </div>
-
       <div className="input-field col s6">
-
         <select onChange={val => onSoundSet(val.target.value)} className="browser-default" >
           <option value={null}  selected>Sound</option>
-
           <RenderAudioOptions audioFiles={audioFiles} />
         </select>
       </div>

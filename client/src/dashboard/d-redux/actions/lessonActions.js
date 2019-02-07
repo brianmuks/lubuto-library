@@ -1,4 +1,4 @@
-import { DROP, UPDATE_TOOL, ADD_TOOL,EDIT_TOOL,EDIT_STAGGED_TOOL } from "./../constants";
+import { DROP, UPDATE_TOOL, ADD_TOOL,EDIT_TOOL,EDIT_STAGGED_TOOL, ADD_AUDIO_FILES, ADD_IMAGE_FILES } from "./../constants";
 
 /**
  *
@@ -15,6 +15,14 @@ export function editTool(tool) {
 
 export function editStaggedTools(tools) {
   return { type: EDIT_STAGGED_TOOL,tools  };
+}
+
+export function addAudioFiles(audiosFiles) {
+  return { type: ADD_AUDIO_FILES, audiosFiles };
+}
+
+export function addImageFiles(imagesFiles) {
+  return { type: ADD_IMAGE_FILES, imagesFiles };
 }
 
 export function updateTool(color, bgColor, size='', spacing=''){

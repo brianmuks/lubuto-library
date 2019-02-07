@@ -24,6 +24,8 @@ export const USER = 'USER';
  * LESSON REDUX CONSTANST START
  */
 export const ADD_TOOL = 'ADD_TOOL';
+export const ADD_AUDIO_FILES = 'ADD_AUDIO_FILES';
+export const ADD_IMAGE_FILES = 'ADD_IMAGE_FILES';
 export const DROP = 'DROP';
 export const DRAG = 'DRAG';
 export const EDIT_TOOL = 'EDIT_TOOL';

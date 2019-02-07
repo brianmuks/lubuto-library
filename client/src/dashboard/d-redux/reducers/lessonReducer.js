@@ -1,4 +1,4 @@
-import { DROP, DRAG, ADD_TOOL, EDIT_TOOL, UPDATE_TOOL,EDIT_STAGGED_TOOL } from "./../constants";
+import { DROP, DRAG, ADD_TOOL, EDIT_TOOL, UPDATE_TOOL,EDIT_STAGGED_TOOL, ADD_AUDIO_FILES, ADD_IMAGE_FILES } from "./../constants";
 
 /**
  *
@@ -62,6 +62,21 @@ export function lessonReducer(state, action) {
           bgColor,
           size,
           spacing
+        }
+      );
+
+    case ADD_AUDIO_FILES:
+      return Object.assign(
+        { ...state },
+        {
+          audioFiles: action.audioFiles
+        }
+      );
+    case ADD_IMAGE_FILES:
+      return Object.assign(
+        { ...state },
+        {
+          imageFiles: action.imageFiles
         }
       );
     default:

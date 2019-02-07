@@ -51,10 +51,7 @@ export const getImages = src => {
         })
     });
 
-
 }
-
-
 
 export const getResourceEditorStyles = ()=>(
     [
