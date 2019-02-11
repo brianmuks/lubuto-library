@@ -142,8 +142,6 @@ function RenderAudioOptions({ audioFiles}){
     <option value={item} key={index}>{item.replace('.wav','')}</option>
   ))
 
-
-
 }
 
 export default ResourceEditor;

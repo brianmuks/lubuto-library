@@ -3,9 +3,8 @@ import React, { useContext, useState } from "react";
 import { TOOLS_STATE } from "./../s-context";
 import Draggable from "react-draggable";
 import { editStaggedTools } from "../s-redux/actions/lessonActions";
-import { AUDIO_URL } from "../../utilities/constants";
+import { AUDIO_URL, IMAGE_EXTERNAL_URL } from "../../utilities/constants";
 const LANG = '1_Kiikaonde';  
-
 
 
 function MainScreen(props) {
@@ -84,8 +83,8 @@ function RenderTools({playAudio, isPreview, tools, color='' , bgColor=''}) {
       onDrag={(e, data) => handleDrag(e, data, tool)}
       onStop={(e, data) => handleDrop(dispatch,e, data, tool,tools)}
     >
-      <div onClick={()=>playAudio(tool.audioFile)} className={` col m1 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
-        <i className="material-icons" style={tool.style && isPreview && { ...tool.style, marginLeft: tool.style.x, marginTop: tool.style.y } || tool.style}>{tool.name}</i>
+      <div >
+        <RenderToolDelegator tool={tool} />
       </div>
     </div>
   ));
@@ -97,5 +96,48 @@ export function useDragging(){
   return { ...data, dispatch }
 }
 
+function RenderIcon({ tool }) {
+  return (
+    <div onClick={() => playAudio(tool.audioFile)} className={` col m1 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
+      {/* <i className="material-icons" style={tool.style}>{tool.name}</i> */}
+      <i className="material-icons" style={tool.style &&  { ...tool.style, marginLeft: tool.style.x, marginTop: tool.style.y } || tool.style}>{tool.name}</i>
+    </div>
+  )
+}
+
+
+function RenderText({ tool }) {
+
+  return (
+    <div onClick={() => playAudio(tool.audioFile)} className={` col  m12 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
+      {/* <i className="l-tool-text" style={tool.style}>{tool.text}</i> */}
+      <i className="material-icons" style={tool.style && { ...tool.style, marginLeft: tool.style.x, marginTop: tool.style.y } || tool.style}>{tool.text}</i>
+    </div>
+  )
+
+}
+//
+
+function RenderImage({ tool }) {
+  return (
+    //...tool.style
+    <div onClick={() => playAudio(tool.audioFile)} className={` col m12 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
+      {/* <img className="l-img-tool material-icons" style={tool.style} src={`${IMAGE_EXTERNAL_URL}/${tool.path}`}   /> */}
+      <span className="material-icons l-img-tool" style={tool.style && { ...tool.style, marginLeft: tool.style.x, marginTop: tool.style.y, backgroundImage: `url(${IMAGE_EXTERNAL_URL}/${tool.path})` }}>
+      book</span>
+      
+    </div>
+  )
+}
+
+function RenderToolDelegator({ tool }) {
+  const COMPONENTS = {
+    icon: RenderIcon,
+    text: RenderText,
+    image: RenderImage
+  }
+  const Tool = COMPONENTS[tool.type];
+  return Tool && <Tool tool={tool} /> || null
+}
 
 export default MainScreen;

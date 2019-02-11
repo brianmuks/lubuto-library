@@ -36,12 +36,11 @@ function Tools(props) {
       }, Math.random() + index + Math.random()));//avaoid acceidentally generating the same index as icons tools
     }
 
-
   return (
     <>
-      <Link to={'/dashboard/lesson_prev'} className="btn right red">Preview</Link>
+      <Link to={'/lesson'} className="btn right red">Preview</Link>
       <ImageList onImageSelect={onImageSelect} />
-      <button className="btn right red" onClick={_openImageList}>Click me</button>
+      {/* <button className="btn right red" onClick={_openImageList}>Click me</button> */}
 
       <ul id="slide-out" className="sidenav  sidenav-fixed">
         <li onClick={() => props.isPreview && editLesson(state.staggedTools) || saveLesson(state.staggedTools)}>

@@ -67,7 +67,7 @@ function RenderTools({playAudio, isPreview, tools, color='' , bgColor=''}) {
       onDrag={(e, data) => handleDrag(e, data, tool)}
       onStop={(e, data) => handleDrop(dispatch,e, data, tool,tools)}
     >
-    <div>
+    <div >
         <RenderToolDelegator tool={tool}  />
       </div>
     </Draggable>
@@ -96,14 +96,14 @@ function RenderText({tool}){
 
 function RenderImage({ tool }) {
   return (
+    //...tool.style
     <div onClick={() => playAudio(tool.audioFile)} className={` col m12 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
-      {/* <i className="l-tool-img" style={tool.style}> */}
-        <img className="col m3" style={tool.style} src={`${IMAGE_EXTERNAL_URL}/${tool.path}`}   />
-      {/* </i> */}
+        {/* <img className="l-img-tool material-icons" style={tool.style} src={`${IMAGE_EXTERNAL_URL}/${tool.path}`}   /> */}
+      <div className="material-icons l-img-tool" style={ {width:'100px',height:'100px', backgroundImage: `url(${IMAGE_EXTERNAL_URL}/${tool.path})` }}>
+      </div>
     </div>
   )
 }
-
 
 function RenderToolDelegator({tool}){
 const COMPONENTS = {
@@ -111,11 +111,11 @@ const COMPONENTS = {
   text:RenderText,
   image:RenderImage
 }
+
+
    const Tool =  COMPONENTS[tool.type];
   return <Tool tool={tool} />
 }
-
-
 
 
 function playAudio(audioFile) {
@@ -135,6 +135,5 @@ export function useDragging(){
   const { data } = state;
   return { ...data, dispatch }
 }
-
 
 export default MainEditor;

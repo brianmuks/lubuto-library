@@ -145,3 +145,14 @@ body {
     margin: auto;
     width: 100px;
 }
+
+.l-img-tool{
+    /* max-height: 100px; */
+    /* height: 100px; */
+    /* width: 100px; */
+    background-size: contain !important;
+    /* display: block; */
+    /* float: none ; */
+
+}
+
