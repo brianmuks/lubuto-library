@@ -6,8 +6,6 @@ import { editStaggedTools } from "../d-redux/actions/lessonActions";
 import { AUDIO_URL, IMAGE_EXTERNAL_URL } from "../../utilities/constants";
 const LANG = '1_Kiikaonde';  
 
-
-
 function MainEditor(props) {
   const [audioFile, setAudioFile] = useState([])
 
@@ -46,6 +44,8 @@ function handleDrop(dispatch,e, pos, tool, tools) {
 
   // tools = tools.filter(i => i.index !== tool.index);
 
+  console.log(pos.x, pos.y, 'Image position');
+
   tools =tools.map(i=>(
     i.index == tool.index && { ...tool, style: { ...tool.style, position: 'absolute', x: pos.x, y: pos.y } } || i
   ))
@@ -83,7 +83,6 @@ function RenderIcon({tool}){
   )
 }
 
-
 function RenderText({tool}){
 
   return (
@@ -97,10 +96,14 @@ function RenderText({tool}){
 function RenderImage({ tool }) {
   return (
     //...tool.style
-    <div onClick={() => playAudio(tool.audioFile)} className={` col m12 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
+    <div onClick={() => playAudio(tool.audioFile)} className={`  added-tool${tool.index} `} id={`added-tool${tool.index}`}>
         {/* <img className="l-img-tool material-icons" style={tool.style} src={`${IMAGE_EXTERNAL_URL}/${tool.path}`}   /> */}
-      <div className="material-icons l-img-tool" style={ {width:'100px',height:'100px', backgroundImage: `url(${IMAGE_EXTERNAL_URL}/${tool.path})` }}>
-      </div>
+      {/* <div className="material-icons l-img-tool" style={ {width:'100px',height:'100px', backgroundImage: `url(${IMAGE_EXTERNAL_URL}/${tool.path})` }}>
+      </div> */}
+
+      <i className="material-icons" style={{width:'100px',height:'100px',position:'fixed',...tool.style}}>
+      <img className=""  src={`${IMAGE_EXTERNAL_URL}/${tool.path}`} style={{width:'inherit',height:'inherit'}} />
+      </i>
     </div>
   )
 }

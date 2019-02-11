@@ -14,6 +14,7 @@ import Login from './common/components/Accounts/Login'
 import Register from './common/components/Accounts/Register'
 import UserProfile from './common/components/Profile/UserProfile'
 import Statistics from './common/components/Profile/Statistics'
+import LessonStats from './common/components/Profile/LessonStats'
 
 // Lessons
 import LessonView from './common/components/Lesson/LessonView'
@@ -68,6 +69,7 @@ const Routes = () => (
 
       <Route path='/user/:id' component={UserProfile} />
       <Route path='/users' component={Statistics} />
+      <Route path='/stats' component={LessonStats} />
       <Route path='/dashboard/lesson_prev' component={LessonPreview} />
   
 

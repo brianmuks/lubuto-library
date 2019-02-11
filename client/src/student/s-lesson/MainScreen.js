@@ -100,7 +100,7 @@ function RenderIcon({ tool }) {
   return (
     <div onClick={() => playAudio(tool.audioFile)} className={` col m1 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
       {/* <i className="material-icons" style={tool.style}>{tool.name}</i> */}
-      <i className="material-icons" style={tool.style &&  { ...tool.style, marginLeft: tool.style.x, marginTop: tool.style.y } || tool.style}>{tool.name}</i>
+      <i className="material-icons" style={tool.style && { ...tool.style, marginLeft: tool.style.x, marginTop: tool.style.y } || tool.style}>{tool.name}      </i>
     </div>
   )
 }
@@ -119,13 +119,14 @@ function RenderText({ tool }) {
 //
 
 function RenderImage({ tool }) {
+  const position = tool.style && { marginLeft: tool.style.x, marginTop: tool.style.y} || {};
   return (
     //...tool.style
-    <div onClick={() => playAudio(tool.audioFile)} className={` col m12 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
-      {/* <img className="l-img-tool material-icons" style={tool.style} src={`${IMAGE_EXTERNAL_URL}/${tool.path}`}   /> */}
-      <span className="material-icons l-img-tool" style={tool.style && { ...tool.style, marginLeft: tool.style.x, marginTop: tool.style.y, backgroundImage: `url(${IMAGE_EXTERNAL_URL}/${tool.path})` }}>
-      book</span>
-      
+    <div onClick={() => playAudio(tool.audioFile)} className={` added-tool${tool.index} `} id={`added-tool${tool.index}`}>
+        <i className="material-icons" style={{width:'100px',height:'100px',...tool.style,marginLeft: tool.style.x, marginTop: tool.style.y}}>
+      <img className=""  src={`${IMAGE_EXTERNAL_URL}/${tool.path}`} style={{width:'inherit',height:'inherit'}} />
+      </i>
+
     </div>
   )
 }
@@ -139,5 +140,6 @@ function RenderToolDelegator({ tool }) {
   const Tool = COMPONENTS[tool.type];
   return Tool && <Tool tool={tool} /> || null
 }
+
 
 export default MainScreen;
