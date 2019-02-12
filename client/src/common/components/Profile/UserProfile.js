@@ -1,7 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Meteor } from "meteor/meteor";
 import { withRouter, Redirect, Link } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
+import M from 'materialize-css'
 import {
   BarChart,
   Bar,
@@ -32,6 +33,9 @@ const data = [
 
 function UserProfile({ user, stats, history }) {
   const { isLoggedOut, logOutUser } = useLogout();
+
+  useEffect(() =>  M.AutoInit())
+
   if (isLoggedOut) {
     return <Redirect to="/login" />;
   }
@@ -60,11 +64,17 @@ function UserProfile({ user, stats, history }) {
         we will use breaks for now
       */}
         <br />
+        <ul id="tabs-swipe-demo" className="tabs">
+          <li className="tab col s3"><a className="active" href="#test-swipe-1">Table Data</a></li>
+          <li className="tab col s3"><a  href="#test-swipe-2">Graphical Data</a></li>
+        </ul>
         <br />
         <br />
-        <div>
+        <div id="test-swipe-1" className="col s12">
           <UserStats children={<StatsRow stats={stats} route={history} />}/>
-          {/* <BarChart
+        </div>
+        <div id="test-swipe-2" className="col s12 ">
+          <BarChart
             width={600}
             height={300}
             data={data}
@@ -77,7 +87,9 @@ function UserProfile({ user, stats, history }) {
             <Legend />
             <Bar onClick={() => history.push('/stats')} dataKey="correct_answer" fill="#8884d8" />
             <Bar dataKey="tries" fill="#82ca9d" />
-          </BarChart> */}
+          </BarChart>
+        </div>
+        <div>
         </div>
       </div>
     </Fragment>

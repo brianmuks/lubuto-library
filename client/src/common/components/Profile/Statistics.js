@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import User from "./User";
@@ -45,7 +45,7 @@ function Statistics({ users }) {
   }
   let index = 1;
   return (
-    <>
+    <Fragment>
       <NavBar logOutUser={logOutUser} color={"light-blue"} />
       <ReactModal
         isOpen={isOpen}
@@ -131,7 +131,7 @@ function Statistics({ users }) {
           </tbody>
         </table>
       </div>
-    </>
+    </Fragment>
   );
 }
 
