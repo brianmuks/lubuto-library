@@ -4,12 +4,12 @@ import { Accounts } from 'meteor/accounts-base'
 import {useFormInput, useError, validatePassword} from './accountsUtils'
 
 function Register(props) {
-    const email = useFormInput('')
+    const username = useFormInput('')
     const name = useFormInput('')
     const password = useFormInput('')
     const confirmedPassword = useFormInput('')
     const gender = useFormInput('')
-    const age = useFormInput('')
+    const center = useFormInput('')
     const isValid = validatePassword(password.value, confirmedPassword.value)
     const {error, setError} = useError('')
     const [isAuth, setAuth] = useState(false)
@@ -27,13 +27,13 @@ function Register(props) {
       }
       const profile = {
         name: name.value,
-        age: age.value,
+        center: center.value,
         gender: gender.value,
         createdAt: new Date(),
         role: pathname === '/dashboard/register' ? 'admin' : 'user'
         }
         const user = {
-          email: email.value,
+          username: username.value,
           password: password.value,
           profile,
         }
@@ -65,28 +65,28 @@ function Register(props) {
               <div className="row">
                 <div className="input-field col s10" style={{ marginLeft: 15 }}>
                   <input
-                    id="email"
-                    type="email"
+                    id="username"
+                    type="text"
                     className="validate"
-                    {...email}
+                    {...username}
                     required
                   />
-                  <label htmlFor="email">Email</label>
+                  <label htmlFor="username">Username</label>
                 </div>
               </div>
               <div className="row">
                 <div className="input-field col s10" style={{ marginLeft: 15 }}>
                   <input
-                    id="number"
-                    type="number"
+                    id="center"
+                    type="text"
                     className="validate"
-                    {...age}
+                    {...center}
                     required
                   />
-                  <label htmlFor="number">Age</label>
+                  <label htmlFor="center">Library Center</label>
                 </div>
               </div>
-              {/* <div className="input-field col s10">
+              <div className="input-field col s10">
                 <select {...gender}>
                   <option value="" disabled defaultValue>Choose your gender</option>
                   <option value="female">Female</option>
@@ -94,7 +94,7 @@ function Register(props) {
                   <option value="other">Other</option>
                 </select>
                 <label>Gender</label>
-              </div> */}
+              </div>
 
               <div className="row">
                 <div className="input-field col s10 " style={{ marginLeft: 15 }}>
