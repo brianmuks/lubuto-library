@@ -10,7 +10,7 @@ import { NavBar } from '../Landing'
 
 
 const getAllUsers = users => users.length && <User users={users} />;
-let index = 0
+let index = 1
 
 function Statistics({ users }) {
   const [isOpen, setModal ] = useState(false)
