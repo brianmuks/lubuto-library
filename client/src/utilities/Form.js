@@ -11,15 +11,21 @@ export const initModal =(selector)=>{
         $(selector).modal();
     });
 }
+export const intiToolTip =()=>{
+    $(document).ready(function () {
+        $('.tooltipped').tooltip();
+    });
+
+}
 
 
-export const initSelectFields =(selector)=>{
+export const initSelectFields =()=>{
     $(document).ready(function () {
         $('select').formSelect();
     });
 }
 
-export const initAutocomplete =(selector)=>{
+export const initAutocomplete =()=>{
 
     document.addEventListener('DOMContentLoaded', function () {
         var elems = document.querySelectorAll('.autocomplete');

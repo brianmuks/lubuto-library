@@ -8,7 +8,6 @@ function SetRightAnsView({ staggedTools, dispatch}){
     const [rightAnsId, setRightAns] = useState('');
     const [questionId, setRightQuestion] = useState('');
 
-
     const set = () => {
 
         /**
@@ -61,6 +60,5 @@ function RenderAnswerOptions({ staggedTools }) {
         <option key={index} value={item._id} data-icon="images/sample-1.jpg">{item.label}</option>
     ))
 }
-
 
 export default SetRightAnsView;

@@ -50,8 +50,8 @@ function CreateLesson() {
 
 function RenderConfigBtnTrigger(){
   return(
-    <div className="tool-config">
-      <a href={`#${TOOL_CONFIG_MODAL_ID}`} className='waves-effect  waves-light  white-text  modal-trigger'>Seetings</a>
+    <div className="tool-config  col m12 offset-s5">
+      <a href={`#${TOOL_CONFIG_MODAL_ID}`} className='waves-effect  waves-light  white-text  modal-trigger'>Settings</a>
     </div>
   )
 
