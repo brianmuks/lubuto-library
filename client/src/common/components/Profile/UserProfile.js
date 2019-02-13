@@ -1,7 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Meteor } from "meteor/meteor";
 import { withRouter, Redirect, Link } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
+import M from 'materialize-css'
 import {
   BarChart,
   Bar,
@@ -12,11 +13,13 @@ import {
   Legend
 } from "recharts";
 import User, { StatsRow } from "./User";
-import { USER_STATS } from "../../../../../lib/Collections";
+import { USER_STATS, COL_Lessons } from "../../../../../lib/Collections";
 import UserStats from "./UserStats";
 import { useLogout } from "../Accounts/accountsUtils";
 import { NavBar } from "../Landing";
 
+
+// for prototyping
 const data = [
   {name: 'Lesson 1', correct_answer: 40, tries: 2, amt: 2400},
   {name: 'Lesson 2', correct_answer: 30, tries: 1, amt: 2210},
@@ -30,6 +33,9 @@ const data = [
 
 function UserProfile({ user, stats, history }) {
   const { isLoggedOut, logOutUser } = useLogout();
+
+  useEffect(() =>  M.AutoInit())
+
   if (isLoggedOut) {
     return <Redirect to="/login" />;
   }
@@ -37,6 +43,9 @@ function UserProfile({ user, stats, history }) {
     <Fragment>
       <NavBar logOutUser={logOutUser} color={"light-blue"} />
       <div className="container">
+       <Link to='/users'>
+        <h5>Back to users</h5>
+       </Link>
         <h4>{user && user.profile.name} </h4>
         <table className="highlight">
           <thead>
@@ -55,10 +64,16 @@ function UserProfile({ user, stats, history }) {
         we will use breaks for now
       */}
         <br />
+        <ul id="tabs-swipe-demo" className="tabs">
+          <li className="tab col s3"><a className="active" href="#test-swipe-1">Table Data</a></li>
+          <li className="tab col s3"><a  href="#test-swipe-2">Graphical Data</a></li>
+        </ul>
         <br />
         <br />
-        <div>
-          {/* <UserStats children={<StatsRow stats={stats} route={history} />}/> */}
+        <div id="test-swipe-1" className="col s12">
+          <UserStats children={<StatsRow stats={stats} route={history} />}/>
+        </div>
+        <div id="test-swipe-2" className="col s12 ">
           <BarChart
             width={600}
             height={300}
@@ -74,6 +89,8 @@ function UserProfile({ user, stats, history }) {
             <Bar dataKey="tries" fill="#82ca9d" />
           </BarChart>
         </div>
+        <div>
+        </div>
       </div>
     </Fragment>
   );
@@ -87,6 +104,7 @@ export default withTracker(props => {
   Meteor.subscribe("userStats");
   return {
     user: Meteor.users.findOne({ _id: props.match.params.id }),
-    stats: USER_STATS.find({ userId: props.match.params.id }).fetch()
+    stats: USER_STATS.find({ userId: props.match.params.id }).fetch(),
+    lessons: COL_Lessons.find({ }).fetch(),
   };
 })(RouterProfile);

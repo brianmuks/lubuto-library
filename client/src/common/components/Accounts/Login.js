@@ -5,14 +5,14 @@ import { useFormInput, useError } from './accountsUtils'
 
 
 function Login() {
-    const email = useFormInput('')
+    const username = useFormInput('')
     const password = useFormInput('')
     const {error, setError} = useError('')
     const [isAuth, setAuth] = useState(false)
     // log the user in 
     function handleLogin(e){
         e.preventDefault()
-        Meteor.loginWithPassword(email.value, password.value, err => {
+        Meteor.loginWithPassword(username.value, password.value, err => {
           err ? setError(err.reason) : setAuth(true)
         })
         
@@ -32,13 +32,13 @@ function Login() {
               <div className="row">
                 <div className="input-field col s10" style={{ marginLeft: 15 }}>
                   <input
-                    id="email"
+                    id="username"
                     type="text"
                     className="validate"
-                    {...email}
+                    {...username}
                     required
                   />
-                  <label htmlFor="email">Email</label>
+                  <label htmlFor="username">Username</label>
                 </div>
               </div>
 
