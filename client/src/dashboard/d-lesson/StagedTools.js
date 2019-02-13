@@ -3,6 +3,7 @@ import { TOOLS_STATE } from "./../d-context";
 import { editTool, editStaggedTools } from "./../d-redux/actions/lessonActions";
 import StagedToolsLabelEditor, { STAGGED_TOOLS_MODAL_ID} from "./StagedToolsLabelEditor";
 import { intiToolTip } from "../../utilities/Form";
+import RemoveToolModal, { REMOVE_TOOL_MODAL_ID } from "./RemoveToolModal";
 
 const STAGGED_TOOLS_MODAL_TRIGGER_ID = 'STAGGED_TOOLS_MODAL_TRIGGER_ID';
 function StagedTools() {
@@ -11,8 +12,17 @@ function StagedTools() {
   const [label, setLabel] = useState(null);
   const [toolIndex, setToolIndex] = useState(null);
 
-
   const tools = state.staggedTools;
+
+  const removeTool = () => {
+    //toolIndex IS SET ON EVERY tool hover
+    const _tools = tools.filter(i => (
+      toolIndex !== i.index
+    ))
+    dispatch(editStaggedTools(_tools));
+  }
+
+
 
   const editToolLable = (toolIndex,label) => {
 
@@ -26,8 +36,9 @@ function StagedTools() {
   }
 
   return (
-    <>
+    <div>
       <StagedToolsLabelEditor toolIndex={toolIndex} oldLabel={label} />
+      <RemoveToolModal removeTool={removeTool} toolIndex={toolIndex} label={label} />
     <div className="  staged-resource staged-editor">
       <ul className="collection with-header">
         <li className="collection-header ">
@@ -36,17 +47,19 @@ function StagedTools() {
         <RenderStaggedTools editToolLable={editToolLable} tools={tools} dispatch={dispatch} />
       </ul>
     </div>
-    </>
+    </div>
   );
 }
 
 function RenderStaggedTools({ tools, dispatch,editToolLable }) {
   const highlight = ({ editTool, _tools, ishighlight=false}) =>{
+
     editToolLable(editTool.index, editTool.label);
     const elem = document.getElementById(`added-tool${editTool.index}`)
     ishighlight && $(elem).addClass('stagged-tool-highlight')
       || $(elem).removeClass('stagged-tool-highlight');
   }
+
 
 
 
@@ -56,7 +69,6 @@ function RenderStaggedTools({ tools, dispatch,editToolLable }) {
       onMouseOver={() => highlight({ editTool: tool, _tools: tools, ishighlight:true})}
       onMouseOut={() => highlight({ editTool:tool, _tools:tools})}
       className="collection-item"
-   
     >
       <div>
       
@@ -64,8 +76,8 @@ function RenderStaggedTools({ tools, dispatch,editToolLable }) {
         <a
           data-tooltip="Edit Tool"
           data-position="bottom"
-          href={`#${STAGGED_TOOLS_MODAL_ID}`}
-          className="waves-effect waves-light left  modal-trigger tooltipped">
+          href={`#?`}
+          className="waves-effect waves-light left tooltipped">
         <i onClick={() => {
           dispatch(editTool(tool));
         }} className="material-icons left">settings_brightness</i>
@@ -90,22 +102,20 @@ function RenderStaggedTools({ tools, dispatch,editToolLable }) {
         <span
           className="waves-effect waves-light">
           {tool.label}</span>
-
         <a
-          href={`#${STAGGED_TOOLS_MODAL_ID}`}
+          href={`#${REMOVE_TOOL_MODAL_ID}`}
           data-tooltip="Remove Tool"
           data-position="bottom"
-          className="waves-effect waves-light right  modal-trigger tooltipped">
+
+          className="waves-effect  modal-trigger waves-light right tooltipped">
              <i
           className="material-icons red-text right"
-            onClick={() => alert("You will be able to remove tool at will")}
+            // onClick={() => removeTool(tool.index)}
           >
             {" "}
             clear
-        
           </i>
           </a>
-
         <i className="material-icons right">{tool.name}</i>
 
       </div>

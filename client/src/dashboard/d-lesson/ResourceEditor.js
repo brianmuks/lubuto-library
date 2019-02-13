@@ -60,7 +60,7 @@ function ResourceEditor() {
         <RenderText text={text} onChange={setText}/>
 
   </div>
-  <button onClick={done} className='btn col 12 right'>Done</button>
+      <button onClick={done} className='btn col 12 right'>Done</button>
      <div  className={ 'col s6 center'} >
     <i  style={stateStyles} className={`fa material-icons ${stateStyles.size}`}>{editTool.name}</i>
     </div>

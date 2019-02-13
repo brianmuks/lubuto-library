@@ -32,7 +32,7 @@ function CreateLesson() {
   const [state, dispatch] = useReducer(lessonReducer, initialState);
   return (
     <TOOLS_STATE.Provider value={{ state, dispatch }}>
-      <section>
+      <div className='editor-container'>
 
         <Tools />
         <RenderConfigBtnTrigger  />
@@ -43,7 +43,7 @@ function CreateLesson() {
           <StagedTools />
           <ResourceEditor />
         </div>
-      </section>
+      </div>
     </TOOLS_STATE.Provider>
   );
 }

@@ -25,9 +25,7 @@ function MainScreen(props) {
     audio.src = src;
           audio.play()
 }
-console.log(
 
-);
   return (
     // col m7 offset - m3
     <div className=" grey lighten-3 main-screen-4-lesson">
@@ -35,7 +33,6 @@ console.log(
         {/* <source   type="audio/wav" /> */}
 
       </audio>
-      MAIN EDITOR <br />
       <RenderTools playAudio={playAudio} isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
       <span>{color}</span> <br />
       <span>{size}</span>  <br />
@@ -53,6 +50,12 @@ function handleDrag(e, pos, icon) {
 
 function handleDrop(dispatch,e, pos, tool, tools) {
 
+  console.log(
+    'X:',pos.x,
+    'Y:',pos.y,
+    '_X:',tool.style.x,
+    '_Y:',tool.style.y,
+  );
 
   // NOTE: each time an elem is drgged, a new tool gets added to
   // staggedTools. This should not be the case.
@@ -62,29 +65,38 @@ function handleDrop(dispatch,e, pos, tool, tools) {
   // tools = tools.filter(i => i.index !== tool.index);
 
   tools =tools.map(i=>(
-    i.index == tool.index && { ...tool, style: { ...tool.style, position: 'absolute', x: pos.x, y: pos.y } } || i
+    i.index == tool.index && { ...tool, style: { ...tool.style, x: tool.x, y: tool.y } } || i
   ))
 
-
   // tools = [...tools, { ...tool, style: { ...tool.style, position: 'absolute',x:pos.x,y:pos.y}}]
-  dispatch(editStaggedTools(tools));
-
-  console.log(tools);
-
+  //dispatch(editStaggedTools(tools));
+  // console.log(tools);
 }
 
 function RenderTools({playAudio, isPreview, tools, color='' , bgColor=''}) {
   const { state, dispatch } = useContext(TOOLS_STATE);
 
+  const onDragOver = ()=>{
+    console.log('ondragover');
+  }
+  const onDrop = ()=>{
+    console.log('ondrop');
+  }
+
+
   return tools.map((tool, index) => (
+    // marginLeft: tool.style.x, marginTop: tool.style.y
     <div
-      
+      position={tool.style && { x: tool.style.x, y: tool.style.y} || {}}
       key={index}
       onDrag={(e, data) => handleDrag(e, data, tool)}
       onStop={(e, data) => handleDrop(dispatch,e, data, tool,tools)}
     >
-      <div >
-        <RenderToolDelegator tool={tool} />
+      <div 
+        draggable
+        onDrop={onDrop} onDragOver={onDragOver}
+      >
+        <RenderToolDelegator playAudio={playAudio} tool={tool} />
       </div>
     </div>
   ));
@@ -96,34 +108,47 @@ export function useDragging(){
   return { ...data, dispatch }
 }
 
-function RenderIcon({ tool }) {
+function RenderIcon({ tool, playAudio }) {
   return (
-    <div onClick={() => playAudio(tool.audioFile)} className={` col m1 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
+    <div   onClick={() => playAudio(tool.audioFile)} className={` col m1 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
       {/* <i className="material-icons" style={tool.style}>{tool.name}</i> */}
-      <i className="material-icons" style={tool.style && { ...tool.style, marginLeft: tool.style.x, marginTop: tool.style.y } || tool.style}>{tool.name}      </i>
+      <i className="material-icons" style={tool.style && { ...tool.style,  } || tool.style}>{tool.name}      </i>
     </div>
   )
 }
 
 
-function RenderText({ tool }) {
+function RenderText({ tool, playAudio }) {
 
   return (
     <div onClick={() => playAudio(tool.audioFile)} className={` col  m12 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
       {/* <i className="l-tool-text" style={tool.style}>{tool.text}</i> */}
-      <i className="material-icons" style={tool.style && { ...tool.style, marginLeft: tool.style.x, marginTop: tool.style.y } || tool.style}>{tool.text}</i>
+      <i className="material-icons" style={tool.style && { ...tool.style,  } || tool.style}>{tool.text}</i>
     </div>
   )
 
 }
+
+function RenderLine({ tool, playAudio }) {
+  return (
+    <div onClick={() => playAudio(tool.audioFile)} className={` col  m12 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
+      {/* <i className="l-tool-text" style={tool.style}>{tool.text}</i> */}
+      <i className="material-icons" style={{ width: '100px', height: '1px', ...tool.style }}>
+        <hr style={{ width: 'inherit', height: 'inherit' }} />
+      </i>
+    </div>
+  )
+}
+
+
 //
 
-function RenderImage({ tool }) {
-  const position = tool.style && { marginLeft: tool.style.x, marginTop: tool.style.y} || {};
+function RenderImage({ tool, playAudio }) {
+  const position = tool.style && { } || {};
   return (
     //...tool.style
     <div onClick={() => playAudio(tool.audioFile)} className={` added-tool${tool.index} `} id={`added-tool${tool.index}`}>
-        <i className="material-icons" style={{width:'100px',height:'100px',...tool.style,marginLeft: tool.style.x, marginTop: tool.style.y}}>
+        <i className="material-icons" style={{width:'100px',height:'100px',...tool.style,}}>
       <img className=""  src={`${IMAGE_EXTERNAL_URL}/${tool.path}`} style={{width:'inherit',height:'inherit'}} />
       </i>
 
@@ -131,14 +156,17 @@ function RenderImage({ tool }) {
   )
 }
 
-function RenderToolDelegator({ tool }) {
+function RenderToolDelegator ({ tool, playAudio }) {
   const COMPONENTS = {
     icon: RenderIcon,
     text: RenderText,
-    image: RenderImage
+    image: RenderImage,
+    line: RenderLine
   }
   const Tool = COMPONENTS[tool.type];
-  return Tool && <Tool tool={tool} /> || null
+  tool = tool.style && { ...tool, style: { ...tool.style, left: tool.style.x, top: tool.style.y}} || tool;
+      
+  return Tool && <Tool   playAudio={playAudio} tool={tool} /> || null
 }
 
 

@@ -16,7 +16,7 @@ body {
   width: 100%;
   padding: 0;
   margin: 0;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .editor{
@@ -138,12 +138,12 @@ body {
 }
 
 .tool-config > a{
-    align-self: center;
+    /* align-self: center; */
     /* position: absolute; */
     left: 500px;
-    flex: 1;
-    margin: auto;
-    width: 100px;
+    /* flex: 1; */
+    /* margin: auto; */
+    /* width: 100px; */
 }
 
 .l-img-tool{
@@ -154,6 +154,10 @@ body {
     background-size: contain !important;
     /* display: block; */
     /* float: none ; */
+}
 
+.remove-tool-modal{
+  height: 200px !important;
+  width: 300px;
 }
 

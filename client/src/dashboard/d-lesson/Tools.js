@@ -124,6 +124,7 @@ function RenderalSpecialTools() {
   const specialTools = [
     { name:'sort_by_alpha',label:'Text',type:'text',text:'Some text to be edited'},
     { name:'add_a_photo',label:'Image',type:'image',link:'some link'},
+    { name:'remove',label:'Blank Line',type:'line',link:'some link'},
   ];
 
   return specialTools.map((tool, index) => (

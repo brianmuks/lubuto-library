@@ -101,8 +101,19 @@ function RenderImage({ tool }) {
       {/* <div className="material-icons l-img-tool" style={ {width:'100px',height:'100px', backgroundImage: `url(${IMAGE_EXTERNAL_URL}/${tool.path})` }}>
       </div> */}
 
-      <i className="material-icons" style={{width:'100px',height:'100px',position:'fixed',...tool.style}}>
+      <i className="material-icons" style={{width:'100px',height:'100px',...tool.style}}>
       <img className=""  src={`${IMAGE_EXTERNAL_URL}/${tool.path}`} style={{width:'inherit',height:'inherit'}} />
+      </i>
+    </div>
+  )
+}
+
+function RenderLine({ tool }) {
+  return (
+    <div onClick={() => playAudio(tool.audioFile)} className={` col  m12 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
+      {/* <i className="l-tool-text" style={tool.style}>{tool.text}</i> */}
+      <i className="material-icons" style={{ width: '100px', height: '1px', ...tool.style }}>
+        <hr style={{ width: 'inherit', height: 'inherit' }} />
       </i>
     </div>
   )
@@ -112,7 +123,8 @@ function RenderToolDelegator({tool}){
 const COMPONENTS = {
   icon:RenderIcon,
   text:RenderText,
-  image:RenderImage
+  image:RenderImage,
+  line: RenderLine
 }
 
 
