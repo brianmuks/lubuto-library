@@ -76,14 +76,15 @@ function RenderTools({playAudio, isPreview, tools, color='' , bgColor=''}) {
   }
   const onDrop = (ev,tool)=>{
     ev.preventDefault();
-    let left = parseInt(tool.style.width.replace('px', ''));
+    const width = tool.style.width || '100';
+    let left = parseInt(width.replace('px', ''));
     diff = 15 / 100 * left;
 
     left = left/2-diff;
     const data = ev.dataTransfer.getData("text");
     let draggedItem = document.getElementById(data);
 
-    draggedItem.style = `bottom:100px;position:absolute;left:${left}px`
+    draggedItem.style = `color:red;bottom:30px;position:absolute;left:${left}px`
 
     ev.target.appendChild(draggedItem);
 
@@ -97,23 +98,22 @@ function RenderTools({playAudio, isPreview, tools, color='' , bgColor=''}) {
   const onDragStart = (ev) => {
     ev.dataTransfer.setData("text", ev.target.id);
 
-    console.log('onDrag');
+    console.log('onDragStart');
   }
 
 
   return tools.map((tool, index) => (
     // marginLeft: tool.style.x, marginTop: tool.style.y
     <div 
-      className={tool.type === 'line' && `tool-line` || ``} 
       style= {tool.style && {  position:'absolute', left: tool.style.x, top: tool.style.y  } ||{}}
       // position={tool.style && { x: tool.style.x, y: tool.style.y} || {}}
       key={index}
       id={index}
-      draggable={tool.type !== 'line' && true}
-      onDrop={e => tool.type === 'line' && onDrop(e,tool) || undefined} 
-      onDragOver={tool.type === 'line' && onDragOver || undefined} 
-      onDrag={tool.type !== 'line' && onDrag || undefined}
-      onDragStart={tool.type !== 'line' && onDragStart || undefined}
+      draggable={tool.isQuestion  && true}
+      onDrop={e => tool.isAns  && onDrop(e,tool) || undefined} 
+      onDragOver={tool.isAns  && onDragOver || undefined} 
+      onDrag={tool.isQuestion  && onDrag || undefined}
+      onDragStart={tool.isQuestion  && onDragStart || undefined}
     
       // onDrag={(e, data) => handleDrag(e, data, tool)}
       // onStop={(e, data) => handleDrop(dispatch,e, data, tool,tools)}
@@ -158,7 +158,7 @@ function RenderLine({ tool, playAudio }) {
   return (
     <div onClick={() => playAudio(tool.audioFile)} className={`  added-tool${tool.index} `} id={`added-tool${tool.index}`}>
       {/* <i className="l-tool-text" style={tool.style}>{tool.text}</i> */}
-      <i className="material-icons" style={{ width: '100px', height: '1px', ...tool.style }}>
+      <i className="material-icons" style={{ width: '100px', height: '10px', ...tool.style }}>
         <hr style={{ width: 'inherit', height: 'inherit' }} />
       </i>
     </div>

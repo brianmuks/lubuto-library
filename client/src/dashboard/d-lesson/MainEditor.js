@@ -77,7 +77,7 @@ function RenderTools({playAudio, isPreview, tools, color='' , bgColor=''}) {
 
 function RenderIcon({tool}){
   return(
-    <div onClick={() => playAudio(tool.audioFile)} className={` col m1 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
+    <div onClick={() => playAudio(tool.audioFile)} className={`  added-tool${tool.index} `} id={`added-tool${tool.index}`}>
       <i className="material-icons" style={tool.style}>{tool.name}</i>
     </div>
   )
@@ -86,7 +86,7 @@ function RenderIcon({tool}){
 function RenderText({tool}){
 
   return (
-    <div onClick={() => playAudio(tool.audioFile)} className={` col  m12 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
+    <div onClick={() => playAudio(tool.audioFile)} className={`  added-tool${tool.index} `} id={`added-tool${tool.index}`}>
       <i className="l-tool-text" style={tool.style}>{tool.text}</i>
     </div>
   )
@@ -110,7 +110,7 @@ function RenderImage({ tool }) {
 
 function RenderLine({ tool }) {
   return (
-    <div onClick={() => playAudio(tool.audioFile)} className={` col  m12 added-tool${tool.index} `} id={`added-tool${tool.index}`}>
+    <div onClick={() => playAudio(tool.audioFile)} className={`  added-tool${tool.index} `} id={`added-tool${tool.index}`}>
       {/* <i className="l-tool-text" style={tool.style}>{tool.text}</i> */}
       <i className="material-icons" style={{ width: '100px', height: '1px', ...tool.style }}>
         <hr style={{ width: 'inherit', height: 'inherit' }} />
@@ -126,9 +126,8 @@ const COMPONENTS = {
   image:RenderImage,
   line: RenderLine
 }
-
-
    const Tool =  COMPONENTS[tool.type];
+  tool = tool.style && { ...tool, style: { ...tool.style, position: 'absolute' } } || { ...tool, style: { position: 'absolute'}};
   return <Tool tool={tool} />
 }
 
