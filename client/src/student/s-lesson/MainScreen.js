@@ -4,8 +4,8 @@ import { TOOLS_STATE } from "./../s-context";
 import Draggable from "react-draggable";
 import { editStaggedTools } from "../s-redux/actions/lessonActions";
 import { AUDIO_URL, IMAGE_EXTERNAL_URL } from "../../utilities/constants";
+import { onDrop,playAudio,onDragOver,onDrag,onDragStart } from "./methods";
 const LANG = '1_Kiikaonde';  
-
 
 function MainScreen(props) {
   const [audioFile, setAudioFile] = useState([])
@@ -14,17 +14,7 @@ function MainScreen(props) {
   const { staggedTools, color, bgColor, size, spacing } = state;
   const { x, y, node, _id, name } = useDragging();
 
-  function playAudio(audioFile){
-
-            if (!audioFile) {
-            return  
-            }
-
-        var audio = document.getElementById("audio");
-        const src =AUDIO_URL+LANG+'/'+audioFile;
-        audio.src = src;
-        audio.play()
-}
+  const [draggedQuestion, setDraggedQuestion] = useState(null)
 
   return (
     // col m7 offset - m3
@@ -33,73 +23,17 @@ function MainScreen(props) {
         {/* <source   type="audio/wav" /> */}
       </audio>
     <div className=" grey lighten-3 main-screen-4-lesson">
-      <RenderTools playAudio={playAudio} isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
+      <RenderTools draggedQuestion={draggedQuestion} setDraggedQuestion={setDraggedQuestion} playAudio={playAudio} isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
     </div>
     </>
   );
 }
 
-function handleDrag(e, pos, icon) {
-  //  dispatch({ type: "DRAG", data: pos });
-}
 
-function handleDrop(dispatch,e, pos, tool, tools) {
-  console.log(
-    'X:',pos.x,
-    'Y:',pos.y,
-    '_X:',tool.style.x,
-    '_Y:',tool.style.y,
-  );
-  // NOTE: each time an elem is drgged, a new tool gets added to
-  // staggedTools. This should not be the case.
-  //
-  //dispatch({ type: "DROP", tool:{pos,tool} });
-
-  // tools = tools.filter(i => i.index !== tool.index);
-
-  tools =tools.map(i=>(
-    i.index == tool.index && { ...tool, style: { ...tool.style, x: tool.x, y: tool.y } } || i
-  ))
-
-  // tools = [...tools, { ...tool, style: { ...tool.style, position: 'absolute',x:pos.x,y:pos.y}}]
-  //dispatch(editStaggedTools(tools));
-  // console.log(tools);
-}
-
-function RenderTools({playAudio, isPreview, tools, color='' , bgColor=''}) {
+function RenderTools({playAudio, setDraggedQuestion,draggedQuestion, tools}) {
   const { state, dispatch } = useContext(TOOLS_STATE);
 
-  const onDragOver = (ev)=>{
-    ev.preventDefault();
-
-    console.log('ondragover');
-  }
-  const onDrop = (ev,tool)=>{
-    ev.preventDefault();
-    const width = tool.style.width || '100';
-    let left = parseInt(width.replace('px', ''));
-    diff = 15 / 100 * left;
-
-    left = left/2-diff;
-    const data = ev.dataTransfer.getData("text");
-    let draggedItem = document.getElementById(data);
-
-    draggedItem.style = `color:red;bottom:30px;position:absolute;left:${left}px`
-
-    ev.target.appendChild(draggedItem);
-
-    console.log('ondrop',left,diff);
-  }
-
-  const onDrag = (ev) => {
-
-    console.log('onDrag');
-  }
-  const onDragStart = (ev) => {
-    ev.dataTransfer.setData("text", ev.target.id);
-
-    console.log('onDragStart');
-  }
+ 
 
 
   return tools.map((tool, index) => (
@@ -110,10 +44,10 @@ function RenderTools({playAudio, isPreview, tools, color='' , bgColor=''}) {
       key={index}
       id={index}
       draggable={tool.isQuestion  && true}
-      onDrop={e => tool.isAns  && onDrop(e,tool) || undefined} 
+      onDrop={e => tool.isAns  && onDrop(e,tool,draggedQuestion) || undefined} 
       onDragOver={tool.isAns  && onDragOver || undefined} 
       onDrag={tool.isQuestion  && onDrag || undefined}
-      onDragStart={tool.isQuestion  && onDragStart || undefined}
+      onDragStart={e => tool.isQuestion && onDragStart(e, tool,setDraggedQuestion) || undefined}
     
       // onDrag={(e, data) => handleDrag(e, data, tool)}
       // onStop={(e, data) => handleDrop(dispatch,e, data, tool,tools)}

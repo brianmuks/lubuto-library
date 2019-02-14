@@ -2,9 +2,11 @@
 //NOTE subject to change as you see fit
 
 
-export const AUDIO_URL = 'http://127.0.0.1:4000/'
+export const AUDIO_URL = 'http://127.0.0.1:4000/audio/'
 export const IMAGE_EXTERNAL_URL = 'http://127.0.0.1:4000/images'
 
+ export const NO_SOUND = 'n.wav';  //this applies to all languages 
+ export const YES_SOUND = 'y.wav';   //this applies to all languages
 
 export const ALPHABET = [{ name: 'A', label: "A" }, 
 { name: 'B', label: "B" },

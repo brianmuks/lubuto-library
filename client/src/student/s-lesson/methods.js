@@ -1,5 +1,8 @@
-export const saveLesson = lesson => {
+const LANG = '1_Kiikaonde';   //TODO: get from URL
+import { AUDIO_URL, IMAGE_EXTERNAL_URL, NO_SOUND, YES_SOUND } from "../../utilities/constants";
 
+
+export const saveLesson = lesson => {
 
 
     Meteor.call('saveLesson', lesson, (err, ok) => {
@@ -34,3 +37,72 @@ export const getSound = src => {
 
 
 }
+
+
+export const checkAns = (ans,question) => {
+    const ansIndex = ans.index;// is Int
+    const questionIndex = question.index;//is Int
+    const rightAnsIndexs = question.rightAnsIndexs;//is Array
+    const isCorrect = rightAnsIndexs.toString().indexOf(ansIndex);   
+    // console.log('checkAns', ansIndex, rightAnsIndexs  );
+    return isCorrect === 0 && true || false;
+}
+
+export const playAudio = audioFile=>{
+    if (!audioFile) {
+        return
+    }
+    var audio = document.getElementById("audio");
+    const src = AUDIO_URL + LANG + '/' + audioFile;
+    audio.src = src;
+    audio.play()
+}
+
+
+export const onDrop = (ev, ans, draggedQuestion) => {
+    ev.preventDefault();
+    const isCorrect = checkAns(ans,draggedQuestion);
+    // console.log('isCorrect', isCorrect);
+
+    if(!isCorrect){
+    console.log('wrong Ans', isCorrect);
+        playAudio(NO_SOUND);
+        // TODO:placyAudio  
+        return;
+    }
+    playAudio(YES_SOUND);
+
+    const width = ans.style.width || '100';
+    let left = parseInt(width.replace('px', ''));
+    diff = 15 / 100 * left;
+
+    left = left / 2 - diff;
+    const data = ev.dataTransfer.getData("text");
+    let draggedItem = document.getElementById(data);
+
+    draggedItem.style = `color:red;bottom:3git 0px;position:absolute;left:${left}px`
+
+    ev.target.appendChild(draggedItem);
+
+    // console.log('ondrop', );
+}
+
+
+
+
+ //TODO: move all to methods
+  export const onDragOver = (ev)=>{
+    ev.preventDefault();
+    console.log('ondragover');
+  }
+
+  export const onDrag = (ev) => {
+    console.log('onDrag');
+  }
+
+
+  export const onDragStart = (ev,question,setDraggedQuestion) => {
+    ev.dataTransfer.setData("text", ev.target.id);
+    setDraggedQuestion(question)
+    console.log('onDragStart');
+  }
