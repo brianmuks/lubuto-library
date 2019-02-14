@@ -161,3 +161,11 @@ body {
   width: 300px;
 }
 
+.tool{
+    transform: translate(-50%, -50%);
+}
+
+.tool-line{
+  justify-content: center;
+}
+
