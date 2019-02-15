@@ -68,13 +68,12 @@ const Routes = () => (
       <Route path='/register' component={() => <Register role={userRole}/>} />
 
       <Route path='/user/:id' component={UserProfile} />
-      <Route path='/users' component={Statistics} />
+      <Route path='/users/:id' component={Statistics} />
+      <Route path='/users/' component={Statistics} /> {/* in case there is no specified center */  }
       <Route path='/stats' component={LessonStats} />
       <Route path='/dashboard/lesson_prev' component={LessonPreview} />
   
-
-
-
+  
       <Route component={NotFound} />
     </Switch>
   </Router>

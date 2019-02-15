@@ -5,7 +5,7 @@ function UserRow({ user, editUser, count = 0, i = 0 }) {
   return (
     user && (
       <tr>
-        {count > 1 && <td>{i}</td>}
+        {count > 1 && <td>{i}</td> || count}
         <td>
           <Link to={`/user/${user._id}`}>{user.profile.name}</Link>
         </td>
