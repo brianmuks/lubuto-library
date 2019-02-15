@@ -138,10 +138,10 @@ function RenderSoundPicker({ onSoundSet, _dispatch}){
 
 
 function RenderAudioOptions({ audioFiles}){
+  if(!audioFiles) return null;
  return audioFiles.map((item,index)=>(
     <option value={item} key={index}>{item.replace('.wav','')}</option>
   ))
-
 }
 
 export default ResourceEditor;
