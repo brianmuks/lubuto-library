@@ -90,8 +90,8 @@ function RenderAutoComplete({ onFilter}){
 
 
 function RenderImages({ imageFiles, onImageSelect}){
-
-    return imageFiles.map((item,index)=>(
+    // avoid crashing the app if there is no imageFile
+    return imageFiles.length && imageFiles.map((item,index)=>(
         <div onClick={() => onImageSelect(item,index)} key={index} className="col s2">
             <div className="card">
                 <div className="card-image ">

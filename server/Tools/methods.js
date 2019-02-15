@@ -41,7 +41,6 @@ Meteor.methods({
 
 
 function sortFiles(files) {
-
    return files.sort(function (a, b) {
        console.log(a);
         if (a < b) { return -1; }
