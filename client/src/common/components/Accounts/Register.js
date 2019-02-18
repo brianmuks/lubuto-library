@@ -74,17 +74,15 @@ function Register(props) {
                   <label htmlFor="username">Username</label>
                 </div>
               </div>
-              <div className="row">
-                <div className="input-field col s10" style={{ marginLeft: 15 }}>
-                  <input
-                    id="center"
-                    type="text"
-                    className="validate"
-                    {...center}
-                    required
-                  />
-                  <label htmlFor="center">Library Center</label>
-                </div>
+              <div className="input-field col s10">
+                <select {...center}>
+                  <option value="" disabled defaultValue>Choose Center</option>
+                  <option value="garden">Garden</option>
+                  <option value="mthunzi">Mthunzi</option>
+                  <option value="choma">Choma</option>
+                  <option value="other">Other</option>
+                </select>
+                <label>Center</label>
               </div>
               <div className="input-field col s10">
                 <select {...gender}>

@@ -16,6 +16,7 @@ function MainEditor(props) {
   return (
     // col m7 offset - m3
     <div className=" grey lighten-3 editor">
+
       <audio  src={'http://127.0.0.1:4000/1_Kiikaonde/ESAKANYA_BISOPLOKATA_NE_BICHE_BYA_MAFUMU.wav'}   id="audio" >
         {/* <source   type="audio/wav" /> */}
 
@@ -120,15 +121,16 @@ function RenderLine({ tool }) {
 }
 
 function RenderToolDelegator({tool}){
-const COMPONENTS = {
-  icon:RenderIcon,
-  text:RenderText,
-  image:RenderImage,
-  line: RenderLine
-}
+      const COMPONENTS = {
+        icon:RenderIcon,
+        text:RenderText,
+        image:RenderImage,
+        line: RenderLine
+      }
    const Tool =  COMPONENTS[tool.type];
   tool = tool.style && { ...tool, style: { ...tool.style, position: 'absolute' } } || { ...tool, style: { position: 'absolute'}};
-  return <Tool tool={tool} />
+  // the tool being returned wasn't recognized as a component
+  return <div {...Tool} tool={tool} />
 }
 
 

@@ -3,13 +3,16 @@ import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import User from "./User";
 import ReactModal from "react-modal";
-import { Redirect } from "react-router-dom";
+import { Redirect, NavLink } from "react-router-dom";
 import { useFormInput, useError } from "../Accounts/accountsUtils";
 import { useLogout } from "../Accounts/accountsUtils";
 import { NavBar } from "../Landing";
 
 const getAllUsers = users => users.length && <User users={users} />;
-
+const style = {
+  fontWeight: "bold",
+  color: "teal"
+};
 
 function Statistics({ users }) {
   const [isOpen, setModal] = useState(false);
@@ -106,39 +109,90 @@ function Statistics({ users }) {
         </div>
       </ReactModal>
       <div className="container">
-        <h4>Users </h4>
-        <table className="highlight">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Age</th>
-              <th>Sex</th>
-              <th>Center</th>
-              <th>Edit</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, i) => (
-              <User
-                key={user._id}
-                user={user}
-                count={users.length}
-                i={index++}
-                editUser={e => editUser(e, user._id)}
-              />
-            ))}
-          </tbody>
-        </table>
+        <div className="row">
+          <div className="col s3">
+          <br/>
+          <h5>Centers</h5>
+            <ul>
+              <li>
+                <NavLink
+                  activeClassName="selected"
+                  activeStyle={style}
+                  to="/users/garden"
+                >
+                  Garden{" "}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  activeClassName="selected"
+                  activeStyle={style}
+                  to="/users/mthunzi"
+                >
+                  Mthunzi
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  activeStyle={style}
+                  activeClassName="selected"
+                  to="/users/choma"
+                >
+                  Choma
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  activeStyle={style}
+                  activeClassName="selected"
+                  to="/users/others"
+                >
+                  Others
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+          <div className="col s9">
+            <h4>Users </h4>
+            <table className="highlight">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Age</th>
+                  <th>Sex</th>
+                  <th>Center</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user, i) => (
+                  <User
+                    key={user._id}
+                    user={user}
+                    count={users.length}
+                    i={index++}
+                    editUser={e => editUser(e, user._id)}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </Fragment>
   );
 }
 
-export default withTracker(() => {
+export default withTracker(params => {
   Meteor.subscribe("users");
   Meteor.subscribe("userStats");
   return {
-    users: Meteor.users.find({}, { sort: { createdAt: -1 } }).fetch()
+    users: Meteor.users
+      .find(
+        { "profile.center": params.match.params.id },
+        { sort: { createdAt: -1 } }
+      )
+      .fetch()
   };
 })(Statistics);
