@@ -1,6 +1,6 @@
 //NOTE holds all create lesson components
 
-import React, { useReducer,useEffect } from "react";
+import React, { useReducer,useEffect,useState } from "react";
 import Tools from "./Tools";
 import MainEditor from "./MainEditor";
 import StagedTools from "./StagedTools";
@@ -34,15 +34,30 @@ const initialState = {
 
 function EditLesson({lesson}) {
   const [state, dispatch] = useReducer(lessonReducer, initialState);
+  const [isLessonLoaded, preventLessonReload] = useState(false)
+
+  let IS_PREVENT_LESSON_RELOAD = false;
 
   useEffect(()=>{
-    console.log(lesson)
 
     var result =lesson && Object.keys(lesson).map(function (key) {
       return lesson[key];
     }) || [];
+    
+    if(IS_PREVENT_LESSON_RELOAD === false){
+      // dispatch(editStaggedTools(result)) ;
 
-    dispatch(editStaggedTools(result))
+   }
+
+   if (result.length > 0 && !isLessonLoaded) {
+     IS_PREVENT_LESSON_RELOAD = true;
+     preventLessonReload(true)
+      dispatch(editStaggedTools(result)) ;
+     console.log('IS_PREVENT_LESSON_RELOAD',isLessonLoaded,state.staggedTools,result.length)
+
+    }
+ 
+
   },[lesson])
 
   return (

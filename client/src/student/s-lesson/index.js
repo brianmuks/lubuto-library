@@ -59,11 +59,7 @@ function StudentLesson(props) {
   );
 }
 
-
-
 // export default CreateLesson;
-
-
 
 export default withTracker(() => {
   Meteor.subscribe("lessons");
