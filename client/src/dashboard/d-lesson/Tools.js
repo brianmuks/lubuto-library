@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from "react";
-
 import { Link } from "react-router-dom";
 import { COL_TOOLS } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
@@ -9,10 +8,10 @@ import { editLesson, saveLesson } from "./methods";
 import { ALPHABET } from "../../utilities/constants";
 import ImageList, {  MODAL_ID as ImageList_MODAL_ID,  openImageList,  } from "./ImageList";
 
-
 function Tools(props) {
   const { state, dispatch } = useContext(TOOLS_STATE);
 
+console.log('props',props);
 
   useEffect(() => {
     // initModal('#' + MODAL_ID);
@@ -36,14 +35,22 @@ function Tools(props) {
       }, Math.random() + index + Math.random()));//avaoid acceidentally generating the same index as icons tools
     }
 
+    const preview = ev =>{
+      ev.preventDefault()
+      }
+      const _saveLesson  = ev =>{
+          saveLesson(state.staggedTools)
+      }
+
+
   return (
     <>
-      <Link to={'/lesson'} className="btn right red">Preview</Link>
+      <Link target="_blank" onClick={preview} to={'/lesson'} className="btn right red">Preview</Link>
       <ImageList onImageSelect={onImageSelect} />
       {/* <button className="btn right red" onClick={_openImageList}>Click me</button> */}
 
       <ul id="slide-out" className="sidenav  sidenav-fixed">
-        <li onClick={() => props.isPreview && editLesson(state.staggedTools) || saveLesson(state.staggedTools)}>
+        <li onClick={e => props.isPreview && editLesson(state.staggedTools) || _saveLesson(e)}>
           <button className="btn right red">{props.isPreview && `Update` || 'Save'}</button>
           <div className="user-view ">
             <a href="#email">
@@ -74,7 +81,6 @@ function Tools(props) {
 
 function RenderTools(props) {
   const { state, dispatch } = useContext(TOOLS_STATE);
-
   useEffect(() => {
     // console.log(state.addedTools)
   });
@@ -96,7 +102,6 @@ function RenderTools(props) {
 
 function Renderalphabet(props) {
   const { state, dispatch } = useContext(TOOLS_STATE);
-
   useEffect(() => {
     // console.log(state.addedTools)
   });
@@ -120,15 +125,12 @@ function Renderalphabet(props) {
 
 function RenderalSpecialTools() {
   const { state, dispatch } = useContext(TOOLS_STATE);
-  
   const specialTools = [
     { name:'sort_by_alpha',label:'Text',type:'text',text:'Some text to be edited'},
     { name:'add_a_photo',label:'Image',type:'image',link:'some link'},
     { name:'remove',label:'Blank Line',type:'line',link:'some link'},
   ];
-
   return specialTools.map((tool, index) => (
-
     tool.type === 'image' && <RenderImageTool tool={tool} key={index} index={index} /> ||
     <li
       key={index}
@@ -141,7 +143,6 @@ function RenderalSpecialTools() {
         {tool.label}
       </a>
     </li>
-
   ));
 
   function RenderImageTool({tool,index}){

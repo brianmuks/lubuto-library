@@ -1,11 +1,22 @@
 export const saveLesson = lesson => {
 
 
+    return new Promise ((resolve,reject)=>{
 
-    Meteor.call('saveLesson', lesson, (err, ok) => {
-        console.log(err, ok);
-        err && alert('Sorry error occured') || alert('Lesson saved!')
+        Meteor.call('saveLesson', lesson, (err, _id) => {
+            console.log(err, _id);
+
+            if (err) {
+                alert('Sorry error occured');
+                // M.toast()
+            }else{
+                alert('Lesson saved!')
+                resolve(_id);
+            }
+        })
+
     })
+
 }
 
 
@@ -31,8 +42,6 @@ export const getSound = src => {
 
         })
     });
-
-
 }
 
 

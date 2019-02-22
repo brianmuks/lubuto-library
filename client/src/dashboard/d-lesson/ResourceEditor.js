@@ -104,7 +104,7 @@ function RenderSoundPicker({ onSoundSet, _dispatch}){
 
   function fetchAudio(src){
     console.log(src);
-    getSound('1_Kiikaonde')
+    getSound('audio/kao')
     .then(files=>{
       _dispatch(addAudioFiles(files));
       setAudioFiles(files)

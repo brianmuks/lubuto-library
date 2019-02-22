@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { check } from 'meteor/check'
 import { COL_TOOLS } from '../../lib/Collections'
+import { FILE_SERVER_PATH } from '../Constants';
 const fs = require('fs');
 
 
@@ -14,18 +15,17 @@ Meteor.methods({
     },
 
     'Tool.getSound'(src=''){
-        const path = '/lubuto-assets/'+src;
+        const path =FILE_SERVER_PATH+src;
 
         return new Promise((resolve, reject) => {
             fs.readdir(path, (err, files) => {
                 resolve(sortFiles(files));
             })
         });
-
         
     },
     'Tool.getImages'(src = 'images') {
-        const path = '/lubuto-assets/' + src;
+        const path =FILE_SERVER_PATH + src;
         return new Promise((resolve, reject) => {
             fs.readdir(path, (err, files) => {
                 resolve(sortFiles(files));

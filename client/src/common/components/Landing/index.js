@@ -26,13 +26,7 @@ function Landing() {
             Libraries transforming Africa's next generation
           </h5>
         </div>
-        <div className="row center">
-            <Link to="/dashboard/create_lesson_type">
-              <button  className="btn-large waves-effect waves-light blue" >
-              Create Lessons
-              </button>
-          </Link>
-        </div>
+        <RenderAdminActions />
         <br />
         <br />
       </div>
@@ -180,6 +174,31 @@ export function NavBar({logOutUser, color}){
       </div>
     </nav>
   )
+}
+
+
+function RenderAdminActions(){
+//in the path bewlo ?n=[next location from lessons_selector path]
+  return (
+    <div className="row center">
+    <div className=" col m6">
+    <Link to="/dashboard/language_selector/?n=create_lesson_type">
+      <button  className="btn-large waves-effect waves-light blue" >
+      Create Lessons
+      </button>
+  </Link>
+</div>
+
+ <div className=" col m6">
+    <Link to="/dashboard/language_selector/?n=view_lessons">
+      <button  className="btn-large waves-effect waves-light blue" >
+      View Lessons
+      </button>
+  </Link>
+  </div>
+</div>
+  )
+
 }
 
 export default Landing;

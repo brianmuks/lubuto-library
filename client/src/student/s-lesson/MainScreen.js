@@ -5,7 +5,7 @@ import Draggable from "react-draggable";
 import { editStaggedTools } from "../s-redux/actions/lessonActions";
 import { AUDIO_URL, IMAGE_EXTERNAL_URL } from "../../utilities/constants";
 import { onDrop,playAudio,onDragOver,onDrag,onDragStart } from "./methods";
-const LANG = '1_Kiikaonde';  
+const LANG = 'kao';  
 
 function MainScreen(props) {
   const [audioFile, setAudioFile] = useState([])
@@ -19,7 +19,7 @@ function MainScreen(props) {
   return (
     // col m7 offset - m3
     <>
-      <audio  src={'http://127.0.0.1:4000/1_Kiikaonde/ESAKANYA_BISOPLOKATA_NE_BICHE_BYA_MAFUMU.wav'}   id="audio" >
+      <audio  src={'http://127.0.0.1:4000/audio/kao/n.wav'}   id="audio" >
         {/* <source   type="audio/wav" /> */}
       </audio>
     <div className=" grey lighten-3 main-screen-4-lesson">
@@ -32,9 +32,6 @@ function MainScreen(props) {
 
 function RenderTools({playAudio, setDraggedQuestion,draggedQuestion, tools}) {
   const { state, dispatch } = useContext(TOOLS_STATE);
-
- 
-
 
   return tools.map((tool, index) => (
     // marginLeft: tool.style.x, marginTop: tool.style.y
@@ -52,9 +49,7 @@ function RenderTools({playAudio, setDraggedQuestion,draggedQuestion, tools}) {
       // onDrag={(e, data) => handleDrag(e, data, tool)}
       // onStop={(e, data) => handleDrop(dispatch,e, data, tool,tools)}
     >
-      <div 
-     
-      >
+      <div> 
         <RenderToolDelegator playAudio={playAudio} tool={tool} />
       </div>
     </div>

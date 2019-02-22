@@ -1,4 +1,4 @@
-const LANG = '1_Kiikaonde';   //TODO: get from URL
+const LANG = 'kao';   //TODO: get from URL
 import { AUDIO_URL, IMAGE_EXTERNAL_URL, NO_SOUND, YES_SOUND } from "../../utilities/constants";
 
 
@@ -71,7 +71,6 @@ export const onDrop = (ev, ans, draggedQuestion) => {
         return;
     }
     playAudio(YES_SOUND);
-
     const width = ans.style.width || '100';
     let left = parseInt(width.replace('px', ''));
     diff = 15 / 100 * left;
@@ -86,8 +85,6 @@ export const onDrop = (ev, ans, draggedQuestion) => {
 
     // console.log('ondrop', );
 }
-
-
 
 
  //TODO: move all to methods

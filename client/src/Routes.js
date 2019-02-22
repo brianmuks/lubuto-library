@@ -21,6 +21,9 @@ import LessonView from './common/components/Lesson/LessonView'
 import LessonPreview from "./dashboard/d-lesson//LessonPreview";
 import StudentLesson from "./student/s-lesson";
 import CreateLessonSelector from "./dashboard/d-lesson/CreateLessonSelector";
+import LanguageSelector from "./common/components/LanguageSelector";
+import ViewLessons from "./dashboard/d-lesson/ViewLessons";
+import EditLesson from "./dashboard/d-lesson/EditLesson";
 
 
 // Only here for prototyping
@@ -46,6 +49,11 @@ const Routes = () => (
           path="/dashboard/register"
           component={() => <Register role={adminRole}/>}
       />
+         <Route
+          exact
+          path="/dashboard/language_selector"
+          component={LanguageSelector}
+      />
 
       <Route
         exact
@@ -56,7 +64,19 @@ const Routes = () => (
         exact
         path="/dashboard/create_lesson_type"
         component={CreateLessonSelector}
-      />
+      /> 
+      <Route
+      exact
+      path="/dashboard/view_lessons/"
+      component={ViewLessons}
+      
+    />
+
+    <Route
+      exact
+      path="/dashboard/edit_lesson/:id"
+      component={EditLesson}
+    />
 
 
       <User exact role={"user"} path="/" component={Landing} />

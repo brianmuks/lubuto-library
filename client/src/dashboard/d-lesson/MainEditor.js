@@ -4,7 +4,7 @@ import { TOOLS_STATE } from "./../d-context";
 import Draggable from "react-draggable";
 import { editStaggedTools } from "../d-redux/actions/lessonActions";
 import { AUDIO_URL, IMAGE_EXTERNAL_URL } from "../../utilities/constants";
-const LANG = '1_Kiikaonde';  
+const LANG = 'kao';  
 
 function MainEditor(props) {
   const [audioFile, setAudioFile] = useState([])
@@ -128,9 +128,12 @@ function RenderToolDelegator({tool}){
         line: RenderLine
       }
    const Tool =  COMPONENTS[tool.type];
-  tool = tool.style && { ...tool, style: { ...tool.style, position: 'absolute' } } || { ...tool, style: { position: 'absolute'}};
+  // tool = tool.style && { ...tool, style: { ...tool.style, position: 'absolute' } } || { ...tool, style: { position: 'absolute'}};
   // the tool being returned wasn't recognized as a component
+  return Tool && <Tool tool={tool} /> || <span/>
+  //this not working for me. Nothing is shwoing [I will have to explain]
   return <div {...Tool} tool={tool} />
+
 }
 
 
