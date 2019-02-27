@@ -48,6 +48,8 @@ function EditLesson({lesson}) {
       // dispatch(editStaggedTools(result)) ;
 
    }
+    console.log('result', result)
+
 
    if (result.length > 0 && !isLessonLoaded) {
      IS_PREVENT_LESSON_RELOAD = true;
@@ -64,14 +66,14 @@ function EditLesson({lesson}) {
     <TOOLS_STATE.Provider value={{ state, dispatch }}>
       <div className='editor-container'>
 
-        <Tools />
+        <Tools lessonId={lesson && lesson._id} isEdit/>
         <RenderConfigBtnTrigger  />
         <div className="row">
-          <ToolConfig />
-          <MainEditor />
+          <ToolConfig isEdit />
+          <MainEditor isEdit />
           {/* <ImageList /> */}
-          <StagedTools />
-          <ResourceEditor />
+          <StagedTools isEdit />
+          <ResourceEditor isEdit />
         </div>
       </div>
     </TOOLS_STATE.Provider>

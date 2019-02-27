@@ -50,8 +50,8 @@ console.log('props',props);
       {/* <button className="btn right red" onClick={_openImageList}>Click me</button> */}
 
       <ul id="slide-out" className="sidenav  sidenav-fixed">
-        <li onClick={e => props.isPreview && editLesson(state.staggedTools) || _saveLesson(e)}>
-          <button className="btn right red">{props.isPreview && `Update` || 'Save'}</button>
+        <li onClick={e => props.isEdit ? editLesson({ lesson: state.staggedTools, lessonId: props.lessonId}) : _saveLesson(e)}>
+          <button className="btn right red">{props.isEdit && `Update` || 'Save'}</button>
           <div className="user-view ">
             <a href="#email">
               <span className="white-text email">olivier@gmail.com</span>

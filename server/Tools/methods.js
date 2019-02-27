@@ -40,7 +40,6 @@ Meteor.methods({
 function sortFiles(files) {
     if (!files) return; // don't sort if there are no files
    return files.sort(function (a, b) {
-       console.log(a);
         if (a < b) { return -1; }
         if (a > b) { return 1; }
         return 0;

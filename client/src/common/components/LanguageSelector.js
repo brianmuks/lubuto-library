@@ -13,11 +13,6 @@ const LANGS = [{label:'Kikainde',val:'KAO'},{label:'Bemba',val:'BEM'},{label:'En
 
 function LanguageSelector(props) {
 
-
-
-
-
-
   const { isLoggedOut, logOutUser } = useLogout()
   const [filteredLANGS, setLANGs] = useState(LANGS);
 
@@ -31,7 +26,7 @@ function LanguageSelector(props) {
       return;
     }
     const filteredLangs = LANGS.filter(
-      path => path.toLowerCase().indexOf(val) !== -1
+      path => path.label.toLowerCase().indexOf(val) !== -1
     );
     setLANGs(filteredLangs);
   };
@@ -70,7 +65,5 @@ const nextPath = getUrlParam('n');
   </li>
   ))
 }
-
-
 
 export default LanguageSelector;

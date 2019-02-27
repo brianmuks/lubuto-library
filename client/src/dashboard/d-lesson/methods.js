@@ -20,10 +20,11 @@ export const saveLesson = lesson => {
 }
 
 
-export const editLesson = lesson => {
-    Meteor.call('editLesson', lesson, (err, ok) => {
+export const editLesson =( {lessonId,lesson}) => {
+  
+    Meteor.call('editLesson',{...lesson,_id:lessonId}, (err, ok) => {
         console.log(err, ok);
-        err && alert('Sorry error occured') || alert('Lesson saved!')
+        err && alert('Sorry error occured') || alert('Lesson Updated!')
     })
 }
 

@@ -9,7 +9,6 @@ const LANG = 'kao';
 
 function MainScreen(props) {
   const [audioFile, setAudioFile] = useState([])
-
   const { state } = useContext(TOOLS_STATE);
   const { staggedTools, color, bgColor, size, spacing } = state;
   const { x, y, node, _id, name } = useDragging();
@@ -45,7 +44,6 @@ function RenderTools({playAudio, setDraggedQuestion,draggedQuestion, tools}) {
       onDragOver={tool.isAns  && onDragOver || undefined} 
       onDrag={tool.isQuestion  && onDrag || undefined}
       onDragStart={e => tool.isQuestion && onDragStart(e, tool,setDraggedQuestion) || undefined}
-    
       // onDrag={(e, data) => handleDrag(e, data, tool)}
       // onStop={(e, data) => handleDrop(dispatch,e, data, tool,tools)}
     >
@@ -94,7 +92,6 @@ function RenderLine({ tool, playAudio }) {
   )
 }
 
-
 //
 
 function RenderImage({ tool, playAudio }) {
@@ -105,7 +102,6 @@ function RenderImage({ tool, playAudio }) {
         <i className="material-icons" style={{width:'100px',height:'100px',...tool.style,}}>
       <img className=""  src={`${IMAGE_EXTERNAL_URL}/${tool.path}`} style={{width:'inherit',height:'inherit'}} />
       </i>
-
     </div>
   )
 }
@@ -122,6 +118,5 @@ function RenderToolDelegator ({ tool, playAudio }) {
       
   return Tool && <Tool   playAudio={playAudio} tool={tool} /> || null
 }
-
 
 export default MainScreen;

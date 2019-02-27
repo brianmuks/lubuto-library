@@ -4,10 +4,12 @@ import { TOOLS_STATE } from "./../d-context";
 import Draggable from "react-draggable";
 import { editStaggedTools } from "../d-redux/actions/lessonActions";
 import { AUDIO_URL, IMAGE_EXTERNAL_URL } from "../../utilities/constants";
+import { editLesson } from "../../student/s-lesson/methods";
 const LANG = 'kao';  
 
 function MainEditor(props) {
-  const [audioFile, setAudioFile] = useState([])
+  const [audioFile, setAudioFile] = useState([]);
+  const [editedTools, add2EditedTools] = useState([]);
 
   const { state } = useContext(TOOLS_STATE);
   const { staggedTools, color, bgColor, size, spacing } = state;
@@ -19,10 +21,9 @@ function MainEditor(props) {
 
       <audio  src={'http://127.0.0.1:4000/1_Kiikaonde/ESAKANYA_BISOPLOKATA_NE_BICHE_BYA_MAFUMU.wav'}   id="audio" >
         {/* <source   type="audio/wav" /> */}
-
       </audio>
-      MAIN EDITOR <br />
-      <RenderTools playAudio={playAudio} isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
+      Main Editor <br />
+      <RenderTools add2EditedTools={add2EditedTools} editedTools={editedTools} playAudio={playAudio} isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
       <span>{color}</span> <br />
       <span>{size}</span>  <br />
       <span>{spacing}</span> <br />
@@ -31,12 +32,13 @@ function MainEditor(props) {
   );
 }
 
-function handleDrag(e, pos, icon) {
+function handleDrag(e, data, tool, editedTools, add2EditedTools) {
   //  dispatch({ type: "DRAG", data: pos });
+  add2EditedTools([...editedTools, tool.index]);
+
 }
 
-function handleDrop(dispatch,e, pos, tool, tools) {
-
+function handleDrop(dispatch, e, pos, tool, tools, add2EditedTools, editedTools) {
 
   // NOTE: each time an elem is drgged, a new tool gets added to
   // staggedTools. This should not be the case.
@@ -47,36 +49,36 @@ function handleDrop(dispatch,e, pos, tool, tools) {
 
   console.log(pos.x, pos.y, 'Image position');
 
+
   tools =tools.map(i=>(
     i.index == tool.index && { ...tool, style: { ...tool.style, position: 'absolute', x: pos.x, y: pos.y } } || i
   ))
 
-
   // tools = [...tools, { ...tool, style: { ...tool.style, position: 'absolute',x:pos.x,y:pos.y}}]
   dispatch(editStaggedTools(tools));
-
   console.log(tools);
-
 }
 
-function RenderTools({playAudio, isPreview, tools, color='' , bgColor=''}) {
+function RenderTools({ tools, editedTools, add2EditedTools}) {
   const { state, dispatch } = useContext(TOOLS_STATE);
 
   return tools.map((tool, index) => (
     <Draggable
       key={index}
-      onDrag={(e, data) => handleDrag(e, data, tool)}
-      onStop={(e, data) => handleDrop(dispatch,e, data, tool,tools)}
+      onDrag={(e, data) => handleDrag(e, data, tool, editedTools, add2EditedTools)}
+      onStop={(e, data) => handleDrop(dispatch, e, data, tool, tools, add2EditedTools, editedTools)}
     >
-    <div >
-        <RenderToolDelegator tool={tool}  />
+    <div 
+        style={tool.style && editedTools.indexOf(tool.index) === -1 && { position: 'absolute', left: tool.style.x, top: tool.style.y } || {}}
+    >
+        <RenderToolDelegator  tool={tool}  />
       </div>
     </Draggable>
   ));
 }
 
 
-function RenderIcon({tool}){
+function RenderIcon({tool,}){
   return(
     <div onClick={() => playAudio(tool.audioFile)} className={`  added-tool${tool.index} `} id={`added-tool${tool.index}`}>
       <i className="material-icons" style={tool.style}>{tool.name}</i>
@@ -120,7 +122,7 @@ function RenderLine({ tool }) {
   )
 }
 
-function RenderToolDelegator({tool}){
+function RenderToolDelegator({tool,editedTools}){
       const COMPONENTS = {
         icon:RenderIcon,
         text:RenderText,
