@@ -182,3 +182,7 @@ margin-top:-90px;
   max-height: 150% !important;
  height: 60% !important;
 }
+
+.pointer{
+  cursor: pointer;
+}

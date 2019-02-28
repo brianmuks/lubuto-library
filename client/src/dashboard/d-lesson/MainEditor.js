@@ -4,7 +4,7 @@ import { TOOLS_STATE } from "./../d-context";
 import Draggable from "react-draggable";
 import { editStaggedTools } from "../d-redux/actions/lessonActions";
 import { AUDIO_URL, IMAGE_EXTERNAL_URL } from "../../utilities/constants";
-import { editLesson } from "../../student/s-lesson/methods";
+import { editLesson, playAudio } from "../../student/s-lesson/methods";
 const LANG = 'kao';  
 
 function MainEditor(props) {
@@ -140,17 +140,7 @@ function RenderToolDelegator({tool,editedTools}){
 }
 
 
-function playAudio(audioFile) {
 
-  if (!audioFile) {
-    return
-  }
-
-  var audio = document.getElementById("audio");
-  const src = AUDIO_URL + LANG + '/' + audioFile;
-  audio.src = src;
-  audio.play()
-}
 
 export function useDragging(){
   const {state, dispatch} = useContext(TOOLS_STATE);

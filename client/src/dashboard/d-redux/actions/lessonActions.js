@@ -1,4 +1,4 @@
-import { DROP, SET_LESSON_NUMBER, UPDATE_TOOL, ADD_TOOL,EDIT_TOOL,EDIT_STAGGED_TOOL, ADD_AUDIO_FILES, ADD_IMAGE_FILES } from "./../constants";
+import { DROP, SET_META, UPDATE_TOOL, ADD_TOOL,EDIT_TOOL,EDIT_STAGGED_TOOL, ADD_AUDIO_FILES, ADD_IMAGE_FILES } from "./../constants";
 
 /**
  *
@@ -24,8 +24,8 @@ export function addAudioFiles(audiosFiles) {
 export function addImageFiles(imagesFiles) {
   return { type: ADD_IMAGE_FILES, imagesFiles };
 }
-export function setLessonNumber(number) {
-  return { type: SET_LESSON_NUMBER, number };
+export function setMeta(meta) {
+  return { type: SET_META, meta };
 }
 
 export function updateTool(color, bgColor, size='', spacing=''){

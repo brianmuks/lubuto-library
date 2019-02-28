@@ -1,5 +1,6 @@
 import { getUrlParam } from "../../utilities/Tasks";
 import { TOOL_CONFIG_MODAL_ID } from "./config/ToolConfig";
+import { AUDIO_URL } from "../../utilities/constants";
 
 export const saveLesson = (lesson,meta) => {
 
@@ -60,17 +61,28 @@ export const getImages = src => {
 
     return new Promise((resolve, reject) => {
         Meteor.call('Tool.getSound', src, (err, ok) => {
-
             // console.log(err, ok);
             if (err) {
                 reject(err)
             } else {
                 resolve(ok);
             }
-
         })
     });
 
+}
+
+
+export const playAudio = audioFile =>{
+
+    if (!audioFile) {
+        return
+    }
+    const lang = getUrlParam('lang');
+    var audio = document.getElementById("audio");
+    const src = AUDIO_URL + lang + '/' + audioFile;
+    audio.src = src;
+    audio.play();
 }
 
 export const getResourceEditorStyles = ()=>(

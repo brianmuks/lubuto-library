@@ -1,19 +1,17 @@
 import React, { useEffect, useState} from "react";
-import { getSound } from "../methods";
+import { getSound, playAudio } from "../methods";
 import { getUrlParam } from "../../../utilities/Tasks";
+import { setMeta } from "../../d-redux/actions/lessonActions";
 
 
-
-
-function SetSpeakerIntruction({ _setLessonNumber, lessonNumber }){
-
+function SetSpeakerIntruction({ dispatch }){
     const [audioFiles, setAudioFiles] = useState([])
-
+    const [audioFile, setAudioFile] = useState(null)
 
     useEffect(()=>{
         // console.log(src);
         const lang = getUrlParam('lang'); 
-        getSound(`audio/${lang}`)
+        getSound(`audio/${lang}/key`)
             .then(files => {
                 // _dispatch(addAudioFiles(files));
                 setAudioFiles(files);
@@ -23,20 +21,19 @@ function SetSpeakerIntruction({ _setLessonNumber, lessonNumber }){
             });
     }, [audioFiles])
 
-
     const onSoundSet = val =>{
-        alert(val)
+      dispatch(setMeta({audioIntr:val}));
+        setAudioFile(val)
     }
 
 
     return (
         <div className="  speaker-config">
         
-            <div className=" col s2">
-                <i className="material-icons red-text large right speaker-config-icon"
+            <div className=" col s2 pointer">
+                <i onClick={e=>playAudio('key/'+audioFile)} className="material-icons red-text large right speaker-config-icon"
                 >volume_up</i>
        </div>
-
 
             <div className="input-field col s6">
                 <select defaultValue={''} onChange={val => onSoundSet(val.target.value)} className="browser-default" >
@@ -44,13 +41,9 @@ function SetSpeakerIntruction({ _setLessonNumber, lessonNumber }){
                     <RenderAudioOptions audioFiles={audioFiles} />
                 </select>
             </div>
-
-
                 </div>
     )
 }
-
-
 
 function RenderAudioOptions({ audioFiles }) {
     if (!audioFiles) return null;

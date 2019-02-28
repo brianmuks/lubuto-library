@@ -3,7 +3,7 @@ import { initModal } from "../../../utilities/Form";
 import { TOOLS_STATE } from '../../d-context';
 import SetRightAnsView from "./SetRightAns";
 import SetLessonNo from "./SetLessonNo";
-import { setLessonNumber } from "../../d-redux/actions/lessonActions";
+import { setLessonNumber, setMeta } from "../../d-redux/actions/lessonActions";
 import { getUrlParam } from "../../../utilities/Tasks";
 import { LESSON_TYPES } from "../../d-redux/constants";
 import SetSpeakerIntruction from "./SetSpeakerIntruction";
@@ -20,7 +20,7 @@ function ToolConfig(){
         // setLessonNumber(lessonNumber);
         // const tools = [ ...state.staggedTools,{meta:{...state.staggedTools.meta,lessonNumber}}]
         // const meta =  { ...state.staggedTools.meta, lessonNumber } ;
-        dispatch(setLessonNumber(lessonNumber));
+        dispatch(setMeta({lessonNumber}));
     }
 
     const x = 1;//prevent unsessary reloads or change states
@@ -39,7 +39,7 @@ function ToolConfig(){
                 <h6 className="teal-text  ">  {LESSON_TYPES[getUrlParam('type')]} </h6>
                 </div>
 
-            <SetSpeakerIntruction /> 
+            <SetSpeakerIntruction dispatch={dispatch} /> 
 
 
             <div className="modal-content">
