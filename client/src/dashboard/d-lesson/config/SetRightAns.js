@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { TOOLS_STATE } from "../../d-context";
 import { editStaggedTools } from "../../d-redux/actions/lessonActions";
 
-function SetRightAnsView({ staggedTools, dispatch}){
+function SetRightAnsView({ staggedTools, dispatch, isExeLesson}){
 
     // const { state, dispatch } = useContext(TOOLS_STATE);
     const [rightAnsIndex, setRightAns] = useState('');
@@ -29,17 +29,17 @@ function SetRightAnsView({ staggedTools, dispatch}){
     }         
 
         return(
-            <div className="row">
+            <div className={`row ${isExeLesson && "white lighten-3"}`}>
             <div className="input-field col s12 m6">
                 <h5 className='center'>Questions</h5>
-                    <select value={questionIndex} onChange={e =>setRightQuestion(e.target.value)} className="browser-default ">
+                    <select disabled={isExeLesson} value={questionIndex} onChange={e =>setRightQuestion(e.target.value)} className="browser-default ">
                     <option value="" disabled >Choose A Question</option>
                         <RenderQuestionOptions staggedTools={staggedTools} />
                 </select>
             </div>
             <div className="input-field col s12 m6">
                   <h5 className='center'>Answers</h5>
-                    <select value={rightAnsIndex} onChange={e => setRightAns(e.target.value)} className="icons browser-default">
+                    <select disabled={isExeLesson} value={rightAnsIndex} onChange={e => setRightAns(e.target.value)} className="icons browser-default">
                     <option value="" disabled >Match An Answer</option>
                         <RenderAnswerOptions staggedTools={staggedTools} />
                 </select>

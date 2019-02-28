@@ -15,7 +15,6 @@ function CreateLessonSelector() {
   return (
    <div>
       <NavBar logOutUser={logOutUser} color={'light-blue'} /> 
-
       <div className='row '>
       <h4 className='center'> Please Select Lesson Type</h4>
       <div className='col m10 offset-m1'>
@@ -23,8 +22,6 @@ function CreateLessonSelector() {
       <RenderOptions />
         </div>
     </div>
-
-
    </div>
   );
 }
@@ -53,7 +50,7 @@ function RenderOptions(){
               <p>{item.description}</p>
             </div>
             <div className="card-action">
-            <a className='teal-text fa' href={`/dashboard/create-lesson/${item.type}?${urlParams}`}>Create </a>
+            <a className='teal-text fa' href={`/dashboard/create-lesson/new?type=${item.type}&${urlParams}`}>Create </a>
             </div>
           </div>
         </div>

@@ -13,6 +13,7 @@ import { withTracker } from "meteor/react-meteor-data";
 import { COL_Lessons } from "../../../../lib/Collections";
 import { getUrlParam } from "../../utilities/Tasks";
 import { editStaggedTools } from "../d-redux/actions/lessonActions";
+import LessonNavBar from "./LessonNavaBar";
 
 const initialState = {
   data:{  x: 0,
@@ -67,7 +68,7 @@ function EditLesson({lesson}) {
       <div className='editor-container'>
 
         <Tools lessonId={lesson && lesson._id} isEdit/>
-        <RenderConfigBtnTrigger  />
+        <LessonNavBar />
         <div className="row">
           <ToolConfig isEdit />
           <MainEditor isEdit />
@@ -80,14 +81,7 @@ function EditLesson({lesson}) {
   );
 }
 
-function RenderConfigBtnTrigger(){
-  return(
-    <div className="tool-config  col m12 offset-s5">
-      <a href={`#${TOOL_CONFIG_MODAL_ID}`} className='waves-effect  waves-light  white-text  modal-trigger'>Settings</a>
-    </div>
-  )
 
-}
 
 export default withTracker((props) => {
   console.log()

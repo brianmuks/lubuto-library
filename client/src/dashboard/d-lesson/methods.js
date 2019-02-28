@@ -1,11 +1,22 @@
-export const saveLesson = lesson => {
+import { getUrlParam } from "../../utilities/Tasks";
+import { TOOL_CONFIG_MODAL_ID } from "./config/ToolConfig";
 
+export const saveLesson = (lesson,meta) => {
+
+    const lan = getUrlParam('lang');
+    const type = getUrlParam('type');
+    meta = {...meta,lan,type};
+    lesson  = {...lesson,meta};
+
+    if (!meta.lessonNumber) {
+        M.toast({ html: 'Please set the lesson Number' });
+        $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
+        return
+    }
 
     return new Promise ((resolve,reject)=>{
-
         Meteor.call('saveLesson', lesson, (err, _id) => {
             console.log(err, _id);
-
             if (err) {
                 alert('Sorry error occured');
                 // M.toast()
@@ -20,7 +31,7 @@ export const saveLesson = lesson => {
 }
 
 
-export const editLesson =( {lessonId,lesson}) => {
+export const editLesson =( {lessonId,lesson,meta}) => {
   
     Meteor.call('editLesson',{...lesson,_id:lessonId}, (err, ok) => {
         console.log(err, ok);
@@ -28,13 +39,12 @@ export const editLesson =( {lessonId,lesson}) => {
     })
 }
 
-
 export const getSound = src => {
 
     return new Promise((resolve, reject) => {
         Meteor.call('Tool.getSound', src, (err, ok) => {
 
-            console.log(err, ok);
+            // console.log(err, ok);
             if (err) {
                 reject(err)
             }else{
@@ -51,7 +61,7 @@ export const getImages = src => {
     return new Promise((resolve, reject) => {
         Meteor.call('Tool.getSound', src, (err, ok) => {
 
-            console.log(err, ok);
+            // console.log(err, ok);
             if (err) {
                 reject(err)
             } else {

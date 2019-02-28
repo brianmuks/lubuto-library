@@ -6,9 +6,9 @@ import { useLogout } from "./Accounts/accountsUtils";
 import { getUrlParam } from "../../utilities/Tasks";
 import { Link } from "react-router-dom";
 
+const LANGS = [{ label: 'Kikaonde', val: 'kao' }, { label: 'Bemba', val: 'bem' }, { label: 'English', val: 'eng' }, { label: 'Cinyanja', val: 'cin' }];
 
 
-const LANGS = [{label:'Kikainde',val:'KAO'},{label:'Bemba',val:'BEM'},{label:'English',val:'ENG'},{label:'Cinyanja',val:'CIN'}];
 // todo: Push the icon name to the icon array, as items that have been moved
 
 function LanguageSelector(props) {
@@ -57,11 +57,11 @@ function RenderOptions({filteredLANGS}){
 const nextPath = getUrlParam('n');
   return filteredLANGS.map((item,index)=>(
     <li key={index} className="collection-item avatar">
-    <Link to={`/dashboard/${nextPath}/?lan=${item.val}`}>
+    <Link to={`/dashboard/${nextPath}/?lang=${item.val}`}>
     <i className="material-icons circle">translate</i>
     <span className="title">{item.label}</span>
     </Link>
-    <a href={`/dashboard/${nextPath}/?lan=${item.val}`} className="secondary-content"><i className="material-icons">radio_button_unchecked</i></a>
+    <a href={`/dashboard/${nextPath}/?lang=${item.val}`} className="secondary-content"><i className="material-icons">radio_button_unchecked</i></a>
   </li>
   ))
 }

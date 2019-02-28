@@ -1,4 +1,4 @@
-import { DROP, DRAG, ADD_TOOL, EDIT_TOOL, UPDATE_TOOL,EDIT_STAGGED_TOOL, ADD_AUDIO_FILES, ADD_IMAGE_FILES } from "./../constants";
+import { DROP, DRAG, ADD_TOOL, EDIT_TOOL, UPDATE_TOOL,EDIT_STAGGED_TOOL, ADD_AUDIO_FILES, ADD_IMAGE_FILES, SET_LESSON_NUMBER } from "./../constants";
 
 /**
  *
@@ -79,6 +79,15 @@ export function lessonReducer(state, action) {
           imageFiles: action.imageFiles
         }
       );
+      
+    case SET_LESSON_NUMBER:
+      return Object.assign(
+        { ...state },
+        {
+          meta: {...state.meta,lessonNumber:action.number}
+        }
+      );
+
     default:
       return state;
   }

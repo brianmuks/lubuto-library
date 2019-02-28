@@ -17,7 +17,8 @@ function MainEditor(props) {
 
   return (
     // col m7 offset - m3
-    <div className=" grey lighten-3 editor">
+    <div
+     className=" grey lighten-3 editor">
 
       <audio  src={'http://127.0.0.1:4000/1_Kiikaonde/ESAKANYA_BISOPLOKATA_NE_BICHE_BYA_MAFUMU.wav'}   id="audio" >
         {/* <source   type="audio/wav" /> */}

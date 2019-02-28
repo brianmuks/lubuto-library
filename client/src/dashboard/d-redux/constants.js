@@ -31,6 +31,14 @@ export const DRAG = 'DRAG';
 export const EDIT_TOOL = 'EDIT_TOOL';
 export const EDIT_STAGGED_TOOL = 'EDIT_STAGGED_TOOL';
 export const UPDATE_TOOL = 'UPDATE_TOOL';
+export const SET_LESSON_NUMBER = 'SET_LESSON_NUMBER';
+
+
+export const LESSON_TYPES ={
+    instr: 'Intructional',
+    dnd:'Drag-N-Drop',
+    c2m:'Click-2-Match'
+}
 
 
 

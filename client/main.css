@@ -169,3 +169,16 @@ body {
   justify-content: center;
 }
 
+.lesson-number-config{
+margin-top:-90px;
+}
+
+
+.speaker-config{
+  margin:-70px 0 0 30% ;
+  width: 50%;
+}
+.modal.bottom-sheet{
+  max-height: 150% !important;
+ height: 60% !important;
+}

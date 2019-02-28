@@ -76,7 +76,7 @@ function Landing() {
           <div className="col s12 m4">
             <div className="icon-block">
               <h2 className="center light-blue-text">
-                <i className="material-icons">settings</i>
+                <i className="material-icons">settings s</i>
               </h2>
               <h5 className="center">Easy to work with</h5>
 

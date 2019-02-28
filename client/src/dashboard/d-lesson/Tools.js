@@ -39,7 +39,7 @@ console.log('props',props);
       ev.preventDefault()
       }
       const _saveLesson  = ev =>{
-          saveLesson(state.staggedTools)
+        saveLesson(state.staggedTools, state.meta);
       }
 
 
@@ -50,7 +50,7 @@ console.log('props',props);
       {/* <button className="btn right red" onClick={_openImageList}>Click me</button> */}
 
       <ul id="slide-out" className="sidenav  sidenav-fixed">
-        <li onClick={e => props.isEdit ? editLesson({ lesson: state.staggedTools, lessonId: props.lessonId}) : _saveLesson(e)}>
+        <li onClick={e => props.isEdit ? editLesson({ lesson: state.staggedTools, meta: state.meta, lessonId: props.lessonId}) : _saveLesson(e)}>
           <button className="btn right red">{props.isEdit && `Update` || 'Save'}</button>
           <div className="user-view ">
             <a href="#email">

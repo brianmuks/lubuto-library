@@ -8,16 +8,11 @@ import ResourceEditor from "./ResourceEditor";
 import { TOOLS_STATE } from "./../d-context";
 import { lessonReducer } from "./../d-redux/reducers/lessonReducer";
 import ImageList from "./ImageList";
-import ToolConfig, { TOOL_CONFIG_MODAL_ID} from "./config/ToolConfig";
+import LessonNavBar from "./LessonNavaBar";
+import ToolConfig from "./config/ToolConfig";
 
 const initialState = {
-  data:{  x: 0,
-    //TODO: REMOVE
-    y: 0,
-    node: {},
-    icons: [],
-    _id: '',
-    name: ''},
+  meta:{},
   tools:[],
   addedTools:[],
   staggedTools:[],
@@ -35,7 +30,7 @@ function CreateLesson() {
       <div className='editor-container'>
 
         <Tools />
-        <RenderConfigBtnTrigger  />
+        <LessonNavBar />
         <div className="row">
           <ToolConfig />
           <MainEditor />
@@ -48,13 +43,6 @@ function CreateLesson() {
   );
 }
 
-function RenderConfigBtnTrigger(){
-  return(
-    <div className="tool-config  col m12 offset-s5">
-      <a href={`#${TOOL_CONFIG_MODAL_ID}`} className='waves-effect  waves-light  white-text  modal-trigger'>Settings</a>
-    </div>
-  )
 
-}
 
 export default CreateLesson;
