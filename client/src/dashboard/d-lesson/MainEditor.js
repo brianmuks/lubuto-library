@@ -139,9 +139,6 @@ function RenderToolDelegator({tool,editedTools}){
 
 }
 
-
-
-
 export function useDragging(){
   const {state, dispatch} = useContext(TOOLS_STATE);
   const { data } = state;

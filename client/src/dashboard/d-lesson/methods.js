@@ -1,16 +1,23 @@
 import { getUrlParam } from "../../utilities/Tasks";
 import { TOOL_CONFIG_MODAL_ID } from "./config/ToolConfig";
 import { AUDIO_URL } from "../../utilities/constants";
+import { COL_Lessons } from "../../../../lib/Collections";
 
 export const saveLesson = (lesson,meta) => {
 
-    const lan = getUrlParam('lang');
+    const lang = getUrlParam('lang');
     const type = getUrlParam('type');
-    meta = {...meta,lan,type};
+    meta = {...meta,lang,type};
     lesson  = {...lesson,meta};
+
+    const query = { 'meta.lang': lang, 'meta.lessonNumber': meta.lessonNumber}
 
     if (!meta.lessonNumber) {
         M.toast({ html: 'Please set the lesson Number' });
+        $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
+        return
+    } else if (COL_Lessons.findOne(query)){
+        M.toast({ html: `Sorry Lesson number ${meta.lessonNumber} is already taken` });
         $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
         return
     }
@@ -26,15 +33,22 @@ export const saveLesson = (lesson,meta) => {
                 resolve(_id);
             }
         })
-
     })
-
 }
 
 
 export const editLesson =( {lessonId,lesson,meta}) => {
   
     Meteor.call('editLesson',{...lesson,_id:lessonId}, (err, ok) => {
+        console.log(err, ok);
+        err && alert('Sorry error occured') || alert('Lesson Updated!')
+    })
+}
+
+
+export const deleteLesson = _id => {
+
+    Meteor.call('deleteLesson', _id, (err, ok) => {
         console.log(err, ok);
         err && alert('Sorry error occured') || alert('Lesson Updated!')
     })

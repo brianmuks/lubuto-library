@@ -7,6 +7,8 @@ import { getUrlParam, getUrlParams } from "../../utilities/Tasks";
 import { Link } from "react-router-dom";
 import { COL_Lessons } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
+import RemoveLessonModal, { REMOVE_LESSSON_MODAL_ID } from "./RemoveLessonModal";
+import { deleteLesson } from "./methods";
 
 const LANGS = [{_id:'Kikainde',val:'KAO'},{_id:'Bemba',val:'BEM'},{_id:'English',val:'ENG'},{_id:'Cinyanja',val:'CIN'}];
 // todo: Push the icon name to the icon array, as items that have been moved
@@ -14,10 +16,14 @@ const LANGS = [{_id:'Kikainde',val:'KAO'},{_id:'Bemba',val:'BEM'},{_id:'English'
 function ViewLessons(props) {
   const { isLoggedOut, logOutUser } = useLogout()
   const [filteredLessons, setlessons] = useState([]);
+  const [renderCounter, setRenderCounter] = useState(0);
+  const [lesson, setlesson] = useState({});
   const lessons = props.lessons || [];
+
 
   useEffect(() => {
     setlessons(lessons);
+    setRenderCounter(renderCounter+1);
   },[lessons])
 
   const onFilter = event => {
@@ -37,7 +43,7 @@ function ViewLessons(props) {
   return (
    <div>
       <NavBar logOutUser={logOutUser} color={'light-blue'} /> 
-      <div className='row '>
+      <div className='row'>
       <h4 className='center'> Please Select Lesson</h4>
       <div className='col m10 offset-m1'>
       <input
@@ -48,16 +54,33 @@ function ViewLessons(props) {
                 placeholder='SEARCH'
               />
          <ul className="collection">
-        <RenderOptions filteredLessons={filteredLessons} />
+            <RenderOptions setlesson={setlesson}  filteredLessons={filteredLessons} />
   </ul>
+          {
+           renderCounter  && lessons.length === 0 && <RenderNoLesson />
+          }
         </div>
     </div>
+      <RemoveLessonModal label={lesson.meta && lesson.meta.lessonNumber} deleteLesson={() => deleteLesson(lesson._id)} />
    </div>
   );
 }
 
-function RenderOptions({filteredLessons}){
+function RenderNoLesson(){
+  return (
+     <>
+      <h6 className="red-text lighten-3">Sorry, You have no Lesson under this language </h6>
+      <Link to={`/dashboard/create_lesson_type/?lang=${getUrlParam('lang')}`}>Create lesson</Link>
+    </>
+
+  )
+
+
+}
+
+function RenderOptions({ filteredLessons, setlesson}){
   // format_shapes score text_fields chrome_reader_mode line_style
+
 const urlParams = getUrlParams();
   return filteredLessons.map((item,index)=>(
     <li key={index} className="collection-item avatar">
@@ -65,7 +88,7 @@ const urlParams = getUrlParams();
     <i className="material-icons circle">format_shapes</i>
     <span className="title">{'LESSON '+(index+1)}</span>
     </Link>
-    <a href={`/dashboard/edit_lesson/${item._id}?${urlParams}`} className="secondary-content"><i className="material-icons">radio_button_unchecked</i></a>
+      <a href={`#${REMOVE_LESSSON_MODAL_ID}`} onClick={e=>setlesson(item)} className="secondary-content modal-trigger"><i className="material-icons red-text">cancel</i></a>
   </li>
   ))
 }
@@ -73,8 +96,10 @@ const urlParams = getUrlParams();
 export default withTracker(() => {
   Meteor.subscribe("lessons");
   Meteor.subscribe("users");
+  const lang = getUrlParam('lang');
+  const query = {'meta.lang':lang};
   return {
-    lessons: COL_Lessons.find({}, { sort: { createdAt: -1 } }).fetch()
+    lessons: COL_Lessons.find(query, { sort: { createdAt: -1 } }).fetch()
   };
 })(ViewLessons);
 
