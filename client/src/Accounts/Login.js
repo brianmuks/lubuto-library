@@ -22,23 +22,24 @@ function Login() {
     return <Redirect to='/' />
   }  
   return (
-    <div className="row">
+    <div className="row ">
       <div className="col s4" />
       <div className="col s4 " style={{ paddingTop: 30, margin: 0 }}>
-        <div className="card">
-          <div className="row">
-            <div className="col s12 center-align"> LOGIN</div>
+        <div className="card login-container">
+          <div className="row  ">
+            <div className="col s12 center-align"> <span className="login-title"> Login  </span></div>
             <form className="col s12" onSubmit={handleLogin}>
               <div className="row">
                 <div className="input-field col s10" style={{ marginLeft: 15 }}>
                   <input
                     id="username"
                     type="text"
-                    className="validate"
+                    className="validate login-input"
+                    placeholder="type username"
                     {...username}
                     required
                   />
-                  <label htmlFor="username">Username</label>
+                  <label className="login-input-label" htmlFor="username">Username</label>
                 </div>
               </div>
 
@@ -47,7 +48,9 @@ function Login() {
                   <input
                     id="password"
                     type="password"
-                    className="validate"
+                    className="validate login-input"
+                    placeholder="type Password"
+
                     {...password}
                     required
                   />

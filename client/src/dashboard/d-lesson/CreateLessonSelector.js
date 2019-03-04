@@ -1,11 +1,9 @@
 //NOTE holds all create lesson components
 
 import React from "react";
-import { NavBar } from "../../common/components/Landing";
-import { useLogout } from "../../common/components/Accounts/accountsUtils";
 import { getUrlParams } from "../../utilities/Tasks";
-
-
+import NavBar from "../../components/Layout/NavBar";
+import { useLogout } from "../../Accounts/accountsUtils";
 // todo: Push the icon name to the icon array, as items that have been moved
 
 function CreateLessonSelector() {

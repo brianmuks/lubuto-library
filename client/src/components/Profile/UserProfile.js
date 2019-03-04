@@ -13,11 +13,11 @@ import {
   Legend
 } from "recharts";
 import User, { StatsRow } from "./User";
-import { USER_STATS, COL_Lessons } from "../../../../../lib/Collections";
+// import { USER_STATS, COL_Lessons } from "../../../../../lib/Collections";
 import UserStats from "./UserStats";
-import { useLogout } from "../Accounts/accountsUtils";
+import { useLogout } from "../../Accounts/accountsUtils";
 import { NavBar } from "../Landing";
-
+import { COL_USER_STATS, COL_Lessons } from "../../../../lib/Collections";
 
 // for prototyping
 const data = [

@@ -3,27 +3,28 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Meteor } from 'meteor/meteor'
 import IconEditor from "./dashboard/tools/iconEditor";
 import CreateLesson from "./dashboard/d-lesson/CreateLesson";
-import Landing from "./common/components/Landing";
-import NotFound from './common/components/NotFound'
-
+import NotFound from './components/NotFound'
 // Containers (Roles)
+
 import Admin from "./Routes/Admin";
 import User from "./Routes/User";
 // Accounts
-import Login from './common/components/Accounts/Login'
-import Register from './common/components/Accounts/Register'
-import UserProfile from './common/components/Profile/UserProfile'
-import Statistics from './common/components/Profile/Statistics'
-import LessonStats from './common/components/Profile/LessonStats'
+import Login from './Accounts/Login'
+import Register from './Accounts/Register'
+import UserProfile from './components/Profile/UserProfile'
+import Statistics from './components/Profile/Statistics'
+import LessonStats from './components/Profile/LessonStats'
 
 // Lessons
-import LessonView from './common/components/Lesson/LessonView'
+import LessonView from './components/Lesson/LessonView'
 import LessonPreview from "./dashboard/d-lesson//LessonPreview";
 import StudentLesson from "./student/s-lesson";
 import CreateLessonSelector from "./dashboard/d-lesson/CreateLessonSelector";
-import LanguageSelector from "./common/components/LanguageSelector";
+import LanguageSelector from "./components/LanguageSelector";
 import ViewLessons from "./dashboard/d-lesson/ViewLessons";
 import EditLesson from "./dashboard/d-lesson/EditLesson";
+import Home from "./student/Home";
+import Landing from "./components/Landing";
 
 
 // Only here for prototyping
@@ -78,8 +79,7 @@ const Routes = () => (
       component={EditLesson}
     />
 
-
-      <User exact role={"user"} path="/" component={Landing} />
+      <User exact role={"user"} path="/" component={Home} />
       <User exact role={"user"} path="/lesson" component={StudentLesson} />
       <User exact role={"user"} path="/lesson/page/:id" component={LessonView} />
       

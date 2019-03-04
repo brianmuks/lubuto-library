@@ -2,10 +2,9 @@
 
 import React,{useState} from "react";
 import { NavBar } from "./Landing";
-import { useLogout } from "./Accounts/accountsUtils";
-import { getUrlParam } from "../../utilities/Tasks";
 import { Link } from "react-router-dom";
-
+import { useLogout } from "../Accounts/accountsUtils";
+import { getUrlParam } from "../utilities/Tasks";
 const LANGS = [{ label: 'Kikaonde', val: 'kao' }, { label: 'Bemba', val: 'bem' }, { label: 'English', val: 'eng' }, { label: 'Cinyanja', val: 'cin' }];
 
 

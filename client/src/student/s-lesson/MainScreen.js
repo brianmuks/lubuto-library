@@ -28,10 +28,8 @@ function MainScreen(props) {
   );
 }
 
-
 function RenderTools({playAudio, setDraggedQuestion,draggedQuestion, tools}) {
   const { state, dispatch } = useContext(TOOLS_STATE);
-
   return tools.map((tool, index) => (
     // marginLeft: tool.style.x, marginTop: tool.style.y
     <div 

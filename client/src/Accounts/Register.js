@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import { Link, Redirect, withRouter } from 'react-router-dom'
 import { Accounts } from 'meteor/accounts-base'
 import {useFormInput, useError, validatePassword} from './accountsUtils'
-
+import { COL_CONFIG } from "../../../lib/Collections";
 function Register(props) {
     const username = useFormInput('')
     const name = useFormInput('')
     const password = useFormInput('')
     const confirmedPassword = useFormInput('')
     const gender = useFormInput('')
-    const center = useFormInput('')
     const isValid = validatePassword(password.value, confirmedPassword.value)
     const {error, setError} = useError('')
     const [isAuth, setAuth] = useState(false)
@@ -25,9 +24,10 @@ function Register(props) {
         setError('There was a problem with the password')
         return;
       }
+      const {center} = COL_CONFIG.findOne({});
       const profile = {
         name: name.value,
-        center: center.value,
+        center,
         gender: gender.value,
         createdAt: new Date(),
         role: pathname === '/dashboard/register' ? 'admin' : 'user'
@@ -74,18 +74,11 @@ function Register(props) {
                   <label htmlFor="username">Username</label>
                 </div>
               </div>
-              <div className="input-field col s10">
-                <select {...center}>
-                  <option value="" disabled defaultValue>Choose Center</option>
-                  <option value="garden">Garden</option>
-                  <option value="mthunzi">Mthunzi</option>
-                  <option value="choma">Choma</option>
-                  <option value="other">Other</option>
-                </select>
-                <label>Center</label>
-              </div>
-              <div className="input-field col s10">
-                <select {...gender}>
+
+
+
+              <div className="input-field col s10 ">
+                <select className="brower-default" {...gender}>
                   <option value="" disabled defaultValue>Choose your gender</option>
                   <option value="female">Female</option>
                   <option value="male">Male</option>

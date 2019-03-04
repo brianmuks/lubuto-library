@@ -12,11 +12,10 @@ import {
   Legend
 } from "recharts";
 import User, { StatsRow } from "./User";
-import { USER_STATS } from "../../../../../lib/Collections";
 import UserStats from "./UserStats";
-import { useLogout } from "../Accounts/accountsUtils";
+import { useLogout } from "../../Accounts/accountsUtils";
 import { NavBar } from "../Landing";
-
+import { COL_USER_STATS } from "../../../../lib/Collections";
 const data = [
   {name: 'Page 1', time_taken: 40, tries: 2, amt: 2400},
   {name: 'Page 2', time_taken: 30, tries: 1, amt: 2210},
@@ -86,6 +85,6 @@ export default withTracker(props => {
   Meteor.subscribe("userStats");
   return {
     user: Meteor.users.findOne({ _id: props.match.params.id }),
-    stats: USER_STATS.find({ userId: props.match.params.id }).fetch()
+    stats: COL_USER_STATS.find({ userId: props.match.params.id }).fetch()
   };
 })(RouterProfile);

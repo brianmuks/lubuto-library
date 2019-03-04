@@ -12,17 +12,11 @@ import ToolConfig, { TOOL_CONFIG_MODAL_ID} from "./config/ToolConfig";
 import { withTracker } from "meteor/react-meteor-data";
 import { COL_Lessons } from "../../../../lib/Collections";
 import { getUrlParam } from "../../utilities/Tasks";
-import { editStaggedTools } from "../d-redux/actions/lessonActions";
+import { editStaggedTools, setMeta } from "../d-redux/actions/lessonActions";
 import LessonNavBar from "./LessonNavaBar";
 
 const initialState = {
-  data:{  x: 0,
-    //TODO: REMOVE
-    y: 0,
-    node: {},
-    icons: [],
-    _id: '',
-    name: ''},
+  meta:{},
   tools:[],
   addedTools:[],
   staggedTools:[],
@@ -56,6 +50,7 @@ function EditLesson({lesson}) {
      IS_PREVENT_LESSON_RELOAD = true;
      preventLessonReload(true)
       dispatch(editStaggedTools(result)) ;
+     dispatch(setMeta(lesson.meta)) ;
      console.log('IS_PREVENT_LESSON_RELOAD',isLessonLoaded,state.staggedTools,result.length)
 
     }

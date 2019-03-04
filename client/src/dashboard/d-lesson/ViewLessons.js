@@ -1,16 +1,15 @@
 //NOTE holds all create lesson components
 
 import React,{useState,useEffect} from "react";
-import { NavBar } from "../../common/components/Landing";
-import { useLogout } from "../../common/components/Accounts/accountsUtils";
 import { getUrlParam, getUrlParams } from "../../utilities/Tasks";
 import { Link } from "react-router-dom";
 import { COL_Lessons } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
 import RemoveLessonModal, { REMOVE_LESSSON_MODAL_ID } from "./RemoveLessonModal";
 import { deleteLesson } from "./methods";
+import NavBar from "../../components/Layout/NavBar";
 
-const LANGS = [{_id:'Kikainde',val:'KAO'},{_id:'Bemba',val:'BEM'},{_id:'English',val:'ENG'},{_id:'Cinyanja',val:'CIN'}];
+  const LANGS = [{_id:'Kikainde',val:'KAO'},{_id:'Bemba',val:'BEM'},{_id:'English',val:'ENG'},{_id:'Cinyanja',val:'CIN'}];
 // todo: Push the icon name to the icon array, as items that have been moved
 
 function ViewLessons(props) {
@@ -42,7 +41,7 @@ function ViewLessons(props) {
 
   return (
    <div>
-      <NavBar logOutUser={logOutUser} color={'light-blue'} /> 
+      <NavBar  color={'light-blue'} /> 
       <div className='row'>
       <h4 className='center'> Please Select Lesson</h4>
       <div className='col m10 offset-m1'>
@@ -75,7 +74,6 @@ function RenderNoLesson(){
 
   )
 
-
 }
 
 function RenderOptions({ filteredLessons, setlesson}){
@@ -86,7 +84,7 @@ const urlParams = getUrlParams();
     <li key={index} className="collection-item avatar">
     <Link to={`/dashboard/edit_lesson/${item._id}?${urlParams}`}>
     <i className="material-icons circle">format_shapes</i>
-    <span className="title">{'LESSON '+(index+1)}</span>
+        <span className="title">{'LESSON ' + (item.meta.lessonNumber)}</span>
     </Link>
       <a href={`#${REMOVE_LESSSON_MODAL_ID}`} onClick={e=>setlesson(item)} className="secondary-content modal-trigger"><i className="material-icons red-text">cancel</i></a>
   </li>

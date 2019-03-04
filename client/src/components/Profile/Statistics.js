@@ -4,8 +4,7 @@ import { withTracker } from "meteor/react-meteor-data";
 import User from "./User";
 import ReactModal from "react-modal";
 import { Redirect, NavLink } from "react-router-dom";
-import { useFormInput, useError } from "../Accounts/accountsUtils";
-import { useLogout } from "../Accounts/accountsUtils";
+import { useLogout, useFormInput, useError } from "../../Accounts/accountsUtils";
 import { NavBar } from "../Landing";
 
 const getAllUsers = users => users.length && <User users={users} />;

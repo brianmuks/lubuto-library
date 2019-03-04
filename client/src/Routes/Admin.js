@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import { checkUserRole } from '../common/components/Accounts/accountsUtils'
+import { checkUserRole } from '../Accounts/accountsUtils'
 
 // we might need to use the roles package
 // or we can just use set it as another field

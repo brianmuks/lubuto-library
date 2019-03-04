@@ -1,6 +1,6 @@
 // The main entry for all server files
 import { Meteor } from 'meteor/meteor'
-import { Centers } from '../lib/Collections'
+import { COL_Centers } from '../lib/Collections'
 import '../lib/Collections'
 import './Tools/methods'
 import './Tools/publications'
@@ -14,7 +14,8 @@ import './Constants'
 
 
 Meteor.startup(() => {
-    if (!Centers.find().count()) {
+    if (!COL_Centers.find().count()) {
+       
         const _centers = [
             {name: 'Garden '},
             {name: 'Mtunzi'},
@@ -22,7 +23,7 @@ Meteor.startup(() => {
             {name: 'anonymous'}
         ]
         // insert centers
-        _centers.forEach((center => Centers.insert(center)))
+       // _centers.forEach((center => COL_Centers.insert(center)))
         
     }
 })
