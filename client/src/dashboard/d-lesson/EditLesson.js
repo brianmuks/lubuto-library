@@ -49,11 +49,8 @@ function EditLesson({lesson}) {
 
     if(IS_PREVENT_LESSON_RELOAD === false){
       // dispatch(editStaggedTools(result)) ;
-
    }
     lesson && console.log('result', lesson.content)
-
-
    if (result.length > 0 && !isLessonLoaded) {
      IS_PREVENT_LESSON_RELOAD = true;
      preventLessonReload(true)

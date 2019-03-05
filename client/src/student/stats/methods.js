@@ -2,11 +2,14 @@
 
 
 
-export const saveLesson = lesson => {
-
-
-    Meteor.call('saveLesson', lesson, (err, ok) => {
+export const addStartTime = lessonId => {
+    Meteor.call('addStartTime', {lessonId}, (err, ok) => {
         console.log(err, ok);
-        err && alert('Sorry error occured') || alert('Lesson saved!')
+    })
+}
+
+export const recordAttempt = ({ lessonId, questionIndex}) => {
+    Meteor.call('recordAttempt', { lessonId, questionIndex}, (err, ok) => {
+        console.log(err, ok);
     })
 }

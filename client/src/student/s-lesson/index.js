@@ -5,12 +5,13 @@ import { STUDENT_LESSON_STATE } from "./../s-context";
 import { lessonReducer } from "./../s-redux/reducers/lessonReducer";
 import { withTracker } from "meteor/react-meteor-data";
 import { COL_Lessons } from "../../../../lib/Collections";
-import { editStaggedTools } from "../s-redux/actions/lessonActions";
+import { editStaggedTools, setLessonId } from "../s-redux/actions/lessonActions";
 import Lessons from "./Lessons";
 import MainScreen from "./MainScreen";
 import Pages from "./Pages";
 import ScoreBoard from "./ScoreBoard";
 import { getUrlParam } from "../../utilities/Tasks";
+import { addStartTime } from "../stats/methods";
 
 const initialState = {
   language:getUrlParam('lang'),
@@ -24,15 +25,18 @@ const initialState = {
 
 function StudentLesson(props) {
   const [state, dispatch] = useReducer(lessonReducer, initialState);
-  const [lessonId, setLessonId] = useState(null);
+  const [lessonId, _setLessonId] = useState(null);
 
   useEffect(() => {
     if (!props.lesson) {
       return
     }
 
+    addStartTime(props.lesson._id)
+
     let x = (props.lesson.content);
-    setLessonId(props.lesson._id)
+    _setLessonId(props.lesson._id);
+    dispatch(setLessonId(props.lesson._id));
     var result = Object.keys(x).map(function (key) {
       return x[key];
     });

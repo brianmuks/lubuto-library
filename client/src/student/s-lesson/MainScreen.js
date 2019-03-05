@@ -10,7 +10,7 @@ const LANG = 'kao';
 function MainScreen(props) {
   const [audioFile, setAudioFile] = useState([])
   const { state } = useContext(STUDENT_LESSON_STATE);
-  const { staggedTools, color, bgColor, size, spacing } = state;
+  const { staggedTools, color, bgColor, lessonId,  } = state;
   const { x, y, node, _id, name } = useDragging();
 
   const [draggedQuestion, setDraggedQuestion] = useState(null)
@@ -22,14 +22,15 @@ function MainScreen(props) {
         {/* <source   type="audio/wav" /> */}
       </audio>
     <div className=" grey lighten-3 main-screen-4-lesson">
-      <RenderTools draggedQuestion={draggedQuestion} setDraggedQuestion={setDraggedQuestion} playAudio={playAudio} isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
+      <RenderTools lessonId={lessonId} draggedQuestion={draggedQuestion} setDraggedQuestion={setDraggedQuestion} playAudio={playAudio} isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
     </div>
     </>
   );
 }
 
-function RenderTools({playAudio, setDraggedQuestion,draggedQuestion, tools}) {
+function RenderTools({lessonId,playAudio, setDraggedQuestion,draggedQuestion, tools}) {
   const { state, dispatch } = useContext(STUDENT_LESSON_STATE);
+  // console.log(state.le)
   return tools.map((tool, index) => (
     // marginLeft: tool.style.x, marginTop: tool.style.y
     <div 
@@ -38,7 +39,7 @@ function RenderTools({playAudio, setDraggedQuestion,draggedQuestion, tools}) {
       key={index}
       id={index}
       draggable={tool.isQuestion  && true}
-      onDrop={e => tool.isAns  && onDrop(e,tool,draggedQuestion) || undefined} 
+      onDrop={e => tool.isAns  && onDrop(e,tool,draggedQuestion,lessonId) || undefined} 
       onDragOver={tool.isAns  && onDragOver || undefined} 
       onDrag={tool.isQuestion  && onDrag || undefined}
       onDragStart={e => tool.isQuestion && onDragStart(e, tool,setDraggedQuestion) || undefined}

@@ -1,5 +1,6 @@
 const LANG = 'kao';   //TODO: get from URL
 import { AUDIO_URL, IMAGE_EXTERNAL_URL, NO_SOUND, YES_SOUND } from "../../utilities/constants";
+import { recordAttempt } from "../stats/methods";
 
 export const saveLesson = lesson => {
 
@@ -55,14 +56,18 @@ export const playAudio = audioFile=>{
 }
 
 
-export const onDrop = (ev, ans, draggedQuestion) => {
+export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
     ev.preventDefault();
     const isCorrect = checkAns(ans,draggedQuestion);
     // console.log('isCorrect', isCorrect);
 
     if(!isCorrect){
-    console.log('wrong Ans', isCorrect);
+    console.log('wrong Ans', draggedQuestion);
         playAudio(NO_SOUND);
+        //{ MinimongoError: Key question.[object Object] must not contain '.'
+        const questionIndex = draggedQuestion.index.toString().replace('.','-');
+        recordAttempt({ questionIndex,lessonId});
+
         // TODO:placyAudio  
         return;
     }

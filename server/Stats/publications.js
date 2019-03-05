@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor'
-import { USER_STATS } from '../../lib/Collections'
+import { COL_USER_STATS } from '../../lib/Collections'
 
-Meteor.publish('userStats', () => USER_STATS.find({}))
+Meteor.publish('col_user-stats', () => COL_USER_STATS.find({}))
 
 
