@@ -1,35 +1,32 @@
-import React, { useContext } from "react";
-import { TOOLS_STATE } from "./../s-context";
-import { editTool, editStaggedTools } from "./../s-redux/actions/lessonActions";
+import React, { useContext,useState,useEffect } from "react";
+import { COL_PAGES } from "../../../../lib/Collections";
+import { withTracker } from "meteor/react-meteor-data";
+import { STUDENT_LESSON_STATE } from "./../s-context";
+import { getUrlParam } from "../../utilities/Tasks";
 
-function Pages() {
-  const { state, dispatch } = useContext(TOOLS_STATE);
-  const tools = state.staggedTools;
+function Pages({pages}) {
+  const [_pages,setPages] = useState([]);
+  const { state, dispatch } = useContext(STUDENT_LESSON_STATE);
+
+  useEffect(()=>{
+    setPages(pages)
+  }, [pages]);
 
   return (
     <div className="  staged-resource pages-container">
       <ul className="collection with-header">
         <li className="collection-header ">
-          <h6>Pages</h6>
+          <h6>Pages {getUrlParam('id')}</h6>
         </li>
-
-        <RenderStaggedTools tools={tools} dispatch={dispatch} />
+        <RenderLessonPages pages={_pages}  />
       </ul>
     </div>
   );
 }
 
-function RenderStaggedTools({ tools, dispatch }) {
+function RenderLessonPages({ pages }) {
   
-  
-  const highlight = ({ editTool, _tools, ishighlight=false}) =>{
-    const elem = document.getElementById(`added-tool${editTool.index}`)
-    ishighlight && $(elem).addClass('stagged-tool-highlight')
-      || $(elem).removeClass('stagged-tool-highlight');
-  }
-
-
-  return [1,2,3,4,5,7,8,9,10,11].map((tool, key) => (
+  return pages.map((tool, key) => (
     <li
       key={key}
       // onMouseOver={() => highlight({ editTool: tool, _tools: tools, ishighlight:true})}
@@ -50,4 +47,12 @@ function RenderStaggedTools({ tools, dispatch }) {
   ));
 }
 
-export default Pages;
+export default withTracker(({_id}) => {
+ 
+  Meteor.subscribe("col_pages");
+  Meteor.subscribe("users");
+
+  return {
+    pages: COL_PAGES.find({lessonId:getUrlParam('id')}).fetch()
+  };
+})(Pages);

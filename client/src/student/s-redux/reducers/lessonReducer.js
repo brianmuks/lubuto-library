@@ -1,4 +1,4 @@
-import { DROP, DRAG, ADD_TOOL, EDIT_TOOL, UPDATE_TOOL,EDIT_STAGGED_TOOL } from "./../constants";
+import { DROP, DRAG, ADD_TOOL, EDIT_TOOL, UPDATE_TOOL,EDIT_STAGGED_TOOL, SET_LESSON_ID, SET_LANGUAGE } from "./../constants";
 
 /**
  *
@@ -19,6 +19,25 @@ import { DROP, DRAG, ADD_TOOL, EDIT_TOOL, UPDATE_TOOL,EDIT_STAGGED_TOOL } from "
 
 export function lessonReducer(state, action) {
   switch (action.type) {
+
+    case SET_LESSON_ID:
+      return Object.assign(
+        { ...state },
+        {
+          lessonId: action.lessonId
+        }
+      );
+
+    case SET_LANGUAGE:
+      return Object.assign(
+        { ...state },
+        {
+          language: action.language
+        }
+      );
+
+
+
     case DROP:
       return Object.assign(
         { ...state },

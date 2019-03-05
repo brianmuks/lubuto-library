@@ -1,7 +1,7 @@
 //NOTE holds all create lesson components
 
-import React, { useReducer, useEffect } from "react";
-import { TOOLS_STATE } from "./../s-context";
+import React, { useReducer, useEffect,useState } from "react";
+import { STUDENT_LESSON_STATE } from "./../s-context";
 import { lessonReducer } from "./../s-redux/reducers/lessonReducer";
 import { withTracker } from "meteor/react-meteor-data";
 import { COL_Lessons } from "../../../../lib/Collections";
@@ -10,16 +10,10 @@ import Lessons from "./Lessons";
 import MainScreen from "./MainScreen";
 import Pages from "./Pages";
 import ScoreBoard from "./ScoreBoard";
+import { getUrlParam } from "../../utilities/Tasks";
 
 const initialState = {
-  data: {
-    x: 0,
-    y: 0,
-    node: {},
-    icons: [],
-    _id: '',
-    name: ''
-  },
+  language:getUrlParam('lang'),
   tools: [],
   addedTools: [],
   staggedTools: [],
@@ -30,6 +24,8 @@ const initialState = {
 
 function StudentLesson(props) {
   const [state, dispatch] = useReducer(lessonReducer, initialState);
+  const [lessonId, setLessonId] = useState(null);
+
 
   useEffect(() => {
 
@@ -37,6 +33,7 @@ function StudentLesson(props) {
       return
     }
     let x = (props.lesson);
+    setLessonId(props.lesson._id)
     var result = Object.keys(x).map(function (key) {
       return x[key];
     });
@@ -46,25 +43,28 @@ function StudentLesson(props) {
   }, [props.lesson]);
 
   return (
-    <TOOLS_STATE.Provider value={{ state, dispatch }}>
+    <STUDENT_LESSON_STATE.Provider value={{ state, dispatch }}>
       <section style={{ position: 'fixed' }}>
-        <Lessons />
+        <Lessons match={props.match}  />
         <div className="row">
           <MainScreen isPreview/>
-          <Pages />
+          <Pages lessonId={lessonId} />
           <ScoreBoard />
         </div>
       </section>
-    </TOOLS_STATE.Provider>
+    </STUDENT_LESSON_STATE.Provider>
   );
 }
 
 // export default CreateLesson;
 
-export default withTracker(() => {
+export default withTracker(({props}) => {
   Meteor.subscribe("lessons");
   Meteor.subscribe("users");
+  const lang = getUrlParam('lang');
+  const _id = getUrlParam('id');
+  const query = _id && {_id} || { 'meta.lang': lang };
   return {
-    lesson: COL_Lessons.findOne({}, { sort: { createdAt: -1 } })
+    lesson: COL_Lessons.findOne({ _id}, { sort: { createdAt: -1 } })
   };
 })(StudentLesson);

@@ -5,4 +5,4 @@ const initialState = {
     tools: []
 }
 
-export const TOOLS_STATE = createContext(initialState);
+export const STUDENT_LESSON_STATE = createContext(initialState);

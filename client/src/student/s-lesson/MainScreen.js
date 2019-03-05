@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 //import { useDragging } from "./ResourceEditor";
-import { TOOLS_STATE } from "./../s-context";
+import { STUDENT_LESSON_STATE } from "./../s-context";
 import Draggable from "react-draggable";
 import { editStaggedTools } from "../s-redux/actions/lessonActions";
 import { AUDIO_URL, IMAGE_EXTERNAL_URL } from "../../utilities/constants";
@@ -9,7 +9,7 @@ const LANG = 'kao';
 
 function MainScreen(props) {
   const [audioFile, setAudioFile] = useState([])
-  const { state } = useContext(TOOLS_STATE);
+  const { state } = useContext(STUDENT_LESSON_STATE);
   const { staggedTools, color, bgColor, size, spacing } = state;
   const { x, y, node, _id, name } = useDragging();
 
@@ -29,7 +29,7 @@ function MainScreen(props) {
 }
 
 function RenderTools({playAudio, setDraggedQuestion,draggedQuestion, tools}) {
-  const { state, dispatch } = useContext(TOOLS_STATE);
+  const { state, dispatch } = useContext(STUDENT_LESSON_STATE);
   return tools.map((tool, index) => (
     // marginLeft: tool.style.x, marginTop: tool.style.y
     <div 
@@ -53,7 +53,7 @@ function RenderTools({playAudio, setDraggedQuestion,draggedQuestion, tools}) {
 }
 
 export function useDragging(){
-  const {state, dispatch} = useContext(TOOLS_STATE);
+  const {state, dispatch} = useContext(STUDENT_LESSON_STATE);
   const { data } = state;
   return { ...data, dispatch }
 }

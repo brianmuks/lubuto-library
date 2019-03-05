@@ -1,4 +1,4 @@
-import { DROP, UPDATE_TOOL, ADD_TOOL,EDIT_TOOL,EDIT_STAGGED_TOOL } from "./../constants";
+import { DROP, UPDATE_TOOL, SET_LANGUAGE,ADD_TOOL,EDIT_TOOL,EDIT_STAGGED_TOOL, SET_LESSON_ID } from "./../constants";
 
 /**
  *
@@ -25,5 +25,15 @@ export function updateTool(color, bgColor, size='', spacing=''){
     size,
     spacing
   }
+
+  
+}
+
+export function setLessonId(lessonId) {
+  return { type: SET_LESSON_ID, lessonId };
+}
+
+export function setLanguage(language) {
+  return { type: SET_LANGUAGE, language };
 }
 

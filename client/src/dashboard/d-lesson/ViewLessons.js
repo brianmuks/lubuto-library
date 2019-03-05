@@ -7,13 +7,11 @@ import { COL_Lessons } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
 import RemoveLessonModal, { REMOVE_LESSSON_MODAL_ID } from "./RemoveLessonModal";
 import { deleteLesson } from "./methods";
-import NavBar from "../../components/Layout/NavBar";
 
   const LANGS = [{_id:'Kikainde',val:'KAO'},{_id:'Bemba',val:'BEM'},{_id:'English',val:'ENG'},{_id:'Cinyanja',val:'CIN'}];
 // todo: Push the icon name to the icon array, as items that have been moved
 
 function ViewLessons(props) {
-  const { isLoggedOut, logOutUser } = useLogout()
   const [filteredLessons, setlessons] = useState([]);
   const [renderCounter, setRenderCounter] = useState(0);
   const [lesson, setlesson] = useState({});
@@ -41,7 +39,6 @@ function ViewLessons(props) {
 
   return (
    <div>
-      <NavBar  color={'light-blue'} /> 
       <div className='row'>
       <h4 className='center'> Please Select Lesson</h4>
       <div className='col m10 offset-m1'>

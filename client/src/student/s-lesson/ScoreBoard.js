@@ -1,6 +1,6 @@
 import React, { useContext, useState, useReducer } from "react";
 import Draggable from "react-draggable";
-import { TOOLS_STATE } from "../s-context";
+import { STUDENT_LESSON_STATE } from "../s-context";
 import { addTool, editStaggedTools } from "../s-redux/actions/lessonActions";
 import { getSound } from "./methods";
 
@@ -21,7 +21,7 @@ function reducer(state, action) {
 function ScoreBoard() {
   const [stateStyles, _dispatch] = useReducer(reducer, initialState);
 
-  const { state, dispatch } = useContext(TOOLS_STATE);
+  const { state, dispatch } = useContext(STUDENT_LESSON_STATE);
   const { staggedTools, editTool } = state;
   const [audioFile, setAudioFile] = useState(null);
 

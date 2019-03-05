@@ -8,5 +8,5 @@ export const getUrlParam = param=>{
 }
 
 export const getUrlParams = ()=>(
-   new URLSearchParams(window.location.search)
+    new URLSearchParams(window.location.search)
     )

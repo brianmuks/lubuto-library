@@ -1,37 +1,33 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect,useState } from "react";
 
 import { Link } from "react-router-dom";
-import { COL_TOOLS } from "../../../../lib/Collections";
+import { COL_TOOLS, COL_Lessons } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
-import { TOOLS_STATE } from "./../s-context";
-import { addTool } from "./../s-redux/actions/lessonActions";
+import { STUDENT_LESSON_STATE } from "./../s-context";
+import { addTool, setLessonId } from "./../s-redux/actions/lessonActions";
 import { editLesson, saveLesson } from "./methods";
 import { ALPHABET,  NUNMBERS } from "../../utilities/constants";
+import { getUrlParam, getUrlParams } from "../../utilities/Tasks";
 
 
-function Lessons(props) {
-  const { state, dispatch } = useContext(TOOLS_STATE);
+function Lessons({lessons,match}) {
+  const { state, dispatch } = useContext(STUDENT_LESSON_STATE);
 
   return (
     <>
       <Link to={'/dashboard/lesson_prev'} className="btn right green">Grade Two</Link>
       <Link to={'/dashboard/lesson_prev'} className="btn right red">Hi, John Mwale</Link>
-
       <ul id="slide-out" className="sidenav  sidenav-fixed">
-   
         <li className='row'>
           <Renderalphabet />
         </li>
-
         <li>
           <a href="#!" className='teal-text'><h4>Lessons</h4></a>
         </li>
-
         <li>
           <div className="divider" />
         </li>
-        <RenderTools tools={props.tools} />
-
+        <RenderLessons lang={state.language}  match={match} dispatch={dispatch} lessons={lessons} />
         <li>
           <div className="divider" />
         </li>
@@ -45,31 +41,31 @@ function Lessons(props) {
   );
 }
 
-function RenderTools(props) {
-  const { state, dispatch } = useContext(TOOLS_STATE);
+function RenderLessons({ dispatch, lessons, lang, match}) {
 
-  useEffect(() => {
-    // console.log(state.addedTools)
-  });
+  const setLesson = lesson=>{
+    dispatch(setLessonId(lesson._id));
+    console.log()
+  }
 
-  return [1, 2, 3, 4, 5, 7, 8, 9, 10, 11].map((tool, index) => (
+
+  return lessons.map((item, index) => (
     <li
+    className={` ${item._id === getUrlParam('id') && "blue-grey lighten-3"}`}
       key={index}
-      onClick={() => {
-        // dispatch(addTool(tool, Math.random() + index));
-      }}
+      // onClick={() => setLesson(item)}
     >
-      <a href="#!" >
+      <Link to={`${match.path}/?lang=${getUrlParam('lang')}&id=${item._id}`} >
         <i className=" teal-text material-icons">gradient</i>
        LESSON {index+1}
-      </a>
+      </Link>
     </li>
   ));
 }
 
 
 function Renderalphabet(props) {
-  const { state, dispatch } = useContext(TOOLS_STATE);
+  const { state, dispatch } = useContext(STUDENT_LESSON_STATE);
 
   useEffect(() => {
     // console.log(state.addedTools)
@@ -90,14 +86,14 @@ const colors = ['red','blue','pink','yellow','brown','orange','purple','indigo']
       className=' col m2'
       key={index}
       href="#!">
-      <i className={`material-icons ${getColor()}`}>{tool.name}</i>
+      <i className={`material-icons ${getColor()}-text`}>{tool.name}</i>
       </a>
   
   ));
 }
 
 function RenderaNumbers(props) {
-  const { state, dispatch } = useContext(TOOLS_STATE);
+  const { state, dispatch } = useContext(STUDENT_LESSON_STATE);
 
   useEffect(() => {
     // console.log(state.addedTools)
@@ -128,7 +124,9 @@ function RenderaNumbers(props) {
 export default withTracker(() => {
   Meteor.subscribe("col_tools");
   Meteor.subscribe("users");
+  const lang = getUrlParam('lang');
+  const query = { 'meta.lang': lang };
   return {
-    tools: COL_TOOLS.find().fetch()
+    lessons: COL_Lessons.find(query).fetch()
   };
 })(Lessons);

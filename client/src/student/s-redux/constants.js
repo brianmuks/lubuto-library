@@ -21,7 +21,7 @@ export const USER = 'USER';
 
 
 /**
- * LESSON REDUX CONSTANST START
+ * LESSON REDUX CONSTANST START @@@@@OLD
  */
 export const ADD_TOOL = 'ADD_TOOL';
 export const DROP = 'DROP';
@@ -29,7 +29,12 @@ export const DRAG = 'DRAG';
 export const EDIT_TOOL = 'EDIT_TOOL';
 export const EDIT_STAGGED_TOOL = 'EDIT_STAGGED_TOOL';
 export const UPDATE_TOOL = 'UPDATE_TOOL';
+export const SET_LANGUAGE = 'SET_LANGUAGE';
 
+/**d
+ * LESSON REDUX CONSTANST START
+ */
+export const SET_LESSON_ID = 'SET_LESSON_ID';//lesson currently being viewed
 
 
 /**

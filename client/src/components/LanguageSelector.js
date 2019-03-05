@@ -59,7 +59,7 @@ function RenderOptions({filteredLANGS}){
 
     setTimeout(() => {
       Meteor.user().profile.role === 'admin' &&
-        setAdminLink("/dasboard")
+        setAdminLink("/dashboard")
     }, 300);
   })
 
