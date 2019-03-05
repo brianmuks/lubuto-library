@@ -32,7 +32,7 @@ function Lessons({lessons,match}) {
           <div className="divider" />
         </li>
 
-        <li className='row'>
+        <li className='row numbers-list'>
           <RenderaNumbers />
         </li>
 
@@ -111,7 +111,7 @@ function RenderaNumbers(props) {
   return NUNMBERS.map((tool, index) => (
 
     <a
-      className=' col m2'
+      className=' col m2 '
       key={index}
  
       href="#!">

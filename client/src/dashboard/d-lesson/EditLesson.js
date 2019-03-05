@@ -35,15 +35,23 @@ function EditLesson({lesson}) {
 
   useEffect(()=>{
 
-    var result =lesson && Object.keys(lesson).map(function (key) {
-      return lesson[key];
-    }) || [];
+    if (!lesson) {
+      return
+    }
+
+    let x = (lesson.content);
+
+    var result = Object.keys(x).map(function (key) {
+      return x[key];
+    });
     
+    lesson && console.log('staggedTools', result)
+
     if(IS_PREVENT_LESSON_RELOAD === false){
       // dispatch(editStaggedTools(result)) ;
 
    }
-    console.log('result', result)
+    lesson && console.log('result', lesson.content)
 
 
    if (result.length > 0 && !isLessonLoaded) {

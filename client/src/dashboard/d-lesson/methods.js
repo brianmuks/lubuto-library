@@ -8,7 +8,7 @@ export const saveLesson = (lesson,meta) => {
     const lang = getUrlParam('lang');
     const type = getUrlParam('type');
     meta = {...meta,lang,type};
-    lesson  = {...lesson,meta};
+    lesson = { content:{...lesson},meta};
 
     const query = { 'meta.lang': lang, 'meta.lessonNumber': meta.lessonNumber}
 
@@ -39,7 +39,7 @@ export const saveLesson = (lesson,meta) => {
 
 export const editLesson =( {lessonId,lesson,meta}) => {
   
-    Meteor.call('editLesson',{...lesson,_id:lessonId}, (err, ok) => {
+    Meteor.call('editLesson', { content: { ...lesson},_id:lessonId}, (err, ok) => {
         console.log(err, ok);
         err && alert('Sorry error occured') || alert('Lesson Updated!')
     })
@@ -47,7 +47,6 @@ export const editLesson =( {lessonId,lesson,meta}) => {
 
 
 export const deleteLesson = _id => {
-
     Meteor.call('deleteLesson', _id, (err, ok) => {
         console.log(err, ok);
         err && alert('Sorry error occured') || alert('Lesson Updated!')
@@ -55,10 +54,8 @@ export const deleteLesson = _id => {
 }
 
 export const getSound = src => {
-
     return new Promise((resolve, reject) => {
         Meteor.call('Tool.getSound', src, (err, ok) => {
-
             // console.log(err, ok);
             if (err) {
                 reject(err)
@@ -72,7 +69,6 @@ export const getSound = src => {
 
 
 export const getImages = src => {
-
     return new Promise((resolve, reject) => {
         Meteor.call('Tool.getSound', src, (err, ok) => {
             // console.log(err, ok);

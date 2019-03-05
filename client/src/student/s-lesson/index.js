@@ -26,13 +26,12 @@ function StudentLesson(props) {
   const [state, dispatch] = useReducer(lessonReducer, initialState);
   const [lessonId, setLessonId] = useState(null);
 
-
   useEffect(() => {
-
     if (!props.lesson) {
       return
     }
-    let x = (props.lesson);
+
+    let x = (props.lesson.content);
     setLessonId(props.lesson._id)
     var result = Object.keys(x).map(function (key) {
       return x[key];

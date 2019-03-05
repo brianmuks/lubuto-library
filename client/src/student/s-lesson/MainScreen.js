@@ -90,8 +90,6 @@ function RenderLine({ tool, playAudio }) {
   )
 }
 
-//
-
 function RenderImage({ tool, playAudio }) {
   const position = tool.style && { } || {};
   return (
@@ -116,5 +114,4 @@ function RenderToolDelegator ({ tool, playAudio }) {
       
   return Tool && <Tool   playAudio={playAudio} tool={tool} /> || null
 }
-
 export default MainScreen;

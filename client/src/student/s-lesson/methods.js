@@ -1,9 +1,7 @@
 const LANG = 'kao';   //TODO: get from URL
 import { AUDIO_URL, IMAGE_EXTERNAL_URL, NO_SOUND, YES_SOUND } from "../../utilities/constants";
 
-
 export const saveLesson = lesson => {
-
 
     Meteor.call('saveLesson', lesson, (err, ok) => {
         console.log(err, ok);
@@ -11,14 +9,12 @@ export const saveLesson = lesson => {
     })
 }
 
-
 export const editLesson = lesson => {
     Meteor.call('editLesson', lesson, (err, ok) => {
         console.log(err, ok);
         err && alert('Sorry error occured') || alert('Lesson saved!')
     })
 }
-
 
 export const getSound = src => {
 
