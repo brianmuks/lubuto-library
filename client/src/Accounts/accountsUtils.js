@@ -52,7 +52,7 @@ export function useError(initialError){
  */
 export function useLogout(){
     const [isLoggedOut, setLogout] = useState(false)
-    const logOutUser = () => Meteor.logout(err => err ? M.toast({html: err.reason}) : setLogout(true))
+    const logOutUser = () => Meteor.logout(err => err ? M.toast({html: err.reason}) : location.reload())
     return {
       isLoggedOut,
       logOutUser

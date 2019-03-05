@@ -5,13 +5,13 @@ function UserRow({ user, editUser, count = 0, i = 0 }) {
   return (
     user && (
       <tr>
-        {count > 1 && <td>{i}</td> || count}
+       
         <td>
-          <Link to={`/user/${user._id}`}>{user.profile.name}</Link>
+          <Link to={`/user/${user._id}`}>{"Mary Zulu"}</Link>
         </td>
-        <td>{user.profile.age }</td>
-        <td>{user.profile.gender } </td>
-        <td>{user.profile.center} </td>
+        <td>{user.profile.age || 4 }</td>
+        <td>{user.profile.gender || "Male" } </td>
+        <td>{user.profile.center || "Garden"} </td>
         <td onClick={editUser}>Edit</td>
       </tr>
     )

@@ -5,6 +5,7 @@ import { useFormInput, useError } from './accountsUtils'
 
 
 function Login() {
+
     const username = useFormInput('')
     const password = useFormInput('')
     const {error, setError} = useError('')
@@ -13,13 +14,12 @@ function Login() {
     function handleLogin(e){
         e.preventDefault()
         Meteor.loginWithPassword(username.value, password.value, err => {
-          err ? setError(err.reason) : setAuth(true)
+          err ? setError(err.reason) : location.reload();
         })
-        
     }
     // 
-  if(isAuth){
-    return <Redirect to='/' />
+  if (Meteor.userId()){
+    return null;
   }  
   return (
     <div className="row ">

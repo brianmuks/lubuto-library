@@ -5,7 +5,6 @@ import User from "./User";
 import ReactModal from "react-modal";
 import { Redirect, NavLink } from "react-router-dom";
 import { useLogout, useFormInput, useError } from "../../Accounts/accountsUtils";
-import { NavBar } from "../Landing";
 
 const getAllUsers = users => users.length && <User users={users} />;
 const style = {
@@ -48,7 +47,6 @@ function Statistics({ users }) {
   let index = 1;
   return (
     <Fragment>
-      <NavBar logOutUser={logOutUser} color={"light-blue"} />
       <ReactModal
         isOpen={isOpen}
         contentLabel="Minimal Modal Example"

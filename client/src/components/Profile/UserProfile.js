@@ -13,11 +13,11 @@ import {
   Legend
 } from "recharts";
 import User, { StatsRow } from "./User";
-// import { USER_STATS, COL_Lessons } from "../../../../../lib/Collections";
 import UserStats from "./UserStats";
 import { useLogout } from "../../Accounts/accountsUtils";
-import { NavBar } from "../Landing";
 import { COL_USER_STATS, COL_Lessons } from "../../../../lib/Collections";
+import UserStatsAverage from "./UserStatsAverage";
+import UserStatsLessonDetails from "./UserStatsLessonDetails";
 
 // for prototyping
 const data = [
@@ -41,12 +41,12 @@ function UserProfile({ user, stats, history }) {
   }
   return (
     <Fragment>
-      <NavBar logOutUser={logOutUser} color={"light-blue"} />
       <div className="container">
        <Link to='/users'>
         <h5>Back to users</h5>
        </Link>
-        <h4>{user && user.profile.name} </h4>
+        {/* <h4>{user && user.profile.name} </h4> */}
+        <h4><code>{"Mary Zulu"} </code> </h4>
         <table className="highlight">
           <thead>
             <tr>
@@ -67,11 +67,19 @@ function UserProfile({ user, stats, history }) {
         <ul id="tabs-swipe-demo" className="tabs">
           <li className="tab col s3"><a className="active" href="#test-swipe-1">Table Data</a></li>
           <li className="tab col s3"><a  href="#test-swipe-2">Graphical Data</a></li>
+          <li className="tab col s3"><a  href="#test-swipe-3">Average Data</a></li>
+          <li className="tab col s3"><a  href="#test-swipe-4">Lesson Data</a></li>
         </ul>
         <br />
         <br />
         <div id="test-swipe-1" className="col s12">
-          <UserStats children={<StatsRow stats={stats} route={history} />}/>
+          <UserStats children={<StatsRow stats={stats} route={history} />} />
+        </div>
+        <div id="test-swipe-3" className="col s12">
+        <UserStatsAverage />
+        </div>
+        <div id="test-swipe-4" className="col s12">
+        <UserStatsLessonDetails />
         </div>
         <div id="test-swipe-2" className="col s12 ">
           <BarChart
@@ -104,7 +112,7 @@ export default withTracker(props => {
   Meteor.subscribe("userStats");
   return {
     user: Meteor.users.findOne({ _id: props.match.params.id }),
-    stats: USER_STATS.find({ userId: props.match.params.id }).fetch(),
+    stats: COL_USER_STATS.find({ userId: props.match.params.id }).fetch(),
     lessons: COL_Lessons.find({ }).fetch(),
   };
 })(RouterProfile);

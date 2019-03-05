@@ -80,9 +80,10 @@ const Routes = () => (
     />
 
       <User exact role={"user"} path="/" component={Home} />
-      <User exact role={"user"} path="/lesson" component={StudentLesson} />
+      <User exact role={"user"} path="/lessons" component={StudentLesson} />
       <User exact role={"user"} path="/lesson/page/:id" component={LessonView} />
-      
+      <User exact role={"user"} path="/language_selector" component={LanguageSelector} />
+
       <Route path="/add_icons" component={IconEditor} />
       <Route path='/login' component={Login} />
       <Route path='/register' component={() => <Register role={userRole}/>} />
