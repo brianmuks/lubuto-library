@@ -7,6 +7,7 @@ import { setLessonNumber, setMeta } from "../../d-redux/actions/lessonActions";
 import { getUrlParam } from "../../../utilities/Tasks";
 import { LESSON_TYPES } from "../../d-redux/constants";
 import SetSpeakerIntruction from "./SetSpeakerIntruction";
+import SetLessonPageNo from "./SetLessonPageNo";
 
 
 export const TOOL_CONFIG_MODAL_ID = 'tool-congfig-modal';    
@@ -15,12 +16,14 @@ function ToolConfig(){
     const { state, dispatch } = useContext(TOOLS_STATE);
     // const [lessonNumber, setLessonNumber] = useState(null);
 
-    const _setLessonNumber = e => {
-        const lessonNumber = e.target.value;
-        // setLessonNumber(lessonNumber);
-        // const tools = [ ...state.staggedTools,{meta:{...state.staggedTools.meta,lessonNumber}}]
-        // const meta =  { ...state.staggedTools.meta, lessonNumber } ;
+    const setLessonNumber = e => {
+        const lessonNumber = parseInt(e.target.value);
         dispatch(setMeta({lessonNumber}));
+    }
+
+    const setLessonPageNumber = e => {
+        const lessonPageNumber = parseInt(e.target.value);
+        dispatch(setMeta({ lessonPageNumber }));
     }
 
     const x = 1;//prevent unsessary reloads or change states
@@ -40,11 +43,12 @@ function ToolConfig(){
                 </div>
 
             <SetSpeakerIntruction dispatch={dispatch} /> 
-
-
             <div className="modal-content">
-          
-                 <SetLessonNo lessonNumber={state.meta.lessonNumber}  _setLessonNumber={_setLessonNumber} />
+           
+                <div className=" col m12 lesson-number-config">
+                    <SetLessonPageNo setLessonPageNumber={setLessonPageNumber} lessonPageNumber={state.meta.lessonPageNumber} />
+                    <SetLessonNo lessonNumber={state.meta.lessonNumber} setLessonNumber={setLessonNumber} />
+                    </div>
                 <SetRightAnsView isExeLesson={isExeLesson} dispatch={dispatch} staggedTools={state.staggedTools} />
             </div>
             <div className="modal-footer">

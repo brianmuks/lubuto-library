@@ -10,14 +10,19 @@ export const saveLesson = (lesson,meta) => {
     meta = {...meta,lang,type};
     lesson = { content:{...lesson},meta};
 
-    const query = { 'meta.lang': lang, 'meta.lessonNumber': meta.lessonNumber}
+    const query = { 'meta.lang': lang, 'meta.lessonNumber': meta.lessonNumber,
+                   'meta.lessonPageNumber': meta.lessonPageNumber}
 
     if (!meta.lessonNumber) {
         M.toast({ html: 'Please set the lesson Number' });
         $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
         return
+    } else if (!meta.lessonPageNumber) {
+        M.toast({ html: 'Please set the lesson Page Number' });
+        $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
+        return
     } else if (COL_Lessons.findOne(query)){
-        M.toast({ html: `Sorry Lesson number ${meta.lessonNumber} is already taken` });
+        M.toast({ html: `Sorry Lesson page number ${meta.lessonPageNumber} is already taken` });
         $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
         return
     }

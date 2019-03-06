@@ -11,7 +11,7 @@ import MainScreen from "./MainScreen";
 import Pages from "./Pages";
 import ScoreBoard from "./ScoreBoard";
 import { getUrlParam } from "../../utilities/Tasks";
-import { addStartTime } from "../stats/methods";
+import { addStartTime } from "../s-statistics/methods";
 
 const initialState = {
   language:getUrlParam('lang'),
@@ -31,9 +31,8 @@ function StudentLesson(props) {
     if (!props.lesson) {
       return
     }
-
+  
     addStartTime(props.lesson._id)
-
     let x = (props.lesson.content);
     _setLessonId(props.lesson._id);
     dispatch(setLessonId(props.lesson._id));

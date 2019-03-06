@@ -8,6 +8,7 @@ import { addTool, setLessonId } from "./../s-redux/actions/lessonActions";
 import { editLesson, saveLesson } from "./methods";
 import { ALPHABET,  NUNMBERS } from "../../utilities/constants";
 import { getUrlParam, getUrlParams } from "../../utilities/Tasks";
+import { addEndTime } from "../s-statistics/methods";
 
 
 function Lessons({lessons,match}) {
@@ -42,23 +43,27 @@ function Lessons({lessons,match}) {
 }
 
 function RenderLessons({ dispatch, lessons, lang, match}) {
-
   const setLesson = lesson=>{
     dispatch(setLessonId(lesson._id));
-    console.log()
-  }
+    const link = `${match.path}/?lang=${getUrlParam('lang')}&id=${lesson._id}&n=${lesson.meta.lessonNumber}`
+    console.log();
 
+    getUrlParam('id') !== lesson._id && addEndTime(lesson._id);
+
+    location.href = link;
+  //  window.history.pushState({},'',link);
+  }
 
   return lessons.map((item, index) => (
     <li
     className={` ${item._id === getUrlParam('id') && "blue-grey lighten-3"}`}
       key={index}
-      // onClick={() => setLesson(item)}
+      onClick={() => setLesson(item)}
     >
-      <Link to={`${match.path}/?lang=${getUrlParam('lang')}&id=${item._id}`} >
+      <a href={'#'} >
         <i className=" teal-text material-icons">gradient</i>
        LESSON {index+1}
-      </Link>
+      </a>
     </li>
   ));
 }
@@ -125,7 +130,7 @@ export default withTracker(() => {
   Meteor.subscribe("col_tools");
   Meteor.subscribe("users");
   const lang = getUrlParam('lang');
-  const query = { 'meta.lang': lang };
+  const query = { 'meta.lang': lang,'meta.lessonPageNumber':1 };
   return {
     lessons: COL_Lessons.find(query).fetch()
   };

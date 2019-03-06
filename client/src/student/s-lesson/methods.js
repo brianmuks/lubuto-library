@@ -1,6 +1,6 @@
 const LANG = 'kao';   //TODO: get from URL
 import { AUDIO_URL, IMAGE_EXTERNAL_URL, NO_SOUND, YES_SOUND } from "../../utilities/constants";
-import { recordAttempt } from "../stats/methods";
+import { recordAttempt } from "../s-statistics/methods";
 
 export const saveLesson = lesson => {
 
@@ -54,7 +54,6 @@ export const playAudio = audioFile=>{
     audio.src = src;
     audio.play()
 }
-
 
 export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
     ev.preventDefault();

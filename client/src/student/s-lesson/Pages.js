@@ -1,5 +1,5 @@
 import React, { useContext,useState,useEffect } from "react";
-import { COL_PAGES } from "../../../../lib/Collections";
+import { COL_PAGES, COL_Lessons } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
 import { STUDENT_LESSON_STATE } from "./../s-context";
 import { getUrlParam } from "../../utilities/Tasks";
@@ -16,9 +16,9 @@ function Pages({pages}) {
     <div className="  staged-resource pages-container">
       <ul className="collection with-header">
         <li className="collection-header ">
-          <h6>Pages {getUrlParam('id')}</h6>
+          <h6>Pages </h6>
         </li>
-        <RenderLessonPages pages={_pages}  />
+        <RenderLessonPages pages={pages}  />
       </ul>
     </div>
   );
@@ -26,11 +26,9 @@ function Pages({pages}) {
 
 function RenderLessonPages({ pages }) {
   
-  return pages.map((tool, key) => (
+  return pages.map((lesson, key) => (
     <li
       key={key}
-      // onMouseOver={() => highlight({ editTool: tool, _tools: tools, ishighlight:true})}
-      // onMouseOut={() => highlight({ editTool:tool, _tools:tools})}
       className="collection-item"
       onClick={() => {
         // dispatch(editTool(tool));
@@ -41,7 +39,7 @@ function RenderLessonPages({ pages }) {
           <i className="material-icons">{`filter_${key + 1 > 9 ? '9_plus' : key + 1}`}</i>
         </a>
         
-        {`Page ${key+1}`}
+        {`Page ${lesson.meta.lessonPageNumber}`}
       </div>
     </li>
   ));
@@ -51,8 +49,12 @@ export default withTracker(({_id}) => {
  
   Meteor.subscribe("col_pages");
   Meteor.subscribe("users");
-
+  const lang = getUrlParam('lang');
+  let lessonNumber = getUrlParam('n');
+  lessonNumber = parseInt(lessonNumber)
+  const query = { 'meta.lang': lang,'meta.lessonNumber':lessonNumber}
+  console.log(query)
   return {
-    pages: COL_PAGES.find({lessonId:getUrlParam('id')}).fetch()
+    pages: COL_Lessons.find(query, { sort: { 'meta.lessonPageNumber':1}}).fetch()
   };
 })(Pages);
