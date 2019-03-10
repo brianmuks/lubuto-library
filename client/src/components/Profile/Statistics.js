@@ -187,7 +187,7 @@ export default withTracker(params => {
   return {
     users: Meteor.users
       .find(
-        { "profile.center": params.match.params.id },
+        { "profile.role": 'user' },
         { sort: { createdAt: -1 } }
       )
       .fetch()

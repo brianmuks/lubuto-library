@@ -59,17 +59,19 @@ export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
     ev.preventDefault();
     const isCorrect = checkAns(ans,draggedQuestion);
     // console.log('isCorrect', isCorrect);
+    const questionIndex = draggedQuestion.index.toString().replace('.', '-');
 
     if(!isCorrect){
     console.log('wrong Ans', draggedQuestion);
         playAudio(NO_SOUND);
         //{ MinimongoError: Key question.[object Object] must not contain '.'
-        const questionIndex = draggedQuestion.index.toString().replace('.','-');
-        recordAttempt({ questionIndex,lessonId});
+        recordAttempt({ questionIndex, lessonId, passed:false});
 
         // TODO:placyAudio  
         return;
     }
+    recordAttempt({ questionIndex, lessonId, passed: true });
+
     playAudio(YES_SOUND);
     const width = ans.style.width || '100';
     let left = parseInt(width.replace('px', ''));

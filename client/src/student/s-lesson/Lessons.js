@@ -56,13 +56,13 @@ function RenderLessons({ dispatch, lessons, lang, match}) {
 
   return lessons.map((item, index) => (
     <li
-    className={` ${item._id === getUrlParam('id') && "blue-grey lighten-3"}`}
+      className={` ${item.meta.lessonNumber === parseInt(getUrlParam('n')) && "blue-grey lighten-3"}`}
       key={index}
       onClick={() => setLesson(item)}
     >
       <a href={'#'} >
         <i className=" teal-text material-icons">gradient</i>
-       LESSON {index+1}
+        LESSON {item.meta.lessonNumber}
       </a>
     </li>
   ));

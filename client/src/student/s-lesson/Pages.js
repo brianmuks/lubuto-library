@@ -3,8 +3,9 @@ import { COL_PAGES, COL_Lessons } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
 import { STUDENT_LESSON_STATE } from "./../s-context";
 import { getUrlParam } from "../../utilities/Tasks";
+import { addEndTime } from "../s-statistics/methods";
 
-function Pages({pages}) {
+function Pages({ pages, match}) {
   const [_pages,setPages] = useState([]);
   const { state, dispatch } = useContext(STUDENT_LESSON_STATE);
 
@@ -18,19 +19,25 @@ function Pages({pages}) {
         <li className="collection-header ">
           <h6>Pages </h6>
         </li>
-        <RenderLessonPages pages={pages}  />
+        <RenderLessonPages match={match} pages={pages}  />
       </ul>
     </div>
   );
 }
 
-function RenderLessonPages({ pages }) {
+function RenderLessonPages({ pages, match }) {
   
   return pages.map((lesson, key) => (
     <li
       key={key}
-      className="collection-item"
+      className={`collection-item lesson-page ${lesson._id === getUrlParam('id') && "blue-grey lighten-3" } `}
       onClick={() => {
+        const link = `${match.path}/?lang=${getUrlParam('lang')}&id=${lesson._id}&n=${lesson.meta.lessonNumber}`
+        getUrlParam('id') !== lesson._id && addEndTime(lesson._id);
+      
+
+        location.href = link;
+
         // dispatch(editTool(tool));
       }}
     >
@@ -38,7 +45,6 @@ function RenderLessonPages({ pages }) {
         <a href="#!" className="secondary-content">
           <i className="material-icons">{`filter_${key + 1 > 9 ? '9_plus' : key + 1}`}</i>
         </a>
-        
         {`Page ${lesson.meta.lessonPageNumber}`}
       </div>
     </li>

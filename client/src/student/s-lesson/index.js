@@ -32,7 +32,10 @@ function StudentLesson(props) {
       return
     }
   
-    addStartTime(props.lesson._id)
+    const { lessonNumber, lang } = props.lesson.meta;
+    const lessonId = props.lesson._id;
+
+    addStartTime({lessonId,lang,lessonNumber})
     let x = (props.lesson.content);
     _setLessonId(props.lesson._id);
     dispatch(setLessonId(props.lesson._id));
@@ -50,7 +53,7 @@ function StudentLesson(props) {
         <Lessons match={props.match}  />
         <div className="row">
           <MainScreen isPreview/>
-          <Pages lessonId={lessonId} />
+          <Pages match={props.match} lessonId={lessonId} />
           <ScoreBoard />
         </div>
       </section>

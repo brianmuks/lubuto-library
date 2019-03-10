@@ -31,7 +31,7 @@ const data = [
 ];
 
 
-function UserProfile({ user, stats, history }) {
+function UserProfile({ user, stats, history,match }) {
   const { isLoggedOut, logOutUser } = useLogout();
 
   useEffect(() =>  M.AutoInit())
@@ -73,7 +73,7 @@ function UserProfile({ user, stats, history }) {
         <br />
         <br />
         <div id="test-swipe-1" className="col s12">
-          <UserStats children={<StatsRow stats={stats} route={history} />} />
+          <UserStats match={match} children={<StatsRow stats={stats} route={history} />} />
         </div>
         <div id="test-swipe-3" className="col s12">
         <UserStatsAverage />
