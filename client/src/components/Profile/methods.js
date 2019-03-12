@@ -9,7 +9,7 @@ export const getFilteredLessons = lessonStats=>{
 lessonStats.map((stats,index)=>{
     const lang = stats.lang;
     const lessonNumber = stats.lessonNumber;
-    const entry = { lang, lessonNumber, pages: 1,completed: getPassStatus(stats.question) };
+    const entry = { createdAt: stats.createdAt, lang, lessonNumber, pages: 1,completed: getPassStatus(stats.question) };
     
     if (!filteredLessons[lessonNumber]) {
         filteredLessons[lessonNumber] = entry;
@@ -38,6 +38,24 @@ export const getPassStatus = questions =>{
     }
     return true;
 }
+
+export const getAttempts = question => {
+    let attempts = 0;
+    let questions = 0;
+    for (const key in question) {
+        attempts +=question[key].attempts;
+        questions++;
+    }
+    return { attempts, questions};
+}
+
+export const formatTime = time =>(
+
+    time > 60 && Math.floor(time / 60)+'hr'
+            || time + 'min'
+
+)
+
 
 
 const eExists = (arr,e) =>(

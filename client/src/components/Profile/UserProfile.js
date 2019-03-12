@@ -79,7 +79,7 @@ function UserProfile({ user, stats, history,match }) {
         <UserStatsAverage />
         </div>
         <div id="test-swipe-4" className="col s12">
-        <UserStatsLessonDetails />
+          <UserStatsLessonDetails match={match} />
         </div>
         <div id="test-swipe-2" className="col s12 ">
           <BarChart

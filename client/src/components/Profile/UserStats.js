@@ -49,7 +49,7 @@ function Details({stats}){
       <td> {item.lessonNumber} </td>
       <td> {item.lang} </td>
     <td> {progress.allPages +'/'+ item.pages} </td>
-      <td> {item.date} </td>
+    <td> {new Date(item.createdAt).toDateString()} </td>
     <td> {`${item.completed}`} </td>
     </tr>
 
