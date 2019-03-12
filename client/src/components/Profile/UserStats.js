@@ -1,7 +1,7 @@
 import React from "react";
 import { COL_USER_STATS } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
-import { getFilteredLessons } from "./methods";
+import { getFilteredLessons, getProgress } from "./methods";
 
 // we will call the stats here
 function UserStats({ children, stats }) {
@@ -38,19 +38,22 @@ function Details({stats}){
     {lessonNumber:1,progress:"20/20",date:"SEP 20,2018",completed:true},
   ];
 
-  console.log(getFilteredLessons(stats))
 
 
 
-  return getFilteredLessons(stats).map((item, index)=>(
-    <tr>
+  return getFilteredLessons(stats).map((item, index)=>{
+  
+    const progress = getProgress({pages:item.pages,lang:item.lang,lessonNumber:item.lessonNumber}) ; 
+    
+  return  <tr>
       <td> {item.lessonNumber} </td>
       <td> {item.lang} </td>
-      <td> {item.progress} </td>
+    <td> {progress.allPages +'/'+ item.pages} </td>
       <td> {item.date} </td>
-      <td> {`${item.completed}`} </td>
+    <td> {`${item.completed}`} </td>
     </tr>
-  ))
+
+})
 
 
 }
