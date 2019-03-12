@@ -42,9 +42,9 @@ function Details({stats}){
 
 
 
-  return stats.map((item, index)=>(
+  return getFilteredLessons(stats).map((item, index)=>(
     <tr>
-      <td> {index+1} </td>
+      <td> {item.lessonNumber} </td>
       <td> {item.lang} </td>
       <td> {item.progress} </td>
       <td> {item.date} </td>

@@ -8,7 +8,12 @@ lessonStats.map((stats,index)=>{
     const lang = stats.lang;
     const lessonNumber = stats.lessonNumber;
     const entry = { lang, lessonNumber };
-    eExists(filteredLessons, entry) && filteredLessons.push(entry);
+    
+    if (eExists(filteredLessons, entry)) {
+        filteredLessons[lessonNumber] = entry;
+
+    }
+    
     // eExists(filteredLessons,lessonNumber) && filteredLessons.push(lessonNumber);
    }
     )  
@@ -17,5 +22,5 @@ lessonStats.map((stats,index)=>{
 
 
 const eExists = (arr,e) =>(
-    arr[e].indexOf(e) === -1 && true
+    arr.indexOf(e) === -1 && true
 )
