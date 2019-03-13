@@ -18,7 +18,6 @@ export const editLesson = lesson => {
 }
 
 export const getSound = src => {
-
     return new Promise((resolve, reject) => {
         Meteor.call('Tool.getSound', src, (err, ok) => {
 

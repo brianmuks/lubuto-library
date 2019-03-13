@@ -1,11 +1,27 @@
-import React from "react";
+import React,{useState} from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import { COL_USER_STATS } from "../../../../lib/Collections";
-import { getAttempts, getProgress, getPassStatus, formatTime } from "./methods";
+import { getAttempts, getProgress, getPassStatus, formatTime, getFilteredLessons } from "./methods";
 
 // we will call the stats here
-function UserStatsLessonDetails({ pages }) {
+function UserStatsLessonDetails({  lessons, match }) {
+
+  const [pages, setPages] = useState([]);
+
+
+  const onLessonChange = e =>{
+    let val = e.target.value;
+    val = val.split(',');
+    const userId = match.params.id;
+    const query = { userId, lang: val[1], lessonNumber: parseInt(val[0]) };
+    const _pages = COL_USER_STATS.find(query).fetch();
+    console.log(_pages, 'pafes', query)
+    setPages(_pages);
+  }
+
   return (
+    <>
+      <LessonSelector lessons={lessons} onChange={onLessonChange} />
     <table className="highlight striped centered responsive-table">
       <thead>
         <tr>
@@ -22,6 +38,7 @@ function UserStatsLessonDetails({ pages }) {
         <Details pages={pages} />
       </tbody>
     </table>
+    </>
   );
 }
 
@@ -49,14 +66,38 @@ function Details({pages}){
   })
 }
 
+
+function LessonSelector({ lessons, onChange}){
+
+  const filteredLessons = getFilteredLessons(lessons);
+
+return (
+  <>
+    <label>Choose Lesson</label>
+    <select className="browser-default" onChange={onChange} >
+      <option value="" disabled defaultValue="">Choose Lesson Number</option>
+      <GetLessonsOptions filteredLessons={filteredLessons} />
+    </select>
+  </>
+)
+}
+
+
+function GetLessonsOptions({ filteredLessons}){
+  return filteredLessons.map((item,index)=>(
+    <option value={`${item.lessonNumber},${item.lang}`}>{item.lessonNumber}</option>
+  ))
+}
+
 export default withTracker((props) => {
   Meteor.subscribe("col_tools");
   Meteor.subscribe("users");
   const userId = props.match.params.id;
   const query = { userId, lang: 'kao',lessonNumber:1};
+  const query2 = {userId};
   return {
-    // lessons: COL_Lessons.find(query).fetch(),
-    pages: COL_USER_STATS.find(query).fetch(),
+    // pages: COL_USER_STATS.find(query).fetch(),
+    lessons: COL_USER_STATS.find(query2).fetch(),
   };
 })(UserStatsLessonDetails);
 

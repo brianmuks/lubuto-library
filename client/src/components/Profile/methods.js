@@ -9,20 +9,50 @@ export const getFilteredLessons = lessonStats=>{
 lessonStats.map((stats,index)=>{
     const lang = stats.lang;
     const lessonNumber = stats.lessonNumber;
-    const entry = { createdAt: stats.createdAt, lang, lessonNumber, pages: 1,completed: getPassStatus(stats.question) };
+    const entry = { totalTime: stats.time && stats.time || 0, createdAt: stats.createdAt, lang, lessonNumber, pages: 1,completed: getPassStatus(stats.question) };
     
     if (!filteredLessons[lessonNumber]) {
         filteredLessons[lessonNumber] = entry;
     }else{
         const lesson = filteredLessons[lessonNumber];
         console.log(filteredLessons)
-        filteredLessons[lessonNumber] = { ...lesson, pages: lesson.pages + 1, completed: getPassStatus(stats.question)};
+        filteredLessons[lessonNumber] = { ...lesson, pages: lesson.pages + 1,
+            completed: getPassStatus(stats.question), totalTime: stats.time && lesson.totalTime+stats.time || lesson.totalTime};
     }
     
    }
     )  
     return filteredLessons;
 }
+
+
+export const getlessonsGrandTotal = lessonStats => {
+
+    let filteredLessons = [];
+    let gTotalTime = 0;
+    let gPages = 0;
+    lessonStats.map((stats, index) => {
+        const lang = stats.lang;
+        const lessonNumber = stats.lessonNumber;
+        const entry = { createdAt: stats.createdAt, lang, lessonNumber, pages: 1, completed: getPassStatus(stats.question) };
+        gTotalTime += stats.time && stats.time || gTotalTime;
+        gPages++;
+        if (!filteredLessons[lessonNumber]) {
+            filteredLessons[lessonNumber] = entry;
+        } else {
+            const lesson = filteredLessons[lessonNumber];
+            console.log(filteredLessons)
+            filteredLessons[lessonNumber] = {
+                ...lesson, pages: lesson.pages + 1,
+                completed: getPassStatus(stats.question)
+            };
+        }
+
+    }
+    )
+    return [filteredLessons,{gPages,gTotalTime}];
+}
+
 
 export const getProgress  = ({pages,lessonNumber,lang}) =>{
     const query = {'meta.lang':lang,'meta.lessonNumber':lessonNumber};

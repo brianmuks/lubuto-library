@@ -76,7 +76,7 @@ function UserProfile({ user, stats, history,match }) {
           <UserStats match={match} children={<StatsRow stats={stats} route={history} />} />
         </div>
         <div id="test-swipe-3" className="col s12">
-        <UserStatsAverage />
+          <UserStatsAverage match={match} />
         </div>
         <div id="test-swipe-4" className="col s12">
           <UserStatsLessonDetails match={match} />
