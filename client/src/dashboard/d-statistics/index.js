@@ -1,41 +1,51 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect,useState } from "react";
 import { Meteor } from "meteor/meteor";
 import { withRouter, Redirect, Link } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
 import M from 'materialize-css'
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend
-} from "recharts";
-import User, { StatsRow } from "./UserRow";
-import UserStats from "./UserStats";
+// import UserStats from "./UserStats";
 import { useLogout } from "../../Accounts/accountsUtils";
 import { COL_USER_STATS, COL_Lessons } from "../../../../lib/Collections";
-import UserStatsAverage from "./UserStatsAverage";
-import UserStatsLessonDetails from "./UserStatsLessonDetails";
 import UsersStatsAverage from "./UsersStatsAverage";
+import { Session } from 'meteor/session'
+import { FILTERED_LESSONS } from "../d-redux/constants";
+import { getlessonsGrandTotal } from "./methods";
 
-// for prototyping
-const data = [
-  { name: 'Lesson 1', correct_answer: 40, tries: 2, amt: 2400 },
-  { name: 'Lesson 2', correct_answer: 30, tries: 1, amt: 2210 },
-  { name: 'Lesson 3', correct_answer: 20, tries: 9, amt: 2290 },
-  { name: 'Lesson 4', correct_answer: 27, tries: 3, amt: 2000 },
-  { name: 'Lesson 5', correct_answer: 18, tries: 4, amt: 2181 },
-  { name: 'Lesson 6', correct_answer: 23, tries: 3, amt: 2500 },
-  { name: 'Lesson 7', correct_answer: 34, tries: 4, amt: 2100 },
-];
+// Session.setDefault(FILTERED_LESSONS, [])
 
 
-function UserProfile({ user, stats, history, match }) {
+function UserStats({ lessons, stats, history, match }) {
   const { isLoggedOut, logOutUser } = useLogout();
-
   useEffect(() => M.AutoInit())
+
+  const [_stats, setStats] = useState(stats);
+  const [gStats, setGStats] = useState(null);
+  const [filteredLessons, setFilteredLessons] = useState([]);
+
+  useEffect(()=>{
+    setStats(stats);
+    const _gStats = getlessonsGrandTotal(stats);
+    setGStats(_gStats);
+    setFilteredLessons(_gStats.filteredLessons);
+  },[stats])
+
+
+  useEffect(() => {
+    setGStats(getlessonsGrandTotal(_stats));
+  }, [_stats])
+
+
+  const onLessonChange = e => {
+    let val = e.target.value;
+    val = val.trim();
+    val = val.split(',');
+    const query = val.length > 1 && {  lang: val[1], lessonNumber: parseInt(val[0]) }
+                    || {} ;
+    const newStats = COL_USER_STATS.find(query).fetch();
+    setStats(newStats);
+  }
+
+
 
   if (isLoggedOut) {
     return <Redirect to="/login" />;
@@ -43,60 +53,23 @@ function UserProfile({ user, stats, history, match }) {
   return (
     <Fragment>
       <div className="container">
-        <Link to='/users'>
+        <Link to='dashboard/users'>
           <h5>Back to users</h5>
         </Link>
         {/* <h4>{user && user.profile.name} </h4> */}
-        <h4><code>{"Mary Zulu"} </code> </h4>
-        <table className="highlight">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Age</th>
-              <th>Sex</th>
-              <th>Center</th>
-            </tr>
-          </thead>
-          <tbody>
-            <User user={user} />
-          </tbody>
-        </table>
-        {/* 
-        we will use breaks for now
-      */}
+        <h4><code>{"Statistics"} </code> </h4>
+    
         <br />
         <ul id="tabs-swipe-demo" className="tabs">
-          <li className="tab col s3"><a className="active" href="#test-swipe-1">Table Data</a></li>
-          <li className="tab col s3"><a href="#test-swipe-2">Graphical Data</a></li>
           <li className="tab col s3"><a href="#test-swipe-3">Grand Data</a></li>
-          <li className="tab col s3"><a href="#test-swipe-4">Lesson Data</a></li>
         </ul>
         <br />
         <br />
-        <div id="test-swipe-1" className="col s12">
-          <UserStats match={match} children={<StatsRow stats={stats} route={history} />} />
-        </div>
         <div id="test-swipe-3" className="col s12">
-          <UsersStatsAverage  />
-        </div>
-        <div id="test-swipe-4" className="col s12">
-          <UserStatsLessonDetails match={match} />
-        </div>
-        <div id="test-swipe-2" className="col s12 ">
-          <BarChart
-            width={600}
-            height={300}
-            data={data}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar onClick={() => history.push('/stats')} dataKey="correct_answer" fill="#8884d8" />
-            <Bar dataKey="tries" fill="#82ca9d" />
-          </BarChart>
+    
+          <LessonSelector lessons={filteredLessons} onChange={onLessonChange} />
+
+          <UsersStatsAverage pages={[_stats.length]} gStats={gStats}  />
         </div>
         <div>
         </div>
@@ -105,15 +78,36 @@ function UserProfile({ user, stats, history, match }) {
   );
 }
 
+
+function LessonSelector({ lessons, onChange }) {
+  return (
+    <>
+      <label>Lesson</label>
+      <select className="browser-default" onChange={onChange} >
+        <option value="" disabled defaultValue="">Choose Lesson Number</option>
+        <option value="" >Clear</option>
+        <GetLessonsOptions lessons={lessons} />
+      </select>
+    </>
+  )
+}
+
+function GetLessonsOptions({ lessons }) {
+  console.log(lessons)
+  return lessons && lessons.map((item, index) => (
+    item && <option value={`${item.lessonNumber},${item.lang}`}>{item.lessonNumber + ' | ' + item.lang}</option>
+  )) || null
+}
+
+
 // avoiding chanined wraps of two higher components
-const RouterProfile = withRouter(UserProfile);
+const RouterStats = withRouter(UserStats);
 
 export default withTracker(props => {
   Meteor.subscribe("user", props.match.params.id);
   Meteor.subscribe("userStats");
   return {
-    user: Meteor.users.findOne({ _id: props.match.params.id }),
     stats: COL_USER_STATS.find({}).fetch(),
     lessons: COL_Lessons.find({}).fetch(),
   };
-})(RouterProfile);
+})(RouterStats);

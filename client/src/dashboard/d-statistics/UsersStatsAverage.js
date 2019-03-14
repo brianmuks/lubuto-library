@@ -1,10 +1,16 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import { COL_USER_STATS } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
 import { getFilteredLessons, getlessonsGrandTotal, formatTime } from "./methods";
-
+import { Session } from 'meteor/session'
+import { FILTERED_LESSONS } from "../d-redux/constants";
 // we will call the stats here
-function UsersStatsAverage({ stats }) {
+function UsersStatsAverage({ gStats, onLessonsSet,pages }) {
+
+  if (!gStats) {
+    return null;
+  }
+
   return (
     <table className="highlight striped centered responsive-table">
       <thead>
@@ -18,20 +24,18 @@ function UsersStatsAverage({ stats }) {
         </tr>
       </thead>
       <tbody>
-        <Details stats={stats} />
+        <Details onLessonsSet={onLessonsSet} pages={pages} gStats={gStats} />
       </tbody>
     </table>
   );
 }
-function Details({ stats}){
-
-  let gStats = getlessonsGrandTotal(stats);
-
+function Details({ gStats,pages}){
+  
   const students = Object.keys(gStats.students).length;
   const filteredStats = gStats.filteredLessons;
   let lessons = Object.keys(filteredStats).length;
    const questions = Math.abs(gStats.failMark+gStats.passMark);  
-  const pages = stats.length;
+ 
   const time = gStats.gTotalTime;
   const attempts = gStats.attempts;
   return <>
@@ -47,8 +51,6 @@ function Details({ stats}){
     <tr rowSpan={4}>
       <td  ><p className="center">  AVERAGE DATA </p>   </td>
   </tr>
-
-
     <GetAverageStats
      lessons={lessons} 
      students={students}
@@ -85,7 +87,7 @@ export default withTracker((props) => {
 
   return {
     // lessons: COL_Lessons.find(query).fetch(),
-    stats: COL_USER_STATS.find({}).fetch(),
+    // stats: COL_USER_STATS.find({}).fetch(),
   };
 })(UsersStatsAverage);
 

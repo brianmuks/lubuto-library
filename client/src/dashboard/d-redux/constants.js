@@ -32,7 +32,7 @@ export const EDIT_TOOL = 'EDIT_TOOL';
 export const EDIT_STAGGED_TOOL = 'EDIT_STAGGED_TOOL';
 export const UPDATE_TOOL = 'UPDATE_TOOL';
 export const SET_META = 'SET_META';
-
+export const FILTERED_LESSONS = 'FILTERED_LESSONS';
 
 export const LESSON_TYPES ={
     instr: 'Intructional',
