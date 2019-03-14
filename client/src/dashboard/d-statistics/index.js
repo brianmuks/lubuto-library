@@ -12,29 +12,30 @@ import {
   Tooltip,
   Legend
 } from "recharts";
-import User, { StatsRow } from "../../Accounts/User";
+import User, { StatsRow } from "./UserRow";
 import UserStats from "./UserStats";
 import { useLogout } from "../../Accounts/accountsUtils";
 import { COL_USER_STATS, COL_Lessons } from "../../../../lib/Collections";
 import UserStatsAverage from "./UserStatsAverage";
 import UserStatsLessonDetails from "./UserStatsLessonDetails";
+import UsersStatsAverage from "./UsersStatsAverage";
 
 // for prototyping
 const data = [
-  {name: 'Lesson 1', correct_answer: 40, tries: 2, amt: 2400},
-  {name: 'Lesson 2', correct_answer: 30, tries: 1, amt: 2210},
-  {name: 'Lesson 3', correct_answer: 20, tries: 9, amt: 2290},
-  {name: 'Lesson 4', correct_answer: 27, tries: 3, amt: 2000},
-  {name: 'Lesson 5', correct_answer: 18, tries: 4, amt: 2181},
-  {name: 'Lesson 6', correct_answer: 23, tries: 3, amt: 2500},
-  {name: 'Lesson 7', correct_answer: 34, tries: 4, amt: 2100},
+  { name: 'Lesson 1', correct_answer: 40, tries: 2, amt: 2400 },
+  { name: 'Lesson 2', correct_answer: 30, tries: 1, amt: 2210 },
+  { name: 'Lesson 3', correct_answer: 20, tries: 9, amt: 2290 },
+  { name: 'Lesson 4', correct_answer: 27, tries: 3, amt: 2000 },
+  { name: 'Lesson 5', correct_answer: 18, tries: 4, amt: 2181 },
+  { name: 'Lesson 6', correct_answer: 23, tries: 3, amt: 2500 },
+  { name: 'Lesson 7', correct_answer: 34, tries: 4, amt: 2100 },
 ];
 
 
-function UserProfile({ user, stats, history,match }) {
+function UserProfile({ user, stats, history, match }) {
   const { isLoggedOut, logOutUser } = useLogout();
 
-  useEffect(() =>  M.AutoInit())
+  useEffect(() => M.AutoInit())
 
   if (isLoggedOut) {
     return <Redirect to="/login" />;
@@ -42,9 +43,9 @@ function UserProfile({ user, stats, history,match }) {
   return (
     <Fragment>
       <div className="container">
-       <Link to='/users'>
-        <h5>Back to users</h5>
-       </Link>
+        <Link to='/users'>
+          <h5>Back to users</h5>
+        </Link>
         {/* <h4>{user && user.profile.name} </h4> */}
         <h4><code>{"Mary Zulu"} </code> </h4>
         <table className="highlight">
@@ -66,9 +67,9 @@ function UserProfile({ user, stats, history,match }) {
         <br />
         <ul id="tabs-swipe-demo" className="tabs">
           <li className="tab col s3"><a className="active" href="#test-swipe-1">Table Data</a></li>
-          <li className="tab col s3"><a  href="#test-swipe-2">Graphical Data</a></li>
-          <li className="tab col s3"><a  href="#test-swipe-3">Grand Data</a></li>
-          <li className="tab col s3"><a  href="#test-swipe-4">Lesson Data</a></li>
+          <li className="tab col s3"><a href="#test-swipe-2">Graphical Data</a></li>
+          <li className="tab col s3"><a href="#test-swipe-3">Grand Data</a></li>
+          <li className="tab col s3"><a href="#test-swipe-4">Lesson Data</a></li>
         </ul>
         <br />
         <br />
@@ -76,7 +77,7 @@ function UserProfile({ user, stats, history,match }) {
           <UserStats match={match} children={<StatsRow stats={stats} route={history} />} />
         </div>
         <div id="test-swipe-3" className="col s12">
-          <UserStatsAverage match={match} />
+          <UsersStatsAverage  />
         </div>
         <div id="test-swipe-4" className="col s12">
           <UserStatsLessonDetails match={match} />
@@ -112,7 +113,7 @@ export default withTracker(props => {
   Meteor.subscribe("userStats");
   return {
     user: Meteor.users.findOne({ _id: props.match.params.id }),
-    stats: COL_USER_STATS.find({ userId: props.match.params.id }).fetch(),
-    lessons: COL_Lessons.find({ }).fetch(),
+    stats: COL_USER_STATS.find({}).fetch(),
+    lessons: COL_Lessons.find({}).fetch(),
   };
 })(RouterProfile);

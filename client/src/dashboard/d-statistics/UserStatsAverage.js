@@ -1,7 +1,7 @@
 import React from "react";
 import { COL_USER_STATS } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
-import { getFilteredLessons, getlessonsGrandTotal } from "./methods";
+import { getFilteredLessons, getlessonsGrandTotal, formatTime } from "./methods";
 
 // we will call the stats here
 function UserStatsAverage({ stats }) {
@@ -28,15 +28,11 @@ function Details({ stats}){
 
   let gStats = getlessonsGrandTotal(stats);
   const filteredStats = gStats.filteredLessons;
-    let count = 0;
+  let count = Object.keys(filteredStats).length;
+
     const score = gStats.passMark+"/"+Math.floor(gStats.passMark+gStats.failMark)
   const scorePercent = Math.floor((gStats.passMark/(gStats.passMark + gStats.failMark) )*100)
-    // Map() is hack 
-   //NOTE: // filteredStats.length gives wrong length
-  filteredStats.map((item, index) => {
-      count++;
-    })
-    console.log(gStats)
+   const questions = Math.abs(gStats.failMark+gStats.passMark);  
 
   return  <tr>
       <td> # </td>
@@ -44,8 +40,8 @@ function Details({ stats}){
     <td> {stats.length} </td>
       <td> {score} </td>
       <td> {scorePercent+"%"} </td>
-    <td> {gStats.gTotalTime} </td>
-      <td> 40 in 20 Lessons </td>
+    <td> {formatTime(gStats.gTotalTime)} </td>
+    <td> {`${gStats.attempts} in ${questions} Questions` } </td>
     </tr>
 }
 
@@ -53,7 +49,8 @@ export default withTracker((props) => {
   Meteor.subscribe("col_tools");
   Meteor.subscribe("users");
   const userId = props.match.params.id;
-  const query = { userId };
+  const query = userId && { userId } || {};
+
   return {
     // lessons: COL_Lessons.find(query).fetch(),
     stats: COL_USER_STATS.find(query).fetch(),

@@ -12,7 +12,7 @@ import {
   Tooltip,
   Legend
 } from "recharts";
-import User, { StatsRow } from "../../Accounts/User";
+import User, { StatsRow } from "./UserRow";
 import UserStats from "./UserStats";
 import { useLogout } from "../../Accounts/accountsUtils";
 import { COL_USER_STATS, COL_Lessons } from "../../../../lib/Collections";

@@ -80,7 +80,7 @@ return (
 
 function GetLessonsOptions({ filteredLessons}){
   return filteredLessons.map((item,index)=>(
-    <option value={`${item.lessonNumber},${item.lang}`}>{item.lessonNumber}</option>
+    <option value={`${item.lessonNumber},${item.lang}`}>{item.lessonNumber+' | '+item.lang}</option>
   ))
 }
 
@@ -88,8 +88,8 @@ export default withTracker((props) => {
   Meteor.subscribe("col_tools");
   Meteor.subscribe("users");
   const userId = props.match.params.id;
-  const query = { userId, lang: 'kao',lessonNumber:1};
-  const query2 = {userId};
+  const query2 = userId && { userId } || {};
+
   return {
     // pages: COL_USER_STATS.find(query).fetch(),
     lessons: COL_USER_STATS.find(query2).fetch(),

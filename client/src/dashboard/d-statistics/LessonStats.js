@@ -11,10 +11,10 @@ import {
   Tooltip,
   Legend
 } from "recharts";
-import User, { StatsRow } from "./User";
+import User, { StatsRow } from "../d-account/User";
 import UserStats from "./UserStats";
 import { useLogout } from "../../Accounts/accountsUtils";
-import { NavBar } from "../Landing";
+import { NavBar } from "../../components/Landing";
 import { COL_USER_STATS } from "../../../../lib/Collections";
 const data = [
   {name: 'Page 1', time_taken: 40, tries: 2, amt: 2400},

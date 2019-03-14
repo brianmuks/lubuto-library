@@ -34,7 +34,10 @@ export const getlessonsGrandTotal = lessonStats => {
     let gPages = 0;
     let passMark = 0;
     let failMark = 0;
+    let attempts = 0;
+    let students = {};
     lessonStats.map((stats, index) => {
+        students[stats.userId] = stats.userId;
         const lang = stats.lang;
         const lessonNumber = stats.lessonNumber;
         gTotalTime += stats.time && stats.time || gTotalTime;
@@ -42,11 +45,14 @@ export const getlessonsGrandTotal = lessonStats => {
         if (!filteredLessons[lessonNumber]) {
             const passStatus = getPassMarkSummary(stats.question);
             passStatus && passMark++ || failMark++;
+            attempts += passStatus.attempts;
             const entry = { createdAt: stats.createdAt, lang, lessonNumber, pages: 1,  };
             filteredLessons[lessonNumber] = entry;
         } else {
             const lesson = filteredLessons[lessonNumber];
             const passStatus = getPassMarkSummary(stats.question);
+            attempts += passStatus.attempts;
+
             passMark +=passStatus.passMark;
             failMark +=passStatus.failMark;
             filteredLessons[lessonNumber] = {
@@ -56,7 +62,7 @@ export const getlessonsGrandTotal = lessonStats => {
 
     }
     )
-    return { filteredLessons,gTotalTime,passMark,failMark};
+    return { students, filteredLessons, gTotalTime, passMark, failMark, attempts};
 }
 
 
@@ -79,14 +85,16 @@ export const getPassStatus = questions =>{
 export const getPassMarkSummary = questions => {
     let passMark = 0;
     let failMark = 0;
+    let attempts = 0;
     for (const key in questions) {
+        attempts +=questions[key].attempts;
         if (!questions[key].passed) {
             passMark++
         }else{
             failMark++;
         }
     }
-    return { passMark, failMark};
+    return { passMark, failMark, attempts};
 }
 
 
@@ -98,12 +106,12 @@ export const getAttempts = question => {
         attempts +=question[key].attempts;
         questions++;
     }
-    return { attempts, questions};
+    return { attempts, questions, attempts};
 }
 
 export const formatTime = time =>(
 
-    time > 60 && Math.floor(time / 60)+'hr'
+    time > 60 && Math.floor(time / 60)+' hrs'
             || time + 'min'
 
 )

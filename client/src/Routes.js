@@ -5,16 +5,14 @@ import IconEditor from "./dashboard/tools/iconEditor";
 import CreateLesson from "./dashboard/d-lesson/CreateLesson";
 import NotFound from './components/NotFound'
 // Containers (Roles)
-
 import Admin from "./Routes/Admin";
 import User from "./Routes/User";
 // Accounts
 import Login from './Accounts/Login'
 import Register from './Accounts/Register'
-import UserProfile from './components/Profile/UserProfile'
-import Statistics from './components/Profile/Statistics'
-import LessonStats from './components/Profile/LessonStats'
-
+import UserProfile from './dashboard/d-statistics/UserProfile'
+import Users from './dashboard/d-account/Users'
+import LessonStats from './dashboard/d-statistics/'
 // Lessons
 import LessonView from './components/Lesson/LessonView'
 import LessonPreview from "./dashboard/d-lesson//LessonPreview";
@@ -50,6 +48,8 @@ const Routes = () => (
           path="/dashboard/register"
           component={() => <Register role={adminRole}/>}
       />
+
+
          <Route
           exact
           path="/dashboard/language_selector"
@@ -88,10 +88,9 @@ const Routes = () => (
       <Route path='/login' component={Login} />
       <Route path='/register' component={() => <Register role={userRole}/>} />
 
-      <Route path='/user/:id' component={UserProfile} />
-      <Route path='/users/:id' component={Statistics} />
-      <Route path='/users/' component={Statistics} /> {/* in case there is no specified center */  }
-      <Route path='/stats' component={LessonStats} />
+      <Route path='/dashboard/user/:id' component={UserProfile} />
+      <Route path='/dashboard/users/' component={Users} />
+      <Route path='/dashboard/stats' component={LessonStats} />
       <Route path='/dashboard/lesson_prev' component={LessonPreview} />
   
   
