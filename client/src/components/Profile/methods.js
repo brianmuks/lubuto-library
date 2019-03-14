@@ -1,4 +1,4 @@
-import { COL_Lessons } from "../../../../lib/Collections";
+import { COL_Lessons, COL_USER_STATS } from "../../../../lib/Collections";
 
 
 
@@ -9,15 +9,16 @@ export const getFilteredLessons = lessonStats=>{
 lessonStats.map((stats,index)=>{
     const lang = stats.lang;
     const lessonNumber = stats.lessonNumber;
-    const entry = { totalTime: stats.time && stats.time || 0, createdAt: stats.createdAt, lang, lessonNumber, pages: 1,completed: getPassStatus(stats.question) };
     
     if (!filteredLessons[lessonNumber]) {
+        const passStatus = getPassStatus(stats.question);
+        const entry = { totalTime: stats.time && stats.time || 0, createdAt: stats.createdAt, lang, lessonNumber, pages: 1,completed: passStatus };
         filteredLessons[lessonNumber] = entry;
     }else{
         const lesson = filteredLessons[lessonNumber];
-        console.log(filteredLessons)
+        const passStatus = getPassStatus(stats.question);
         filteredLessons[lessonNumber] = { ...lesson, pages: lesson.pages + 1,
-            completed: getPassStatus(stats.question), totalTime: stats.time && lesson.totalTime+stats.time || lesson.totalTime};
+            completed: passStatus, totalTime: stats.time && lesson.totalTime+stats.time || lesson.totalTime};
     }
     
    }
@@ -31,26 +32,31 @@ export const getlessonsGrandTotal = lessonStats => {
     let filteredLessons = [];
     let gTotalTime = 0;
     let gPages = 0;
+    let passMark = 0;
+    let failMark = 0;
     lessonStats.map((stats, index) => {
         const lang = stats.lang;
         const lessonNumber = stats.lessonNumber;
-        const entry = { createdAt: stats.createdAt, lang, lessonNumber, pages: 1, completed: getPassStatus(stats.question) };
         gTotalTime += stats.time && stats.time || gTotalTime;
         gPages++;
         if (!filteredLessons[lessonNumber]) {
+            const passStatus = getPassMarkSummary(stats.question);
+            passStatus && passMark++ || failMark++;
+            const entry = { createdAt: stats.createdAt, lang, lessonNumber, pages: 1,  };
             filteredLessons[lessonNumber] = entry;
         } else {
             const lesson = filteredLessons[lessonNumber];
-            console.log(filteredLessons)
+            const passStatus = getPassMarkSummary(stats.question);
+            passMark +=passStatus.passMark;
+            failMark +=passStatus.failMark;
             filteredLessons[lessonNumber] = {
                 ...lesson, pages: lesson.pages + 1,
-                completed: getPassStatus(stats.question)
             };
         }
 
     }
     )
-    return [filteredLessons,{gPages,gTotalTime}];
+    return { filteredLessons,gTotalTime,passMark,failMark};
 }
 
 
@@ -69,6 +75,22 @@ export const getPassStatus = questions =>{
     return true;
 }
 
+
+export const getPassMarkSummary = questions => {
+    let passMark = 0;
+    let failMark = 0;
+    for (const key in questions) {
+        if (!questions[key].passed) {
+            passMark++
+        }else{
+            failMark++;
+        }
+    }
+    return { passMark, failMark};
+}
+
+
+
 export const getAttempts = question => {
     let attempts = 0;
     let questions = 0;
@@ -86,6 +108,12 @@ export const formatTime = time =>(
 
 )
 
+export const onLessonChange = ({ e, userId})=>{
+    let val = e.target.value;
+    val = val.split(',');
+    const query = { userId, lang: val[1], lessonNumber: parseInt(val[0]) };
+    return COL_USER_STATS.find(query).fetch();
+}
 
 
 const eExists = (arr,e) =>(

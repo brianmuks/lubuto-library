@@ -1,27 +1,22 @@
 import React,{useState} from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import { COL_USER_STATS } from "../../../../lib/Collections";
-import { getAttempts, getProgress, getPassStatus, formatTime, getFilteredLessons } from "./methods";
+import { getAttempts, getProgress, getPassStatus, formatTime, getFilteredLessons, onLessonChange } from "./methods";
 
 // we will call the stats here
 function UserStatsLessonDetails({  lessons, match }) {
 
   const [pages, setPages] = useState([]);
+  
+  const userId = match.params.id;
 
-
-  const onLessonChange = e =>{
-    let val = e.target.value;
-    val = val.split(',');
-    const userId = match.params.id;
-    const query = { userId, lang: val[1], lessonNumber: parseInt(val[0]) };
-    const _pages = COL_USER_STATS.find(query).fetch();
-    console.log(_pages, 'pafes', query)
-    setPages(_pages);
+  const _onLessonChange = e =>{
+    setPages(onLessonChange({e,userId}));
   }
 
   return (
     <>
-      <LessonSelector lessons={lessons} onChange={onLessonChange} />
+      <LessonSelector lessons={lessons} onChange={_onLessonChange} />
     <table className="highlight striped centered responsive-table">
       <thead>
         <tr>
@@ -73,7 +68,7 @@ function LessonSelector({ lessons, onChange}){
 
 return (
   <>
-    <label>Choose Lesson</label>
+    <label>Lesson</label>
     <select className="browser-default" onChange={onChange} >
       <option value="" disabled defaultValue="">Choose Lesson Number</option>
       <GetLessonsOptions filteredLessons={filteredLessons} />

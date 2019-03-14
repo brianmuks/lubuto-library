@@ -12,6 +12,7 @@ function UserStatsAverage({ stats }) {
           <th>#</th>
           <th>Lessons Taken</th>
           <th>Pages Covered</th>
+          <th> Score</th>
           <th>Percentage Score</th>
           <th>Total Time Spent</th>
           <th>Total Tries</th>
@@ -26,9 +27,10 @@ function UserStatsAverage({ stats }) {
 function Details({ stats}){
 
   let gStats = getlessonsGrandTotal(stats);
-  const filteredStats = gStats[0];
-  gStats = gStats[1];
+  const filteredStats = gStats.filteredLessons;
     let count = 0;
+    const score = gStats.passMark+"/"+Math.floor(gStats.passMark+gStats.failMark)
+  const scorePercent = Math.floor((gStats.passMark/(gStats.passMark + gStats.failMark) )*100)
     // Map() is hack 
    //NOTE: // filteredStats.length gives wrong length
   filteredStats.map((item, index) => {
@@ -40,7 +42,8 @@ function Details({ stats}){
       <td> # </td>
     <td> {count} </td>
     <td> {stats.length} </td>
-      <td> 20% </td>
+      <td> {score} </td>
+      <td> {scorePercent+"%"} </td>
     <td> {gStats.gTotalTime} </td>
       <td> 40 in 20 Lessons </td>
     </tr>
