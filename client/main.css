@@ -238,3 +238,8 @@ bottom: 1px;
 .lesson-page{
   cursor: pointer;
 }
+
+.l-tool-text{
+  white-space: nowrap;
+  overflow: hidden;
+}

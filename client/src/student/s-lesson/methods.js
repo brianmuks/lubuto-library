@@ -80,7 +80,7 @@ export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
     const data = ev.dataTransfer.getData("text");
     let draggedItem = document.getElementById(data);
 
-    draggedItem.style = `color:red;bottom:3git 0px;position:absolute;left:${left}px`
+    draggedItem.style = `color:red;bottom:3git 0px;position:absolute;left:${left}px;top:-15px`
 
     ev.target.appendChild(draggedItem);
 

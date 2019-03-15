@@ -70,11 +70,9 @@ function RenderIcon({ tool, playAudio }) {
 
 
 function RenderText({ tool, playAudio }) {
-
   return (
-    <div onClick={() => playAudio(tool.audioFile)} className={` added-tool${tool.index} `} id={`added-tool${tool.index}`}>
-      {/* <i className="l-tool-text" style={tool.style}>{tool.text}</i> */}
-      <i className="material-icons" style={tool.style && { ...tool.style,  } || tool.style}>{tool.text}</i>
+    <div onClick={() => playAudio(tool.audioFile)} className={`  added-tool${tool.index} `} id={`added-tool${tool.index}`}>
+      <i className="l-tool-text material-icon vwm" style={tool.style}><code>{tool.text}</code></i>
     </div>
   )
 
