@@ -2,8 +2,8 @@
 
 
 
-export const addStartTime = ({ lessonId, lang, lessonNumber }) => {
-    Meteor.call('addStartTime', { lessonId, lang, lessonNumber }, (err, ok) => {
+export const addStartTime = ({ lessonId, lang, lessonNumber,lessonPageNumber }) => {
+    Meteor.call('addStartTime', { lessonId, lang, lessonNumber, lessonPageNumber }, (err, ok) => {
         console.log(err, ok);
     })
 }

@@ -32,10 +32,10 @@ function StudentLesson(props) {
       return
     }
   
-    const { lessonNumber, lang } = props.lesson.meta;
+    const { lessonNumber, lang, lessonPageNumber } = props.lesson.meta;
     const lessonId = props.lesson._id;
 
-    addStartTime({lessonId,lang,lessonNumber})
+    addStartTime({ lessonId, lang, lessonNumber, lessonPageNumber})
     let x = (props.lesson.content);
     _setLessonId(props.lesson._id);
     dispatch(setLessonId(props.lesson._id));
