@@ -13,6 +13,11 @@ export const saveLesson = (lesson,meta) => {
     const query = { 'meta.lang': lang, 'meta.lessonNumber': meta.lessonNumber,
                    'meta.lessonPageNumber': meta.lessonPageNumber}
 
+    const query2 = {
+        'meta.lang': meta.lang, 'meta.lessonNumber': meta.lessonNumber,
+        'meta.lessonPageNumber': 1
+    }
+
     if (!meta.lessonNumber) {
         M.toast({ html: 'Please set the lesson Number' });
         $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
@@ -26,6 +31,18 @@ export const saveLesson = (lesson,meta) => {
         $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
         return
     }
+    const _lesson2 = COL_Lessons.findOne(query2, { fields: { _id: 1 } });
+
+    /**
+     * if page 1 is missing no lessons will be visible to the student and
+     * admin
+     */
+    if (!_lesson2  && meta.lessonPageNumber !== 1) {
+        M.toast({ html: `Please set this lesson page number to '1'` });
+        $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
+        return
+    }
+
 
     return new Promise ((resolve,reject)=>{
         Meteor.call('saveLesson', lesson, (err, _id) => {
@@ -51,6 +68,10 @@ export const editLesson =( {lessonId,lesson,meta}) => {
         'meta.lang': meta.lang, 'meta.lessonNumber': meta.lessonNumber,
         'meta.lessonPageNumber': meta.lessonPageNumber
     }
+    const query2 = {
+        'meta.lang': meta.lang, 'meta.lessonNumber': meta.lessonNumber,
+        'meta.lessonPageNumber': 1
+    }
 
     if (!meta.lessonNumber) {
         M.toast({ html: 'Please set the lesson Number' });
@@ -63,10 +84,15 @@ export const editLesson =( {lessonId,lesson,meta}) => {
     } 
     
     const _lesson = COL_Lessons.findOne(query,{fields:{_id:1}});
+    const _lesson2 = COL_Lessons.findOne(query2,{fields:{_id:1}});
 
 
     if (_lesson && _lesson._id !== lessonId) {
         M.toast({ html: `Sorry Lesson page number ${meta.lessonPageNumber} is already taken` });
+        $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
+        return
+    } else if (_lesson2 && _lesson2._id == lessonId && meta.lessonPageNumber !== 1){
+        M.toast({ html: `Sorry you can't change the lesson page number if it's '1'` });
         $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
         return
     }

@@ -125,7 +125,11 @@ function RenderaNumbers(props) {
 
   ));
 }
-
+//COMMENT
+/**
+ * only lessons with pageNumber= 1 are fetched
+ * 
+ */
 export default withTracker(() => {
   Meteor.subscribe("col_tools");
   Meteor.subscribe("users");

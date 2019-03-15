@@ -23,6 +23,7 @@ import ViewLessons from "./dashboard/d-lesson/ViewLessons";
 import EditLesson from "./dashboard/d-lesson/EditLesson";
 import Home from "./student/Home";
 import Landing from "./components/Landing";
+import ViewLessonPages from "./dashboard/d-lesson/ViewLessonPages";
 
 
 // Only here for prototyping
@@ -70,6 +71,12 @@ const Routes = () => (
       exact
       path="/dashboard/view_lessons/"
       component={ViewLessons}
+      
+    />
+      <Route
+      exact
+      path="/dashboard/view_lesson_pages/"
+      component={ViewLessonPages}
       
     />
 

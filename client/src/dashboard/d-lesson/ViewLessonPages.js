@@ -11,7 +11,7 @@ import { deleteLesson } from "./methods";
   const LANGS = [{_id:'Kikainde',val:'KAO'},{_id:'Bemba',val:'BEM'},{_id:'English',val:'ENG'},{_id:'Cinyanja',val:'CIN'}];
 // todo: Push the icon name to the icon array, as items that have been moved
 
-function ViewLessons(props) {
+function ViewLessonPages(props) {
   const [filteredLessons, setlessons] = useState([]);
   const [renderCounter, setRenderCounter] = useState(0);
   const [lesson, setlesson] = useState({});
@@ -40,7 +40,7 @@ function ViewLessons(props) {
   return (
    <div>
       <div className='row'>
-      <h4 className='center'> Please Select Lesson</h4>
+      <h4 className='center'> Please Select Page</h4>
       <div className='col m10 offset-m1'>
       <input
                 onChange={onFilter}
@@ -79,9 +79,9 @@ function RenderOptions({ filteredLessons, setlesson}){
 const urlParams = getUrlParams();
   return filteredLessons.map((item,index)=>(
     <li key={index} className="collection-item avatar">
-      <Link to={`/dashboard/view_lesson_pages/?ln=${item.meta.lessonNumber}&${urlParams}`}>
+    <Link to={`/dashboard/edit_lesson/${item._id}?${urlParams}`}>
     <i className="material-icons circle">format_shapes</i>
-        <span className="title">{'LESSON ' + (item.meta.lessonNumber)}</span>
+        <span className="title">{'PAGE ' + (item.meta.lessonPageNumber)}</span>
     </Link>
       <a href={`#${REMOVE_LESSSON_MODAL_ID}`} onClick={e=>setlesson(item)} className="secondary-content modal-trigger"><i className="material-icons red-text">cancel</i></a>
   </li>
@@ -92,10 +92,11 @@ export default withTracker(() => {
   Meteor.subscribe("lessons");
   Meteor.subscribe("users");
   const lang = getUrlParam('lang');
-  const query = { 'meta.lang': lang, 'meta.lessonPageNumber': 1 };
-
+  const lessonNumber = getUrlParam('ln');
+  const query = { 'meta.lang': lang, 'meta.lessonNumber': parseInt(lessonNumber) };
+  console.log(query)
   return {
-    lessons: COL_Lessons.find(query, { sort: { createdAt: -1 } }).fetch()
+    lessons: COL_Lessons.find(query, { sort: { 'meta.lessonPageNumber': 1 } }).fetch()
   };
-})(ViewLessons);
+})(ViewLessonPages);
 
