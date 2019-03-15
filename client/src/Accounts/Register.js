@@ -2,18 +2,22 @@ import React, { useState } from "react";
 import { Link, Redirect, withRouter } from 'react-router-dom'
 import { Accounts } from 'meteor/accounts-base'
 import {useFormInput, useError, validatePassword} from './accountsUtils'
-import { COL_CONFIG } from "../../../lib/Collections";
-function Register(props) {
+import { COL_Centers } from "../../../lib/Collections";
+
+
+function Register (props) {
     const username = useFormInput('')
     const name = useFormInput('')
     const password = useFormInput('')
     const confirmedPassword = useFormInput('')
     const gender = useFormInput('')
+    const center = useFormInput('')
     const isValid = validatePassword(password.value, confirmedPassword.value)
     const {error, setError} = useError('')
     const [isAuth, setAuth] = useState(false)
     const { location: { pathname } } = props
-    
+    const centers = COL_Centers.find().fetch()
+
     function handleRegister(e){
       e.preventDefault()
       if (!gender.value.length) {
@@ -24,10 +28,12 @@ function Register(props) {
         setError('There was a problem with the password')
         return;
       }
-      const {center} = COL_CONFIG.findOne({});
+      // since we need to accomodate centers, this wouldn't be ideal since it will just get one center
+      /* commented out for just skipping crash on register */
+      // const {center} = COL_CONFIG.findOne({});
       const profile = {
         name: name.value,
-        center,
+        center: center.value, 
         gender: gender.value,
         createdAt: new Date(),
         role: pathname === '/dashboard/register' ? 'admin' : 'user'
@@ -79,12 +85,21 @@ function Register(props) {
 
               <div className="input-field col s10 ">
                 <select className="browser-default" {...gender}>
-                  <option value="" disabled defaultValue>Choose your gender</option>
+                  <option value="" defaultValue>Choose your gender</option>
                   <option value="female">Female</option>
                   <option value="male">Male</option>
                   <option value="other">Other</option>
                 </select>
-                <label>Gender</label>
+              </div>
+              <div className="input-field col s10 ">
+                <select className="browser-default" {...center}>
+                <option value="" defaultValue>Choose your center</option>
+                  {
+                    centers && centers.map(center => (
+                      <option key={center._id} value={center.name}>{center.name}</option>
+                    ))
+                  }
+                </select>
               </div>
 
               <div className="row">

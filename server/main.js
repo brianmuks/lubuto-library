@@ -23,7 +23,7 @@ Meteor.startup(() => {
             {name: 'anonymous'}
         ]
         // insert centers
-       // _centers.forEach((center => COL_Centers.insert(center)))
+       _centers.forEach((center => COL_Centers.insert(center)))
         
     }
 })
