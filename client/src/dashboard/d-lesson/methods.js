@@ -43,10 +43,38 @@ export const saveLesson = (lesson,meta) => {
 
 
 export const editLesson =( {lessonId,lesson,meta}) => {
+
+ 
+    lesson = { lessonId, content: { ...lesson }, meta };
+
+    const query = {
+        'meta.lang': meta.lang, 'meta.lessonNumber': meta.lessonNumber,
+        'meta.lessonPageNumber': meta.lessonPageNumber
+    }
+
+    if (!meta.lessonNumber) {
+        M.toast({ html: 'Please set the lesson Number' });
+        $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
+        return
+    } else if (!meta.lessonPageNumber) {
+        M.toast({ html: 'Please set the lesson Page Number' });
+        $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
+        return
+    } 
+    
+    const _lesson = COL_Lessons.findOne(query,{fields:{_id:1}});
+
+
+    if (_lesson && _lesson._id !== lessonId) {
+        M.toast({ html: `Sorry Lesson page number ${meta.lessonPageNumber} is already taken` });
+        $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
+        return
+    }
+
   
-    Meteor.call('editLesson', { content: { ...lesson},_id:lessonId}, (err, ok) => {
+    Meteor.call('editLesson', lesson, (err, ok) => {
         console.log(err, ok);
-        err && alert('Sorry error occured') || alert('Lesson Updated!')
+        err && M.toast({ html: 'Sorry error occured' }) || M.toast({ html: 'Lesson Updated!' });
     })
 }
 
@@ -93,6 +121,7 @@ export const playAudio = audioFile =>{
     if (!audioFile) {
         return
     }
+
     const lang = getUrlParam('lang');
     var audio = document.getElementById("audio");
     const src = AUDIO_URL + lang + '/' + audioFile;

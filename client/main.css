@@ -254,3 +254,15 @@ bottom: 1px;
   height: 100%;
   overflow:auto;
 }
+
+.s-speaker-container{
+    float: left;
+    left: 100px;
+    margin-left: 23%;
+    margin-top: 3%;
+}
+
+.s-speaker{
+  /* margin-left: 130px !important; */
+  /* position: absolute; */
+}

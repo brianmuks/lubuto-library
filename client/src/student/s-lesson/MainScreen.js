@@ -13,6 +13,8 @@ function MainScreen(props) {
   const { staggedTools, color, bgColor, lessonId,  } = state;
   const { x, y, node, _id, name } = useDragging();
 
+  console.log(state)
+
   const [draggedQuestion, setDraggedQuestion] = useState(null)
 
   return (
@@ -20,7 +22,7 @@ function MainScreen(props) {
     <div
       className=" grey lighten-3 main-screen-4-lesson ">
 
-      <audio  src={'http://127.0.0.1:4000/audio/kao/n.wav'}   id="audio" >
+      <audio src={`http://127.0.0.1:4000/audio/${props.lesson && props.lesson.meta.lang}/${props.lesson && props.lesson.meta.audioIntr}`}   id="audio" >
         {/* <source   type="audio/wav" /> */}
       </audio>
       <RenderTools lessonId={lessonId} draggedQuestion={draggedQuestion} setDraggedQuestion={setDraggedQuestion} playAudio={playAudio} isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>

@@ -22,6 +22,7 @@ function SetSpeakerIntruction({ dispatch }){
     }, [audioFiles])
 
     const onSoundSet = val =>{
+  
       dispatch(setMeta({audioIntr:val}));
         setAudioFile(val)
     }

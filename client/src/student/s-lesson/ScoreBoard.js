@@ -18,9 +18,8 @@ function ScoreBoard({ lesson,stats}) {
           const entry = { index: questionIndex};
           const _questionIndex = questionIndex.toString().replace('.','-');
           // console.log(,'questionIndex')
-
-          if (stats ) {
-            entry['passed']= stats.question[_questionIndex].passed
+          if (stats && stats.question) {
+            entry['passed'] = stats.question[_questionIndex] && stats.question[_questionIndex].passed
           }
           keyQuestions.push(entry);
         }
@@ -70,7 +69,7 @@ function StyleTool({ name, passed, index, _dispatch }) {
         className="validate"
       />
       {/* <label className="active" htmlFor={name}>{label}</label> */}
-      {(passed && <i className="material-icons">thumb_up_alt</i>) || (
+      {(passed && <i className="material-icons green-text">thumb_up_alt</i>) || (
         <i className="material-icons">thumb_down_alt</i>
       )}
     </div>

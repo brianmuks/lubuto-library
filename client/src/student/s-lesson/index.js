@@ -12,6 +12,7 @@ import Pages from "./Pages";
 import ScoreBoard from "./ScoreBoard";
 import { getUrlParam } from "../../utilities/Tasks";
 import { addStartTime } from "../s-statistics/methods";
+import SpeakerIntruction from "./SpeakerIntruction";
 
 const initialState = {
   language:getUrlParam('lang'),
@@ -50,9 +51,10 @@ function StudentLesson(props) {
   return (
     <STUDENT_LESSON_STATE.Provider value={{ state, dispatch }}>
       <section style={{ position: 'relative' }}>
+      <SpeakerIntruction lesson={props.lesson}/>
         <Lessons match={props.match}  />
         <div className="row">
-          <MainScreen isPreview/>
+          <MainScreen lesson={props.lesson} isPreview/>
           <Pages match={props.match} lessonId={lessonId} />
           <ScoreBoard lesson={props.lesson} />
         </div>
