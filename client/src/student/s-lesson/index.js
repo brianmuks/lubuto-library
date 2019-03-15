@@ -49,14 +49,15 @@ function StudentLesson(props) {
 
   return (
     <STUDENT_LESSON_STATE.Provider value={{ state, dispatch }}>
-      <section style={{ position: 'fixed' }}>
+      <section style={{ position: 'relative' }}>
         <Lessons match={props.match}  />
         <div className="row">
           <MainScreen isPreview/>
           <Pages match={props.match} lessonId={lessonId} />
-          <ScoreBoard />
+          <ScoreBoard lesson={props.lesson} />
         </div>
       </section>
+    
     </STUDENT_LESSON_STATE.Provider>
   );
 }

@@ -25,10 +25,6 @@ function MainEditor(props) {
       </audio>
       Main Editor <br />
       <RenderTools add2EditedTools={add2EditedTools} editedTools={editedTools} playAudio={playAudio} isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
-      <span>{color}</span> <br />
-      <span>{size}</span>  <br />
-      <span>{spacing}</span> <br />
-      <span>{bgColor}</span>
     </div>
   );
 }
@@ -70,7 +66,7 @@ function RenderTools({ tools, editedTools, add2EditedTools}) {
       onStop={(e, data) => handleDrop(dispatch, e, data, tool, tools, add2EditedTools, editedTools)}
     >
     <div 
-        style={tool.style && editedTools.indexOf(tool.index) === -1 && { position: 'absolute', left: tool.style.x, top: tool.style.y } || {}}
+        style={tool.style && editedTools.indexOf(tool.index) === -1 && { position: 'absolute', left: tool.style.x, top: tool.style.y+20 } || {}}
     >
         <RenderToolDelegator  tool={tool}  />
       </div>
@@ -91,7 +87,7 @@ function RenderText({tool}){
 
   return (
     <div onClick={() => playAudio(tool.audioFile)} className={`  added-tool${tool.index} `} id={`added-tool${tool.index}`}>
-      <i className="l-tool-text" style={tool.style}>{tool.text}</i>
+      <i className="l-tool-text" style={tool.style}><code>{tool.text}</code></i>
     </div>
   )
 

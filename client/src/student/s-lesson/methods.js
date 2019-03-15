@@ -60,6 +60,8 @@ export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
     // console.log('isCorrect', isCorrect);
     const questionIndex = draggedQuestion.index.toString().replace('.', '-');
 
+    
+
     if(!isCorrect){
     console.log('wrong Ans', draggedQuestion);
         playAudio(NO_SOUND);
@@ -82,6 +84,9 @@ export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
 
     draggedItem.style = `color:red;bottom:3git 0px;position:absolute;left:${left}px;top:-15px`
 
+    if (draggedQuestion.type == 'text') {
+        // draggedItem = `<code>${draggedItem}</code>`
+    }
     ev.target.appendChild(draggedItem);
 
     // console.log('ondrop', );

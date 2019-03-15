@@ -1,76 +1,56 @@
-import React, { useContext, useState, useReducer } from "react";
-import Draggable from "react-draggable";
-import { STUDENT_LESSON_STATE } from "../s-context";
-import { addTool, editStaggedTools } from "../s-redux/actions/lessonActions";
-import { getSound } from "./methods";
+import React, { useContext, useState, useReducer, useEffect } from "react";
+import { withTracker } from "meteor/react-meteor-data";
+import { getUrlParam } from "../../utilities/Tasks";
+import { COL_USER_STATS } from "../../../../lib/Collections";
+function ScoreBoard({ lesson,stats}) {
 
-const initialState = {};
+  const [questions,setQuestions] = useState([]);
 
-const EDIT_TOOL = "EDIT_TOOL";
+  useEffect(()=>{
 
-function reducer(state, action) {
-  switch (action.type) {
-    case EDIT_TOOL:
-      console.log(state);
-      return Object.assign({ ...state }, { ...action.newStyle });
-    default:
-      return state;
-  }
-}
+    if (lesson) {
+       const _lesson =lesson.content;
+      const _questions = lesson.content;
+      const keyQuestions = [];
+      for (const key in _questions) {
+        if (_questions[key].isQuestion) {
+          const questionIndex = _questions[key].index;
+          const entry = { index: questionIndex};
+          const _questionIndex = questionIndex.toString().replace('.','-');
+          // console.log(,'questionIndex')
 
-function ScoreBoard() {
-  const [stateStyles, _dispatch] = useReducer(reducer, initialState);
+          if (stats ) {
+            entry['passed']= stats.question[_questionIndex].passed
+          }
+          keyQuestions.push(entry);
+        }
+      }
+      setQuestions(keyQuestions);
+     } 
 
-  const { state, dispatch } = useContext(STUDENT_LESSON_STATE);
-  const { staggedTools, editTool } = state;
-  const [audioFile, setAudioFile] = useState(null);
 
-  const styles = [
-    { name: "color", label: "Color" },
-    { label: "Background Color", name: "background-color" },
-    { name: "padding", label: "Padding" },
-    { name: "fontSize", label: "Size" },
-    { name: "border-radius", label: "Border" },
-    { name: "width", label: "Container Width" },
-    { name: "height", label: "Container Height" },
-    { name: "z-index", label: "Z-index" }
-  ];
+  }, [lesson, stats])
 
-  const done = () => {
-    const toolIndex = editTool.index;
-    let tools = staggedTools.map(
-      i =>
-        (i.index == toolIndex && {
-          ...i,
-          audioFile,
-          style: { ...i.style, ...stateStyles }
-        }) ||
-        i
-    );
-    Object.keys(editTool).length && dispatch(editStaggedTools(tools));
-  };
 
   return (
     <div className="col m5 offset-m4 grey lighten-3 resource-editor">
       <h6>Score Board</h6>
 
       <div className="row">
-        {styles.map((style, key) => (
+        {questions.map((style, key) => (
           <StyleTool
-            _dispatch={_dispatch}
             label={style.label}
             name={style.name}
             key={key}
             index={key}
+            passed={style.passed}
           />
         ))}
       </div>
       <div className={"col s6 center"}>
         <i
-          style={stateStyles}
-          className={`fa material-icons ${stateStyles.size}`}
+          className={`fa material-icons `}
         >
-          {editTool.name}
         </i>
       </div>
       <br />
@@ -78,8 +58,7 @@ function ScoreBoard() {
   );
 }
 
-function StyleTool({ name, label, index, _dispatch }) {
-  const { onChange, styles } = useOnEdit(name, _dispatch);
+function StyleTool({ name, passed, index, _dispatch }) {
   return (
     <div key={index} className="input-field col s2">
       <input
@@ -87,79 +66,25 @@ function StyleTool({ name, label, index, _dispatch }) {
         value={index + 1}
         disabled
         id={name}
-        onChange={onChange}
         type="text"
         className="validate"
       />
       {/* <label className="active" htmlFor={name}>{label}</label> */}
-      {(index % 2 && <i className="material-icons">thumb_down_alt</i>) || (
-        <i className="material-icons">thumb_up_alt</i>
+      {(passed && <i className="material-icons">thumb_up_alt</i>) || (
+        <i className="material-icons">thumb_down_alt</i>
       )}
     </div>
   );
 }
 
-function useOnEdit(name, _dispatch) {
-  let newStyle = {};
-  const formatStyle = e => {
-    newStyle[name] = e.target.value;
-    return newStyle;
-  };
+
+export default withTracker((props) => {
+  Meteor.subscribe("col_tools");
+  Meteor.subscribe("users");
+  const lessonId = getUrlParam('id');
+  const query = { lessonId } ;
   return {
-    onChange: e => _dispatch({ type: EDIT_TOOL, newStyle: formatStyle(e) })
+    // lessons: COL_Lessons.find(query).fetch(),
+    stats: COL_USER_STATS.findOne(query),
   };
-}
-
-function RenderSoundPicker({ onSoundSet }) {
-  const [audioFiles, setAudioFiles] = useState([]);
-
-  function fetchAudio(src) {
-    console.log(src);
-    getSound("1_Kiikaonde")
-      .then(files => {
-        setAudioFiles(files);
-      })
-      .catch(err => {
-        console.log("error getting audions", err);
-      });
-  }
-
-  return (
-    <div>
-      <div className="input-field col s6">
-        <select onChange={val => fetchAudio(val.target.value)}>
-          <option value="" disabled selected>
-            source
-          </option>
-          <option value="1">Lesson 1</option>
-          <option value="2">Lesson 2</option>
-          <option value="3">Lesson 3</option>
-        </select>
-        <label>Sound Source</label>
-      </div>
-
-      <div className="input-field col s6">
-        <select
-          onChange={val => onSoundSet(val.target.value)}
-          className="browser-default"
-        >
-          <option value={null} selected>
-            Sound
-          </option>
-
-          <RenderAudioOptions audioFiles={audioFiles} />
-        </select>
-      </div>
-    </div>
-  );
-}
-
-function RenderAudioOptions({ audioFiles }) {
-  return audioFiles.map((item, index) => (
-    <option value={item} key={index}>
-      {item.replace(".wav", "")}
-    </option>
-  ));
-}
-
-export default ScoreBoard;
+})(ScoreBoard);

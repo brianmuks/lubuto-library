@@ -39,7 +39,7 @@ body {
   height: 500px;
   /* margin-left: 120px !important; */
   position: relative;
-  max-width: 600px;
+  max-width: 650px;
   left:33%;
   width: 600px;
   top:40px;
@@ -242,4 +242,15 @@ bottom: 1px;
 .l-tool-text{
   white-space: nowrap;
   overflow: hidden;
+}
+
+.score-board{
+  margin-top: 45px;
+  max-height: 500px;
+  height: 500px;
+}
+
+.lesson-view{
+  height: 100%;
+  overflow:auto;
 }

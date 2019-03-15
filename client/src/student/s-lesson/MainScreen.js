@@ -17,14 +17,14 @@ function MainScreen(props) {
 
   return (
     // col m7 offset - m3
-    <>
+    <div
+      className=" grey lighten-3 main-screen-4-lesson ">
+
       <audio  src={'http://127.0.0.1:4000/audio/kao/n.wav'}   id="audio" >
         {/* <source   type="audio/wav" /> */}
       </audio>
-    <div className=" grey lighten-3 main-screen-4-lesson">
       <RenderTools lessonId={lessonId} draggedQuestion={draggedQuestion} setDraggedQuestion={setDraggedQuestion} playAudio={playAudio} isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
     </div>
-    </>
   );
 }
 
@@ -34,7 +34,7 @@ function RenderTools({lessonId,playAudio, setDraggedQuestion,draggedQuestion, to
   return tools.map((tool, index) => (
     // marginLeft: tool.style.x, marginTop: tool.style.y
     <div 
-      style= {tool.style && {  position:'absolute', left: tool.style.x, top: tool.style.y  } ||{}}
+      style= {tool.style && {  position:'absolute', left: tool.style.x, top: tool.style.y+20  } ||{}}
       // position={tool.style && { x: tool.style.x, y: tool.style.y} || {}}
       key={index}
       id={index}
@@ -61,7 +61,7 @@ export function useDragging(){
 
 function RenderIcon({ tool, playAudio }) {
   return (
-    <div   onClick={() => playAudio(tool.audioFile)} className={`tool added-tool${tool.index} `} id={`added-tool${tool.index}`}>
+    <div   onClick={() => playAudio(tool.audioFile)} className={` added-tool${tool.index} `} id={`added-tool${tool.index}`}>
       {/* <i className="material-icons" style={tool.style}>{tool.name}</i> */}
       <i className="material-icons" style={tool.style && { ...tool.style,  } || tool.style}>{tool.name}      </i>
     </div>
@@ -72,7 +72,7 @@ function RenderIcon({ tool, playAudio }) {
 function RenderText({ tool, playAudio }) {
   return (
     <div onClick={() => playAudio(tool.audioFile)} className={`  added-tool${tool.index} `} id={`added-tool${tool.index}`}>
-      <i className="l-tool-text material-icon vwm" style={tool.style}><code>{tool.text}</code></i>
+      <i className="l-tool-text " style={tool.style}><code>{tool.text}</code></i>
     </div>
   )
 
