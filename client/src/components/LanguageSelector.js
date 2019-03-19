@@ -1,7 +1,6 @@
 //NOTE holds all create lesson components
 
 import React, { useState, useEffect} from "react";
-import { NavBar } from "./Landing";
 import { Link } from "react-router-dom";
 import { useLogout } from "../Accounts/accountsUtils";
 import { getUrlParam } from "../utilities/Tasks";

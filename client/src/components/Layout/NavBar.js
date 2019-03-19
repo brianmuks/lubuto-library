@@ -27,7 +27,7 @@ import { Link, Redirect } from "react-router-dom";
           </span>
           </li>
           <li>
-            <Link to="/users">
+            <Link to="/dashboard">
               Dashboard
             </Link>
           </li>

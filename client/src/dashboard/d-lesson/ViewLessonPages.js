@@ -57,7 +57,12 @@ function ViewLessonPages(props) {
           }
         </div>
     </div>
-      <RemoveLessonModal label={lesson.meta && lesson.meta.lessonNumber} deleteLesson={() => deleteLesson(lesson._id)} />
+  
+      <RemoveLessonModal
+        lessonPageNumber={lesson.meta && lesson.meta.lessonPageNumber}
+        label={lesson.meta && lesson.meta.lessonNumber} deleteLesson={() => deleteLesson(lesson._id)} />
+
+  
    </div>
   );
 }

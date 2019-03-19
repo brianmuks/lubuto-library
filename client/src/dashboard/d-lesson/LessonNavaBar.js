@@ -4,14 +4,8 @@ import { Link, Redirect } from "react-router-dom";
 
 function LessonNavBar(){
     return(
-
-     
-
-
         <nav>
             <div className="nav-wrapper grey ">
-
-                      
 
                 <ul id="nav-mobile" className=" right hide-on-med-and-down">
                     <li>

@@ -22,9 +22,9 @@ import LanguageSelector from "./components/LanguageSelector";
 import ViewLessons from "./dashboard/d-lesson/ViewLessons";
 import EditLesson from "./dashboard/d-lesson/EditLesson";
 import Home from "./student/Home";
-import Landing from "./components/Landing";
 import ViewLessonPages from "./dashboard/d-lesson/ViewLessonPages";
-
+import Landing from "./dashboard/Landing";
+import Settings from "./dashboard/Settings";
 
 // Only here for prototyping
 const adminRole = "admin";
@@ -55,6 +55,12 @@ const Routes = () => (
           exact
           path="/dashboard/language_selector"
           component={LanguageSelector}
+      />
+
+      <Route
+        exact
+        path="/dashboard/settings"
+        component={Settings}
       />
 
       <Route

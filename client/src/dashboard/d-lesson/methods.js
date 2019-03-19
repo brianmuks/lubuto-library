@@ -97,7 +97,6 @@ export const editLesson =( {lessonId,lesson,meta}) => {
         return
     }
 
-  
     Meteor.call('editLesson', lesson, (err, ok) => {
         console.log(err, ok);
         err && M.toast({ html: 'Sorry error occured' }) || M.toast({ html: 'Lesson Updated!' });

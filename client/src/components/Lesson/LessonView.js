@@ -1,8 +1,8 @@
 import React from "react";
 import { withRouter, NavLink } from 'react-router-dom'
 import './style.css'
-import { NavBar } from '../Landing'
 import Lesson from './Lesson'
+import NavBar from "../Layout/NavBar";
 
 // It would be good to know how many pages a lesson has
 // It will be easy since these will be auto-generated
@@ -11,7 +11,6 @@ const style = {
     fontWeight: "bold",
     color: "teal",
 }
-
 function LessonView({match, history}) {
   const { params: { id }  } = match
   const parsedId = parseInt(id)

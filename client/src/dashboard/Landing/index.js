@@ -3,8 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import { Meteor } from 'meteor/meteor'
 import { useLogout } from '../../Accounts/accountsUtils'
 import "./landing.css";
-import Footer from "../Layout/Footer";
-
+import Footer from "../../components/Layout/Footer";
 
 function Landing() {
   const { isLoggedOut, logOutUser } = useLogout()
@@ -103,7 +102,7 @@ function Landing() {
 
 
 
-export function NavBar({logOutUser, color}){
+ function NavBar({logOutUser, color}){
   return(
     <nav className={`${color} lighten-1 container-fluid`} role="navigation">
       <div className="nav-wrapper">
@@ -144,7 +143,7 @@ function RenderAdminActions(){
 //in the path bewlo ?n=[next location from lessons_selector path]
   return (
     <div className="row center">
-    <div className=" col m6">
+    <div className=" col m4">
     <Link to="/dashboard/language_selector/?n=create_lesson_type">
       <button  className="btn-large waves-effect waves-light blue" >
       Create Lessons
@@ -152,13 +151,23 @@ function RenderAdminActions(){
   </Link>
 </div>
 
- <div className=" col m6">
+ <div className=" col m4">
     <Link to="/dashboard/language_selector/?n=view_lessons">
       <button  className="btn-large waves-effect waves-light blue" >
       View Lessons
       </button>
   </Link>
   </div>
+
+      <div className=" col m4">
+        <Link to="/dashboard/settings">
+          <button className="btn-large waves-effect waves-light blue" >
+            Settings
+      </button>
+        </Link>
+      </div>
+
+
 </div>
   )
 

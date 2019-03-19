@@ -57,7 +57,7 @@ function ViewLessons(props) {
           }
         </div>
     </div>
-      <RemoveLessonModal label={lesson.meta && lesson.meta.lessonNumber} deleteLesson={() => deleteLesson(lesson._id)} />
+  
    </div>
   );
 }
