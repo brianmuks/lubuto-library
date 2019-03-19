@@ -4,10 +4,10 @@ import React, { useState, useEffect } from "react";
 import { getUrlParam, getUrlParams } from "../../utilities/Tasks";
 import { Link } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
-import RemoveLessonModal, { REMOVE_LESSSON_MODAL_ID, EDIT_LANGUAGE_MODAL_ID } from "./EditLanguageModal";
+import EditLanguageModal, { REMOVE_LESSSON_MODAL_ID, EDIT_LANGUAGE_MODAL_ID } from "./EditLanguageModal";
 import { deleteLesson, saveLanguage } from "./methods";
 import { COL_LANGUAGES } from "../../../../lib/Collections";
-import EditLanguageModal from "./EditLanguageModal";
+import RemoveLanguageModal, { REMOVE_LANGUAGE_MODAL_ID } from "./RemoveLanguageModal";
 
 const LANGS = [{ _id: 'Kikainde', val: 'KAO' }, { _id: 'Bemba', val: 'BEM' }, { _id: 'English', val: 'ENG' }, { _id: 'Cinyanja', val: 'CIN' }];
 // todo: Push the icon name to the icon array, as items that have been moved
@@ -21,6 +21,7 @@ function Language(props) {
   const [targetLanguage, setTargetlanguage] = useState({});
 
   let editModalRef = React.createRef();
+  let delModalRef = React.createRef();
 
   useEffect(() => {
    setlanguages(languages);
@@ -53,18 +54,19 @@ function Language(props) {
 
   const _setTargetlanguage = lang =>{
   //  setTargetlanguage(lang);
-  editModalRef.current.click();
+   delModalRef.current.click();
    
   //SEE <EditLanguageModal /> components for these fileds
-    $('#edit-language').val(lang.name)
-    $('#edit-language-id').val(lang._id)
-    
+    $('#edit-language,#del-language').val(lang.name)
+    $('#del-language').text(lang.name)
+    $('#edit-language-id,#del-language-id').val(lang._id)
   }
 
 
   return (
     <div>
-      <a ref={editModalRef}  href={`#${EDIT_LANGUAGE_MODAL_ID}`} className=" modal-trigger lang-modal-trigger "><i className="material-icon cyan-text"></i></a>
+      <a ref={editModalRef}  href={`#${EDIT_LANGUAGE_MODAL_ID}`} className=" modal-trigger  "><i className="material-icon cyan-text"></i></a>
+      <a ref={delModalRef} href={`#${REMOVE_LANGUAGE_MODAL_ID}`}  className=" modal-trigger"><i className="material-icons red-text"></i></a>
       <div className='row'>
         <div className="input-field col s4 right">
           <div className='col m10'>
@@ -97,12 +99,8 @@ function Language(props) {
 
   
       </div>
-
-      <RemoveLessonModal
-          label={language && language.name} deleteLesson={() => deleteLesson(language._id)} />
-          <EditLanguageModal
-          _id={targetLanguage._id} name={targetLanguage.name}
-          />
+      <RemoveLanguageModal />
+          <EditLanguageModal />
       </div>
     </div>
   );
@@ -127,7 +125,7 @@ function RenderOptions({ filteredlanguages, setlanguage }) {
       <i className=" i-lang-edit right">
         <a  onClick={e => setlanguage(item)} className="pointer "><i className="material-icons cyan-text">edit</i></a>
       </i>
-      <a href={`#${REMOVE_LESSSON_MODAL_ID}`} onClick={e => setlanguage(item)} className="secondary-content modal-trigger"><i className="material-icons red-text">cancel</i></a>
+      <a onClick={e => setlanguage(item)} className="secondary-content pointer "><i className="material-icons red-text">cancel</i></a>    
     </li>
   ))
 }

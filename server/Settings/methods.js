@@ -6,11 +6,14 @@ Meteor.methods({
     'Settings.setCentre'({ centre, _id}){
         const query = {_id};
         let update = {...centre};
-        COL_CONFIG.update(query,{$set:update},{upsert:true});
+        return  COL_CONFIG.update(query,{$set:update},{upsert:true});
     },
     'Settings.saveLanguage'({ name, _id}){
         const query = {_id};
         let update = { name,label:name.toLowerCase().substring(0,3)};
-        COL_LANGUAGES.update(query,{$set:update},{upsert:true});
+        return COL_LANGUAGES.update(query,{$set:update},{upsert:true});
+    },
+    'Settings.deleteLanguage'(_id){
+       return COL_LANGUAGES.remove(_id);
     },
 })

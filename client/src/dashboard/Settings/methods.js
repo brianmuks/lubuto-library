@@ -1,4 +1,4 @@
-import { COL_LANGUAGES } from "../../../../lib/Collections";
+import { COL_LANGUAGES, COL_Lessons } from "../../../../lib/Collections";
 
 export const setCentre = ({centre,_id}) => {
   
@@ -34,9 +34,16 @@ export const saveLanguage =({name,_id,callback})=> {
 }
 
 
-export const deleteLesson = _id => {
-    Meteor.call('deleteLesson', _id, (err, ok) => {
-        console.log(err, ok);
-        err && alert('Sorry error occured') || alert('Lesson Updated!')
+export const deleteLanguage = ({_id,callback}) => {
+
+    const query = {'meta.languageId': _id};
+    if (COL_Lessons.findOne(query)) {
+        M.toast({ html: 'Sorry language has lessons dependent on it!' })
+        return;
+    }
+  
+
+    Meteor.call('Settings.deleteLanguage', _id, (err, ok) => {
+        err && alert('Sorry error occured') || M.toast({ html: 'Language Deleted' }) && callback()
     })
 }
