@@ -103,8 +103,9 @@ function RenderSoundPicker({ onSoundSet, _dispatch}){
   const [audioFiles, setAudioFiles] = useState([])
 
   function fetchAudio(src){
+    //TODO: use RJX here for debouncing.
     console.log(src);
-    getSound('audio/kao')
+    getSound({ src: 'audio/kao', filter: src})
     .then(files=>{
       _dispatch(addAudioFiles(files));
       setAudioFiles(files)
@@ -118,12 +119,7 @@ function RenderSoundPicker({ onSoundSet, _dispatch}){
   return (
     <div>
       <div className="input-field col s6">
-        <select defaultValue={''} onChange={val => fetchAudio(val.target.value)}>
-          <option value="" disabled >source</option>
-          <option value="1">Lesson 1</option>
-          <option value="2">Lesson 2</option>
-          <option value="3">Lesson 3</option>
-        </select>
+        <input  onChange={val => fetchAudio(val.target.value)} type="number" className="validate" />
         <label>Sound Source</label>
       </div>
       <div className="input-field col s6">

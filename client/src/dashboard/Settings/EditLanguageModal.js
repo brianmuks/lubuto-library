@@ -4,7 +4,6 @@ import { saveLanguage } from "./methods";
 
 export const EDIT_LANGUAGE_MODAL_ID = 'EDIT_LANGUAGE_MODAL_ID';
 
-
 function EditLanguageModal() {
   let btnCloseRef = React.createRef();
   const _saveLanguage = e => {

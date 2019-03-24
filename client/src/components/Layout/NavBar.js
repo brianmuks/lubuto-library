@@ -12,7 +12,7 @@ import { Link, Redirect } from "react-router-dom";
      const { isLoggedOut, logOutUser } = useLogout()
 
   return(
-    <nav className={`${color} lighten-1 container-fluid`} role="navigation">
+    <nav className={`light-blue lighten-1 container-fluid`} role="navigation">
       <div className="nav-wrapper">
         <Link to="/">
           <span id="logo-container"  className="brand-logo">

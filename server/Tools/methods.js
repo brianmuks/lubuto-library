@@ -4,7 +4,6 @@ import { COL_TOOLS } from '../../lib/Collections'
 import { FILE_SERVER_PATH } from '../Constants';
 const fs = require('fs');
 
-
 // create an icon reference
 
 // Todo: Clean 
@@ -14,21 +13,25 @@ Meteor.methods({
         COL_TOOLS.insert({name,label}, err => err ? console.log(err.reason) : 'success')
     },
 
-    'Tool.getSound'(src=''){
+    /**
+     * 
+     * @param {*} src search directory
+     * @param {*} filter if passed, only files containing filter key word will be returned 
+     */
+    'Tool.getSound'(src = '', filter=null){
         const path =FILE_SERVER_PATH+src;
-
         return new Promise((resolve, reject) => {
             fs.readdir(path, (err, files) => {
+                //TODO get error messge if directory is not present
                 resolve(sortFiles(files));
             })
         });
-        
     },
     'Tool.getImages'(src = 'images') {
         const path =FILE_SERVER_PATH + src;
         return new Promise((resolve, reject) => {
             fs.readdir(path, (err, files) => {
-                resolve(sortFiles(files));
+                resolve();
             })
         });
 
@@ -45,7 +48,3 @@ function sortFiles(files) {
         return 0;
     });
 }
-
-
-
-

@@ -42,7 +42,9 @@ function ToolConfig(){
                 <h6 className="teal-text  ">  {LESSON_TYPES[getUrlParam('type')]} </h6>
                 </div>
 
-            <SetSpeakerIntruction dispatch={dispatch} /> 
+            <SetSpeakerIntruction
+                lessonNumber={state.meta.lessonNumber}
+            dispatch={dispatch} /> 
             <div className="modal-content">
            
                 <div className=" col m12 lesson-number-config">

@@ -36,8 +36,8 @@ function Language(props) {
       console.log("set to degault LANGS");
       return;
     }
-    const _filteredlanguages = LANGS.filter(
-      path => path.toLowerCase().indexOf(val) !== -1
+    const _filteredlanguages = languages.filter(
+      language => language.name.toLowerCase().indexOf(val) !== -1
     );
     setlanguages(_filteredlanguages);
   };
@@ -79,7 +79,7 @@ function Language(props) {
         </div>
         <div className='col m12'>
   
-        <h4 className='center'> <code>Languages  </code></h4>
+        <h4 className='center'> <code>Languages </code></h4>
         <div className='col m6 offset-m3'>
           <input
             onChange={onFilter}
@@ -89,14 +89,12 @@ function Language(props) {
             placeholder='SEARCH'
           />
           <ul className="collection">
-            <RenderOptions setlanguage={_setTargetlanguage} filteredlanguages={filteredlanguages} />
+              <RenderOptions setlanguage={_setTargetlanguage} filteredlanguages={filteredlanguages} />
           </ul>
           {
             renderCounter && languages.length === 0 && <RenderNoLesson />
           }
         </div>
-
-
   
       </div>
       <RemoveLanguageModal />

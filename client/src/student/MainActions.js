@@ -24,7 +24,7 @@ function MainActions(){
             <h4 className="col blue-grey-text"> {studenName} </h4>
                 <div className="col m8 offset-m3">
                 <div className=" col m6">
-                    <Link to="/dashboard/language_selector/?n=create_lesson_type">
+                    <Link to="#">
                         <button className="btn-large waves-effect waves-light blue" >
                             View Profile
       </button>

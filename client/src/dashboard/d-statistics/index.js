@@ -10,6 +10,8 @@ import UsersStatsAverage from "./UsersStatsAverage";
 import { Session } from 'meteor/session'
 import { FILTERED_LESSONS } from "../d-redux/constants";
 import { getlessonsGrandTotal } from "./methods";
+import NavBar from "../../components/Layout/NavBar";
+import Footer from "../../components/Layout/Footer";
 
 // Session.setDefault(FILTERED_LESSONS, [])
 
@@ -52,10 +54,9 @@ function UserStats({ lessons, stats, history, match }) {
   }
   return (
     <Fragment>
+      <NavBar />
       <div className="container">
-        <Link to='dashboard/users'>
-          <h5>Back to users</h5>
-        </Link>
+     
         {/* <h4>{user && user.profile.name} </h4> */}
         <h4><code>{"Statistics"} </code> </h4>
     
@@ -74,6 +75,7 @@ function UserStats({ lessons, stats, history, match }) {
         <div>
         </div>
       </div>
+      <Footer />
     </Fragment>
   );
 }

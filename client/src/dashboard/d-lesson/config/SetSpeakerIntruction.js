@@ -4,22 +4,28 @@ import { getUrlParam } from "../../../utilities/Tasks";
 import { setMeta } from "../../d-redux/actions/lessonActions";
 
 
-function SetSpeakerIntruction({ dispatch }){
+function SetSpeakerIntruction({ lessonNumber,dispatch }){
     const [audioFiles, setAudioFiles] = useState([])
     const [audioFile, setAudioFile] = useState(null)
+    const lang = getUrlParam('lang'); 
 
     useEffect(()=>{
-        // console.log(src);
-        const lang = getUrlParam('lang'); 
-        getSound(`audio/${lang}/key`)
+        console.log(lessonNumber);
+       
+
+    }, [audioFiles,lessonNumber])
+
+
+    const _getSound = e=>{
+        lessonNumber && getSound({ src: `audio/${lang}/key`, filter: lessonNumber })
             .then(files => {
                 // _dispatch(addAudioFiles(files));
-                setAudioFiles(files);
+                lessonNumber && files.length && setAudioFiles(files);
             })
             .catch(err => {
                 console.log('error getting audions', err);
-            });
-    }, [audioFiles])
+            }) || M.toast({html:'Please set Lesson number first'})
+    }
 
     const onSoundSet = val =>{
   
@@ -29,7 +35,7 @@ function SetSpeakerIntruction({ dispatch }){
 
 
     return (
-        <div className="  speaker-config">
+        <div className="speaker-config">
         
             <div className=" col s2 pointer">
                 <i onClick={e=>playAudio('key/'+audioFile)} className="material-icons red-text large right speaker-config-icon"
@@ -37,7 +43,7 @@ function SetSpeakerIntruction({ dispatch }){
        </div>
 
             <div className="input-field col s6">
-                <select defaultValue={''} onChange={val => onSoundSet(val.target.value)} className="browser-default" >
+                <select onClick={_getSound} defaultValue={''} onChange={val => onSoundSet(val.target.value)} className="browser-default" >
                     <option value={''}  >Sound</option>
                     <RenderAudioOptions audioFiles={audioFiles} />
                 </select>

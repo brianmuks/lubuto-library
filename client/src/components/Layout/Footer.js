@@ -4,7 +4,6 @@ import React, { useState } from "react";
 
 function Footer(){
 
-
     return (
         <footer className="page-footer orange footer">
             <div className="container">

@@ -15,21 +15,16 @@ function Tabs() {
                 </ul>
             </div>
             <div id="test1" className="col s12">
-
                 <Centre />
-
-
             </div>
             <div id="test2" className="col s12">
                 <Language />
             </div>
-            <div id="test3" className="col s12">Test 3</div>
-            <div id="test4" className="col s12">Test 4</div>
+            <div id="test3" className="col s12">Lesson settings</div>
+            <div id="test4" className="col s12">import lessons and languages </div>
         </div>
     </Fragment>
 
 }
-
-
 
 export default Tabs;

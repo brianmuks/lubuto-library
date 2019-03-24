@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, Redirect } from 'react-router-dom'
 import { Meteor } from 'meteor/meteor'
 import { useFormInput, useError } from './accountsUtils'
+import Footer from "../components/Layout/Footer";
+import NavBar from "../components/Layout/NavBar";
 
 
 function Login() {
@@ -22,6 +24,8 @@ function Login() {
     return null;
   }  
   return (
+    <>
+  
     <div className="row ">
       <div className="col s4" />
       <div className="col s4 " style={{ paddingTop: 30, margin: 0 }}>
@@ -80,6 +84,8 @@ function Login() {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
 

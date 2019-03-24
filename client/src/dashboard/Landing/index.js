@@ -37,11 +37,14 @@ function Landing() {
         <div className="row">
           <div className="col s12 m4">
             <div className="icon-block">
-              <h2 className="center light-blue-text">
-                <i className="material-icons">flash_on</i>
-              </h2>
-              <h5 className="center">Speeds up Learning</h5>
+              <h6 className="center light-blue-text">
+                  <Link to="/dashboard/stats">
 
+                    <em></em>
+                  <i className="material-icons medium">flash_on</i>
+                  </Link>
+              </h6>
+                <h5 className="center cyan-text">Statistics</h5>
               <p className="light center">
                 Learners will find this an easy way to learn
 
@@ -59,7 +62,10 @@ function Landing() {
           <div className="col s12 m4">
             <div className="icon-block">
               <h2 className="center light-blue-text">
-                <i className="material-icons">group</i>
+                  <Link to="/dashboard/users">
+
+                <i className="material-icons medium">group</i>
+                </Link>
               </h2>
               <h5 className="center">User Experience Focused</h5>
 
@@ -76,7 +82,10 @@ function Landing() {
           <div className="col s12 m4">
             <div className="icon-block">
               <h2 className="center light-blue-text">
-                <i className="material-icons">settings s</i>
+                  <Link to="/dashboard/settings">
+
+                  <i className="material-icons medium">settings </i>
+                  </Link>
               </h2>
               <h5 className="center">Easy to work with</h5>
 

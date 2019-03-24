@@ -111,14 +111,17 @@ export const deleteLesson = _id => {
     })
 }
 
-export const getSound = src => {
+export const getSound = ({src,filter}) => {
     return new Promise((resolve, reject) => {
-        Meteor.call('Tool.getSound', src, (err, ok) => {
+        Meteor.call('Tool.getSound', src, (err, files) => {
             // console.log(err, ok);
             if (err) {
                 reject(err)
             }else{
-                resolve(ok);
+                console.log(filter, 'filter', files)
+                files = filter && files.filter(i=> i.indexOf(filter.toString()) == 0) || files;
+                console.log(files,'files');
+                resolve(files);
             }
 
         })
