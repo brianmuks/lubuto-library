@@ -53,7 +53,7 @@ function UserProfile({ user, stats, history,match }) {
         <h5>Back to users</h5>
        </Link>
         {/* <h4>{user && user.profile.name} </h4> */}
-        <h4><code>{"Mary Zulu"} </code> </h4>
+            <h4><code>{user && user.profile.name} </code> </h4>
         <table className="highlight">
           <thead>
             <tr>
@@ -73,7 +73,7 @@ function UserProfile({ user, stats, history,match }) {
         <br />
         <ul id="tabs-swipe-demo" className="tabs">
           <li className="tab col s3"><a className="active" href="#test-swipe-1">Table Data</a></li>
-          <li className="tab col s3"><a  href="#test-swipe-2">Graphical Data</a></li>
+          {/* <li className="tab col s3"><a  href="#test-swipe-2">Graphical Data</a></li> */}
           <li className="tab col s3"><a  href="#test-swipe-3">Grand Data</a></li>
           <li className="tab col s3"><a  href="#test-swipe-4">Lesson Data</a></li>
         </ul>
@@ -88,7 +88,8 @@ function UserProfile({ user, stats, history,match }) {
         <div id="test-swipe-4" className="col s12">
           <UserStatsLessonDetails match={match} />
         </div>
-        <div id="test-swipe-2" className="col s12 ">
+        {/* will come back to this */}
+        {/* <div id="test-swipe-2" className="col s12 ">
           <BarChart
             width={600}
             height={300}
@@ -103,7 +104,7 @@ function UserProfile({ user, stats, history,match }) {
             <Bar onClick={() => history.push('/stats')} dataKey="correct_answer" fill="#8884d8" />
             <Bar dataKey="tries" fill="#82ca9d" />
           </BarChart>
-        </div>
+        </div> */}
         <div>
         </div>
       </div>

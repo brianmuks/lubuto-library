@@ -7,8 +7,6 @@ import M from 'materialize-css'
 import { useLogout } from "../../Accounts/accountsUtils";
 import { COL_USER_STATS, COL_Lessons } from "../../../../lib/Collections";
 import UsersStatsAverage from "./UsersStatsAverage";
-import { Session } from 'meteor/session'
-import { FILTERED_LESSONS } from "../d-redux/constants";
 import { getlessonsGrandTotal } from "./methods";
 import NavBar from "../../components/Layout/NavBar";
 import Footer from "../../components/Layout/Footer";

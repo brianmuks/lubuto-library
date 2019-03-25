@@ -29,7 +29,7 @@ function Details({ stats}){
   let gStats = getlessonsGrandTotal(stats);
   const filteredStats = gStats.filteredLessons;
   let count = Object.keys(filteredStats).length;
-
+                                                //total questions
     const score = gStats.passMark+"/"+Math.floor(gStats.passMark+gStats.failMark)
   const scorePercent = Math.floor((gStats.passMark/(gStats.passMark + gStats.failMark) )*100)
    const questions = Math.abs(gStats.failMark+gStats.passMark);  

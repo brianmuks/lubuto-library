@@ -21,6 +21,7 @@ function UsersStatsAverage({ gStats, onLessonsSet,pages }) {
           <th>Pages Covered</th>
           <th>Total Time Spent</th>
           <th>Total Tries</th>
+          <th>Score</th>
         </tr>
       </thead>
       <tbody>
@@ -36,6 +37,10 @@ function Details({ gStats,pages}){
   let lessons = Object.keys(filteredStats).length;
    const questions = Math.abs(gStats.failMark+gStats.passMark);  
  
+  const score = gStats.passMark + "/" + Math.floor(gStats.passMark + gStats.failMark)
+  const scorePercent = Math.floor((gStats.passMark / (gStats.passMark + gStats.failMark)) * 100)
+
+  console.log(gStats.passMark , gStats.failMark)
   const time = gStats.gTotalTime;
   const attempts = gStats.attempts;
   return <>
@@ -46,6 +51,8 @@ function Details({ gStats,pages}){
       <td> {pages} </td>
       <td> {formatTime(time)} </td>
       <td> {`${attempts} in ${questions} Questions`} </td>
+      <td> {score} </td>
+   
     </tr>
 
     <tr rowSpan={4}>
@@ -57,12 +64,13 @@ function Details({ gStats,pages}){
      questions={questions}
      pages={pages}
      time={time}
+     scorePercent={scorePercent}
      attempts={attempts}
       />
     </>
 }
 
-function GetAverageStats ({lessons,students,questions,pages,time,attempts}){
+function GetAverageStats ({lessons,students,questions,pages,time,attempts,scorePercent}){
 
   pages = Math.floor(pages/students);
   attempts = Math.floor(attempts/students);
@@ -77,6 +85,8 @@ function GetAverageStats ({lessons,students,questions,pages,time,attempts}){
     <td> {pages} </td>
     <td> {time} </td>
     <td> {`${attempts} in ${questions} Questions`} </td>
+    <td> {scorePercent + "%"} </td>
+  
   </tr>
 
 }

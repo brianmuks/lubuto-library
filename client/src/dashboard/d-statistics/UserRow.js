@@ -7,7 +7,7 @@ function UserRow({ user, editUser, count = 0, i = 0 }) {
       <tr>
        
         <td>
-          <Link to={`/user/${user._id}`}>{user.profile.name}</Link>
+          <Link to={`#`}>{user.profile.name}</Link>
         </td>
         <td>{user.profile.age || 4 }</td>
         <td>{user.profile.gender || "Male" } </td>

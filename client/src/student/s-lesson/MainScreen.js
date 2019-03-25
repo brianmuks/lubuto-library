@@ -1,17 +1,13 @@
 import React, { useContext, useState } from "react";
 //import { useDragging } from "./ResourceEditor";
 import { STUDENT_LESSON_STATE } from "./../s-context";
-import Draggable from "react-draggable";
-import { editStaggedTools } from "../s-redux/actions/lessonActions";
-import { AUDIO_URL, IMAGE_EXTERNAL_URL } from "../../utilities/constants";
+import {  IMAGE_EXTERNAL_URL } from "../../utilities/constants";
 import { onDrop,playAudio,onDragOver,onDrag,onDragStart } from "./methods";
-const LANG = 'kao';  
+import { recordAttempt } from "../s-statistics/methods";
 
 function MainScreen(props) {
-  const [audioFile, setAudioFile] = useState([])
   const { state } = useContext(STUDENT_LESSON_STATE);
   const { staggedTools, color, bgColor, lessonId,  } = state;
-  const { x, y, node, _id, name } = useDragging();
 
   console.log(props,'props')
 
@@ -21,20 +17,18 @@ function MainScreen(props) {
 
   const onClickMatch = ({a,q,index,rightAnsIndexs})=>{
     
-    console.log(a,q)
-
     if(a && c2mAns && c2mAns.indexOf(index.toString()) !== -1){
-      alert('Got it')
       setC2mAns(null);
+      playAudio('y.wav');//y.wav is a default yes sound for every language;
+      recordAttempt({ questionIndex: index, lessonId, passed: true });
     }else if(a && c2mAns && c2mAns.indexOf(index.toString()) == -1){
-      alert('failed ')
-
+      playAudio('n.wav');//y.wav is a default yes sound for every language;
+      recordAttempt({questionIndex:index,lessonId,passed:false});
     }else if(!c2mAns && q){
-      alert('first attempt ')
       //user clicked on a question
       setC2mAns(rightAnsIndexs)
     }else{
-      alert('some error')
+      playAudio('n.wav');//y.wav is a default yes sound for every language;
     }
 
   }
@@ -44,7 +38,6 @@ function MainScreen(props) {
     // col m7 offset - m3
     <div
       className=" grey lighten-3 main-screen-4-lesson ">
-
       <audio src={`http://127.0.0.1:4000/audio/${props.lesson && props.lesson.meta.lang}/${props.lesson && props.lesson.meta.audioIntr}`}   id="audio" >
         {/* <source   type="audio/wav" /> */}
       </audio>

@@ -29,6 +29,8 @@ lessonStats.map((stats,index)=>{
 
 export const getlessonsGrandTotal = lessonStats => {
 
+
+
     let filteredLessons = [];
     let gTotalTime = 0;
     let gPages = 0;
@@ -40,11 +42,12 @@ export const getlessonsGrandTotal = lessonStats => {
         students[stats.userId] = stats.userId;
         const lang = stats.lang;
         const lessonNumber = stats.lessonNumber;
-        gTotalTime += stats.time && stats.time || gTotalTime;
+        gTotalTime += stats.time && stats.time || 0;
         gPages++;
         if (!filteredLessons[lessonNumber]) {
             const passStatus = getPassMarkSummary(stats.question);
-            passStatus && passMark++ || failMark++;
+            passMark += passStatus.passMark;
+            failMark += passStatus.failMark;
             attempts += passStatus.attempts;
             const entry = { createdAt: stats.createdAt, lang, lessonNumber, pages: 1,  };
             filteredLessons[lessonNumber] = entry;
@@ -52,7 +55,6 @@ export const getlessonsGrandTotal = lessonStats => {
             const lesson = filteredLessons[lessonNumber];
             const passStatus = getPassMarkSummary(stats.question);
             attempts += passStatus.attempts;
-
             passMark +=passStatus.passMark;
             failMark +=passStatus.failMark;
             filteredLessons[lessonNumber] = {
@@ -62,6 +64,8 @@ export const getlessonsGrandTotal = lessonStats => {
 
     }
     )
+    console.log(passMark,failMark, 'passStatus');
+
     return { students, filteredLessons, gTotalTime, passMark, failMark, attempts};
 }
 
@@ -88,7 +92,7 @@ export const getPassMarkSummary = questions => {
     let attempts = 0;
     for (const key in questions) {
         attempts +=questions[key].attempts;
-        if (!questions[key].passed) {
+        if (questions[key].passed) {
             passMark++
         }else{
             failMark++;
@@ -120,7 +124,7 @@ export const onLessonChange = ({ e, userId})=>{
     let val = e.target.value;
     val = val.split(',');
     const query = { userId, lang: val[1], lessonNumber: parseInt(val[0]) };
-    return COL_USER_STATS.find(query).fetch();
+    return COL_USER_STATS.find(query).fetch();          
 }
 
 

@@ -37,14 +37,11 @@ Meteor.methods({
         const today = new Date();
         const lessonStats = coll.findOne( query);
         let update =lessonStats && lessonStats.question  && {question:lessonStats.question} || {question:{}};
-        
+        questionIndex = questionIndex.toString().replace('.', '-');
         if (update.question[questionIndex] && update.question[questionIndex].passed) {
-            console.log('sdfadsfad', lessonStats._id, update.question[questionIndex].passed)
+            console.log('passed already', lessonStats._id, update.question[questionIndex].passed)
             return true;//student already got it right;
         }
-
-
-        
 
         update.question[questionIndex] =lessonStats && lessonStats.question && lessonStats.question[questionIndex]  && {attempts:update.question[questionIndex].attempts+1,passed} ||
                                           {attempts:1,passed}

@@ -49,7 +49,7 @@ function Details({pages}){
         <td> {item.lessonPageNumber} </td>
         <td> {new Date(item.createdAt).toDateString()} </td>
         <td> {attempts.attempts + `[${attempts.questions}]`} </td>
-        <td> {formatTime(item.time)} </td>
+        <td> {item.time && formatTime(item.time) || 0} </td>
         <td> {
           isMark && <i className="material-icons">done</i>
           || "X" 
@@ -70,7 +70,7 @@ return (
   <>
     <label>Lesson</label>
     <select className="browser-default" onChange={onChange} >
-      <option value="" disabled defaultValue="">Choose Lesson Number</option>
+      <option value=""  defaultValue="">Choose Lesson Number</option>
       <GetLessonsOptions filteredLessons={filteredLessons} />
     </select>
   </>

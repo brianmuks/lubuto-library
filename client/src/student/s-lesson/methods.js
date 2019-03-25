@@ -43,8 +43,7 @@ export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
     ev.preventDefault();
     const isCorrect = checkAns(ans,draggedQuestion);
     // console.log('isCorrect', isCorrect);
-    const questionIndex = draggedQuestion.index.toString().replace('.', '-');
-
+    const questionIndex = draggedQuestion.index;
     
 
     if(!isCorrect){

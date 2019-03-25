@@ -11,7 +11,7 @@ function Footer(){
                     <div className="col l6 s12">
                         <h5 className="white-text">Company Bio</h5>
                         <p className="grey-text text-lighten-4">
-                            Doing the best to provide with the best lessons
+                            Doing the best to provide the best lessons
             </p>
                     </div>
                     <div className="col l3 s12">
@@ -42,7 +42,9 @@ function Footer(){
                 </div>
             </div>
             <div className="footer-copyright">
-                <div className="container">Made by BrianMuks Co</div>
+                <a className='white-text' href='https://web.facebook.com/manolivier' target='_blank'>
+                    <div className="container">Created by OlivierJM & BrianMuks with ♥ </div>
+            </a>
             </div>
         </footer>
     )
