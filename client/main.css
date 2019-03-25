@@ -1,6 +1,21 @@
-body {
+
+body{
   font-family: sans-serif;
+
 }
+
+
+  #app {
+    display: flex !important;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto !important;
+  }
+
+
 .blur {
   -webkit-filter: sepia(70%);
 }
@@ -52,14 +67,11 @@ body {
 .pages-container{
     max-height: 500px;
   height: 500px;
-  /* margin-left: 120px !important; */
   position: absolute;
   max-width: 300px;
   right:0%;
-  top:40px;
+  top:39px;
   width: 500px;
-  /* background-color: red */
-  /* margin-left: 0px; */
 }
 
 
@@ -70,7 +82,7 @@ body {
   position: absolute;
   max-width: 300px;
   right:0%;
-  top:40px;
+  top:100px;
   width: 500px;
   overflow: auto;
   /* background-color: red */
@@ -176,8 +188,7 @@ margin-top:-90px;
 
 
 .speaker-config{
-  margin:-70px 0 0 30% ;
-  width: 50%;
+
 }
 .modal.bottom-sheet{
   max-height: 150% !important;
@@ -262,7 +273,7 @@ bottom: 0;
 }
 
 .s-speaker{
-  /* margin-left: 130px !important; */
+  margin:0px 0 0 0 !important;
   /* position: absolute; */
 }
 
@@ -273,4 +284,8 @@ bottom: 0;
 .i-lang-edit{
   /* margin-right:0px; */
   width: 100px;
+}
+
+.t-center{
+  padding-right: 20px;
 }

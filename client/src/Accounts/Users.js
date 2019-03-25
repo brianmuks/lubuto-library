@@ -5,6 +5,8 @@ import User from "../dashboard/d-account/User";
 import ReactModal from "react-modal";
 import { Redirect, NavLink } from "react-router-dom";
 import { useLogout, useFormInput, useError } from "./accountsUtils";
+import NavBar from "../components/Layout/NavBar";
+import Footer from "../components/Layout/Footer";
 
 const getAllUsers = users => users.length && <User users={users} />;
 const style = {
@@ -46,6 +48,12 @@ function Statistics({ users }) {
   }
   let index = 1;
   return (
+    <>
+  <header>
+    <NavBar />
+  </header>
+
+    <main>
     <Fragment>
       <ReactModal
         isOpen={isOpen}
@@ -178,6 +186,11 @@ function Statistics({ users }) {
         </div>
       </div>
     </Fragment>
+    </main>
+
+
+        <Footer />
+    </>
   );
 }
 

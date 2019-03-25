@@ -4,7 +4,6 @@ import Language from "./Language";
 
 function Tabs() {
     return <Fragment>
-
         <div className="row">
             <div className="col s12">
                 <ul className="tabs">

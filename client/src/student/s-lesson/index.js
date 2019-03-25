@@ -13,6 +13,8 @@ import ScoreBoard from "./ScoreBoard";
 import { getUrlParam } from "../../utilities/Tasks";
 import { addStartTime } from "../s-statistics/methods";
 import SpeakerIntruction from "./SpeakerIntruction";
+import NavBar from "../../components/Layout/NavBar";
+import Footer from "../../components/Layout/Footer";
 
 const initialState = {
   language:getUrlParam('lang'),
@@ -49,6 +51,11 @@ function StudentLesson(props) {
   }, [props.lesson]);
 
   return (
+
+    <>
+ 
+
+    <main>
     <STUDENT_LESSON_STATE.Provider value={{ state, dispatch }}>
       <section style={{ position: 'relative' }}>
       <SpeakerIntruction lesson={props.lesson}/>
@@ -61,6 +68,10 @@ function StudentLesson(props) {
       </section>
     
     </STUDENT_LESSON_STATE.Provider>
+      </main>
+  
+
+      </>
   );
 }
 

@@ -71,7 +71,7 @@ function ResourceEditor() {
          ))
          Object.keys(editTool).length && dispatch(editStaggedTools(tools))
          
-         $('.style-tool-clear').val('');
+         //$('.style-tool-clear').val('');
 
         }         
 
@@ -85,7 +85,7 @@ function ResourceEditor() {
 
       <div className="row">
         {styles.map((style,key)=>(
-          <RenderStyleTool stateStyles={editTool.style}  _dispatch={_dispatch} label={style.label} name={style.name}  key={key} index={key} />
+          <RenderStyleTool style={style} stateStyles={editTool.style}  _dispatch={_dispatch} label={style.label} name={style.name}  key={key} index={key} />
     ))}
 
         <RenderText text={text} onChange={setText}/>
@@ -111,11 +111,13 @@ function RenderDuplicateButton({ onClick,setCopies}){
 }
 
 
-function RenderStyleTool({ name, label, index, _dispatch, stateStyles}){
+function RenderStyleTool({ name, label, index, _dispatch, stateStyles, style}){
   
+  console.log(stateStyles,'style')
+
 const initVal = stateStyles && stateStyles[name] || '';  
 const [val,setVal] = useState(initVal)
-// initVal.length && alert(initVal)
+//initVal.length && alert(initVal)
 
 
  const _onChange = e=>{
@@ -124,11 +126,11 @@ const [val,setVal] = useState(initVal)
    _dispatch({ type: EDIT_TOOL, newStyle: formatedStyle })
  }
   
-// val && $(`#${name}`).val(val);
+  //$(`#${name}`).val(initVal);
  return <div key={index} className='input-field col s2'>
-    <input  id={name} value={val} onChange={_onChange} type="text" className=" style-tool-clear" />
+   <input id={name} defaultValue={initVal}  onChange={_onChange} type="text" className=" style-tool-clear" />
     <label className="active"  htmlFor={name}>{label}</label>
-   {M.updateTextFields()}
+   {/* {M.updateTextFields()} */}
 </div>
 } 
 

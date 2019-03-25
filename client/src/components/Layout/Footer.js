@@ -5,7 +5,7 @@ import React, { useState } from "react";
 function Footer(){
 
     return (
-        <footer className="page-footer orange footer">
+        <footer className="page-footer orange footers">
             <div className="container">
                 <div className="row">
                     <div className="col l6 s12">

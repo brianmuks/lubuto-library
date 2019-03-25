@@ -9,15 +9,33 @@ import { editLesson, saveLesson } from "./methods";
 import { ALPHABET,  NUNMBERS } from "../../utilities/constants";
 import { getUrlParam, getUrlParams } from "../../utilities/Tasks";
 import { addEndTime } from "../s-statistics/methods";
+import NavBar from "../../components/Layout/NavBar";
+import Footer from "../../components/Layout/Footer";
 
 
 function Lessons({lessons,match}) {
   const { state, dispatch } = useContext(STUDENT_LESSON_STATE);
 
+
+  const [studenName, setStudentName] = useState('');
+
+  useEffect(() => {
+
+    setTimeout(() => {
+      Meteor.user() && setStudentName("" + Meteor.user().profile.name)
+    }, 500);
+
+  })
+
+
   return (
     <>
-      <Link to={'/dashboard/lesson_prev'} className="btn right green">Grade Two</Link>
-      <Link to={'/dashboard/lesson_prev'} className="btn right red">Hi, John Mwale</Link>
+
+ 
+
+      <Link to={'#'} className="btn right blue-grey lighten-2">{studenName}</Link>
+      <Link to={'/language_selector/?n=lessons'} className="btn right blue">Lessons</Link>
+      <Link to={'/'} className="btn right cyan">Home</Link>
       <ul id="slide-out" className="sidenav  sidenav-fixed">
         <li className='row'>
           <Renderalphabet />
@@ -38,6 +56,7 @@ function Lessons({lessons,match}) {
         </li>
 
       </ul>
+
     </>
   );
 }

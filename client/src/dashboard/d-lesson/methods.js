@@ -5,8 +5,6 @@ import { COL_Lessons } from "../../../../lib/Collections";
 import { EDIT_STAGGED_TOOL, UNDO_COUNTER } from "../d-redux/constants";
 import { editStaggedTools } from "../d-redux/actions/lessonActions";
 
-
-
 export const unDo = ({e,dispatch}) =>{
  var evtobj = window.event ? event : e
     if (evtobj.keyCode == 90 && evtobj.ctrlKey){
@@ -14,7 +12,6 @@ export const unDo = ({e,dispatch}) =>{
     tools = Array.from(tools);
 
         if (tools.length === 0) {
-            alert('no undo')
          return;//no undo
         } 
         let data = tools;

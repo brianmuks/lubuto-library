@@ -7,6 +7,8 @@ import { COL_Lessons } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
 import RemoveLessonModal, { REMOVE_LESSSON_MODAL_ID } from "./RemoveLessonModal";
 import { deleteLesson } from "./methods";
+import NavBar from "../../components/Layout/NavBar";
+import Footer from "../../components/Layout/Footer";
 
   const LANGS = [{_id:'Kikainde',val:'KAO'},{_id:'Bemba',val:'BEM'},{_id:'English',val:'ENG'},{_id:'Cinyanja',val:'CIN'}];
 // todo: Push the icon name to the icon array, as items that have been moved
@@ -38,6 +40,13 @@ function ViewLessonPages(props) {
   };
 
   return (
+    <>
+
+    <header>
+        <NavBar />
+    </header>
+
+<main>
    <div>
       <div className='row'>
       <h4 className='center'> Please Select Page</h4>
@@ -64,6 +73,9 @@ function ViewLessonPages(props) {
 
   
    </div>
+   </main>
+          <Footer />
+   </>
   );
 }
 

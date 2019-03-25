@@ -18,6 +18,8 @@ import { useLogout } from "../../Accounts/accountsUtils";
 import { COL_USER_STATS, COL_Lessons } from "../../../../lib/Collections";
 import UserStatsAverage from "./UserStatsAverage";
 import UserStatsLessonDetails from "./UserStatsLessonDetails";
+import NavBar from "../../components/Layout/NavBar";
+import Footer from "../../components/Layout/Footer";
 
 // for prototyping
 const data = [
@@ -40,9 +42,14 @@ function UserProfile({ user, stats, history,match }) {
     return <Redirect to="/login" />;
   }
   return (
+    <>
+    <header>
+      <NavBar />
+    </header>
+    <main    >
     <Fragment>
       <div className="container">
-       <Link to='/users'>
+            <Link to='/dashboard/users'>
         <h5>Back to users</h5>
        </Link>
         {/* <h4>{user && user.profile.name} </h4> */}
@@ -101,6 +108,9 @@ function UserProfile({ user, stats, history,match }) {
         </div>
       </div>
     </Fragment>
+      </main>
+      <Footer />
+    </>
   );
 }
 

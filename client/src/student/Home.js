@@ -9,7 +9,12 @@ function Home(){
 
     return (
         <>
-            <NavBar  color={'light-blue'} /> 
+          
+        <header>
+                <NavBar color={'light-blue'} /> 
+        </header>
+
+            <main>
             <span className="s-home-img">
                 </span>
             <div className="row s-home">
@@ -18,8 +23,8 @@ function Home(){
         <div className="container ">
             </div>
             </div>
-            <br /><br /><br /><br /><br /><br />
-            <br /><br /><br /><br /><br /><br />
+           
+            </main>
             <Footer />
             </>
         

@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useLogout } from "../Accounts/accountsUtils";
 import { getUrlParam } from "../utilities/Tasks";
 import { Meteor } from "meteor/meteor";
+import Footer from "./Layout/Footer";
+import NavBar from "./Layout/NavBar";
 const LANGS = [{ label: 'Kikaonde', val: 'kao' }, { label: 'Bemba', val: 'bem' }, { label: 'English', val: 'eng' }, { label: 'Cinyanja', val: 'cin' }];
 
 
@@ -30,6 +32,8 @@ function LanguageSelector(props) {
   };
 
   return (
+    <>
+    <NavBar />
    <div>
       <div className='row '>
       <h4 className='center'> Please Select Language</h4>
@@ -47,6 +51,8 @@ function LanguageSelector(props) {
         </div>
     </div>
    </div>
+   <Footer />
+   </>
   );
 }
 
@@ -57,8 +63,8 @@ function RenderOptions({filteredLANGS}){
   useEffect(()=>{
 
     setTimeout(() => {
-      Meteor.user().profile.role === 'admin' &&
-        setAdminLink("/dashboard")
+     // Meteor.user().profile.role === 'admin' &&
+       // setAdminLink("/dashboard")
     }, 300);
   })
 

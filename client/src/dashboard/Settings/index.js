@@ -7,14 +7,19 @@ import Footer from "../../components/Layout/Footer";
 function Settings(){
     useEffect(()=>{
         M.AutoInit();
+        M.updateTextFields();
     })
 
 
-    return <Fragment>
-            <NavBar />
+    return <>
+        <header>  <NavBar /></header>
+            <main>
+            <Fragment>
             <Tabs />
-            <Footer />
            </Fragment>
+           </main>
+            <Footer />
+           </>
 }
 
 export default Settings;
