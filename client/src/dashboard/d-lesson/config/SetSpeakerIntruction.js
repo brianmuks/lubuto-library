@@ -10,7 +10,7 @@ function SetSpeakerIntruction({ lessonNumber,dispatch }){
     const lang = getUrlParam('lang'); 
 
     useEffect(()=>{
-        console.log(lessonNumber);
+        console.log(lessonNumber, 'lessonNumber');
        
 
     }, [audioFiles,lessonNumber])
@@ -42,7 +42,7 @@ function SetSpeakerIntruction({ lessonNumber,dispatch }){
                 >volume_up</i>
        </div>
 
-            <div className="input-field col s6">
+            <div className="input-field col s2">
                 <select onClick={_getSound} defaultValue={''} onChange={val => onSoundSet(val.target.value)} className="browser-default" >
                     <option value={''}  >Sound</option>
                     <RenderAudioOptions audioFiles={audioFiles} />

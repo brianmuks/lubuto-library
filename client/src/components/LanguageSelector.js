@@ -82,9 +82,9 @@ const nextPath = getUrlParam('n');
     <li key={index} className="collection-item avatar">
     <Link to={`${adminLink}/${nextPath}/?lang=${item.label}`}>
     <i className="material-icons circle">translate</i>
-    <span className="title">{item.label}</span>
+    <span className="title">{item.name}</span>
     </Link>
-    <a href={`${adminLink}/${nextPath}/?lang=${item.val}`} className="secondary-content"><i className="material-icons">radio_button_unchecked</i></a>
+    <a href={`${adminLink}/${nextPath}/?lang=${item.label}`} className="secondary-content"><i className="material-icons">radio_button_unchecked</i></a>
   </li>
   ))
 }

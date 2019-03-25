@@ -35,7 +35,6 @@ function MainEditor(props) {
 function handleDrag(e, data, tool, editedTools, add2EditedTools) {
   //  dispatch({ type: "DRAG", data: pos });
   add2EditedTools([...editedTools, tool.index]);
-
 }
 
 function handleDrop(dispatch, e, pos, tool, tools, add2EditedTools, editedTools) {

@@ -21,7 +21,7 @@ Meteor.methods({
         const _id = lessonId.substring(0, 8) + userId.substring(0, 8);
         const query = { _id };
         const today = new Date();
-        let { startTime, time } = coll.findOne(query) ;
+        let { startTime, time } = coll.findOne(query) || {} ;
         const timeDiff = Math.abs(today.getTime() - startTime.getTime());
         const timeInMin = Math.floor(timeDiff / 60000 );
         time = time && Math.abs(timeInMin + time) || timeInMin;

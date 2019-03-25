@@ -131,7 +131,7 @@ export const editLesson =( {lessonId,lesson,meta}) => {
 export const deleteLesson = _id => {
     Meteor.call('deleteLesson', _id, (err, ok) => {
         console.log(err, ok);
-        err && alert('Sorry error occured') || alert('Lesson Updated!')
+        err && alert('Sorry error occured') || M.toast({ html: 'Lesson deleted' })
     })
 }
 
@@ -141,8 +141,14 @@ export const getSound = ({src,filter}) => {
             // console.log(err, ok);
             if (err) {
                 reject(err)
-            }else{
-                console.log(filter, 'filter', files)
+            } else if (!files){
+                const msg = `Sorry no audio found for language=${getUrlParam('lang')}`
+                M.toast({html:msg})
+            }
+            else{
+
+
+  
                 files = filter && files.filter(i=> i.indexOf(filter.toString()) == 0) || files;
                 console.log(files,'files');
                 resolve(files);

@@ -13,7 +13,7 @@ function LessonNavBar(){
                     </li>
                     <li><Link to="collapsible.html">Preview</Link></li>
                     <li><Link to="/dashboard" >Home</Link></li>
-                    <li><Link to="/dashboard/language_selector/?n=view_lessons">Lessons</Link></li>
+                    <li><Link to="/dashboard/language_selector/?n=dashboard/view_lessons">Lessons</Link></li>
                 </ul>
             </div>
         </nav>

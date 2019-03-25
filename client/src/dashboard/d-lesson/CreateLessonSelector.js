@@ -4,6 +4,7 @@ import React from "react";
 import { getUrlParams } from "../../utilities/Tasks";
 import NavBar from "../../components/Layout/NavBar";
 import { useLogout } from "../../Accounts/accountsUtils";
+import Footer from "../../components/Layout/Footer";
 // todo: Push the icon name to the icon array, as items that have been moved
 
 function CreateLessonSelector() {
@@ -11,8 +12,15 @@ function CreateLessonSelector() {
   const { isLoggedOut, logOutUser } = useLogout()
 
   return (
+    <>
+    <header>
+    <NavBar />
+    </header>
+
+    <main>
+
+
    <div>
-      <NavBar logOutUser={logOutUser} color={'light-blue'} /> 
       <div className='row '>
       <h4 className='center'> Please Select Lesson Type</h4>
       <div className='col m10 offset-m1'>
@@ -21,6 +29,11 @@ function CreateLessonSelector() {
         </div>
     </div>
    </div>
+      </main>
+
+    <Footer />
+      </>
+
   );
 }
 
@@ -33,7 +46,7 @@ function RenderOptions(){
   const options = [
     { name: 'Instructional',type:'instr',icon:'border_color',description:'No Exercise , you only impart knwoledge throught use of words,audio and images '},
     { name: 'Drag-N-Drop', type: 'dnd',icon:'event_seat',description:'Create an excercise that allows students to drag the question to the right answer' },
-    { name: 'Click-2-Match', type: 'c2m',icon:'mouse',description:'Student click one item and match with the item by clicking on it' }]
+    { name: 'Click-2-Match', type: 'c2m',icon:'mouse',description:'Student clicks on one item and match with the other item by clicking on it' }]
 
   return options.map((item,index)=>(
     <div key={index} className="col s4 ">

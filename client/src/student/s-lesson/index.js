@@ -29,13 +29,16 @@ const initialState = {
 function StudentLesson(props) {
   const [state, dispatch] = useReducer(lessonReducer, initialState);
   const [lessonId, _setLessonId] = useState(null);
+  const [lessonType, setLessonType] = useState(null);
 
   useEffect(() => {
     if (!props.lesson) {
       return
     }
+
+
   
-    const { lessonNumber, lang, lessonPageNumber } = props.lesson.meta;
+    const { lessonNumber, lang, lessonPageNumber,type } = props.lesson.meta;
     const lessonId = props.lesson._id;
 
     addStartTime({ lessonId, lang, lessonNumber, lessonPageNumber})

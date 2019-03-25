@@ -13,9 +13,32 @@ function MainScreen(props) {
   const { staggedTools, color, bgColor, lessonId,  } = state;
   const { x, y, node, _id, name } = useDragging();
 
-  console.log(state)
+  console.log(props,'props')
 
   const [draggedQuestion, setDraggedQuestion] = useState(null)
+  //for click to match lesson type
+  const [c2mAns, setC2mAns] = useState(null);
+
+  const onClickMatch = ({a,q,index,rightAnsIndexs})=>{
+    
+    console.log(a,q)
+
+    if(a && c2mAns && c2mAns.indexOf(index.toString()) !== -1){
+      alert('Got it')
+      setC2mAns(null);
+    }else if(a && c2mAns && c2mAns.indexOf(index.toString()) == -1){
+      alert('failed ')
+
+    }else if(!c2mAns && q){
+      alert('first attempt ')
+      //user clicked on a question
+      setC2mAns(rightAnsIndexs)
+    }else{
+      alert('some error')
+    }
+
+  }
+
 
   return (
     // col m7 offset - m3
@@ -25,12 +48,12 @@ function MainScreen(props) {
       <audio src={`http://127.0.0.1:4000/audio/${props.lesson && props.lesson.meta.lang}/${props.lesson && props.lesson.meta.audioIntr}`}   id="audio" >
         {/* <source   type="audio/wav" /> */}
       </audio>
-      <RenderTools lessonId={lessonId} draggedQuestion={draggedQuestion} setDraggedQuestion={setDraggedQuestion} playAudio={playAudio} isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
+      <RenderTools onClickMatch={onClickMatch} lesson={props.lesson} lessonId={lessonId} draggedQuestion={draggedQuestion} setDraggedQuestion={setDraggedQuestion} playAudio={playAudio} isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
     </div>
   );
 }
 
-function RenderTools({lessonId,playAudio, setDraggedQuestion,draggedQuestion, tools}) {
+function RenderTools({lessonId,playAudio, setDraggedQuestion,draggedQuestion, tools,lesson,onClickMatch}) {
   const { state, dispatch } = useContext(STUDENT_LESSON_STATE);
   // console.log(state.le)
   return tools.map((tool, index) => (
@@ -40,11 +63,13 @@ function RenderTools({lessonId,playAudio, setDraggedQuestion,draggedQuestion, to
       // position={tool.style && { x: tool.style.x, y: tool.style.y} || {}}
       key={index}
       id={index}
-      draggable={tool.isQuestion  && true}
+      draggable={lesson && lesson.meta.type === 'c2m' ? false : tool.isQuestion  && true }
       onDrop={e => tool.isAns  && onDrop(e,tool,draggedQuestion,lessonId) || undefined} 
       onDragOver={tool.isAns  && onDragOver || undefined} 
       onDrag={tool.isQuestion  && onDrag || undefined}
       onDragStart={e => tool.isQuestion && onDragStart(e, tool,setDraggedQuestion) || undefined}
+      onClick={e=> lesson && lesson.meta.type === 'c2m' && tool.isQuestion && onClickMatch({q:true,rightAnsIndexs:tool.rightAnsIndexs})
+       || lesson && lesson.meta.type === 'c2m' && tool.isAns && onClickMatch({a:true,index:tool.index}) || {}}
       // onDrag={(e, data) => handleDrag(e, data, tool)}
       // onStop={(e, data) => handleDrop(dispatch,e, data, tool,tools)}
     >
