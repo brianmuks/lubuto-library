@@ -2,11 +2,14 @@
 
 import React, { useState, useEffect} from "react";
 import { Link } from "react-router-dom";
+import { withTracker } from "meteor/react-meteor-data";
+
 import { useLogout } from "../Accounts/accountsUtils";
 import { getUrlParam } from "../utilities/Tasks";
 import { Meteor } from "meteor/meteor";
 import Footer from "./Layout/Footer";
 import NavBar from "./Layout/NavBar";
+import { COL_LANGUAGES } from "../../../lib/Collections";
 const LANGS = [{ label: 'Kikaonde', val: 'kao' }, { label: 'Bemba', val: 'bem' }, { label: 'English', val: 'eng' }, { label: 'Cinyanja', val: 'cin' }];
 
 
@@ -15,17 +18,22 @@ const LANGS = [{ label: 'Kikaonde', val: 'kao' }, { label: 'Bemba', val: 'bem' }
 function LanguageSelector(props) {
 
   const { isLoggedOut, logOutUser } = useLogout()
-  const [filteredLANGS, setLANGs] = useState(LANGS);
+  const [filteredLANGS, setLANGs] = useState([]);
+
+  useEffect(()=>{
+    setLANGs(props.langs)
+  }, [props.langs])
+
 
   const onFilter = event => {
     let val = event.target.value;
     val = val.toLowerCase();
     if (val.trim().length === 0) {
-      setLANGs(LANGS);
+      setLANGs(props.langs);
       console.log("set to degault LANGS");
       return;
     }
-    const filteredLangs = LANGS.filter(
+    const filteredLangs = props.langs.filter(
       path => path.label.toLowerCase().indexOf(val) !== -1
     );
     setLANGs(filteredLangs);
@@ -72,7 +80,7 @@ function RenderOptions({filteredLANGS}){
 const nextPath = getUrlParam('n');
   return filteredLANGS.map((item,index)=>(
     <li key={index} className="collection-item avatar">
-    <Link to={`${adminLink}/${nextPath}/?lang=${item.val}`}>
+    <Link to={`${adminLink}/${nextPath}/?lang=${item.label}`}>
     <i className="material-icons circle">translate</i>
     <span className="title">{item.label}</span>
     </Link>
@@ -81,4 +89,17 @@ const nextPath = getUrlParam('n');
   ))
 }
 
-export default LanguageSelector;
+export default withTracker(params => {
+  Meteor.subscribe("users");
+  Meteor.subscribe("userStats");
+  return {
+    
+    langs:COL_LANGUAGES.find(
+      {},
+      { sort: { name: -1 } }
+    )
+      .fetch()
+  };
+})(LanguageSelector);
+
+
