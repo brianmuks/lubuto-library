@@ -2,6 +2,33 @@ import { getUrlParam } from "../../utilities/Tasks";
 import { TOOL_CONFIG_MODAL_ID } from "./config/ToolConfig";
 import { AUDIO_URL } from "../../utilities/constants";
 import { COL_Lessons } from "../../../../lib/Collections";
+import { EDIT_STAGGED_TOOL, UNDO_COUNTER } from "../d-redux/constants";
+import { editStaggedTools } from "../d-redux/actions/lessonActions";
+
+
+
+export const unDo = ({e,dispatch}) =>{
+ var evtobj = window.event ? event : e
+    if (evtobj.keyCode == 90 && evtobj.ctrlKey){
+    let tools = JSON.parse(sessionStorage.getItem(EDIT_STAGGED_TOOL));
+    tools = Array.from(tools);
+
+        if (tools.length === 0) {
+            alert('no undo')
+         return;//no undo
+        } 
+        let data = tools;
+
+    tools = tools[0];
+    tools && dispatch(editStaggedTools(tools));
+    //sessionStorage.setItem(UNDO_COUNTER, JSON.stringify(undoCounter+1));
+    data.shift();
+    sessionStorage.setItem(EDIT_STAGGED_TOOL, JSON.stringify(data));
+} 
+    
+}
+
+
 
 export const saveLesson = (lesson,meta) => {
 

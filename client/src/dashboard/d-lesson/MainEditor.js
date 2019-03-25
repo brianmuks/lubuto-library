@@ -5,15 +5,18 @@ import Draggable from "react-draggable";
 import { editStaggedTools } from "../d-redux/actions/lessonActions";
 import { AUDIO_URL, IMAGE_EXTERNAL_URL } from "../../utilities/constants";
 import { editLesson, playAudio } from "../../student/s-lesson/methods";
+import { unDo } from "./methods";
 const LANG = 'kao';  
 
 function MainEditor(props) {
   const [audioFile, setAudioFile] = useState([]);
   const [editedTools, add2EditedTools] = useState([]);
 
-  const { state } = useContext(TOOLS_STATE);
+  const { state, dispatch } = useContext(TOOLS_STATE);
   const { staggedTools, color, bgColor, size, spacing } = state;
   const { x, y, node, _id, name } = useDragging();
+  
+  document.onkeydown = e=>unDo({e,dispatch})
 
   return (
     // col m7 offset - m3
@@ -24,7 +27,7 @@ function MainEditor(props) {
         {/* <source   type="audio/wav" /> */}
       </audio>
       Main Editor <br />
-      <RenderTools add2EditedTools={add2EditedTools} editedTools={editedTools} playAudio={playAudio} isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
+      <RenderTools dispatch={dispatch} add2EditedTools={add2EditedTools} editedTools={editedTools} playAudio={playAudio} isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
     </div>
   );
 }
@@ -56,8 +59,7 @@ function handleDrop(dispatch, e, pos, tool, tools, add2EditedTools, editedTools)
   console.log(tools);
 }
 
-function RenderTools({ tools, editedTools, add2EditedTools}) {
-  const { state, dispatch } = useContext(TOOLS_STATE);
+function RenderTools({ tools, editedTools, add2EditedTools,dispatch}) {
 
   return tools.map((tool, index) => (
     <Draggable
