@@ -8,37 +8,62 @@ import { cleanData, isIconValid } from '../../utilities/utils'
 function IconEditor({tools}){
     const [name, setName] = useState('name')
     const [label, setLabel] = useState('name')
-    const [error, setError ] = useState('')
     
     function handleIconSave (){
-        if (isIconValid(cleanData(), name)) {
+        if (!COL_TOOLS.findOne({name})) {
             Meteor.call('createIcon', name,label, err => err ? setError(err.reason) : setName(''))
         } else {
-            setError('The specified icon is not valid')
+            M.toast({ html: 'The specified icon already exists' })
         }
     }
 
     return (
-        <div className='col m3'>
-           <a href='https://material.io/tools/icons/?style=baseline'>
-                    <i className='material-icons'>search</i>
-                Find Icon</a>
-            <input placeholder="name" type="text" className="validate" onChange={e => setName(e.target.value)} />
-             
-            <input placeholder="Icon label e.g my big icon" type="text" className="validate" onChange={e => setLabel(e.target.value)} />
-            Icons will be created here, current home page<br />
-            <i className='material-icons'>home</i>
-            <button onClick={handleIconSave}>Save</button>
-            <p>
-            {
-                error.length ? error : null
-            }
-            </p>
+        <div className='row'>
+            <h5 className='center'>Tool Icons </h5>      
+          
+        <div className='col m12 offset-m2'>
+               
+
+                <div className='col m3'>
+                    <a href='https://material.io/tools/icons/?style=baseline'>
+                        <i className='material-icons'>search</i>
+                        Find Icon</a>
+                </div>
+                    <div className='col m3'>
+                    <input placeholder="name" type="text" className="validate" onChange={e => setName(e.target.value.trim())} />
+
+                    </div>
+                    <div className='col m3'>
+                    <input placeholder="Icon label e.g my big icon" type="text" className="validate" onChange={e => setLabel(e.target.value)} />
+
+            </div>
+                        <div className='col m3'>
+
+                    <button className='btn small' onClick={handleIconSave}>Save</button>
+
+</div>
+
+
+        </div>  
+            <br />        
+            <br />        
+            <br />        
+        <br />  
+        {/* <h5 className='center'>Available Icons </h5>       */}
             <ul>
+
                 {
                     tools.map(icon => (
-                        <i key={icon._id} className='material-icons'>{icon.name}</i>
-                    ))
+
+                        <div key={icon._id} className='col m1'>
+                            <div className='cyan-text col m12'>
+                                <code>{icon.name}</code>
+                                <i className='material-icons'>{icon.name}</i>
+                                </div>
+
+                        </div>
+
+                        ))
                 }
             </ul>
 

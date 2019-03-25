@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Meteor } from 'meteor/meteor'
-import IconEditor from "./dashboard/tools/iconEditor";
+// import IconEditor from "./dashboard/tools/iconEditor";
 import CreateLesson from "./dashboard/d-lesson/CreateLesson";
 import NotFound from './components/NotFound'
 // Containers (Roles)
@@ -97,7 +97,7 @@ const Routes = () => (
       <User exact role={"user"} path="/lesson/page/:id" component={LessonView} />
       <User exact role={"user"} path="/language_selector" component={LanguageSelector} />
 
-      <Route path="/add_icons" component={IconEditor} />
+      {/* <Route path="/add_icons" component={IconEditor} /> */}
       <Route path='/login' component={Login} />
       <Route path='/register' component={() => <Register role={userRole}/>} />
 

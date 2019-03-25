@@ -113,49 +113,12 @@ function Statistics({ users }) {
           </div>
         </div>
       </ReactModal>
+
       <div className="container">
         <div className="row">
           <div className="col s3">
           <br/>
-          <h5>Centers</h5>
-            <ul>
-              <li>
-                <NavLink
-                  activeClassName="selected"
-                  activeStyle={style}
-                  to="/users/garden"
-                >
-                  Garden{" "}
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  activeClassName="selected"
-                  activeStyle={style}
-                  to="/users/mthunzi"
-                >
-                  Mthunzi
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  activeStyle={style}
-                  activeClassName="selected"
-                  to="/users/choma"
-                >
-                  Choma
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  activeStyle={style}
-                  activeClassName="selected"
-                  to="dashboard/users/others"
-                >
-                  Others
-                </NavLink>
-              </li>
-            </ul>
+       
           </div>
           <div className="col s9">
             <h4>Users </h4>
@@ -166,8 +129,8 @@ function Statistics({ users }) {
                   <th>Name</th>
                   <th>Age</th>
                   <th>Sex</th>
-                  <th>Center</th>
-                  <th>Edit</th>
+                  <th>password</th>
+                  {/* <th>Edit</th> */}
                 </tr>
               </thead>
               <tbody>

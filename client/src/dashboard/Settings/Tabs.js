@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import Centre from "./Centre";
 import Language from "./Language";
+import IconEditor from "../tools/IconEditor";
 
 function Tabs() {
     return <Fragment>
@@ -19,7 +20,11 @@ function Tabs() {
             <div id="test2" className="col s12">
                 <Language />
             </div>
-            <div id="test3" className="col s12">Lesson settings</div>
+            <div id="test3" className="col s12">
+            
+            <IconEditor />
+
+            </div>
             <div id="test4" className="col s12">import lessons and languages </div>
         </div>
     </Fragment>

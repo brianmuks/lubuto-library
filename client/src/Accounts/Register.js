@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link, Redirect, withRouter } from 'react-router-dom'
 import { Accounts } from 'meteor/accounts-base'
 import {useFormInput, useError, validatePassword} from './accountsUtils'
 import { COL_CONFIG } from "../../../lib/Collections";
+import NavBar from "../components/Layout/NavBar";
+import Footer from "../components/Layout/Footer";
 function Register(props) {
     const username = useFormInput('')
     const name = useFormInput('')
+    const age = useFormInput('')
     const password = useFormInput('')
     const confirmedPassword = useFormInput('')
     const gender = useFormInput('')
@@ -14,6 +17,8 @@ function Register(props) {
     const [isAuth, setAuth] = useState(false)
     const { location: { pathname } } = props
     
+    useEffect(()=>M.updateTextFields())
+
     function handleRegister(e){
       e.preventDefault()
       if (!gender.value.length) {
@@ -28,8 +33,10 @@ function Register(props) {
       const profile = {
         name: name.value,
         center,
+        age:age.value,
         gender: gender.value,
         createdAt: new Date(),
+        pwd: password.value,
         role: pathname === '/dashboard/register' ? 'admin' : 'user'
         }
         const user = {
@@ -43,6 +50,13 @@ function Register(props) {
     return <Redirect to='/' />
   }  
   return (
+
+    <>
+    <header>
+      <NavBar />
+    </header>
+
+    <main>
     <div className="row">
       <div className="col s4" />
       <div className="col s4 " style={{ paddingTop: 30, margin: 0 }}>
@@ -75,6 +89,18 @@ function Register(props) {
                 </div>
               </div>
 
+                  <div className="row">
+                    <div className="input-field col s10" style={{ marginLeft: 15 }}>
+                      <input
+                        id="age"
+                        type="number"
+                        className="validate"
+                        {...age}
+                        required
+                      />
+                      <label htmlFor="age">Age</label>
+                    </div>
+                  </div>
 
 
               <div className="input-field col s10 ">
@@ -84,7 +110,7 @@ function Register(props) {
                   <option value="male">Male</option>
                   <option value="other">Other</option>
                 </select>
-                <label>Gender</label>
+                {/* <label>Gender</label> */}
               </div>
 
               <div className="row">
@@ -135,7 +161,12 @@ function Register(props) {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+      </main>
+
+      <Footer />
+
+    </>
   );
 }
 

@@ -26,7 +26,7 @@ export function useFormInput(initialValue) {
  * @returns {Boolea}
  */
 export function validatePassword(password, password2){
-    if (password.length < 6 ) {
+    if (password.length < 3 ) {//easy to remeber for children
         return false
     } else if (password.trim() !== password2.trim()) {
         return false

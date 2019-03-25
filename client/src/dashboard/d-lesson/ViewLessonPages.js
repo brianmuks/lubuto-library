@@ -30,7 +30,7 @@ function ViewLessonPages(props) {
     val = val.toLowerCase();
     if (val.trim().length === 0) {
       setlessons(lessons);
-      console.log("set to degault LANGS");
+      console.log("set to default LANGS");
       return;
     }
     const _filteredLessons = LANGS.filter(

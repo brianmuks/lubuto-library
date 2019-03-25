@@ -6,8 +6,15 @@ import {  editStaggedTools } from "../d-redux/actions/lessonActions";
 export const REMOVE_TOOL_MODAL_ID = 'REMOVE_TOOL_MODAL_ID';
 
 function RemoveToolModal({removeTool,label}) {
+  let btnCloseRef = React.createRef();
 
   initModal('#' + REMOVE_TOOL_MODAL_ID);
+
+  const _removeTool = e =>{
+    btnCloseRef.current.click();
+    removeTool()
+  }
+
 
   return (
     <div id={REMOVE_TOOL_MODAL_ID} className="modal remove-tool-modal">
@@ -19,8 +26,8 @@ function RemoveToolModal({removeTool,label}) {
       </div>
       <div className="modal-footer">
 
-        <a href="#!" onClick={removeTool} className=" waves-effect waves-green btn-flat red-text left">Yes</a>
-        <a href="#!" className="modal-close waves-effect waves-green btn-flat">Cancel</a>
+        <a href="#!" onClick={_removeTool} className=" waves-effect waves-green btn-flat red-text left">Yes</a>
+        <a ref={btnCloseRef} href="#!" className="modal-close waves-effect waves-green btn-flat">Cancel</a>
       </div>
     </div>
   );

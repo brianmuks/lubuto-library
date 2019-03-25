@@ -45,7 +45,7 @@ function Landing() {
                 <div className="col s12 m4">
                   <div className="icon-block">
                     <h2 className="center light-blue-text">
-                      <Link to="/dashboard/users">
+                      <Link to="/dashboard/stats">
 
                         <i className="material-icons medium">flash_on</i>
                       </Link>

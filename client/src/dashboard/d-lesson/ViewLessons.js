@@ -89,7 +89,7 @@ const urlParams = getUrlParams();
     <i className="material-icons circle">format_shapes</i>
         <span className="title">{'LESSON ' + (item.meta.lessonNumber)}</span>
     </Link>
-      <a href={`#${REMOVE_LESSSON_MODAL_ID}`} onClick={e=>setlesson(item)} className="secondary-content modal-trigger"><i className="material-icons red-text">cancel</i></a>
+      <a href={`/dashboard/view_lesson_pages/?ln=${item.meta.lessonNumber}&${urlParams}`} className="secondary-content modal-trigger"><i className="material-icons cyan-text">send</i></a>
   </li>
   ))
 }

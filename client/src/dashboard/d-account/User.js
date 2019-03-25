@@ -9,10 +9,11 @@ function UserRow({ user, editUser, count = 0, i = 0 }) {
         <td>
           <Link to={`/dashboard/user/${user._id}`}>{user.profile.name}</Link>
         </td>
+        <td>{user.username || "Male" } </td>
         <td>{user.profile.age || 4 }</td>
         <td>{user.profile.gender || "Male" } </td>
-        <td>{user.profile.center || "Garden"} </td>
-        <td onClick={editUser}>Edit</td>
+        <td>{user.profile.pwd } </td>
+        {/* <td onClick={editUser}>Edit</td> */}
       </tr>
     )
     || null

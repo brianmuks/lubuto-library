@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Meteor } from 'meteor/meteor'
+import ViewProfile, { VIEW_PROFILE_MODAL_ID } from "../Accounts/ViewProfile";
 
 
 function MainActions(){
@@ -24,11 +25,16 @@ function MainActions(){
             <h4 className="col blue-grey-text"> {studenName} </h4>
                 <div className="col m8 offset-m3">
                 <div className=" col m6">
-                    <Link to="#">
+                 
                         <button className="btn-large waves-effect waves-light blue" >
+                        <a className="waves-effect waves-light blue white-text modal-trigger" href={'#'+VIEW_PROFILE_MODAL_ID}>
                             View Profile
+                        
+
+
+                        </a>
       </button>
-                    </Link>
+                
                 </div>
 
                 <div className=" col m6">
@@ -40,8 +46,13 @@ function MainActions(){
                 </div>
 
                     </div>
+                    <ViewProfile />
         </div>
     )
 } 
+
+
+
+
 
 export default MainActions;
