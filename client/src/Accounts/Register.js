@@ -148,7 +148,7 @@ function Register(props) {
                 </div>
               </div>
               <div className='center row'>
-                <Link to='/login'>Login</Link>
+                <Link to='/'>Login</Link>
               </div>
               <div className='center row'>
                 <p className='red-text'>

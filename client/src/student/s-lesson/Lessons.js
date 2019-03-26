@@ -1,16 +1,13 @@
 import React, { useContext, useEffect,useState } from "react";
 
 import { Link } from "react-router-dom";
-import { COL_TOOLS, COL_Lessons } from "../../../../lib/Collections";
+import {  COL_Lessons } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
 import { STUDENT_LESSON_STATE } from "./../s-context";
-import { addTool, setLessonId } from "./../s-redux/actions/lessonActions";
-import { editLesson, saveLesson } from "./methods";
+import {  setLessonId } from "./../s-redux/actions/lessonActions";
 import { ALPHABET,  NUNMBERS } from "../../utilities/constants";
-import { getUrlParam, getUrlParams } from "../../utilities/Tasks";
+import { getUrlParam, } from "../../utilities/Tasks";
 import { addEndTime } from "../s-statistics/methods";
-import NavBar from "../../components/Layout/NavBar";
-import Footer from "../../components/Layout/Footer";
 
 
 function Lessons({lessons,match}) {
@@ -30,10 +27,7 @@ function Lessons({lessons,match}) {
 
   return (
     <>
-
- 
-
-      <Link to={'#'} className="btn right blue-grey lighten-2">{studenName}</Link>
+      <span to={'#'} className="btn right blue-grey lighten-2">{studenName}</span>
       <Link to={'/language_selector/?n=lessons'} className="btn right blue">Lessons</Link>
       <Link to={'/'} className="btn right cyan">Home</Link>
       <ul id="slide-out" className="sidenav  sidenav-fixed">

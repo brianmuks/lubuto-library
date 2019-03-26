@@ -11,7 +11,7 @@ function LessonNavBar(){
                     <li>
                         <a id={`${TOOL_CONFIG_MODAL_ID}-trigger`} href={`#${TOOL_CONFIG_MODAL_ID}`} className='center waves-effect  waves-light  white-text  modal-trigger'>Settings</a>
                     </li>
-                    <li><Link to="collapsible.html">Preview</Link></li>
+                    {/* <li><Link to="collapsible.html">Preview</Link></li> */}
                     <li><Link to="/dashboard" >Home</Link></li>
                     <li><Link to="/dashboard/language_selector/?n=dashboard/view_lessons">Lessons</Link></li>
                 </ul>

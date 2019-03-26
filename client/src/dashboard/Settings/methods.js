@@ -53,3 +53,8 @@ export const exportLanguages = () => {
         err && alert('Sorry error occured') || M.toast({ html: 'Languages Exported' }); 
     })
 }
+export const importLanguages = () => {
+    Meteor.call('Sync.importLanguages', (err, ok) => {
+        err && alert('Sorry error occured') || M.toast({ html: 'Languages Imported' }); 
+    })
+}
