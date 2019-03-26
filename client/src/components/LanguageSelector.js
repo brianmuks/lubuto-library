@@ -41,7 +41,12 @@ function LanguageSelector(props) {
 
   return (
     <>
-    <NavBar />
+   
+   <header>
+        <NavBar />
+   </header>
+
+<main>
    <div>
       <div className='row '>
       <h4 className='center'> Please Select Language</h4>
@@ -59,6 +64,7 @@ function LanguageSelector(props) {
         </div>
     </div>
    </div>
+   </main>
    <Footer />
    </>
   );

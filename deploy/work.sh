@@ -22,7 +22,7 @@ rm -f lubuto-library.tar.gz
 
 # Install dependencies
 cd $APP_DIR/tmp/bundle/programs/server
-#npm uninstall fibers && npm install fibers
+npm uninstall fibers && npm install fibers
 #/usr/local/bin/node /var/www/citiride-app/bundle/programs/server/node_modules/fibers/build
 npm install --production
 npm prune --production

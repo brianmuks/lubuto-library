@@ -5,42 +5,56 @@ import { getUrlParam, getUrlParams } from "../../utilities/Tasks";
 import { Link } from "react-router-dom";
 import { COL_Lessons } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
-import RemoveLessonModal, { REMOVE_LESSSON_MODAL_ID } from "./RemoveLessonModal";
-import { deleteLesson } from "./methods";
 import NavBar from "../../components/Layout/NavBar";
 import Footer from "../../components/Layout/Footer";
-
-  const LANGS = [{_id:'Kikainde',val:'KAO'},{_id:'Bemba',val:'BEM'},{_id:'English',val:'ENG'},{_id:'Cinyanja',val:'CIN'}];
+import LanguagePicker, { LANGUAGE_PICKER_MODAL_ID } from "./LanguagePicker";
+import { copyLesson } from "./methods";
 // todo: Push the icon name to the icon array, as items that have been moved
 
 function ViewLessons(props) {
   const [filteredLessons, setlessons] = useState([]);
   const [renderCounter, setRenderCounter] = useState(0);
-  const [lesson, setlesson] = useState({});
+  // const [targetCopyLesson, setTargetCopyLesson] = useState(null);
   const lessons = props.lessons || [];
-
+  let langPickerModalRef = React.createRef();
+  let targetCopyLesson = {};
 
   useEffect(() => {
     setlessons(lessons);
+    console.log("set to degault LANGS", lessons);
     setRenderCounter(renderCounter+1);
   },[lessons])
 
   const onFilter = event => {
     let val = event.target.value;
-    val = val.toLowerCase();
+    // val = val.toLowerCase();
     if (val.trim().length === 0) {
+
       setlessons(lessons);
-      console.log("set to degault LANGS");
       return;
     }
-    const _filteredLessons = LANGS.filter(
-      path => path.toLowerCase().indexOf(val) !== -1
+    const _filteredLessons = lessons.filter(
+      lesson => lesson.meta.lessonNumber == val
     );
     setlessons(_filteredLessons);
   };
 
+  const _copyLesson = newLangs =>{
+    console.log(newLangs, 'langs',targetCopyLesson);
+    copyLesson({...targetCopyLesson,newLangs});
+  }
+
+  const _setTargetCopyLesson = lessonData=>{
+    //setTargetCopyLesson(lessonData);
+    targetCopyLesson = lessonData;
+    langPickerModalRef.current.click();
+  }
+
   return (
     <>
+      <a ref={langPickerModalRef} href={`#${LANGUAGE_PICKER_MODAL_ID}`} className=" modal-trigger  "><i className="material-icon cyan-text"></i></a>
+
+    <LanguagePicker callBack={_copyLesson} />
     <NavBar />
    <div>
       <div className='row'>
@@ -48,13 +62,13 @@ function ViewLessons(props) {
       <div className='col m10 offset-m1'>
       <input
                 onChange={onFilter}
-                type="search"
+                type="number"
                 id="image-list-autocomplete-input"
                 className="autocomplete"
                 placeholder='SEARCH'
               />
          <ul className="collection">
-            <RenderOptions setlesson={setlesson}  filteredLessons={filteredLessons} />
+              <RenderOptions onCopy={_setTargetCopyLesson}   filteredLessons={filteredLessons} />
   </ul>
           {
            renderCounter  && lessons.length === 0 && <RenderNoLesson />
@@ -79,7 +93,7 @@ function RenderNoLesson(){
 
 }
 
-function RenderOptions({ filteredLessons, setlesson}){
+function RenderOptions({ filteredLessons, onCopy}){
   // format_shapes score text_fields chrome_reader_mode line_style
 
 const urlParams = getUrlParams();
@@ -89,7 +103,8 @@ const urlParams = getUrlParams();
     <i className="material-icons circle">format_shapes</i>
         <span className="title">{'LESSON ' + (item.meta.lessonNumber)}</span>
     </Link>
-      <a href={`/dashboard/view_lesson_pages/?ln=${item.meta.lessonNumber}&${urlParams}`} className="secondary-content modal-trigger"><i className="material-icons cyan-text">send</i></a>
+      <span onClick={e => onCopy({ lang: item.meta.lang, lessonNumber: item.meta.lessonNumber})} to={`/dashboard/view_lesson_pages/?ln=${item.meta.lessonNumber}&${urlParams}`} className="secondary-content"><i className="material-icons green-text">library_books</i></span>
+      {/* <i className="col material-icons cyan-text">send</i> */}
   </li>
   ))
 }

@@ -15,7 +15,6 @@ function RemoveToolModal({removeTool,label}) {
     removeTool()
   }
 
-
   return (
     <div id={REMOVE_TOOL_MODAL_ID} className="modal remove-tool-modal">
       <div className="modal-content">

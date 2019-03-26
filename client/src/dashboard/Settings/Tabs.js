@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import Centre from "./Centre";
 import Language from "./Language";
 import IconEditor from "../tools/IconEditor";
+import Sync from "./Sync";
 
 function Tabs() {
     return <Fragment>
@@ -25,7 +26,11 @@ function Tabs() {
             <IconEditor />
 
             </div>
-            <div id="test4" className="col s12">import lessons and languages </div>
+            <div id="test4" className="col s12">
+
+        <Sync />
+
+         </div>
         </div>
     </Fragment>
 

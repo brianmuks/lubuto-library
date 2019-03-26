@@ -174,6 +174,25 @@ export const getImages = src => {
 }
 
 
+export const copyLesson = ({ lessonNumber, lang, newLangs }) => {
+    return new Promise((resolve, reject) => {
+        Meteor.call('Lesson.copyLesson', { lessonNumber, lang, newLangs }, (err, ok) => {
+            // console.log(err, ok);
+            if (err) {
+                const msg = `Sorry an error occured`
+                M.toast({ html: msg })
+                reject(err)
+            } else {
+                const msg = `Done`
+                M.toast({ html: msg })
+                resolve(ok);
+            }
+        })
+    });
+}
+
+
+
 export const playAudio = audioFile =>{
 
     if (!audioFile) {

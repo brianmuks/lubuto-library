@@ -1,24 +1,20 @@
 //NOTE holds all create lesson components
 
 import React, { useState, useEffect } from "react";
-import { getUrlParam, getUrlParams } from "../../utilities/Tasks";
 import { Link } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
-import EditLanguageModal, { REMOVE_LESSSON_MODAL_ID, EDIT_LANGUAGE_MODAL_ID } from "./EditLanguageModal";
-import { deleteLesson, saveLanguage } from "./methods";
+import EditLanguageModal, {  EDIT_LANGUAGE_MODAL_ID } from "./EditLanguageModal";
+import {  saveLanguage } from "./methods";
 import { COL_LANGUAGES } from "../../../../lib/Collections";
 import RemoveLanguageModal, { REMOVE_LANGUAGE_MODAL_ID } from "./RemoveLanguageModal";
 
-const LANGS = [{ _id: 'Kikainde', val: 'KAO' }, { _id: 'Bemba', val: 'BEM' }, { _id: 'English', val: 'ENG' }, { _id: 'Cinyanja', val: 'CIN' }];
 // todo: Push the icon name to the icon array, as items that have been moved
 
 function Language(props) {
   const [filteredlanguages, setlanguages] = useState([]);
   const [renderCounter, setRenderCounter] = useState(0);
-  const [language, setlanguage] = useState({});
   const languages = props.languages || [];
   const [newLanguage, setLanguage] = useState('');
-  const [targetLanguage, setTargetlanguage] = useState({});
 
   let editModalRef = React.createRef();
   let delModalRef = React.createRef();
@@ -41,8 +37,6 @@ function Language(props) {
     );
     setlanguages(_filteredlanguages);
   };
-
-
   const onChange  = e =>{
     const val = e.target.value.toString().trim();
     setLanguage(val.toLowerCase());
@@ -52,9 +46,9 @@ function Language(props) {
     saveLanguage({ name: newLanguage, _id: undefined, callback: () => setLanguage('') });
   }
 
-  const _setTargetlanguage = lang =>{
+  const _setTargetlanguage = (lang,isEdit) =>{
   //  setTargetlanguage(lang);
-   delModalRef.current.click();
+    isEdit ? editModalRef.current.click() : delModalRef.current.click();
    
   //SEE <EditLanguageModal /> components for these fileds
     $('#edit-language,#del-language').val(lang.name)
@@ -62,11 +56,12 @@ function Language(props) {
     $('#edit-language-id,#del-language-id').val(lang._id)
   }
 
-
   return (
     <div>
+      {/* MODAL TRIGGERS | INVISIBLE TO THE USER */}
       <a ref={editModalRef}  href={`#${EDIT_LANGUAGE_MODAL_ID}`} className=" modal-trigger  "><i className="material-icon cyan-text"></i></a>
-      <a ref={delModalRef} href={`#${REMOVE_LANGUAGE_MODAL_ID}`}  className=" modal-trigger"><i className="material-icons red-text"></i></a>
+      <a ref={delModalRef} href={`#${REMOVE_LANGUAGE_MODAL_ID}`}  className=" modal-trigger "><i className="material-icons red-text"></i></a>
+     
       <div className='row'>
         <div className="input-field col s4 right">
           <div className='col m10'>
@@ -92,7 +87,7 @@ function Language(props) {
               <RenderOptions setlanguage={_setTargetlanguage} filteredlanguages={filteredlanguages} />
           </ul>
           {
-            renderCounter && languages.length === 0 && <RenderNoLesson />
+            renderCounter && languages.length === 0 && <RenderNoLanguage />
           }
         </div>
   
@@ -104,24 +99,22 @@ function Language(props) {
   );
 }
 
-function RenderNoLesson() {
+function RenderNoLanguage() {
   return (
     <>
-      <h6 className="red-text lighten-3">Sorry, You have no Lesson under this language </h6>
-      <Link to={`/dashboard/create_lesson_type/?lang=${('lang')}`}>Create lesson</Link>
+      <h6 className="red-text lighten-3">Sorry, You have not added any languages </h6>
     </>
   )
 
 }
 
 function RenderOptions({ filteredlanguages, setlanguage }) {
-  const urlParams = '';
   return filteredlanguages.map((item, index) => (
     <li key={index} className="collection-item avatar">
       <i className="material-icons circle">translate</i>
         <span className="title">{`      ` + (item.name)}</span>
       <i className=" i-lang-edit right">
-        <a  onClick={e => setlanguage(item)} className="pointer "><i className="material-icons cyan-text">edit</i></a>
+        <a  onClick={e => setlanguage(item,true)} className="pointer "><i className="material-icons cyan-text">edit</i></a>
       </i>
       <a onClick={e => setlanguage(item)} className="secondary-content pointer "><i className="material-icons red-text">cancel</i></a>    
     </li>

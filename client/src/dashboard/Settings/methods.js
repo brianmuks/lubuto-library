@@ -47,3 +47,9 @@ export const deleteLanguage = ({_id,callback}) => {
         err && alert('Sorry error occured') || M.toast({ html: 'Language Deleted' }) && callback()
     })
 }
+
+export const exportLanguages = () => {
+    Meteor.call('Sync.exportLanguages', (err, ok) => {
+        err && alert('Sorry error occured') || M.toast({ html: 'Languages Exported' }); 
+    })
+}
