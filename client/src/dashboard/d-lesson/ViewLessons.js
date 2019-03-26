@@ -54,7 +54,8 @@ function ViewLessons(props) {
     <>
       <a ref={langPickerModalRef} href={`#${LANGUAGE_PICKER_MODAL_ID}`} className=" modal-trigger  "><i className="material-icon cyan-text"></i></a>
 
-    <LanguagePicker callBack={_copyLesson} />
+    <LanguagePicker filter callBack={_copyLesson} />
+   
     <NavBar />
    <div>
       <div className='row'>
@@ -103,7 +104,7 @@ const urlParams = getUrlParams();
     <i className="material-icons circle">format_shapes</i>
         <span className="title">{'LESSON ' + (item.meta.lessonNumber)}</span>
     </Link>
-      <span onClick={e => onCopy({ lang: item.meta.lang, lessonNumber: item.meta.lessonNumber})} to={`/dashboard/view_lesson_pages/?ln=${item.meta.lessonNumber}&${urlParams}`} className="secondary-content"><i className="material-icons green-text">library_books</i></span>
+      <span onClick={e => onCopy({ lang: item.meta.lang, lessonNumber: item.meta.lessonNumber})}  className="secondary-content"><i className="material-icons green-text">library_books</i></span>
       {/* <i className="col material-icons cyan-text">send</i> */}
   </li>
   ))

@@ -41,4 +41,28 @@ Meteor.methods({
         return true;
     },
 
+    'Lesson.copyPage'({ lessonNumber, lessonPageNumber, lang, newLangs }) {
+
+        const query = { 'meta.lessonNumber': lessonNumber, 'meta.lang': lang, 'meta.lessonPageNumber': lessonPageNumber }
+        const lesssons = COL_Lessons.find(query).fetch();
+
+        //loop thru all langs
+
+        //newLang is the has the same value as newLangs[newLang]
+        for (const newLang in newLangs) {
+
+            //copy/update lesson to new language
+            lesssons.forEach((v, i) => {
+                console.log(v, 'lessons')
+                const { meta, content } = v;
+                const lesson = { meta: { ...meta, lang: newLang }, content };
+                const query2 = { 'meta.lessonNumber': lessonNumber, 'meta.lang': newLang, 'meta.lessonPageNumber': meta.lessonPageNumber }
+                COL_Lessons.update(query2, { $set: lesson }, { upsert: true }, err => err ? console.log(err.reason) : 'success')
+            })
+        }
+
+
+        return true;
+    },
+
 })

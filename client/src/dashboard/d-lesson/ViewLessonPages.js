@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 import { COL_Lessons } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
 import RemoveLessonModal, { REMOVE_LESSSON_MODAL_ID } from "./RemoveLessonModal";
-import { deleteLesson } from "./methods";
+import { deleteLesson, copPage } from "./methods";
 import NavBar from "../../components/Layout/NavBar";
 import Footer from "../../components/Layout/Footer";
+import LanguagePicker, { LANGUAGE_PICKER_MODAL_ID } from "./LanguagePicker";
 
   const LANGS = [{_id:'Kikainde',val:'KAO'},{_id:'Bemba',val:'BEM'},{_id:'English',val:'ENG'},{_id:'Cinyanja',val:'CIN'}];
 // todo: Push the icon name to the icon array, as items that have been moved
@@ -18,6 +19,8 @@ function ViewLessonPages(props) {
   const [renderCounter, setRenderCounter] = useState(0);
   const [lesson, setlesson] = useState({});
   const lessons = props.lessons || [];
+  let langPickerModalRef = React.createRef();
+  let targetCopyPage = {};
 
 
   useEffect(() => {
@@ -39,9 +42,21 @@ function ViewLessonPages(props) {
     setlessons(_filteredLessons);
   };
 
+  const _copyPage = newLangs => {
+    console.log(newLangs, 'langs', targetCopyPage);
+    copPage({ ...targetCopyPage, newLangs })
+  }
+
+  const _setTargetCopyPage = lessonData => {
+    //settargetCopyPage(lessonData);
+    targetCopyPage = lessonData;
+    langPickerModalRef.current.click();
+  }
   return (
     <>
+      <a ref={langPickerModalRef} href={`#${LANGUAGE_PICKER_MODAL_ID}`} className=" modal-trigger  "><i className="material-icon cyan-text"></i></a>
 
+      <LanguagePicker filter callBack={_copyPage} />
     <header>
         <NavBar />
     </header>
@@ -59,7 +74,7 @@ function ViewLessonPages(props) {
                 placeholder='SEARCH'
               />
          <ul className="collection">
-            <RenderOptions setlesson={setlesson}  filteredLessons={filteredLessons} />
+                <RenderOptions onCopy={_setTargetCopyPage} setlesson={setlesson}  filteredLessons={filteredLessons} />
   </ul>
           {
            renderCounter  && lessons.length === 0 && <RenderNoLesson />
@@ -90,7 +105,7 @@ function RenderNoLesson(){
 
 }
 
-function RenderOptions({ filteredLessons, setlesson}){
+function RenderOptions({ filteredLessons, setlesson,onCopy}){
   // format_shapes score text_fields chrome_reader_mode line_style
 
 const urlParams = getUrlParams();
@@ -100,6 +115,7 @@ const urlParams = getUrlParams();
     <i className="material-icons circle">format_shapes</i>
         <span className="title">{'PAGE ' + (item.meta.lessonPageNumber)}</span>
     </Link>
+      <span  onClick={e => onCopy({ lang: item.meta.lang,lessonPageNumber: item.meta.lessonPageNumber, lessonNumber: item.meta.lessonNumber })}  className="secondary-content col"><i className="material-icons green-text l-cp-page">library_books</i></span>
       <a href={`#${REMOVE_LESSSON_MODAL_ID}`} onClick={e=>setlesson(item)} className="secondary-content modal-trigger"><i className="material-icons red-text">cancel</i></a>
   </li>
   ))

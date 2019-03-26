@@ -3,6 +3,7 @@ import { withTracker } from "meteor/react-meteor-data";
 import { Meteor } from "meteor/meteor";
 import { COL_LANGUAGES } from "../../../../lib/Collections";
 import { initModal } from "../../utilities/Form";
+import { getUrlParam } from "../../utilities/Tasks";
 export const LANGUAGE_PICKER_MODAL_ID = 'LANGUAGE_PICKER_MODAL_ID';
 
 function LanguageSelector(props) {
@@ -15,9 +16,34 @@ function LanguageSelector(props) {
      langs[lang]=lang;
     }
 
+  let checkBoxesStatus = false;
+  const checkAll = newLangs => {
+    $('input[type=checkbox]').click();
+    checkBoxesStatus = !checkBoxesStatus;
+
+    if (checkBoxesStatus) {
+      for (let lang in newLangs) {
+        lang = newLangs[lang].label;
+        //maintaining the structure with onClick() above
+       langs[lang] = lang;
+      }
+    }else{
+      langs ={};
+    }
+
+    console.log(checkBoxesStatus)
+  }
+
     const done = e=>{
+      if (Object.keys(langs).length === 0) {
+      //  btnCloseRef.current.click();
+      M.toast({html:'Please select alteast one langauge'})
+      return
+      }
+
       props.callBack(langs);
       btnCloseRef.current.click();
+      $('input[type=checkbox]').attr("checked",false);
     }
 
 
@@ -29,11 +55,11 @@ function LanguageSelector(props) {
           <a href="#!" onClick={done} className=" waves-effect waves-green btn-flat red-text right">Done</a>
           <a href="#!" className="modal-close waves-effect waves-green btn-flat">X</a>
         </div>
-        <App {...props} onClick={onClick} />
+        <App {...props} checkAll={checkAll} onClick={onClick} />
       </div>
       <div className="modal-footer">
-        <a href="#!" onClick={done} className=" waves-effect waves-green btn-flat red-text left">Done</a>
-        <a ref={btnCloseRef} href="#!" className="modal-close waves-effect waves-green btn-flat">X</a>
+        <a href="#!" onClick={done} className=" waves-effect waves-green btn-flat red-text right">Done</a>
+        <a ref={btnCloseRef} href="#!" className="modal-close waves-effect waves-green btn-flat left">X</a>
       </div>
     </div>
   );
@@ -58,10 +84,12 @@ function App(props) {
       return;
     }
     const filteredLangs = props.langs.filter(
-      path => path.label.toLowerCase().indexOf(val) !== -1
+      path => path.label.toLowerCase().indexOf(val) !== -1 
     );
     setLANGs(filteredLangs);
   };
+
+
 
   return (
     <>
@@ -76,7 +104,21 @@ function App(props) {
                 className="autocomplete"
                 placeholder='SEARCH'
               />
+ 
               <ul className="collection">
+
+
+              <li  className="collection-item avatar">
+                <i className="material-icons circle"></i>
+                <p className='right'>
+                  <label>
+                    <input onClick={e=>props.checkAll(props.langs)} type="checkbox" />
+                    <span></span>
+                  </label>
+                </p>
+              </li>
+
+
               <RenderOptions onClick={props.onClick} filteredLANGS={filteredLANGS} />
               </ul>
             </div>
@@ -109,10 +151,13 @@ function RenderOptions({ filteredLANGS,onClick }) {
 export default withTracker(params => {
   Meteor.subscribe("users");
   Meteor.subscribe("userStats");
+  const label = getUrlParam('lang')
+  const query = params.filter && { label:{$ne:label}} || {};
+  console.log(query,'query')
   return {
 
     langs: COL_LANGUAGES.find(
-      {},
+      query,
       { sort: { name: -1 } }
     )
       .fetch()

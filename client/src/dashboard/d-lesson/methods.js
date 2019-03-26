@@ -191,6 +191,23 @@ export const copyLesson = ({ lessonNumber, lang, newLangs }) => {
     });
 }
 
+export const copPage = ({ lessonNumber,lessonPageNumber, lang, newLangs }) => {
+    return new Promise((resolve, reject) => {
+        Meteor.call('Lesson.copyPage', { lessonNumber, lessonPageNumber, lang, newLangs }, (err, ok) => {
+            // console.log(err, ok);
+            if (err) {
+                const msg = `Sorry an error occured`
+                M.toast({ html: msg })
+                reject(err)
+            } else {
+                const msg = `Done`
+                M.toast({ html: msg })
+                resolve(ok);
+            }
+        })
+    });
+}
+
 
 
 export const playAudio = audioFile =>{
