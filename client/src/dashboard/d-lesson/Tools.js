@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect,useState } from "react";
 import { Link } from "react-router-dom";
 import { COL_TOOLS } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
@@ -10,6 +10,7 @@ import ImageList, {  MODAL_ID as ImageList_MODAL_ID,  openImageList,  } from "./
 
 function Tools(props) {
   const { state, dispatch } = useContext(TOOLS_STATE);
+  const [lessonId,setLessonId] = useState(null);
 
 console.log('props',props);
 
@@ -39,7 +40,21 @@ console.log('props',props);
       ev.preventDefault()
       }
       const _saveLesson  = ev =>{
-        saveLesson(state.staggedTools, state.meta);
+        alert(lessonId)
+
+        if (lessonId !== null) {
+          //user has already saved. the lesson should be updated this time around
+          editLesson({ lesson: state.staggedTools, meta: state.meta, lessonId })
+          return;
+        }
+
+        saveLesson(state.staggedTools, state.meta)
+        .then(_id=>{
+          setLessonId(_id)
+        })
+        .catch(err=>{
+
+        });
       }
 
 

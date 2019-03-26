@@ -19,6 +19,7 @@ const initialState = {
   editTool:{},
   imageFiles:[],
   audioFiles:[],
+  lessonId:null,//set when the lesson is saved
 }
 
 // todo: Push the icon name to the icon array, as items that have been moved

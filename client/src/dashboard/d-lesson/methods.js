@@ -28,6 +28,7 @@ export const unDo = ({e,dispatch}) =>{
 
 
 export const saveLesson = (lesson,meta) => {
+    return new Promise((resolve, reject) => {
 
     const lang = getUrlParam('lang');
     const type = getUrlParam('type');
@@ -45,14 +46,18 @@ export const saveLesson = (lesson,meta) => {
     if (!meta.lessonNumber) {
         M.toast({ html: 'Please set the lesson Number' });
         $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
+        reject()
         return
     } else if (!meta.lessonPageNumber) {
         M.toast({ html: 'Please set the lesson Page Number' });
         $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
+        reject()
         return
     } else if (COL_Lessons.findOne(query)){
         M.toast({ html: `Sorry Lesson page number ${meta.lessonPageNumber} is already taken` });
         $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
+        reject()
+
         return
     }
     const _lesson2 = COL_Lessons.findOne(query2, { fields: { _id: 1 } });
@@ -64,18 +69,20 @@ export const saveLesson = (lesson,meta) => {
     if (!_lesson2  && meta.lessonPageNumber !== 1) {
         M.toast({ html: `Please set this lesson page number to '1'` });
         $(`#${TOOL_CONFIG_MODAL_ID}-trigger`)[0].click();
+        reject()
+
         return
     }
 
 
-    return new Promise ((resolve,reject)=>{
         Meteor.call('saveLesson', lesson, (err, _id) => {
             console.log(err, _id);
             if (err) {
-                alert('Sorry error occured');
+                M.toast({ html: 'Sorry error occured'});
+                reject()
                 // M.toast()
             }else{
-                alert('Lesson saved!')
+                M.toast({ html: 'Lesson saved!'})
                 resolve(_id);
             }
         })

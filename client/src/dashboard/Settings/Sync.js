@@ -66,9 +66,6 @@ function LangSync(){
             <div className="col">
                 <a target="_blank" download="proposed_file_name" href='http://localhost:4000/exports/languages.json'>Download</a>
             </div>
-
-
-
         </div>
     )
 
@@ -79,8 +76,6 @@ function LessonSync(){
 
 return (
     <div className='col m12 '>
-
-     
         <div className="col">
             <button className="btn" onClick={e => exportLessons()}>
                 Export Lessons

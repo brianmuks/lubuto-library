@@ -16,12 +16,20 @@ Meteor.methods({
         coll.update(query, {$set:update}, { upsert: true });
     },
     addEndTime({ lessonId }) {
+
         const coll = COL_USER_STATS;
         const userId = Meteor.userId();
         const _id = lessonId.substring(0, 8) + userId.substring(0, 8);
         const query = { _id };
         const today = new Date();
         let { startTime, time } = coll.findOne(query) || {} ;
+
+        if (!startTime) {
+            //bug to be fixed, at times startTime=undefined
+            return;
+        }
+
+
         const timeDiff = Math.abs(today.getTime() - startTime.getTime());
         const timeInMin = Math.floor(timeDiff / 60000 );
         time = time && Math.abs(timeInMin + time) || timeInMin;
