@@ -34,6 +34,7 @@ function Details({ gStats,pages}){
   
   const students = Object.keys(gStats.students).length;
   const filteredStats = gStats.filteredLessons;
+  
   let lessons = Object.keys(filteredStats).length;
    const questions = Math.abs(gStats.failMark+gStats.passMark);  
  
