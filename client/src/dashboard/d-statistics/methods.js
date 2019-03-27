@@ -127,6 +127,19 @@ export const onLessonChange = ({ e, userId})=>{
     return COL_USER_STATS.find(query).fetch();          
 }
 
+export const exportStats = ({ pages, students, attempts, questions, lessons, time, scorePercent }) => {
+  
+    let CSV = 'sep=,' + `r\n\.`;
+    const row = 'Lessons,Students,Pages,Time,Attempts,Questions,Score Percent'
+    CSV += row + '\n';
+    CSV += `${lessons},${students},${pages},${time},${attempts},${questions},${scorePercent}` + '\n';
+
+    Meteor.call('Sync.exportStats',CSV, (err, ok) => {
+        err && alert('Sorry error occured') || M.toast({ html: 'Stats Exported' });
+    })
+
+}
+
 
 const eExists = (arr,e) =>(
     arr.indexOf(e) === 1 && true

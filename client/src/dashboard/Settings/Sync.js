@@ -1,6 +1,6 @@
 import React, { Fragment,useEffect } from "react";
 import M from 'materialize-css'
-import { exportLanguages, importLanguages, exportLessons, importLessons } from "./methods";
+import { exportLanguages, importLanguages, exportLessons, importLessons, exportTools, importTools } from "./methods";
 
 function Sync(){
     useEffect(()=>{
@@ -26,14 +26,23 @@ return (
     <ul className="tabs tabs-fixed-width tab-demo z-depth-1 cyan">
             <li className="tab"><a className="active white-text" href="#lesson-tab">Lesson</a></li>
         <li className="tab"><a className=" white-text" href="#lang-tab">Language</a></li>
+        <li className="tab"><a className=" white-text" href="#tool-tab">Tool</a></li>
        
     </ul>
     <div id="lesson-tab" className="col s12">
         <LessonSync />
     </div>
+
+        <div id="tool-tab" className="col s12">
+            <ToolSync />
+        </div>
+
+
     <div id="lang-tab" className="col s12">
     <LangSync />
     </div>
+
+     
     </>
 )
 
@@ -45,7 +54,7 @@ return (
 function LangSync(){
 
     return (
-        <div className='col m12 offset-m6'>
+        <div className='col m12 offset-m3'>
 
 
             <div className="col">
@@ -99,6 +108,40 @@ return (
    
     </div>
 )
+
+
+}
+
+
+
+
+function ToolSync() {
+
+    return (
+        <div className='col m12 offset-m6'>
+            <div className="col">
+                <button className="btn" onClick={e => exportTools()}>
+                    Export Tools
+        <i className="material-icons" >save_alt</i>
+                </button>
+            </div>
+
+            <div className="col">
+
+                <button className="btn" onClick={e => importTools()}>
+                    import Tools
+        <i className="material-icons" >cloud_upload</i>
+                </button>
+            </div>
+
+            <div className="col">
+                <a target="_blank" download="proposed_file_name" href='http://localhost:4000/exports/tool.json'>Download</a>
+            </div>
+
+
+
+        </div>
+    )
 
 
 }

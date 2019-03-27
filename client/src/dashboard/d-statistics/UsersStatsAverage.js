@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from "react";
 import { COL_USER_STATS } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
-import { getFilteredLessons, getlessonsGrandTotal, formatTime } from "./methods";
+import { getFilteredLessons, getlessonsGrandTotal, formatTime, exportStats } from "./methods";
 import { Session } from 'meteor/session'
 import { FILTERED_LESSONS } from "../d-redux/constants";
 // we will call the stats here
@@ -79,8 +79,12 @@ function GetAverageStats ({lessons,students,questions,pages,time,attempts,scoreP
   lessons = Math.floor(lessons/students);
   time = formatTime(Math.floor(time / students));
 
+  const onExport = e=>{
+    exportStats({ pages, students, attempts, questions, lessons, time, scorePercent});
+  }
+
   return <tr>
-    <td> # </td>
+    <td onClick={onExport}> # </td>
     <td> {lessons} </td>
     <td> {students} </td>
     <td> {pages} </td>

@@ -69,3 +69,14 @@ export const importLessons = () => {
         err && alert('Sorry error occured') || M.toast({ html: 'Lessons Imported' });
     })
 }
+
+export const exportTools = () => {
+    Meteor.call('Sync.exportTools', (err, ok) => {
+        err && alert('Sorry error occured') || M.toast({ html: 'Lessons Exported' });
+    })
+}
+export const importTools = () => {
+    Meteor.call('Sync.importTools', (err, ok) => {
+        err && alert('Sorry error occured') || M.toast({ html: 'Lessons Imported' });
+    })
+}

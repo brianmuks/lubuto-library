@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor'
-import { COL_LANGUAGES, COL_CONFIG, COL_Lessons } from '../../lib/Collections';
-import { EXPORTS_PATH, LANGUAGES_EXPORTS_PATH, LESSONS_EXPORTS_PATH } from '../Constants';
+import { COL_LANGUAGES, COL_CONFIG, COL_Lessons, COL_TOOLS } from '../../lib/Collections';
+import { EXPORTS_PATH, LANGUAGES_EXPORTS_PATH, LESSONS_EXPORTS_PATH, TOOLS_EXPORTS_PATH, STATS_EXPORTS_PATH } from '../Constants';
 import { write2File, readFileContent } from '../utils';
 const fs = require('fs');
 
@@ -45,6 +45,31 @@ Meteor.methods({
             .catch(err => {
                 console.log(err)
             }) 
+    },
+    'Sync.exportTools'(_id) {
+        // const path = process.env.HOME+'/';
+        let tools = COL_TOOLS.find({}).fetch();
+        tools = JSON.stringify(tools);
+        write2File({ file: tools, path: TOOLS_EXPORTS_PATH })
+    },
+    'Sync.importTools'() {
+        readFileContent({ path: TOOLS_EXPORTS_PATH })
+            .then(data => {
+                data = JSON.parse(data);
+                data.forEach(tool => {
+                    const query = { _id: tool._id }
+                    COL_TOOLS.update(query, { $set: tool }, { upsert: true });
+                });
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },
+
+    'Sync.exportStats'(stats) {
+        // const path = process.env.HOME+'/';
+        stats = JSON.stringify(stats);
+        write2File({ file: stats, path: STATS_EXPORTS_PATH })
     },
 })
 
