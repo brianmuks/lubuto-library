@@ -68,7 +68,7 @@ Meteor.methods({
 
     'Sync.exportStats'(stats) {
         // const path = process.env.HOME+'/';
-        stats = JSON.stringify(stats);
+        // stats = JSON.stringify(stats);
         write2File({ file: stats, path: STATS_EXPORTS_PATH })
     },
 })

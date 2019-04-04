@@ -101,8 +101,6 @@ function Register(props) {
                       <label htmlFor="age">Age</label>
                     </div>
                   </div>
-
-
               <div className="input-field col s10 ">
                 <select className="browser-default" {...gender}>
                   <option value="" disabled defaultValue>Choose your gender</option>
