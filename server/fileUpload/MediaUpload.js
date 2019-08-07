@@ -16,7 +16,7 @@ if (!fs.existsSync(path)) {
     fs.mkdirSync(path);
 }   
 
-const fileDb = new FilesCollection({
+export const fileDb = new FilesCollection({
     collectionName: 'Images',
     storagePath: path,
     allowClientCode: false, // Disallow remove files from Client

@@ -82,3 +82,27 @@ export const importTools = () => {
 }
 
 
+export const deleteFile = ({_id}) => {
+            console.log('jj',_id)
+
+
+        return new Promise((resolve,reject)=>{
+
+
+
+         Meteor.call("Settings.deleteFile",{_id}, (err, ok) => {
+
+            if (err) {
+                reject(err);
+
+            }else{
+                resolve(ok)
+            }
+
+         });
+
+        });
+
+       };
+
+

@@ -3,6 +3,7 @@ import M from "materialize-css";
 import { uploadImage } from "../../utilities/upload";
 import { withTracker } from "meteor/react-meteor-data";
 import { HOST_URL } from "../../utilities/constants";
+import { deleteFile } from "./methods";
 
 const Images = new FilesCollection({ collectionName: "Images" });
 
@@ -78,10 +79,28 @@ function Upload({ files }) {
 }
 
 function RenderFiles({files}){
+
     const removeFile = ({file})=>{
-        const status = confirm('Are you sure you want to delete this item');
-         Images.remove({_id:file._id});
-        console.log(file._id, "file", status);
+
+        const status = confirm(
+          "Are you sure you want to delete this item"
+        );
+
+      const _id = file._id;
+     status &&
+       _id &&
+       deleteFile({ _id })
+         .then(resp => {
+           console.log(resp);
+           M.toast({ html: `${file.name} deleted` });
+         })
+         .catch(err => {
+           console.log(err);
+           M.toast({ html: "Sorry error occured !" });
+         });
+
+        //  Images.remove({_id:file._id});
+        // console.log(file._id, "file", status);
 }
     return files.map(
       file =>
