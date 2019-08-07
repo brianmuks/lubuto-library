@@ -6,6 +6,7 @@ import { editStaggedTools } from "../d-redux/actions/lessonActions";
 import { AUDIO_URL, IMAGE_EXTERNAL_URL } from "../../utilities/constants";
 import { editLesson, playAudio } from "../../student/s-lesson/methods";
 import { unDo } from "./methods";
+import { getFileUrl } from "../../utilities/Tasks";
 const LANG = 'kao';  
 
 function MainEditor(props) {
@@ -103,7 +104,7 @@ function RenderImage({ tool }) {
       </div> */}
 
       <i className="material-icons" style={{width:'100px',height:'100px',...tool.style}}>
-      <img className=""  src={`${IMAGE_EXTERNAL_URL}/${tool.path}`} style={{width:'inherit',height:'inherit'}} />
+      <img className=""  src={`${getFileUrl({fileName:tool.path})}`} style={{width:'inherit',height:'inherit'}} />
       </i>
     </div>
   )

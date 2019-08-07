@@ -166,16 +166,16 @@ export const getSound = ({src,filter}) => {
 }
 
 
-export const getImages = src => {
+export const getImages = () => {
     return new Promise((resolve, reject) => {
-        Meteor.call('Tool.getSound', src, (err, ok) => {
-            // console.log(err, ok);
-            if (err) {
-                reject(err)
-            } else {
-                resolve(ok);
-            }
-        })
+        Meteor.call("Tool.getImages", (err, ok) => {
+          // console.log(err, ok);
+          if (err) {
+            reject(err);
+          } else {
+            resolve(ok);
+          }
+        });
     });
 
 }

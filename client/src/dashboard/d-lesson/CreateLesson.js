@@ -7,7 +7,6 @@ import StagedTools from "./StagedTools";
 import ResourceEditor from "./ResourceEditor";
 import { TOOLS_STATE } from "./../d-context";
 import { lessonReducer } from "./../d-redux/reducers/lessonReducer";
-import ImageList from "./ImageList";
 import LessonNavBar from "./LessonNavaBar";
 import ToolConfig from "./config/ToolConfig";
 
@@ -35,7 +34,6 @@ function CreateLesson() {
         <div className="row">
           <ToolConfig />
           <MainEditor />
-          {/* <ImageList /> */}
           <StagedTools />
           <ResourceEditor />
         </div>

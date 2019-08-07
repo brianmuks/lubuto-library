@@ -7,7 +7,6 @@ import StagedTools from "./StagedTools";
 import ResourceEditor from "./ResourceEditor";
 import { TOOLS_STATE } from "../d-context";
 import { lessonReducer } from "../d-redux/reducers/lessonReducer";
-import ImageList from "./ImageList";
 import ToolConfig, { TOOL_CONFIG_MODAL_ID} from "./config/ToolConfig";
 import { withTracker } from "meteor/react-meteor-data";
 import { COL_Lessons } from "../../../../lib/Collections";
@@ -72,7 +71,6 @@ function EditLesson({lesson}) {
         <div className="row">
           <ToolConfig isEdit />
           <MainEditor isEdit />
-          {/* <ImageList /> */}
           <StagedTools isEdit />
           <ResourceEditor isEdit />
         </div>

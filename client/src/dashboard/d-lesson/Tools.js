@@ -23,17 +23,26 @@ console.log('props',props);
     openImageList()
   }
 
-    const onImageSelect =(path,index)=>{
+    const onImageSelect =(file,index)=>{
 
-      let dotIndex = path.indexOf('.');
-      dotIndex = dotIndex > 10 && 10 || dotIndex;
+      // let dotIndex = path.indexOf('.');
+      // dotIndex = dotIndex > 10 && 10 || dotIndex;
 
       // console.log(index,path);
       
-      const label = path.toString().substr(0, dotIndex);
-      dispatch(addTool({
-        name:'add_a_photo', label, path, type: 'image', _id: new Meteor.Collection.ObjectID().valueOf()
-      }, Math.random() + index + Math.random()));//avaoid acceidentally generating the same index as icons tools
+      // const label = path.toString().substr(0, dotIndex);
+      dispatch(
+        addTool(
+          {
+            name: "add_a_photo",
+            label:file.name,
+            path: `${file._id}${file.extensionWithDot}`,
+            type: "image",
+            _id: new Meteor.Collection.ObjectID().valueOf()
+          },
+          Math.random() + index + Math.random()
+        )
+      );//avaoid acceidentally generating the same index as icons tools
     }
 
     const preview = ev =>{

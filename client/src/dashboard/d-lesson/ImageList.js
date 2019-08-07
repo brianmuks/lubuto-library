@@ -4,6 +4,9 @@ import { getImages } from "./methods";
 import { TOOLS_STATE } from "./../d-context";
 import { IMAGE_EXTERNAL_URL } from "../../utilities/constants";
 import { addImageFiles } from "../d-redux/actions/lessonActions";
+import { withTracker } from "meteor/react-meteor-data";
+
+import { generateFileUrl } from "../../utilities/Tasks";
 export const MODAL_ID = "image-list-tool-modal";
 
 function ImageList({ onImageSelect }) {
@@ -16,16 +19,22 @@ function ImageList({ onImageSelect }) {
 
   useEffect(() => {
     initModal("#" + MODAL_ID);
-    getImages("images")
-      .then(res => {
-        setimageFiles(res);
-        setimageFilesFiltered(res);
-        dispatch(addImageFiles(res));
-      })
-      .catch(err => {
-        console.log("getImages():Error", err);
-      });
-  }, [x]);
+
+    getImages()
+    .then(files=>{
+      console.log(files, "files");
+    setimageFiles(files);
+    setimageFilesFiltered(files);
+    dispatch(addImageFiles(files));
+
+    })
+    .catch(err=>{
+      M.toast({html:'failed to fetch imgaes'})
+      console.log("getImages():Err", err);
+    })
+
+
+  }, [0]);
 
   const onFilter = event => {
     let val = event.target.value;
@@ -84,7 +93,7 @@ function ImageList({ onImageSelect }) {
 
 function RenderAutoComplete({ onFilter }) {
   return (
-    <div className="row">
+    <div className="row image-fileter">
       <div className="image-list-autocomplete">
         <h4 className="center">Pick Image</h4>
 
@@ -110,18 +119,15 @@ function RenderAutoComplete({ onFilter }) {
 function RenderImages({ imageFiles, onImageSelect }) {
   // avoid crashing the app if there is no imageFiles
   if (!imageFiles) return null;
-  return imageFiles.map((item, index) => (
+  return imageFiles.map((file, index) => (
     <div
-      onClick={() => onImageSelect(item, index)}
+      onClick={() => onImageSelect(file, index)}
       key={index}
       className="col s2"
     >
       <div className="card">
         <div className="card-image ">
-          <img
-            className="image-list-img"
-            src={`${IMAGE_EXTERNAL_URL}/${item}`}
-          />
+          <img className="image-list-img" src={generateFileUrl({ file })} />
         </div>
         <div className="card-action">
           <a className="teal-text" href="#">
@@ -137,4 +143,13 @@ export function openImageList() {
   $("#" + MODAL_ID).modal("open");
 }
 
-export default ImageList;
+
+export default withTracker(() => {
+  Meteor.subscribe("images");
+  return {
+    // images: Images.find({ isImage :true}, { sort: { extension: 1 } }).fetch()
+  };
+})(ImageList);
+
+
+

@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor'
 import { check } from 'meteor/check'
 import { COL_TOOLS } from '../../lib/Collections'
 import { FILE_SERVER_PATH } from '../Constants';
+import { fileDb } from '../fileUpload/MediaUpload';
 const fs = require('fs');
 
 // create an icon reference
@@ -27,15 +28,9 @@ Meteor.methods({
             })
         });
     },
-    'Tool.getImages'(src = 'images') {
-        const path =FILE_SERVER_PATH + src;
-        return new Promise((resolve, reject) => {
-            fs.readdir(path, (err, files) => {
-                resolve();
-            })
-        });
-
-    }
+    'Tool.getImages'() {
+        return fileDb.find({ isImage: true }).fetch();
+    },
 
 })
 
