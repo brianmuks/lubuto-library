@@ -28,3 +28,5 @@ autopublish@1.0.7
 #abernix:minifier-js
 jquery
 session
+
+meteorhacks:picker

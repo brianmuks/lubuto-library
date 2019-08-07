@@ -84,7 +84,7 @@ function Login() {
         </div>
       </div>
     </div>
-    <Footer />
+    {/* <Footer /> */}
     </>
   );
 }

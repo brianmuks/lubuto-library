@@ -12,6 +12,8 @@ import './Accounts/publications'
 import './Stats/methods'
 import './Stats/publications'
 import './Constants'
+import "./fileUpload/MediaUpload";
+import "./fileUpload/ResultCodes";
 
 
 

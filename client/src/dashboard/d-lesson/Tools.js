@@ -40,7 +40,7 @@ console.log('props',props);
       ev.preventDefault()
       }
       const _saveLesson  = ev =>{
-        alert(lessonId)
+      //  alert(lessonId)
 
         if (lessonId !== null) {
           //user has already saved. the lesson should be updated this time around

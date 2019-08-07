@@ -1,7 +1,6 @@
 
 body{
-  font-family: sans-serif;
-
+  font-family: serif;
 }
 
 
@@ -13,6 +12,10 @@ body{
 
   main {
     flex: 1 0 auto !important;
+  }
+
+  .cursor{
+    cursor: pointer;
   }
 
 

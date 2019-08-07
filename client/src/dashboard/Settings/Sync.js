@@ -1,6 +1,7 @@
 import React, { Fragment,useEffect } from "react";
 import M from 'materialize-css'
 import { exportLanguages, importLanguages, exportLessons, importLessons, exportTools, importTools } from "./methods";
+import Upload from "./Upload";
 
 function Sync(){
     useEffect(()=>{
@@ -22,29 +23,46 @@ function Sync(){
 function SyncTabs(){
 
 return (
-    <>
+  <>
     <ul className="tabs tabs-fixed-width tab-demo z-depth-1 cyan">
-            <li className="tab"><a className="active white-text" href="#lesson-tab">Lesson</a></li>
-        <li className="tab"><a className=" white-text" href="#lang-tab">Language</a></li>
-        <li className="tab"><a className=" white-text" href="#tool-tab">Tool</a></li>
-       
+      <li className="tab">
+        <a className="active white-text" href="#lesson-tab">
+          Lesson
+        </a>
+      </li>
+      <li className="tab">
+        <a className=" white-text" href="#lang-tab">
+          Language
+        </a>
+      </li>
+      <li className="tab">
+        <a className=" white-text" href="#tool-tab">
+          Tool
+        </a>
+      </li>
+      <li className="tab">
+        <a className=" white-text" href="#upload-tab">
+          Upload
+        </a>
+      </li>
     </ul>
     <div id="lesson-tab" className="col s12">
-        <LessonSync />
+      <LessonSync />
     </div>
 
-        <div id="tool-tab" className="col s12">
-            <ToolSync />
-        </div>
-
+    <div id="tool-tab" className="col s12">
+      <ToolSync />
+    </div>
 
     <div id="lang-tab" className="col s12">
-    <LangSync />
+      <LangSync />
     </div>
 
-     
-    </>
-)
+    <div id="upload-tab" className="col s12">
+      <Upload />
+    </div>
+  </>
+);
 
 
 
@@ -103,9 +121,6 @@ return (
                 <div className="col">
             <a target="_blank" download="proposed_file_name" href='http://localhost:4000/exports/lessons.json'>Download</a>
                 </div>
-
-
-   
     </div>
 )
 
@@ -137,9 +152,6 @@ function ToolSync() {
             <div className="col">
                 <a target="_blank" download="proposed_file_name" href='http://localhost:4000/exports/tool.json'>Download</a>
             </div>
-
-
-
         </div>
     )
 

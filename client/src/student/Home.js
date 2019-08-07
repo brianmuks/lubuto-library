@@ -8,7 +8,7 @@ import MainActions from "./MainActions";
 function Home(){
 
     return (
-        <>
+        <div id='app'>
           
         <header>
                 <NavBar color={'light-blue'} /> 
@@ -18,7 +18,7 @@ function Home(){
             <span className="s-home-img">
                 </span>
             <div className="row s-home">
-                <Login />
+                <Login  />
                 <MainActions />
         <div className="container ">
             </div>
@@ -26,7 +26,7 @@ function Home(){
            
             </main>
             <Footer />
-            </>
+            </div>
         
     )
 }

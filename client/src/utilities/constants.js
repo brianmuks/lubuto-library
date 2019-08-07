@@ -4,6 +4,7 @@
 
 export const AUDIO_URL = 'http://127.0.0.1:4000/audio/'
 export const IMAGE_EXTERNAL_URL = 'http://127.0.0.1:4000/images'
+export const HOST_URL = location.origin;
 
  export const NO_SOUND = 'n.wav';  //this applies to all languages 
  export const YES_SOUND = 'y.wav';   //this applies to all languages
