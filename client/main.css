@@ -1,13 +1,25 @@
 
 body{
-  font-family: serif;
+  
 }
 
 
   #app {
+
+        font-family: proxima-nova !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    font-size: 16px !important;
+    letter-spacing: .03em !important;
+    line-height: 1.3em !important;
+    text-transform: none !important;
+
+
+
+
     display: flex !important;
-    min-height: 100vh;
-    flex-direction: column;
+    min-height: 100vh !important;
+    flex-direction: column !important;
   }
 
   main {
@@ -202,10 +214,15 @@ margin-top:-90px;
   cursor: pointer;
 }
 
+.bkg-home-container{
+
+}
+
 .s-home-img{
-  background: url('/bkg1.jpg');
-  background-size: cover;
-  height: 100%;
+  background: url('Front.jpg') ;
+  /* background-size:cover; */
+  background-size: 100% 100%;
+  height: 70%;
   z-index: -1;
   opacity: 0.2;
   position: absolute;
@@ -221,9 +238,9 @@ margin-top:-90px;
 /* width: 100%; */
 /* padding-top: 100px; */
 /* z-index: 10; */
-margin-bottom: 0px;
-margin-top: 90px;
-bottom: 0;
+margin-bottom: 0px !important;
+/* margin-top: 90px; */
+bottom: 0 !important;
 }
 
 .login-container{
@@ -300,4 +317,21 @@ bottom: 0;
 
 .image-fileter{
   margin-top: 230px !important
+}
+
+.nav-color{
+  background-color: #782021;
+}
+.button-color{
+  background-color: #507156 !important;
+}
+
+.text-color{
+  color: #507156 !important;
+}
+
+
+.brand-logo{
+  font-size: 20px !important;
+  font-family: 'Times New Roman', Times, serif;
 }

@@ -50,47 +50,58 @@ function Register(props) {
     return <Redirect to='/' />
   }  
   return (
-
     <>
-    <header>
-      <NavBar />
-    </header>
+      <header>
+        <NavBar />
+      </header>
 
-    <main>
-    <div className="row">
-      <div className="col s4" />
-      <div className="col s4 " style={{ paddingTop: 30, margin: 0 }}>
-        <div className="card">
-          <div className="row">
-            <div className="col s12 center-align"> Register the {props.role}</div>
-            <form className="col s12" onSubmit={handleRegister}>
+      <main>
+        <div className="row">
+          <div className="col s4" />
+          <div className="col s4 " style={{ paddingTop: 30, margin: 0 }}>
+            <div className="card">
               <div className="row">
-                <div className="input-field col s10" style={{ marginLeft: 15 }}>
-                  <input
-                    id="name"
-                    type="text"
-                    className="validate"
-                    {...name}
-                    required
-                  />
-                  <label htmlFor="name">Full Name</label>
+                <div className="col s12 center-align">
+                  {" "}
+                  Register the {props.role}
                 </div>
-              </div>
-              <div className="row">
-                <div className="input-field col s10" style={{ marginLeft: 15 }}>
-                  <input
-                    id="username"
-                    type="text"
-                    className="validate"
-                    {...username}
-                    required
-                  />
-                  <label htmlFor="username">Username</label>
-                </div>
-              </div>
+                <form className="col s12" onSubmit={handleRegister}>
+                  <div className="row">
+                    <div
+                      className="input-field col s10"
+                      style={{ marginLeft: 15 }}
+                    >
+                      <input
+                        id="name"
+                        type="text"
+                        className="validate"
+                        {...name}
+                        required
+                      />
+                      <label htmlFor="name">Full Name</label>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div
+                      className="input-field col s10"
+                      style={{ marginLeft: 15 }}
+                    >
+                      <input
+                        id="username"
+                        type="text"
+                        className="validate"
+                        {...username}
+                        required
+                      />
+                      <label htmlFor="username">Username</label>
+                    </div>
+                  </div>
 
                   <div className="row">
-                    <div className="input-field col s10" style={{ marginLeft: 15 }}>
+                    <div
+                      className="input-field col s10"
+                      style={{ marginLeft: 15 }}
+                    >
                       <input
                         id="age"
                         type="number"
@@ -101,69 +112,72 @@ function Register(props) {
                       <label htmlFor="age">Age</label>
                     </div>
                   </div>
-              <div className="input-field col s10 ">
-                <select className="browser-default" {...gender}>
-                  <option value="" disabled defaultValue>Choose your gender</option>
-                  <option value="female">Female</option>
-                  <option value="male">Male</option>
-                  <option value="other">Other</option>
-                </select>
-                {/* <label>Gender</label> */}
-              </div>
+                  <div className="input-field col s10 ">
+                    <select className="browser-default" {...gender}>
+                      <option value="" disabled defaultValue>
+                        Choose your gender
+                      </option>
+                      <option value="female">Female</option>
+                      <option value="male">Male</option>
+                      <option value="other">Other</option>
+                    </select>
+                    {/* <label>Gender</label> */}
+                  </div>
 
-              <div className="row">
-                <div className="input-field col s10 " style={{ marginLeft: 15 }}>
-                  <input
-                    id="password"
-                    type="password"
-                    className="validate"
-                    required
-                    {...password}
-                  />
-                  <label htmlFor="password">Password</label>
-                </div>
-              </div>
+                  <div className="row">
+                    <div
+                      className="input-field col s10 "
+                      style={{ marginLeft: 15 }}
+                    >
+                      <input
+                        id="password"
+                        type="password"
+                        className="validate"
+                        required
+                        {...password}
+                      />
+                      <label htmlFor="password">Password</label>
+                    </div>
+                  </div>
 
-              <div className="row">
-                <div className="input-field col s10 " style={{ marginLeft: 15 }}>
-                  <input
-                    id="confirm-password"
-                    type="password"
-                    className="validate"
-                    name="confirm-password"
-                    required
-                    {...confirmedPassword}
-                  />
-                  <label htmlFor="confirm-password">Confirm Password</label>
-                </div>
-              </div>
+                  <div className="row">
+                    <div
+                      className="input-field col s10 "
+                      style={{ marginLeft: 15 }}
+                    >
+                      <input
+                        id="confirm-password"
+                        type="password"
+                        className="validate"
+                        name="confirm-password"
+                        required
+                        {...confirmedPassword}
+                      />
+                      <label htmlFor="confirm-password">Confirm Password</label>
+                    </div>
+                  </div>
 
-              <div className="row">
-                <div className="input-field center col s12">
-                  <button className="waves-effect waves-light btn">
-                    Register
-                  </button>
-                </div>
+                  <div className="row">
+                    <div className="input-field center col s12">
+                      <button className="waves-effect waves-light btn button-color">
+                        Register
+                      </button>
+                    </div>
+                  </div>
+                  <div className="center row">
+                    <Link to="/">Login</Link>
+                  </div>
+                  <div className="center row">
+                    <p className="red-text">{error.length ? error : null}</p>
+                  </div>
+                </form>
               </div>
-              <div className='center row'>
-                <Link to='/'>Login</Link>
-              </div>
-              <div className='center row'>
-                <p className='red-text'>
-                  {
-                    error.length ? error : null
-                  }
-                </p>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
-      </div>
-      </div>
       </main>
 
       <Footer />
-
     </>
   );
 }

@@ -5,49 +5,68 @@ import React, { useState } from "react";
 function Footer(){
 
     return (
-        <footer className="page-footer orange footers">
-            <div className="container">
-                <div className="row">
-                    <div className="col l6 s12">
-                        <h5 className="white-text">Company Bio</h5>
-                        <p className="grey-text text-lighten-4">
-                            Doing the best to provide the best lessons
-            </p>
-                    </div>
-                    <div className="col l3 s12">
-                        <h5 className="white-text">Students</h5>
-                        <ul>
-                            <li>
-                                <a className="white-text" href="#!">
-                                    Learn
+      <footer className="page-footer white footers">
+        <div className="container">
+          <div className="row">
+            <div className="col l6 s12">
+              <h5 className="black-text"></h5>
+              <p className="black-text text-lighten-4 ">
+                Lubuto Library Partners is an innovative development
+                organization that builds the capacity of public libraries to
+                create opportunities for equitable education and poverty
+                reduction.{" "}
+                <a target="_blank" href="http://www.lubuto.org.">
+                  Learn More{" "}
                 </a>
-                            </li>
-                            <li>
-                                <a className="white-text" href="#!">
-                                    Languages
-                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="col l3 s12">
-                        <h5 className="white-text">Teachers</h5>
-                        <ul>
-                            <li>
-                                <a className="white-text" href="#!">
-                                    Create Lessons
-                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+              </p>
             </div>
-            <div className="footer-copyright">
-                <a className='white-text' href='https://web.facebook.com/manolivier' target='_blank'>
-                    <div className="container">Created by OlivierJM & BrianMuks with ♥ </div>
-            </a>
+            <div className="col l3 s12">
+              <h5 className="black-text">Users</h5>
+              <ul>
+                <li>
+                  <a className="black-text" href="#!">
+                    Learn To Read
+                  </a>
+                </li>
+                <li>
+                  <a className="black-text" href="#!"></a>
+                </li>
+              </ul>
             </div>
-        </footer>
-    )
+            <div className="col l3 s12">
+              <h5 className="black-text">Staff</h5>
+              <ul>
+                <li>
+                  <a className="black-text" href="#!">
+                    Create Lessons
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className="footer-copyright">
+          Created by
+          <a
+            className="black-text"
+            href="https://web.facebook.com/manolivier"
+            target="_blank"
+          >
+            <code>{`  OlivierJM    `} </code>
+          </a>
+          <a> </a>
+          <a
+            className="black-text"
+            href="https://www.linkedin.com/in/brianmuks/"
+            target="_blank"
+          >
+           
+            <code> {` | &  BrianMuks with`} ♥</code>
+          </a>
+          <div className="container"> </div>
+        </div>
+      </footer>
+    );
 
 
 }

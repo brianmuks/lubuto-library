@@ -6,21 +6,20 @@ import { Link, Redirect } from "react-router-dom";
 
      const { isLoggedOut, logOutUser } = useLogout()
   //  console.log()
-  return(
-    <nav className={`light-blue lighten-1 container-fluid`} role="navigation">
+  return (
+    <nav className={`nav-color lighten-1 container-fluid`} role="navigation">
       <div className="nav-wrapper ">
-        <Link to="/" className=''>
-          <span id="logo-container"  className="brand-logo ">
-            {`Libra`}
-            
+        <Link to="/" className="">
+          <span id="logo-container" className="brand-logo center ">
+            {`LubutoLiteracy: Learn to Read in Zambia's 7 Major Languages`}
           </span>
         </Link>
         <ul className="right hide-on-med-and-down">
-         <AdminLinks />
-          <li className='pointer t-center col left ' >
-            <span className={` ${color}`} onClick={logOutUser}>
-              {Meteor.userId() ? `Logout  ` : 'Login'}
-          </span>
+          <AdminLinks />
+          <li className="pointer t-center col left ">
+            <span className={`white-text`} onClick={logOutUser}>
+              {Meteor.userId() ? `Logout  ` : "Login"}
+            </span>
           </li>
         </ul>
         <ul id="nav-mobile" className="sidenav">
@@ -33,7 +32,7 @@ import { Link, Redirect } from "react-router-dom";
         </a>
       </div>
     </nav>
-  )
+  );
 }
 
 
