@@ -10,7 +10,17 @@ import { Link, Redirect } from "react-router-dom";
     <nav className={`nav-color lighten-1 container-fluid`} role="navigation">
       <div className="nav-wrapper ">
         <Link to="/" className="">
-          <span id="logo-container" className="brand-logo center ">
+          <span id="" className="brand-logo logo ">
+           
+          </span>
+        </Link>
+        <Link to="/" className="">
+          <span id="" className="brand-logo nav-bkg ">
+            
+          </span>
+        </Link>
+        <Link to="/" className="">
+          <span id="logo-container" className="brand-logo center black-text ">
             {`LubutoLiteracy: Learn to Read in Zambia's 7 Major Languages`}
           </span>
         </Link>

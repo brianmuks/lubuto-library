@@ -123,7 +123,7 @@ body{
 }
 
 .img-logo{
-  width: 30git 0px;
+  width: 300px;
 }
 
 @keyframes stagged-tool-highlight {
@@ -320,7 +320,7 @@ bottom: 0 !important;
 }
 
 .nav-color{
-  background-color: #782021;
+  background-color: #ffffff;
 }
 .button-color{
   background-color: #507156 !important;
@@ -334,4 +334,21 @@ bottom: 0 !important;
 .brand-logo{
   font-size: 20px !important;
   font-family: 'Times New Roman', Times, serif;
+}
+
+.logo{
+    background: url('logo.jpg') ;
+  /* background-size:cover; */
+  background-size: 100% 100%;
+  height: 100%;
+  /* opacity: 0.2; */
+  width: 20%;
+}
+.nav-bkg{
+    /* background: url('Front.jpg') ; */
+  /* background-size:cover; */
+  background-size: 100% 100%;
+  height: 70%;
+  opacity: 0.2;
+  width: 100%;
 }
