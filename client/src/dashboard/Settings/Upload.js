@@ -4,6 +4,7 @@ import { uploadImage } from "../../utilities/upload";
 import { withTracker } from "meteor/react-meteor-data";
 import { HOST_URL } from "../../utilities/constants";
 import { deleteFile } from "./methods";
+import { generateFileUrl } from "../../utilities/Tasks";
 
 const Images = new FilesCollection({ collectionName: "Images" });
 
@@ -99,8 +100,7 @@ function RenderFiles({files}){
            M.toast({ html: "Sorry error occured !" });
          });
 
-        //  Images.remove({_id:file._id});
-        // console.log(file._id, "file", status);
+      
 }
     return files.map(
       file =>
@@ -111,9 +111,7 @@ function RenderFiles({files}){
 }
 
 function RenderImage({ file, removeFile }) {
-  const src = `${HOST_URL}/${file._downloadRoute}/${file._collectionName}/${
-    file._id
-  }/original/${file._id}${file.ext}`;
+  const src = generateFileUrl({ file });
 
   const onMouseOver = () => {
     $(`#${file._id}-del-btn`).removeClass("hide");
@@ -141,38 +139,36 @@ function RenderImage({ file, removeFile }) {
   );
 }
 
-function RenderAudio({file}) {
-        const src = `${HOST_URL}/${file._downloadRoute}/${
-          file._collectionName
-        }/${file._id}/original/${file._id}${file.ext}`; 
+function RenderAudio({ file, removeFile }) {
+  const src = generateFileUrl({ file });
 
-     const onMouseOver = ()=>{
-        $(`#${file._id}-del-btn`).removeClass('hide')
-     }   
-     const onMouseLeave = () => {
-       $(`#${file._id}-del-btn`).addClass("hide");
-     };   
+  const onMouseOver = () => {
+    $(`#${file._id}-del-btn`).removeClass("hide");
+  };
+  const onMouseLeave = () => {
+    $(`#${file._id}-del-btn`).addClass("hide");
+  };
 
-    return (
-      <div
-        className=" col m4"
-        onMouseLeave={onMouseLeave}
-        onMouseOver={onMouseOver}
+  return (
+    <div
+      className=" col m4"
+      onMouseLeave={onMouseLeave}
+      onMouseOver={onMouseOver}
+    >
+      <span
+        onClick={() => removeFile({ file })}
+        className="red-text right hide cursor"
+        id={`${file._id}-del-btn`}
       >
-        <span
-          className="red-text right hide cursor"
-          id={`${file._id}-del-btn`}
-        >
-          X
-        </span>
-        <audio controls>
-          <source src={src} type={`audio/${file.ext}`} />
-          Your browser does not support the audio element.
-        </audio>
-        <p className="grey-text ">{file.name}</p>
-      </div>
-    );
-
+        X
+      </span>
+      <audio controls>
+        <source src={src} type={`audio/${file.ext}`} />
+        Your browser does not support the audio element.
+      </audio>
+      <p className="grey-text ">{file.name}</p>
+    </div>
+  );
 }
 
 

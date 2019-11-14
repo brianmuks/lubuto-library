@@ -14,7 +14,7 @@ export const getUrlParams = ()=>(
 
 
     export const generateFileUrl = ({file})=>(
-                `${HOST_URL}/${file._downloadRoute}/${
+                `${HOST_URL}${file._downloadRoute}/${
           file._collectionName
         }/${file._id}/original/${file._id}${file.ext}`
     )
