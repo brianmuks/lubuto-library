@@ -4,6 +4,7 @@ import { STUDENT_LESSON_STATE } from "./../s-context";
 import {  IMAGE_EXTERNAL_URL } from "../../utilities/constants";
 import { onDrop,playAudio,onDragOver,onDrag,onDragStart } from "./methods";
 import { recordAttempt } from "../s-statistics/methods";
+import { getFileUrl } from "../../utilities/Tasks";
 
 function MainScreen(props) {
   const { state } = useContext(STUDENT_LESSON_STATE);
@@ -113,12 +114,24 @@ function RenderImage({ tool, playAudio }) {
   const position = tool.style && { } || {};
   return (
     //...tool.style
-    <div onClick={() => playAudio(tool.audioFile)} className={` added-tool${tool.index} `} id={`added-tool${tool.index}`}>
-        <i className="material-icons" style={{width:'100px',height:'100px',...tool.style,}}>
-      <img className=""  src={`${IMAGE_EXTERNAL_URL}/${tool.path}`} style={{width:'inherit',height:'inherit'}} />
+    <div
+      onClick={() => playAudio(tool.audioFile)}
+      className={` added-tool${tool.index} `}
+      id={`added-tool${tool.index}`}
+    >
+      <i
+        className="material-icons"
+        style={{ width: "100px", height: "100px", ...tool.style }}
+      >
+    
+        <img
+          className=""
+          src={`${getFileUrl({ fileName: tool.path })}`}
+          style={{ width: "inherit", height: "inherit" }}
+        />
       </i>
     </div>
-  )
+  );
 }
 
 function RenderToolDelegator ({ tool, playAudio }) {

@@ -21,27 +21,10 @@ function Footer(){
               </p>
             </div>
             <div className="col l3 s12">
-              <h5 className="black-text">Users</h5>
-              <ul>
-                <li>
-                  <a className="black-text" href="#!">
-                    Learn To Read
-                  </a>
-                </li>
-                <li>
-                  <a className="black-text" href="#!"></a>
-                </li>
-              </ul>
+           
             </div>
             <div className="col l3 s12">
-              <h5 className="black-text">Staff</h5>
-              <ul>
-                <li>
-                  <a className="black-text" href="#!">
-                    Create Lessons
-                  </a>
-                </li>
-              </ul>
+           
             </div>
           </div>
         </div>

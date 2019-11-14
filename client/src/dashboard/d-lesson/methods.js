@@ -1,4 +1,4 @@
-import { getUrlParam } from "../../utilities/Tasks";
+import { getUrlParam, generateFileUrl } from "../../utilities/Tasks";
 import { TOOL_CONFIG_MODAL_ID } from "./config/ToolConfig";
 import { AUDIO_URL } from "../../utilities/constants";
 import { COL_Lessons } from "../../../../lib/Collections";
@@ -142,28 +142,28 @@ export const deleteLesson = _id => {
     })
 }
 
-export const getSound = ({src,filter}) => {
-    return new Promise((resolve, reject) => {
-        Meteor.call('Tool.getSound', src, (err, files) => {
-            // console.log(err, ok);
-            if (err) {
-                reject(err)
-            } else if (!files){
-                const msg = `Sorry no audio found for language=${getUrlParam('lang')}`
-                M.toast({html:msg})
-            }
-            else{
-
-
-  
-                files = filter && files.filter(i=> i.indexOf(filter.toString()) == 0) || files;
-                console.log(files,'files');
-                resolve(files);
-            }
-
-        })
-    });
-}
+export const getSound = ({ lang, lessonNumber }) => {
+         return new Promise((resolve, reject) => {
+           Meteor.call(
+             "Tool.getSound",
+             { lang, lessonNumber },
+             (err, files) => {
+               // console.log(err, ok);
+               if (err) {
+                 reject(err);
+               } else if (!files) {
+                 const msg = `Sorry no audio found for language=${getUrlParam(
+                   "lang"
+                 )}`;
+                 M.toast({ html: msg });
+               } else {
+                 console.log(files, "files");
+                 resolve(files);
+               }
+             }
+           );
+         });
+       };
 
 
 export const getImages = () => {
@@ -218,15 +218,15 @@ export const copPage = ({ lessonNumber,lessonPageNumber, lang, newLangs }) => {
 
 
 export const playAudio = audioFile =>{
+    console.log(audioFile, "audioFile");
 
     if (!audioFile) {
         return
     }
+    
 
-    const lang = getUrlParam('lang');
     var audio = document.getElementById("audio");
-    const src = AUDIO_URL + lang + '/' + audioFile;
-    audio.src = src;
+    audio.src = generateFileUrl({file:audioFile});
     audio.play();
 }
 

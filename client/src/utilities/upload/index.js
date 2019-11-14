@@ -24,10 +24,13 @@ export const uploadImage = ({ image, collection, currentFileId, _id, updateProgr
 
     // xhr.open('POST', `${SERVER_DOMAIN}/api/upload`);
 
+    
+    if (Meteor.isProduction) {
+      xhr.open("POST", `https://lubutoliteracy.org/api/upload`);
+    } else {
+      xhr.open("POST", `http://localhost:3000/api/upload`);
+    }
 
-
-    // xhr.open('POST', `https://{online-address}/api/upload`);
-    xhr.open('POST', `http://localhost:3000/api/upload`);
     // console.warn(http://${url}/api/upload);
 
 

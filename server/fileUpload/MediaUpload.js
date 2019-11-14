@@ -2,6 +2,7 @@ import { FilesCollection } from 'meteor/ostrio:files';
 import { Meteor } from 'meteor/meteor';
 import { RESULT_CODES } from './ResultCodes';
 import { FILE_SERVER_PATH } from '../Constants';
+import { FILE_TYPES } from './constants';
 fs = Npm.require('file-system');//file system(fs)
 
 const _collections = {
@@ -89,12 +90,28 @@ Picker.route('/api/upload', (params, req, res, next) => {
 
     _fs.stat(req.file.path, (_statError, _statData) => {
 
+
+
+        let fileType = req.file.mimetype.toString().split('/');
+        fileType = fileType[0];
+
+            lessonNumber = null;
+            lang = null;
+        if(fileType === FILE_TYPES.audio){
+            const langData = req.file.originalname.split('_');
+             lessonNumber = langData[0] && parseInt(langData[0]) || 0;
+             lang = langData[1];
+        }
+
+
         const _addFileMeta = {
             fileName: req.file.originalname,
             type: req.file.mimetype,
             size: req.file.size,
             meta: {
-                userId: userId
+                userId: this.userId,
+                lang,
+                lessonNumber
             }
         };
         _fs.readFile(req.file.path, (_readError, _readData) => {

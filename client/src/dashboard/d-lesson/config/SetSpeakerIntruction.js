@@ -17,14 +17,16 @@ function SetSpeakerIntruction({ lessonNumber,dispatch }){
 
 
     const _getSound = e=>{
-        lessonNumber && getSound({ src: `audio/${lang}/key`, filter: lessonNumber })
+        (lessonNumber &&
+          getSound({ lang, lessonNumber })
             .then(files => {
-                // _dispatch(addAudioFiles(files));
-                lessonNumber && files.length && setAudioFiles(files);
+              // _dispatch(addAudioFiles(files));
+              lessonNumber && files.length && setAudioFiles(files);
             })
             .catch(err => {
-                console.log('error getting audions', err);
-            }) || M.toast({html:'Please set Lesson number first'})
+              console.log("error getting audions", err);
+            })) ||
+          M.toast({ html: "Please set Lesson number first" });
     }
 
     const onSoundSet = val =>{
@@ -35,27 +37,35 @@ function SetSpeakerIntruction({ lessonNumber,dispatch }){
 
 
     return (
-        <div className="speaker-config">
-        
-            <div className=" col s2 pointer">
-                <i onClick={e=>playAudio('key/'+audioFile)} className="material-icons red-text large right speaker-config-icon"
-                >volume_up</i>
-       </div>
+      <div className="speaker-config">
+        <div className="row">
+          <div onClick={e => playAudio(audioFile)} className=" col s2 ">
+            <i className="material-icons red-text pointer large right speaker-config-icon">
+              volume_up
+            </i>
+          </div>
 
-            <div className="input-field col s2">
-                <select onClick={_getSound} defaultValue={''} onChange={val => onSoundSet(val.target.value)} className="browser-default" >
-                    <option value={''}  >Sound</option>
-                    <RenderAudioOptions audioFiles={audioFiles} />
-                </select>
-            </div>
-                </div>
-    )
+          <div className="input-field col s2">
+            <select
+              onClick={_getSound}
+              defaultValue={""}
+              onChange={val => onSoundSet(audioFiles[val.target.value])}
+              className="browser-default"
+            >
+              <option value={""}>Sound</option>
+              <RenderAudioOptions audioFiles={audioFiles} />
+            </select>
+          </div>
+        </div>
+      </div>
+    );
 }
 
 function RenderAudioOptions({ audioFiles }) {
+ 
     if (!audioFiles) return null;
     return audioFiles.map((item, index) => (
-        <option value={item} key={index}>{item.replace('.wav', '')}</option>
+        <option value={index} key={index}>{item.name.replace('.wav', '')}</option>
     ))
 }
 

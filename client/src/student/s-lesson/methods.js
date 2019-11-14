@@ -1,6 +1,7 @@
 const LANG = 'kao';   //TODO: get from URL
 import { AUDIO_URL, IMAGE_EXTERNAL_URL, NO_SOUND, YES_SOUND } from "../../utilities/constants";
 import { recordAttempt } from "../s-statistics/methods";
+import { generateFileUrl } from "../../utilities/Tasks";
 
 export const getSound = src => {
     return new Promise((resolve, reject) => {
@@ -34,8 +35,8 @@ export const playAudio = audioFile=>{
         return
     }
     var audio = document.getElementById("audio");
-    const src = AUDIO_URL + LANG + '/' + audioFile;
-    audio.src = src;
+    // const src = AUDIO_URL + LANG + '/' + audioFile;
+    audio.src = generateFileUrl({ file: audioFile });
     audio.play()
 }
 

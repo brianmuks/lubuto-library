@@ -77,7 +77,7 @@ function RenderTools({ tools, editedTools, add2EditedTools,dispatch}) {
 }
 
 
-function RenderIcon({tool,}){
+function RenderIcon({tool}){
   return(
     <div onClick={() => playAudio(tool.audioFile)} className={`  added-tool${tool.index} `} id={`added-tool${tool.index}`}>
       <i className="material-icons" style={tool.style}>{tool.name}</i>

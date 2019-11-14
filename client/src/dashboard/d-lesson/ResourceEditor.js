@@ -3,6 +3,7 @@ import Draggable from "react-draggable";
 import {TOOLS_STATE} from './../d-context';
 import { addTool,editStaggedTools, addAudioFiles } from "./../d-redux/actions/lessonActions";
 import { getSound, getResourceEditorStyles } from "./methods";
+import { getUrlParam } from "../../utilities/Tasks";
 
 const initialState = {
  
@@ -156,42 +157,54 @@ function RenderSoundPicker({ onSoundSet, _dispatch}){
 
   const [audioFiles, setAudioFiles] = useState([])
 
-  function fetchAudio(src){
+  function fetchAudio(lessonNumber) {
+    const lang = getUrlParam("lang");
+    lessonNumber = parseInt(lessonNumber);
     //TODO: use RJX here for debouncing.
-    console.log(src);
-    getSound({ src: 'audio/kao', filter: src})
-    .then(files=>{
-      _dispatch(addAudioFiles(files));
-      setAudioFiles(files)
-    })
-    .catch(err=>{
-      console.log('error getting audions',err);
-    });
+    getSound({ lang,lessonNumber })
+      .then(files => {
+        console.log("files", files, lessonNumber, lang);
 
+        _dispatch(addAudioFiles(files));
+        setAudioFiles(files);
+      })
+      .catch(err => {
+        console.log("error getting audions", err);
+      });
   }
 
   return (
     <div>
       <div className="input-field col s2">
-        <input  onChange={val => fetchAudio(val.target.value)} type="number" className="validate" />
+        <input
+          onChange={val => fetchAudio(val.target.value)}
+          type="number"
+          className="validate"
+        />
         <label>Sound Source</label>
       </div>
       <div className="input-field col s6">
-        <select defaultValue={''} onChange={val => onSoundSet(val.target.value)} className="browser-default" >
-          <option value={''}  >Sound</option>
+        <select
+          defaultValue={""}
+          onChange={val => onSoundSet(audioFiles[val.target.value])}
+          className="browser-default"
+        >
+          <option value={""}>Sound</option>
           <RenderAudioOptions audioFiles={audioFiles} />
         </select>
       </div>
     </div>
-  )
+  );
 }
 
 
 function RenderAudioOptions({ audioFiles}){
   if(!audioFiles) return null;
- return audioFiles.map((item,index)=>(
-    <option value={item} key={index}>{item.replace('.wav','')}</option>
-  ))
+ return audioFiles.map((item, index) => (
+   <option value={index} key={index}>
+     {item.name.replace(".wav", "")}
+   </option>
+ ));
 }
 
 export default ResourceEditor;
