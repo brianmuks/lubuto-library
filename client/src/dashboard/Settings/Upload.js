@@ -64,7 +64,7 @@ function Upload({ files }) {
 
   return (
     <div className="row">
-      <h3 className="center">Upload files</h3>
+      <h5 className="center">Upload files</h5>
       <RenderFileUpload onChange={previewFile} upload={done} />
       <div className="card-image center">
         <img width={250} height={250} src={imageSrc} className="d-news-img" />

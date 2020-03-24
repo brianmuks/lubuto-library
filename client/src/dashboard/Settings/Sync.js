@@ -23,26 +23,30 @@ function Sync(){
 function SyncTabs(){
 
 return (
-  <>
-    <ul className="tabs tabs-fixed-width tab-demo z-depth-1 cyan">
+  <React.Fragment>
+    <br />
+    <br />
+    <br />
+
+    <ul className="tabs tabs-fixed-width tab-demo z-depth-1 theme-bkg-color">
       <li className="tab">
         <a className="active white-text" href="#lesson-tab">
-          Lesson
+          Import/Export Lessons
         </a>
       </li>
       <li className="tab">
         <a className=" white-text" href="#lang-tab">
-          Language
+          Import/Export Language(s)
         </a>
       </li>
       <li className="tab">
         <a className=" white-text" href="#tool-tab">
-          Tool
+          Import/Export Icons
         </a>
       </li>
       <li className="tab">
         <a className=" white-text" href="#upload-tab">
-          Upload
+          Upload Images and Audio,
         </a>
       </li>
     </ul>
@@ -61,7 +65,7 @@ return (
     <div id="upload-tab" className="col s12">
       <Upload />
     </div>
-  </>
+  </React.Fragment>
 );
 
 
@@ -72,29 +76,36 @@ return (
 function LangSync(){
 
     return (
-        <div className='col m12 offset-m3'>
-
-
-            <div className="col">
-                <button className="btn" onClick={e => exportLanguages()}>
-                    Export Languages
-        <i className="material-icons" >save_alt</i>
-                </button>
-            </div>
-
-            <div className="col">
-
-                <button className="btn" onClick={e => importLanguages()}>
-                    import Languages
-        <i className="material-icons" >cloud_upload</i>
-                </button>
-            </div>
-
-            <div className="col">
-                <a target="_blank" download="proposed_file_name" href='http://localhost:4000/exports/languages.json'>Download</a>
-            </div>
+      <div className="col m12 offset-m3">
+        <div className="col">
+          <button className="btn" onClick={e => exportLanguages()}>
+            Export Languages
+            <i className="material-icons">save_alt</i>
+          </button>
         </div>
-    )
+
+        <div className="col">
+          <button className="btn" onClick={e => importLanguages()}>
+            import Languages
+            <i className="material-icons">cloud_upload</i>
+          </button>
+        </div>
+
+        <div className="col">
+          <button className="btn">
+            <a
+              target="_blank"
+              className="white-text"
+              download="proposed_file_name"
+              href="http://localhost:4000/exports/languages.json"
+            >
+              Download
+            </a>
+            <i className="material-icons">cloud_upload</i>
+          </button>
+        </div>
+      </div>
+    );
 
 }
 
@@ -102,27 +113,36 @@ function LangSync(){
 function LessonSync(){
 
 return (
-    <div className='col m12 '>
-        <div className="col">
-            <button className="btn" onClick={e => exportLessons()}>
-                Export Lessons
-        <i className="material-icons" >save_alt</i>
-             </button>
-            </div>
-
-            <div className="col">
-
-            <button className="btn" onClick={e => importLessons()}>
-                import Lessons
-        <i className="material-icons" >cloud_upload</i>
-                </button>
-                </div>
-
-                <div className="col">
-            <a target="_blank" download="proposed_file_name" href='http://localhost:4000/exports/lessons.json'>Download</a>
-                </div>
+  <div className="col m12 ">
+    <div className="col">
+      <button className="btn" onClick={e => exportLessons()}>
+        Export Lessons
+        <i className="material-icons">save_alt</i>
+      </button>
     </div>
-)
+
+    <div className="col">
+      <button className="btn" onClick={e => importLessons()}>
+        import Lessons
+        <i className="material-icons">cloud_upload</i>
+      </button>
+    </div>
+
+    <div className="col">
+      <button className="btn" >
+        <a
+          target="_blank"
+          className='white-text'
+          download="proposed_file_name"
+          href="http://localhost:4000/exports/lessons.json"
+        >
+          Download
+        </a>
+        <i className="material-icons">cloud_upload</i>
+      </button>
+    </div>
+  </div>
+);
 
 
 }
@@ -133,27 +153,36 @@ return (
 function ToolSync() {
 
     return (
-        <div className='col m12 offset-m6'>
-            <div className="col">
-                <button className="btn" onClick={e => exportTools()}>
-                    Export Tools
-        <i className="material-icons" >save_alt</i>
-                </button>
-            </div>
-
-            <div className="col">
-
-                <button className="btn" onClick={e => importTools()}>
-                    import Tools
-        <i className="material-icons" >cloud_upload</i>
-                </button>
-            </div>
-
-            <div className="col">
-                <a target="_blank" download="proposed_file_name" href='http://localhost:4000/exports/tool.json'>Download</a>
-            </div>
+      <div className="col m12 offset-m6">
+        <div className="col">
+          <button className="btn" onClick={e => exportTools()}>
+            Export Icons
+            <i className="material-icons">save_alt</i>
+          </button>
         </div>
-    )
+
+        <div className="col">
+          <button className="btn" onClick={e => importTools()}>
+            import Icons
+            <i className="material-icons">cloud_upload</i>
+          </button>
+        </div>
+
+        <div className="col">
+            <button className="btn">
+              <a
+                target="_blank"
+                className="white-text"
+                download="proposed_file_name"
+                href="http://localhost:4000/exports/tool.json"
+              >
+                Download
+              </a>
+              <i className="material-icons">cloud_upload</i>
+            </button>
+        </div>
+      </div>
+    );
 
 
 }

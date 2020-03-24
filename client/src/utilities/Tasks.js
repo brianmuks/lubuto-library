@@ -1,8 +1,5 @@
 import { HOST_URL } from "./constants";
 
-
-
-
 export const getUrlParam = param=>{
     const urlParams = getUrlParams();
     return urlParams.get(param);
