@@ -1,10 +1,13 @@
-import React, { Fragment, useEffect,useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import M from "materialize-css";
 import { uploadImage } from "../../utilities/upload";
 import { withTracker } from "meteor/react-meteor-data";
 import { HOST_URL } from "../../utilities/constants";
 import { deleteFile } from "./methods";
 import { generateFileUrl } from "../../utilities/Tasks";
+import Message from "meteor-import-antd/Message";
+import Spin from "meteor-import-antd/Spin";
+
 
 const Images = new FilesCollection({ collectionName: "Images" });
 
@@ -14,22 +17,42 @@ function Upload({ files }) {
   const [imageSrc, setImageSrc] = useState(null);
   const [file, saveFile] = useState(null);
   const [targetId, setTargetId] = useState(null);
+  const [isWorking, setIsWorking] = useState(null);
 
-    useEffect(()=>{
-        console.log(files,'files')
-    },[files]);
+  useEffect(() => {
+    console.log(files, 'files')
+  }, [files]);
 
 
   const done = ({ _id, currentFileId }) => {
-    file &&
-      uploadImage({
-        image: file,
-        collection: null,
-        _id,
-        currentFileId,
-        transferComplete
-      });
+
+    if (!file) return;
+
+    setIsWorking(true);
+
+    uploadImage({
+      image: file,
+      collection: null,
+      _id,
+      currentFileId,
+      transferComplete,
+      transferFailed,
+      updateProgress
+    });
   };
+
+
+
+  const updateProgress = (loaded, computed) => {
+    console.log('updateProgress():data', loaded, computed);
+    //    Message.success("Sorry, Search key word short");
+  }
+
+
+  const transferFailed = () => {
+    setIsWorking(false);
+    Message.warning("Sorry, Failed to upload file");
+  }
 
   const previewFile = e => {
     const file = e.target.files[0];
@@ -59,55 +82,59 @@ function Upload({ files }) {
     saveSrc(null);
     saveFile(null);
     setTargetId(null);
-    M.toast({ html: "file uploaded!" });
+    setIsWorking(false);
+    Message.success("File successfully uploaded!");
+
   };
 
   return (
     <div className="row">
       <h5 className="center">Upload files</h5>
-      <RenderFileUpload onChange={previewFile} upload={done} />
-      <div className="card-image center">
+
+      <RenderFileUpload isWorking={isWorking} onChange={previewFile} upload={done} />
+      <div className="cardSorry, Search key word short-image center">
         <img width={250} height={250} src={imageSrc} className="d-news-img" />
       </div>
 
       <div className='col m11 '>
-          <h4 className='center'>Files</h4>
-          <hr className='cyan' />
+
+        <h4 className='center'>Files</h4>
+        <hr className='cyan' />
         <RenderFiles files={files} />
       </div>
     </div>
   );
 }
 
-function RenderFiles({files}){
+function RenderFiles({ files }) {
 
-    const removeFile = ({file})=>{
+  const removeFile = ({ file }) => {
 
-        const status = confirm(
-          "Are you sure you want to delete this item"
-        );
-
-      const _id = file._id;
-     status &&
-       _id &&
-       deleteFile({ _id })
-         .then(resp => {
-           console.log(resp);
-           M.toast({ html: `${file.name} deleted` });
-         })
-         .catch(err => {
-           console.log(err);
-           M.toast({ html: "Sorry error occured !" });
-         });
-
-      
-}
-    return files.map(
-      file =>
-        (file.isImage && (
-          <RenderImage removeFile={removeFile} file={file} />
-        )) || <RenderAudio removeFile={removeFile} file={file} />
+    const status = confirm(
+      "Are you sure you want to delete this item"
     );
+
+    const _id = file._id;
+    status &&
+      _id &&
+      deleteFile({ _id })
+        .then(resp => {
+          console.log(resp);
+          M.toast({ html: `${file.name} deleted` });
+        })
+        .catch(err => {
+          console.log(err);
+          M.toast({ html: "Sorry error occured !" });
+        });
+
+
+  }
+  return files.map(
+    file =>
+      (file.isImage && (
+        <RenderImage removeFile={removeFile} file={file} />
+      )) || <RenderAudio removeFile={removeFile} file={file} />
+  );
 }
 
 function RenderImage({ file, removeFile }) {
@@ -172,10 +199,14 @@ function RenderAudio({ file, removeFile }) {
 }
 
 
-function RenderFileUpload({ onChange, upload }) {
+function RenderFileUpload({ onChange, upload, isWorking }) {
   return (
     <div className="container">
       <div className="file-field input-field ">
+        <div className="col m-6 push-right">
+          {isWorking && <Spin size="large" color="green" wrapperClassName="green" />}
+
+        </div>
         <div className="">
           <span className="center col">Upload file</span>
           <input type="file" onChange={onChange} id="file-upload" />
@@ -196,7 +227,7 @@ export default withTracker(() => {
   Meteor.subscribe("langs");
   Meteor.subscribe("users");
   return {
-    files: Images.find({}, { sort: { extension: 1 } }).fetch()
+    files: Images.find({}, { sort: { 'meta.createdAt': -1 }, limit: 5 }).fetch()
   };
 })(Upload);
 
