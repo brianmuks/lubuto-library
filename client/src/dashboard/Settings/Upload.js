@@ -16,8 +16,10 @@ function Upload({ files }) {
   const [prevSrc, saveSrc] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
   const [file, saveFile] = useState(null);
+  const [targetFiles, saveTargetFiles] = useState(null);
   const [targetId, setTargetId] = useState(null);
   const [isWorking, setIsWorking] = useState(null);
+  const [filesCount, setFilesCount] = useState(0);
 
   useEffect(() => {
     console.log(files, 'files')
@@ -26,19 +28,26 @@ function Upload({ files }) {
 
   const done = ({ _id, currentFileId }) => {
 
-    if (!file) return;
+    if (!targetFiles) return;
 
     setIsWorking(true);
 
-    uploadImage({
-      image: file,
-      collection: null,
-      _id,
-      currentFileId,
-      transferComplete,
-      transferFailed,
-      updateProgress
-    });
+    for (let index = 0; index < targetFiles.length; index++) {
+      const _file = targetFiles[index];
+
+      uploadImage({
+        image: _file,
+        collection: null,
+        _id,
+        currentFileId,
+        transferComplete,
+        transferFailed,
+        updateProgress
+      });
+
+    }
+
+
   };
 
 
@@ -56,10 +65,14 @@ function Upload({ files }) {
 
   const previewFile = e => {
     const file = e.target.files[0];
+    const files = e.target.files;
+    const fileCount = files.length;
     saveFile(file);
+    saveTargetFiles(files);
     if (file) {
       const src = URL.createObjectURL(file);
       setImageSrc(src);
+      setFilesCount(fileCount)
       //   targetElem.src = src;
       $(".d-news-img").attr("src", src);
     }
@@ -89,7 +102,7 @@ function Upload({ files }) {
 
   return (
     <div className="row">
-      <h5 className="center">Upload files</h5>
+      <h5 className="center">Upload files ({filesCount})</h5>
 
       <RenderFileUpload isWorking={isWorking} onChange={previewFile} upload={done} />
       <div className="cardSorry, Search key word short-image center">
@@ -209,7 +222,7 @@ function RenderFileUpload({ onChange, upload, isWorking }) {
         </div>
         <div className="">
           <span className="center col">Upload file</span>
-          <input type="file" onChange={onChange} id="file-upload" />
+          <input type="file" multiple={true} onChange={onChange} id="file-upload" />
         </div>
         <div className="file-path-wrapper">
           <input className="file-path validate" type="text" />
