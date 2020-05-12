@@ -219,7 +219,7 @@ export const copPage = ({ lessonNumber, lessonPageNumber, lang, newLangs }) => {
 
 
 
-export const playAudio = audioFile => {
+export const playAudio = async audioFile => {
     console.log(audioFile, "audioFile");
 
     if (!audioFile) {
@@ -229,7 +229,7 @@ export const playAudio = audioFile => {
 
     var audio = document.getElementById("audio");
     audio.src = generateFileUrl({ file: audioFile });
-    audio.play();
+    await audio.play();
 }
 
 export const getResourceEditorStyles = () => (
