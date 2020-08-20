@@ -1,4 +1,4 @@
-import React, { useContext, useEffect,useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { COL_TOOLS } from "../../../../lib/Collections";
 import { withTracker } from "meteor/react-meteor-data";
@@ -6,65 +6,65 @@ import { TOOLS_STATE } from "./../d-context";
 import { addTool } from "./../d-redux/actions/lessonActions";
 import { editLesson, saveLesson } from "./methods";
 import { ALPHABET } from "../../utilities/constants";
-import ImageList, {  MODAL_ID as ImageList_MODAL_ID,  openImageList,  } from "./ImageList";
+import ImageList, { MODAL_ID as ImageList_MODAL_ID, openImageList, } from "./ImageList";
 
 function Tools(props) {
   const { state, dispatch } = useContext(TOOLS_STATE);
-  const [lessonId,setLessonId] = useState(null);
+  const [lessonId, setLessonId] = useState(null);
 
-console.log('props',props);
+  console.log('props', props);
 
   useEffect(() => {
     // initModal('#' + MODAL_ID);
     // _openImageList()
   })
 
-  const _openImageList = ()=>{
+  const _openImageList = () => {
     openImageList()
   }
 
-    const onImageSelect =(file,index)=>{
+  const onImageSelect = (file, index) => {
 
-      // let dotIndex = path.indexOf('.');
-      // dotIndex = dotIndex > 10 && 10 || dotIndex;
+    // let dotIndex = path.indexOf('.');
+    // dotIndex = dotIndex > 10 && 10 || dotIndex;
 
-      // console.log(index,path);
-      
-      // const label = path.toString().substr(0, dotIndex);
-      dispatch(
-        addTool(
-          {
-            name: "add_a_photo",
-            label:file.name,
-            path: `${file._id}${file.extensionWithDot}`,
-            type: "image",
-            _id: new Meteor.Collection.ObjectID().valueOf()
-          },
-          Math.random() + index + Math.random()
-        )
-      );//avaoid acceidentally generating the same index as icons tools
+    // console.log(index,path);
+
+    // const label = path.toString().substr(0, dotIndex);
+    dispatch(
+      addTool(
+        {
+          name: "add_a_photo",
+          label: file.name,
+          path: `${file._id}${file.extensionWithDot}`,
+          type: "image",
+          _id: new Meteor.Collection.ObjectID().valueOf()
+        },
+        Math.random() + index + Math.random()
+      )
+    );//avaoid acceidentally generating the same index as icons tools
+  }
+
+  const preview = ev => {
+    ev.preventDefault()
+  }
+  const _saveLesson = ev => {
+    //  alert(lessonId)
+
+    if (lessonId !== null) {
+      //user has already saved. the lesson should be updated this time around
+      editLesson({ lesson: state.staggedTools, meta: state.meta, lessonId })
+      return;
     }
 
-    const preview = ev =>{
-      ev.preventDefault()
-      }
-      const _saveLesson  = ev =>{
-      //  alert(lessonId)
+    saveLesson(state.staggedTools, state.meta)
+      .then(_id => {
+        setLessonId(_id)
+      })
+      .catch(err => {
 
-        if (lessonId !== null) {
-          //user has already saved. the lesson should be updated this time around
-          editLesson({ lesson: state.staggedTools, meta: state.meta, lessonId })
-          return;
-        }
-
-        saveLesson(state.staggedTools, state.meta)
-        .then(_id=>{
-          setLessonId(_id)
-        })
-        .catch(err=>{
-
-        });
-      }
+      });
+  }
 
 
   return (
@@ -74,7 +74,7 @@ console.log('props',props);
       {/* <button className="btn right red" onClick={_openImageList}>Click me</button> */}
 
       <ul id="slide-out" className="sidenav  sidenav-fixed">
-        <li onClick={e => props.isEdit ? editLesson({ lesson: state.staggedTools, meta: state.meta, lessonId: props.lessonId}) : _saveLesson(e)}>
+        <li onClick={e => props.isEdit ? editLesson({ lesson: state.staggedTools, meta: state.meta, lessonId: props.lessonId }) : _saveLesson(e)}>
           <button className="btn right red">{props.isEdit && `Update` || 'Save'}</button>
           <div className="user-view ">
             <a href="#email">
@@ -93,7 +93,7 @@ console.log('props',props);
         <li>
           <div className="divider" />
         </li>
-        <RenderalSpecialTools _openImageList={_openImageList}/>
+        <RenderalSpecialTools _openImageList={_openImageList} />
         <li>
           <div className="divider" />
         </li>
@@ -113,7 +113,7 @@ function RenderTools(props) {
     <li
       key={index}
       onClick={() => {
-        dispatch(addTool({ ...tool, type: 'icon'}, Math.random() + index));
+        dispatch(addTool({ ...tool, type: 'icon' }, Math.random() + index));
       }}
     >
       <a href="#!">
@@ -131,34 +131,35 @@ function Renderalphabet(props) {
   });
 
   return ALPHABET.map((tool, index) => (
-      <a 
+    <a
       className=' col m2'
       key={index}
       onClick={() => {
         dispatch(addTool({
-          ...tool,type:'icon', _id: new Meteor.Collection.ObjectID().valueOf()
+          ...tool, type: 'icon', _id: new Meteor.Collection.ObjectID().valueOf()
         }, Math.random() + index));
       }}
       href="#!">
-        <i className="material-icons">{tool.name}</i>
-      </a>
-  
+      <i className="material-icons">{tool.name}</i>
+    </a>
+
   ));
 }
 
 
 function RenderalSpecialTools() {
+
   const { state, dispatch } = useContext(TOOLS_STATE);
   const specialTools = [
-    { name:'sort_by_alpha',label:'Text',type:'text',text:'Some text to be edited'},
-    { name:'add_a_photo',label:'Image',type:'image',link:'some link'},
-    { name:'remove',label:'Blank Line',type:'line',link:'some link'},
+    { name: 'sort_by_alpha', label: 'Text', type: 'text', text: 'Some text to be edited', style: { 'font-size': '30px' } },
+    { name: 'add_a_photo', label: 'Image', type: 'image', link: 'some link' },
+    { name: 'remove', label: 'Blank Line', type: 'line', link: 'some link' },
   ];
   return specialTools.map((tool, index) => (
     tool.type === 'image' && <RenderImageTool tool={tool} key={index} index={index} /> ||
     <li
       key={index}
-      onClick={()=>{
+      onClick={() => {
         dispatch(addTool(tool, Math.random() + index));
       }}
     >
@@ -169,7 +170,7 @@ function RenderalSpecialTools() {
     </li>
   ));
 
-  function RenderImageTool({tool,index}){
+  function RenderImageTool({ tool, index }) {
     return <li
       key={index}
     >

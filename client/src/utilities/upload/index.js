@@ -28,7 +28,7 @@ export const uploadImage = ({ image, collection, currentFileId, _id, updateProgr
   if (Meteor.isProduction) {
     xhr.open("POST", `https://lubutoliteracy.org/api/upload`);
   } else {
-    xhr.open("POST", `http://192.168.8.100:3000/api/upload`);
+    xhr.open("POST", `http://192.168.8.101:3000/api/upload`);
   }
 
   // console.warn(http://${url}/api/upload);

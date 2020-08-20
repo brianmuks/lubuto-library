@@ -14,20 +14,31 @@ import './Stats/publications'
 import './Constants'
 import "./fileUpload/MediaUpload";
 import "./fileUpload/ResultCodes";
+import { FILE_SERVER_PATH } from './Constants'
 
+fs = Npm.require('file-system');//file system(fs)
 
 
 Meteor.startup(() => {
+
+
+    if (!fs.existsSync(FILE_SERVER_PATH)) {
+        // removed the forward slash to not confuse it with the root files
+
+        fs.mkdirSync(FILE_SERVER_PATH);
+    }
+
+
     if (!COL_Centers.find().count()) {
-       
+
         const _centers = [
-            {name: 'Garden '},
-            {name: 'Mtunzi'},
-            {name: 'Choma'},
-            {name: 'anonymous'}
+            { name: 'Garden ' },
+            { name: 'Mtunzi' },
+            { name: 'Choma' },
+            { name: 'anonymous' }
         ]
         // insert centers
-       // _centers.forEach((center => COL_Centers.insert(center)))
-        
+        // _centers.forEach((center => COL_Centers.insert(center)))
+
     }
 })

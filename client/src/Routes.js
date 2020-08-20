@@ -25,6 +25,7 @@ import Home from "./student/Home";
 import ViewLessonPages from "./dashboard/d-lesson/ViewLessonPages";
 import Landing from "./dashboard/Landing";
 import Settings from "./dashboard/Settings";
+import ManageMedia from "./dashboard/Settings/ManageMedia";
 
 // Only here for prototyping
 const adminRole = "admin";
@@ -45,16 +46,16 @@ const Routes = () => (
         component={CreateLesson}
       />
       <Route
-          exact
-          path="/dashboard/register"
-          component={() => <Register role={adminRole}/>}
+        exact
+        path="/dashboard/register"
+        component={() => <Register role={adminRole} />}
       />
 
 
-         <Route
-          exact
-          path="/dashboard/language_selector"
-          component={LanguageSelector}
+      <Route
+        exact
+        path="/dashboard/language_selector"
+        component={LanguageSelector}
       />
 
       <Route
@@ -72,25 +73,33 @@ const Routes = () => (
         exact
         path="/dashboard/create_lesson_type"
         component={CreateLessonSelector}
-      /> 
+      />
       <Route
-      exact
-      path="/dashboard/view_lessons/"
-      component={ViewLessons}
-      
-    />
-      <Route
-      exact
-      path="/dashboard/view_lesson_pages/"
-      component={ViewLessonPages}
-      
-    />
+        exact
+        path="/dashboard/view_lessons/"
+        component={ViewLessons}
 
-    <Route
-      exact
-      path="/dashboard/edit_lesson/:id"
-      component={EditLesson}
-    />
+      />
+      <Route
+        exact
+        path="/dashboard/settings/media-files"
+        component={ManageMedia}
+
+      />
+
+
+      <Route
+        exact
+        path="/dashboard/view_lesson_pages/"
+        component={ViewLessonPages}
+
+      />
+
+      <Route
+        exact
+        path="/dashboard/edit_lesson/:id"
+        component={EditLesson}
+      />
 
       <User exact role={"user"} path="/" component={Home} />
       <User exact role={"user"} path="/lessons" component={StudentLesson} />
@@ -99,14 +108,14 @@ const Routes = () => (
 
       {/* <Route path="/add_icons" component={IconEditor} /> */}
       <Route path='/login' component={Login} />
-      <Route path='/register' component={() => <Register role={userRole}/>} />
+      <Route path='/register' component={() => <Register role={userRole} />} />
 
       <Route path='/dashboard/user/:id' component={UserProfile} />
       <Route path='/dashboard/users/' component={Users} />
       <Route path='/dashboard/stats' component={LessonStats} />
       <Route path='/dashboard/lesson_prev' component={LessonPreview} />
-  
-  
+
+
       <Route component={NotFound} />
     </Switch>
   </Router>

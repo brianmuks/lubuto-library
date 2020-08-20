@@ -11,11 +11,10 @@ const _collections = {
 
 // removed the forward slash to not confuse it with the root files
 const path = FILE_SERVER_PATH; //NOTE: meant to save away from the app folder
-// const path = `${process.env.PWD}/citiride/assets/Images`
 
-if (!fs.existsSync(path)) {
-    fs.mkdirSync(path);
-}
+// if (!fs.existsSync(path)) {
+//     fs.mkdirSync(path);
+// }
 
 export const fileDb = new FilesCollection({
     collectionName: 'Images',
@@ -134,7 +133,7 @@ Picker.route('/api/upload', (params, req, res, next) => {
                         // return(RESULT_CODES[0])
                     } else {
                         console.log('upload data=', _uploadData);
-                        const path = _uploadData.versions.original.path;
+                        // const path = _uploadData.versions.original.path;
                         const mediaId = _uploadData._id;
                         file = fileDb.findOne({ _id: mediaId });
                         let mediaUri = file.link();
@@ -148,20 +147,20 @@ Picker.route('/api/upload', (params, req, res, next) => {
                             // // mediaUri = mediaUri.replace('localhost', '192.168.8.');
                             // console.log('mediaUri', mediaUri, mediaId,serverIP);
                         }
-                        _fs.unlink(req.file.path, err => console.log('Err removing old files', err)); // remove temp upload
+                        //  _fs.unlink(req.file.path, err => console.log('Err removing old files', err)); // remove temp upload
 
 
                         if (_collections[coll]) {//validate collection
                             // fileDb.remove({ _id: currentFileId });
 
 
-                            fileDb.remove({ _id: currentFileId }, (error) => {
-                                if (error) {
-                                    console.error(`File wasn't removed, error:  ${error.reason} ${currentFileId}`);
-                                } else {
-                                    console.info('File successfully removed', currentFileId);
-                                }
-                            });
+                            // fileDb.remove({ _id: currentFileId }, (error) => {
+                            //     if (error) {
+                            //         console.error(`File wasn't removed, error:  ${error.reason} ${currentFileId}`);
+                            //     } else {
+                            //         console.info('File successfully removed', currentFileId);
+                            //     }
+                            // });
 
 
                             //update request

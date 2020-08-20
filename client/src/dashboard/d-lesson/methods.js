@@ -242,6 +242,7 @@ export const getResourceEditorStyles = () => (
         , { name: 'width', label: 'Container Width' },
         { name: 'height', label: 'Container Height' },
         { name: 'width', label: 'Width' },
-        { name: 'height', label: 'Height' }
+        { name: 'height', label: 'Height' },
+        { name: 'border-radius', label: 'Radius' }
     ]
 )

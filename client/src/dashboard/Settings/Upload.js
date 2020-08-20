@@ -7,9 +7,11 @@ import { deleteFile } from "./methods";
 import { generateFileUrl } from "../../utilities/Tasks";
 import Message from "meteor-import-antd/Message";
 import Spin from "meteor-import-antd/Spin";
+import { COL_MEDIA } from '../../common/lib/'
+import RenderImage from "./RenderImage";
+import RenderAudio from "./RenderAudio";
 
 
-const Images = new FilesCollection({ collectionName: "Images" });
 
 function Upload({ files }) {
   const [targetElem, setTargetElem] = useState(null);
@@ -145,71 +147,14 @@ function RenderFiles({ files }) {
   return files.map(
     file =>
       (file.isImage && (
-        <RenderImage removeFile={removeFile} file={file} />
-      )) || <RenderAudio removeFile={removeFile} file={file} />
+        <RenderImage removeFile={({ file }) => removeFile({ file })} file={file} />
+      )) || <RenderAudio removeFile={({ file }) => removeFile({ file })} file={file} />
   );
 }
 
-function RenderImage({ file, removeFile }) {
-  const src = generateFileUrl({ file });
 
-  const onMouseOver = () => {
-    $(`#${file._id}-del-btn`).removeClass("hide");
-  };
-  const onMouseLeave = () => {
-    $(`#${file._id}-del-btn`).addClass("hide");
-  };
 
-  return (
-    <div
-      className="col m4"
-      onMouseLeave={onMouseLeave}
-      onMouseOver={onMouseOver}
-    >
-      <span
-        onClick={() => removeFile({ file })}
-        className="red-text right hide cursor"
-        id={`${file._id}-del-btn`}
-      >
-        X
-      </span>
-      <img width={50} height={50} src={src} />
-      <p className="grey-text">{file.name}</p>
-    </div>
-  );
-}
 
-function RenderAudio({ file, removeFile }) {
-  const src = generateFileUrl({ file });
-
-  const onMouseOver = () => {
-    $(`#${file._id}-del-btn`).removeClass("hide");
-  };
-  const onMouseLeave = () => {
-    $(`#${file._id}-del-btn`).addClass("hide");
-  };
-
-  return (
-    <div
-      className=" col m4"
-      onMouseLeave={onMouseLeave}
-      onMouseOver={onMouseOver}
-    >
-      <span
-        onClick={() => removeFile({ file })}
-        className="red-text right hide cursor"
-        id={`${file._id}-del-btn`}
-      >
-        X
-      </span>
-      <audio controls>
-        <source src={src} type={`audio/${file.ext}`} />
-        Your browser does not support the audio element.
-      </audio>
-      <p className="grey-text ">{file.name}</p>
-    </div>
-  );
-}
 
 
 function RenderFileUpload({ onChange, upload, isWorking }) {
@@ -240,7 +185,7 @@ export default withTracker(() => {
   Meteor.subscribe("langs");
   Meteor.subscribe("users");
   return {
-    files: Images.find({}, { sort: { 'meta.createdAt': -1 }, limit: 5 }).fetch()
+    files: COL_MEDIA.find({}, { sort: { 'meta.createdAt': -1 }, limit: 5 }).fetch()
   };
 })(Upload);
 

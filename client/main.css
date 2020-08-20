@@ -358,3 +358,18 @@ bottom: 0 !important;
 .theme-bkg-color{
   background-color: #507156 !important;
 }
+
+
+.infinite-container {
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    overflow: auto;
+    padding: 8px 24px;
+    height: 300px;
+}
+.loading-container {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    text-align: center;
+}
