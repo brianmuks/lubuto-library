@@ -12,6 +12,7 @@ function Pages({ pages, match}) {
   useEffect(()=>{
     setPages(pages)
   }, [pages]);
+  
 
   return (
     <div className="  staged-resource pages-container">
