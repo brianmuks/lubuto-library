@@ -152,7 +152,7 @@ function RenderText({ tool, playAudio }) {
       className={`  added-tool${tool.index} `}
       id={`added-tool${tool.index}`}
     >
-      <i className="l-tool-text " style={tool.style}>
+      <i className="l-tool-text " style={{ ...tool.style, width: "200px" }}>
         <code>{tool.text}</code>
       </i>
     </div>
