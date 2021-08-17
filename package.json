@@ -12,9 +12,10 @@
   "dependencies": {
     "@babel/runtime": "^7.1.2",
     "antd": "^4.1.5",
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^3.0.8",
     "file-system": "^2.2.2",
     "fs": "0.0.1-security",
+    "indexof": "0.0.1",
     "materialize-css": "^1.0.0-rc.2",
     "meteor-import-antd": "^1.2.1",
     "meteor-node-stubs": "^0.4.1",

@@ -31,9 +31,9 @@ function Lessons({lessons,match}) {
       <Link to={'/language_selector/?n=lessons'} className="btn right blue">Lessons</Link>
       <Link to={'/'} className="btn right cyan">Home</Link>
       <ul id="slide-out" className="sidenav  sidenav-fixed">
-        <li className='row'>
+        {/* <li className='row'>
           <Renderalphabet />
-        </li>
+        </li> */}
         <li>
           <a href="#!" className='teal-text'><h4>Lessons</h4></a>
         </li>
@@ -44,10 +44,10 @@ function Lessons({lessons,match}) {
         <li>
           <div className="divider" />
         </li>
-
+{/* 
         <li className='row numbers-list'>
           <RenderaNumbers />
-        </li>
+        </li> */}
 
       </ul>
 
