@@ -36,8 +36,14 @@ export const playAudio = async audioFile => {
     }
     var audio = document.getElementById("audio");
     // const src = AUDIO_URL + LANG + '/' + audioFile;
-    audio.src = generateFileUrl({ file: audioFile });
-    await audio.play()
+   const src =  generateFileUrl({ file: audioFile });
+    console.log(" src && ",src);
+
+    if (src.indexOf('undefined') == -1){
+            audio.src = src;
+            await audio.play();
+    } 
+
 }
 
 export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
