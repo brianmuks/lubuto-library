@@ -171,7 +171,7 @@ function RenderLine({ tool, playAudio }) {
       {/* <i className="l-tool-text" style={tool.style}>{tool.text}</i> */}
       <i
         className="material-icons"
-        style={{textAlign:'center',  width: "100px", height: "10px", ...tool.style }}
+        style={{textAlign:'center',  width: "100px", height: "10px", ...tool.style,fontSize:"0px" }}
       >
         <hr style={{ width: "inherit", height: "inherit" }} />
       </i>
