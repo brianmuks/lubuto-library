@@ -52,6 +52,7 @@ export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
         playAudio(NO_SOUND);
         //{ MinimongoError: Key question.[object Object] must not contain '.'
         recordAttempt({ questionIndex, lessonId, passed: false });
+ onAfterDrop({ isAdd: false });
 
         // TODO:placyAudio  
         return;
@@ -79,16 +80,10 @@ export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
     }
     ev.target.appendChild(draggedItem);
 
+ onAfterDrop({isAdd:false});
 
-        const dropZones = document.getElementsByClassName("drop-zone");
 
-        for (let i of dropZones) {
-          const parent = i.children[0];
-          const line = parent.children[0];
-          console.log("onDragStart", parent.children[0].children[0]);
-
-          line.children[0].classList.remove("drop-zone-height");
-        }
+     
 
     // console.log('ondrop', );
 }
@@ -117,14 +112,23 @@ export const onDragStart = (ev, question, setDraggedQuestion) => {
     setDraggedQuestion(question)
     // ev.target.style.display = "none";
 
-    const dropZones = document.getElementsByClassName("drop-zone");
+ onAfterDrop({});
 
-    for (let i of dropZones) {
-      const parent = i.children[0];
-      const line = parent.children[0];
-      console.log("onDragStart", parent.children[0].children[0]);
+}
 
-      line.children[0].classList.add("drop-zone-height");
-    }
+
+
+const onAfterDrop = ({isAdd=true})=>{
+
+       const dropZones = document.getElementsByClassName("drop-zone");
+       for (let i of dropZones) {
+         const parent = i.children[0];
+         const line = parent.children[0];
+        //  console.log("onDragStart", parent.children[0].children[0]);
+
+       isAdd
+         ? line.children[0].classList.add("drop-zone-height")
+         : line.children[0].classList.remove("drop-zone-height");
+       }
 
 }
