@@ -84,7 +84,7 @@ export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
     if (draggedQuestion.type == 'text') {
         // draggedItem = `<code>${draggedItem}</code>`
     }
-     ev.target.style['font-size'] = '0px';
+    //  ev.target.style['font-size'] = '0px';
     ev.target.appendChild(draggedItem);
 
  onAfterDrop({isAdd:false});
