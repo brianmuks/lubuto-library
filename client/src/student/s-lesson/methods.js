@@ -52,7 +52,7 @@ export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
         playAudio(NO_SOUND);
         //{ MinimongoError: Key question.[object Object] must not contain '.'
         recordAttempt({ questionIndex, lessonId, passed: false });
- onAfterDrop({ isAdd: false });
+//  onAfterDrop({ isAdd: false });
 
         // TODO:placyAudio  
         return;
@@ -80,7 +80,7 @@ export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
     }
     ev.target.appendChild(draggedItem);
 
- onAfterDrop({isAdd:false});
+//  onAfterDrop({isAdd:false});
 
 
      
@@ -105,6 +105,11 @@ export const onDrag = (ev) => {
   
 
 }
+
+export const onDragEnd = (ev) => {
+  console.log("onDragEnd");
+  onAfterDrop({isAdd:false});
+};
 
 
 export const onDragStart = (ev, question, setDraggedQuestion) => {
