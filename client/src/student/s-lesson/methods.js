@@ -79,6 +79,7 @@ export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
     draggedItem.style = `bottom:30px;position:relative;`;
     childElem.style = `padding:0px ; 
     position:relative;
+    color:black;
     margin: 0 auto`;
 
     if (draggedQuestion.type == 'text') {
