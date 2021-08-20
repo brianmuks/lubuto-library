@@ -67,12 +67,28 @@ export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
     const data = ev.dataTransfer.getData("text");
     let draggedItem = document.getElementById(data);
 
-    draggedItem.style = `color:red;bottom:3git 0px;position:absolute;left:${left}px;top:-15px`
+    const childElem = draggedItem.children[0].children[0].children[0];
+
+    draggedItem.style = `bottom:30px;position:relative;`;
+    childElem.style = `padding:0px ; 
+    position:relative;
+    margin: 0 auto`;
 
     if (draggedQuestion.type == 'text') {
         // draggedItem = `<code>${draggedItem}</code>`
     }
     ev.target.appendChild(draggedItem);
+
+
+        const dropZones = document.getElementsByClassName("drop-zone");
+
+        for (let i of dropZones) {
+          const parent = i.children[0];
+          const line = parent.children[0];
+          console.log("onDragStart", parent.children[0].children[0]);
+
+          line.children[0].classList.remove("drop-zone-height");
+        }
 
     // console.log('ondrop', );
 }
@@ -80,17 +96,35 @@ export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
 
 //TODO: move all to methods
 export const onDragOver = (ev) => {
+
     ev.preventDefault();
     console.log('ondragover');
+
+   
+
 }
 
 export const onDrag = (ev) => {
     console.log('onDrag');
+
+  
+
 }
 
 
 export const onDragStart = (ev, question, setDraggedQuestion) => {
     ev.dataTransfer.setData("text", ev.target.id);
     setDraggedQuestion(question)
-    console.log('onDragStart');
+    // ev.target.style.display = "none";
+
+    const dropZones = document.getElementsByClassName("drop-zone");
+
+    for (let i of dropZones) {
+      const parent = i.children[0];
+      const line = parent.children[0];
+      console.log("onDragStart", parent.children[0].children[0]);
+
+      line.children[0].classList.add("drop-zone-height");
+    }
+
 }
