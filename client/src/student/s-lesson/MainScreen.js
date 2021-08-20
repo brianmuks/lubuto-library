@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 //import { useDragging } from "./ResourceEditor";
 import { STUDENT_LESSON_STATE } from "./../s-context";
 import { IMAGE_EXTERNAL_URL } from "../../utilities/constants";
-import { onDrop, playAudio, onDragOver, onDrag, onDragStart } from "./methods";
+import { onDrop, playAudio, onDragOver, onDrag, onDragStart, onDragEnd } from "./methods";
 import { recordAttempt } from "../s-statistics/methods";
 import { getFileUrl } from "../../utilities/Tasks";
 
@@ -73,7 +73,7 @@ function RenderTools({
   return tools.map((tool, index) => (
     // marginLeft: tool.style.x, marginTop: tool.style.y
     <div
-    className={tool.isAns && 'drop-zone'}
+      className={tool.isAns && "drop-zone"}
       style={
         (tool.style && {
           position: "absolute",
@@ -91,6 +91,7 @@ function RenderTools({
       onDrop={(e) =>
         (tool.isAns && onDrop(e, tool, draggedQuestion, lessonId)) || undefined
       }
+      onDragEnd={tool.isQuestion && onDragEnd}
       onDragOver={(tool.isAns && onDragOver) || undefined}
       onDrag={(tool.isQuestion && onDrag) || undefined}
       onDragStart={(e) =>
