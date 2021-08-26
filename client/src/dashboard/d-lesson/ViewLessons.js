@@ -111,8 +111,7 @@ const urlParams = getUrlParams();
 }
 
 export default withTracker(() => {
-  Meteor.subscribe("lessons");
-  Meteor.subscribe("users");
+  Meteor.subscribe("lesson_numbers");
   const lang = getUrlParam('lang');
   const query = { 'meta.lang': lang, 'meta.lessonPageNumber': 1 };
 

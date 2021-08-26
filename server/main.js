@@ -11,13 +11,14 @@ import './Sync'
 import './Accounts/publications'
 import './Stats/methods'
 import './Stats/publications'
+import "./publications";
 import './Constants'
 import "./fileUpload/MediaUpload";
 import "./fileUpload/ResultCodes";
 import { FILE_SERVER_PATH } from './Constants'
 
 fs = Npm.require('file-system');//file system(fs)
-
+require("dotenv").config();
 
 Meteor.startup(() => {
 
