@@ -85,8 +85,7 @@ export default withTracker((props) => {
   console.log()
   const _id =props.match.params.id;
   const lang =  getUrlParam('lan');
-  Meteor.subscribe("lessons");
-  Meteor.subscribe("users");
+  Meteor.subscribe("lesson", _id);
   return {
     lesson: COL_Lessons.findOne({_id}, { sort: { createdAt: -1 } })
   };

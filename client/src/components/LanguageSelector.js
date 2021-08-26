@@ -96,8 +96,7 @@ const nextPath = getUrlParam('n');
 }
 
 export default withTracker(params => {
-  Meteor.subscribe("users");
-  Meteor.subscribe("userStats");
+  Meteor.subscribe("pub_col_languages");
   return {
     
     langs:COL_LANGUAGES.find(

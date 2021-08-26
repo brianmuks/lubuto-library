@@ -122,8 +122,8 @@ function RenderOptions({ filteredLessons, setlesson, onCopy }) {
 }
 
 export default withTracker(() => {
-  Meteor.subscribe("lessons");
-  Meteor.subscribe("users");
+  Meteor.subscribe("lesson_numbers");
+
   const lang = getUrlParam('lang');
   const lessonNumber = getUrlParam('ln');
   const query = { 'meta.lang': lang, 'meta.lessonNumber': parseInt(lessonNumber) };

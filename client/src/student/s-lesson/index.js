@@ -41,6 +41,9 @@ function StudentLesson(props) {
 
     addStartTime({ lessonId, lang, lessonNumber, lessonPageNumber})
     let x = (props.lesson.content);
+
+    if(!x) return
+
     _setLessonId(props.lesson._id);
     dispatch(setLessonId(props.lesson._id));
     var result = Object.keys(x).map(function (key) {
@@ -74,12 +77,13 @@ function StudentLesson(props) {
 // export default CreateLesson;
 
 export default withTracker(({props}) => {
-  Meteor.subscribe("lessons");
-  Meteor.subscribe("users");
-  const lang = getUrlParam('lang');
-  const _id = getUrlParam('id');
-  const query = _id && {_id} || { 'meta.lang': lang };
+  const lang = getUrlParam("lang");
+  const _id = getUrlParam("id");
+
+  Meteor.subscribe("lesson", _id);
+
+  const query = (_id && { _id }) || { "meta.lang": lang };
   return {
-    lesson: COL_Lessons.findOne({ _id}, { sort: { createdAt: -1 } })
+    lesson: COL_Lessons.findOne({ _id }, { sort: { createdAt: -1 } }),
   };
 })(StudentLesson);

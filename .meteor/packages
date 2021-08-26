@@ -24,7 +24,7 @@ meteortoys:allthings
 zodiase:material-design-icons-fonts 
 static-html
 check@1.3.1
-autopublish@1.0.7
+#autopublish@1.0.7
 #abernix:minifier-js
 jquery
 session

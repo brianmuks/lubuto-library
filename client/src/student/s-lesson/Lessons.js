@@ -143,12 +143,20 @@ function RenderaNumbers(props) {
  * only lessons with pageNumber= 1 are fetched
  * 
  */
-export default withTracker(() => {
-  Meteor.subscribe("col_tools");
-  Meteor.subscribe("users");
-  const lang = getUrlParam('lang');
-  const query = { 'meta.lang': lang,'meta.lessonPageNumber':1 };
+export default withTracker((props) => {
+  Meteor.subscribe("lesson_numbers");
+
+  const _id = getUrlParam("id");
+
+
+  console.log("props.match.params", _id);
+
+  // Meteor.subscribe("lesson", _id);
+  const lang = getUrlParam("lang");
+
+
+  const query = { "meta.lang": lang, "meta.lessonPageNumber": 1 };
   return {
-    lessons: COL_Lessons.find(query).fetch()
+    lessons: COL_Lessons.find(query).fetch(),
   };
 })(Lessons);
