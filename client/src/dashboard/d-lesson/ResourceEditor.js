@@ -9,7 +9,7 @@ import Button from "antd/lib/button";
 import { DeleteOutlined } from "@ant-design/icons";
 import { RenderToolDelegator } from "./MainEditor";
 import RemoveToolModal, { REMOVE_TOOL_MODAL_ID } from "./RemoveToolModal";
-
+import { Input } from "antd";
 const initialState = {
 
 }
@@ -38,7 +38,7 @@ function ResourceEditor({ visibility, onCancel,onDone,onDelete }) {
   const [text, setText] = useState("");
   const [copies, setCopies] = useState(1); //copies to make of the selected tool to be edited
   const [isModalVisible, setIsModalVisible] = useState(visibility);
-  const [_newStyle, setNewStyle] = useState(null);
+  const [_newStyle, setNewStyle] = useState({});
 
   const { staggedTools, editTool } = state;
 
@@ -46,6 +46,9 @@ function ResourceEditor({ visibility, onCancel,onDone,onDelete }) {
   useEffect(() => {
     setText(editTool.text);
     setIsModalVisible(visibility);
+
+    
+
   }, [editTool.text, visibility]);
 
   const onStyleChange = ({ newStyle }) => {
@@ -98,9 +101,10 @@ function ResourceEditor({ visibility, onCancel,onDone,onDelete }) {
         i
     );
     Object.keys(editTool).length && dispatch(editStaggedTools(tools));
+    setNewStyle({});
     onDone && onDone();
 
-    //$('.style-tool-clear').val('');
+    $('.style-tool-clear').val('');
   };
 
   console.log(editTool, "editTool");
@@ -148,7 +152,7 @@ function ResourceEditor({ visibility, onCancel,onDone,onDelete }) {
               <RenderStyleTool
                 onStyleChange={onStyleChange}
                 style={style}
-                stateStyles={editTool.style}
+                stateStyles={_newStyle}
                 _dispatch={_dispatch}
                 label={style.label}
                 name={style.name}
@@ -180,7 +184,6 @@ function ResourceEditor({ visibility, onCancel,onDone,onDelete }) {
           className="waves-effect  modal-trigger waves-light right tooltipped"
         >
           <Button
-          
             style={{ backgroundColor: "red" }}
             type="primary"
             shape="circle"
@@ -215,8 +218,17 @@ function RenderStyleTool({
   console.log(stateStyles, "style");
 
   const initVal = (stateStyles && stateStyles[name]) || "";
-  const [val, setVal] = useState(initVal);
+  const [val, setVal] = useState('');
   //initVal.length && alert(initVal)
+
+
+
+  useEffect(()=>{
+
+
+    
+    
+  },[])
 
   const _onChange = (e) => {
     const formatedStyle = onToolEdit({ name, e });
@@ -226,21 +238,23 @@ function RenderStyleTool({
     onStyleChange && onStyleChange({ newStyle });
   };
 
-  //$(`#${name}`).val(initVal);
+  $(`#${name}`).val(initVal);
   return (
-    <div key={index} className="input-field col s2">
-      <input
+    <React.Fragment key={index} >
+      {/* <input
         id={name}
         defaultValue={initVal}
+        value={val}
         onChange={_onChange}
         type="text"
-        className=" style-tool-clear"
-      />
+        className="style-tool-clear"
+      /> */}
       <label className="active" htmlFor={name}>
         {label}
       </label>
-      {/* {M.updateTextFields()} */}
-    </div>
+      <Input onChange={_onChange} value={val} placeholder={``} />
+
+    </React.Fragment>
   );
 }
 
