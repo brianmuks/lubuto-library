@@ -29,19 +29,20 @@ const initialState = {
 function EditLesson({lesson}) {
   const [state, dispatch] = useReducer(lessonReducer, initialState);
   const [isLessonLoaded, preventLessonReload] = useState(false)
+  const [toolEditorVisibility, setToolEditorVisibility] = useState(false);
 
   let IS_PREVENT_LESSON_RELOAD = false;
 
   useEffect(()=>{
 
-    if (!lesson) {
-      return
+    if (!lesson || !lesson.content) {
+      return;
     }
 
-    let x = (lesson.content);
+    let lessonContent = (lesson.content);
 
-    var result = Object.keys(x).map(function (key) {
-      return x[key];
+    var result = Object.keys(lessonContent).map(function (key) {
+      return lessonContent[key];
     });
     
     lesson && console.log('staggedTools', result)
@@ -64,15 +65,24 @@ function EditLesson({lesson}) {
 
   return (
     <TOOLS_STATE.Provider value={{ state, dispatch }}>
-      <div className='editor-container'>
-
-        <Tools lessonId={lesson && lesson._id} isEdit/>
+      <ResourceEditor
+        onCancel={() => setToolEditorVisibility(false)}
+        onDone={() => setToolEditorVisibility(false)}
+        onDelete={() => setToolEditorVisibility(false)}
+        isEdit
+        visibility={toolEditorVisibility}
+      />
+      <div className="editor-container">
+        <Tools lessonId={lesson && lesson._id} isEdit />
         <LessonNavBar />
+
         <div className="row">
           <ToolConfig isEdit />
-          <MainEditor isEdit />
+          <MainEditor
+            isEdit
+            setToolEditorVisibility={setToolEditorVisibility}
+          />
           <StagedTools isEdit />
-          <ResourceEditor isEdit />
         </div>
       </div>
     </TOOLS_STATE.Provider>

@@ -2,11 +2,12 @@ import React, { useContext, useState } from "react";
 //import { useDragging } from "./ResourceEditor";
 import { TOOLS_STATE } from "./../d-context";
 import Draggable from "react-draggable";
-import { editStaggedTools } from "../d-redux/actions/lessonActions";
+import { editStaggedTools, editTool } from "../d-redux/actions/lessonActions";
 import { AUDIO_URL, IMAGE_EXTERNAL_URL } from "../../utilities/constants";
 import { editLesson, playAudio } from "../../student/s-lesson/methods";
 import { unDo } from "./methods";
 import { getFileUrl } from "../../utilities/Tasks";
+import  Tooltip from "antd/lib/tooltip";
 const LANG = 'kao';  
 
 function MainEditor(props) {
@@ -28,7 +29,10 @@ function MainEditor(props) {
         {/* <source   type="audio/wav" /> */}
       </audio>
       Main Editor <br />
-      <RenderTools dispatch={dispatch} add2EditedTools={add2EditedTools} editedTools={editedTools} playAudio={playAudio} isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
+      <RenderTools  
+      
+      onEditTool={props.setToolEditorVisibility}
+      dispatch={dispatch} add2EditedTools={add2EditedTools} editedTools={editedTools} playAudio={playAudio} isPreview={props.isPreview && true || false} tools={staggedTools} color={color} bgColor={bgColor}/>
     </div>
   );
 }
@@ -59,18 +63,34 @@ function handleDrop(dispatch, e, pos, tool, tools, add2EditedTools, editedTools)
   console.log(tools);
 }
 
-function RenderTools({ tools, editedTools, add2EditedTools,dispatch}) {
+function RenderTools({ tools, editedTools, add2EditedTools,dispatch,onEditTool}) {
 
   return tools.map((tool, index) => (
     <Draggable
       key={index}
-      onDrag={(e, data) => handleDrag(e, data, tool, editedTools, add2EditedTools)}
-      onStop={(e, data) => handleDrop(dispatch, e, data, tool, tools, add2EditedTools, editedTools)}
+      onDrag={(e, data) =>
+        handleDrag(e, data, tool, editedTools, add2EditedTools)
+      }
+      onStop={(e, data) =>
+        handleDrop(dispatch, e, data, tool, tools, add2EditedTools, editedTools)
+      }
     >
-    <div 
-        style={tool.style && editedTools.indexOf(tool.index) === -1 && { position: 'absolute', left: tool.style.x, top: tool.style.y+20 } || {}}
-    >
-        <RenderToolDelegator  tool={tool}  />
+      <div
+        style={
+          (tool.style &&
+            editedTools.indexOf(tool.index) === -1 && {
+              position: "absolute",
+              left: tool.style.x,
+              top: tool.style.y + 20,
+            }) ||
+          {}
+        }
+      >
+        <RenderToolDelegator
+          dispatch={dispatch}
+          tool={tool}
+          onEditTool={onEditTool}
+        />
       </div>
     </Draggable>
   ));
@@ -121,7 +141,7 @@ function RenderLine({ tool }) {
   )
 }
 
-function RenderToolDelegator({tool,editedTools}){
+export function RenderToolDelegator({tool,editedTools,dispatch,onEditTool,isRender=true}){
       const COMPONENTS = {
         icon:RenderIcon,
         text:RenderText,
@@ -129,9 +149,21 @@ function RenderToolDelegator({tool,editedTools}){
         line: RenderLine
       }
    const Tool =  COMPONENTS[tool.type];
+
+      if(!isRender){
+        console.log("RenderToolDelegator():tool",tool);
+        return Tool ? <Tool tool={tool} /> : <span>TOOL NOT FOUND! </span>;
+      }
+
   // tool = tool.style && { ...tool, style: { ...tool.style, position: 'absolute' } } || { ...tool, style: { position: 'absolute'}};
   // the tool being returned wasn't recognized as a component
-  return Tool && <Tool tool={tool} /> || <span/>
+  return (
+    (Tool && (
+      <ToolWrapper onEditTool={onEditTool} dispatch={dispatch} tool={tool}>
+        <Tool tool={tool} />
+      </ToolWrapper>
+    )) || <span />
+  );
   //this not working for me. Nothing is shwoing [I will have to explain]
   return <div {...Tool} tool={tool} />
 
@@ -142,5 +174,25 @@ export function useDragging(){
   const { data } = state;
   return { ...data, dispatch }
 }
+
+const ToolWrapper = ({ children, tool, dispatch, onEditTool }) => {
+  const _editTool = () => {
+    dispatch(editTool(tool));
+    onEditTool && onEditTool(true);
+  };
+
+  return (
+    <React.Fragment>
+      <Tooltip placement="topLeft" title={"Edit"} onClick={_editTool}>
+        <span>...</span>
+      </Tooltip>
+      {children}
+    </React.Fragment>
+  );
+};
+
+
+
+
 
 export default MainEditor;

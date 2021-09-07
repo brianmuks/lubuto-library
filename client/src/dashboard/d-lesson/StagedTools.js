@@ -5,7 +5,6 @@ import StagedToolsLabelEditor, { STAGGED_TOOLS_MODAL_ID} from "./StagedToolsLabe
 import { intiToolTip } from "../../utilities/Form";
 import RemoveToolModal, { REMOVE_TOOL_MODAL_ID } from "./RemoveToolModal";
 
-const STAGGED_TOOLS_MODAL_TRIGGER_ID = 'STAGGED_TOOLS_MODAL_TRIGGER_ID';
 function StagedTools() {
   intiToolTip();
   const { state, dispatch } = useContext(TOOLS_STATE);
@@ -38,15 +37,19 @@ function StagedTools() {
   return (
     <div>
       <StagedToolsLabelEditor toolIndex={toolIndex} oldLabel={label} />
-      <RemoveToolModal removeTool={removeTool} toolIndex={toolIndex} label={label} />
-    <div className="  staged-resource staged-editor">
-      <ul className="collection with-header">
-        <li className="collection-header ">
-          <h6>STAGGED</h6>
-        </li>
-        <RenderStaggedTools editToolLable={editToolLable} tools={tools} dispatch={dispatch} />
-      </ul>
-    </div>
+   
+      <div className="  staged-resource staged-editor">
+        <ul className="collection with-header">
+          <li className="collection-header ">
+            <h6>STAGGED </h6>
+          </li>
+          <RenderStaggedTools
+            editToolLable={editToolLable}
+            tools={tools}
+            dispatch={dispatch}
+          />
+        </ul>
+      </div>
     </div>
   );
 }
@@ -55,6 +58,7 @@ function RenderStaggedTools({ tools, dispatch,editToolLable }) {
   const highlight = ({ editTool, _tools, ishighlight=false}) =>{
 
     editToolLable(editTool.index, editTool.label);
+
     const elem = document.getElementById(`added-tool${editTool.index}`)
     ishighlight && $(elem).addClass('stagged-tool-highlight')
       || $(elem).removeClass('stagged-tool-highlight');
