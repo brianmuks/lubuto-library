@@ -149,9 +149,7 @@ export default withTracker((props) => {
   const _id = getUrlParam("id");
 
 
-  console.log("props.match.params", _id);
 
-  // Meteor.subscribe("lesson", _id);
   const lang = getUrlParam("lang");
 
 

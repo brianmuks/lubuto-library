@@ -1,6 +1,6 @@
 //NOTE holds all create lesson components
 
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import Tools from "./Tools";
 import MainEditor from "./MainEditor";
 import StagedTools from "./StagedTools";
@@ -25,17 +25,25 @@ const initialState = {
 
 function CreateLesson() {
   const [state, dispatch] = useReducer(lessonReducer, initialState);
+  const [toolEditorVisibility, setToolEditorVisibility] = useState(false);
+
   return (
     <TOOLS_STATE.Provider value={{ state, dispatch }}>
-      <div className='editor-container'>
+      <ResourceEditor
+        onCancel={() => setToolEditorVisibility(false)}
+        onDelete={() => setToolEditorVisibility(false)}
+        onDone={() => setToolEditorVisibility(false)}
+        isEdit
+        visibility={toolEditorVisibility}
+      />
 
+      <div className="editor-container">
         <Tools />
         <LessonNavBar />
         <div className="row">
           <ToolConfig />
-          <MainEditor />
+          <MainEditor setToolEditorVisibility={setToolEditorVisibility} />
           <StagedTools />
-          <ResourceEditor />
         </div>
       </div>
     </TOOLS_STATE.Provider>
