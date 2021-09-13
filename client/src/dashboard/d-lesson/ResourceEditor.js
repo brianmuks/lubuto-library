@@ -1,37 +1,36 @@
 import React, { useContext, useState, useReducer, useEffect } from "react";
 import Draggable from "react-draggable";
-import { TOOLS_STATE } from './../d-context';
-import { addTool, editStaggedTools, addAudioFiles } from "./../d-redux/actions/lessonActions";
+import { TOOLS_STATE } from "./../d-context";
+import {
+  addTool,
+  editStaggedTools,
+  addAudioFiles,
+} from "./../d-redux/actions/lessonActions";
 import { getSound, getResourceEditorStyles } from "./methods";
 import { getUrlParam } from "../../utilities/Tasks";
 import Modal from "antd/lib/modal";
 import Button from "antd/lib/button";
+import Row from "antd/lib/row";
+import Col from "antd/lib/col";
 import { DeleteOutlined } from "@ant-design/icons";
 import { RenderToolDelegator } from "./MainEditor";
 import RemoveToolModal, { REMOVE_TOOL_MODAL_ID } from "./RemoveToolModal";
-import { Input } from "antd";
-const initialState = {
+import { Card, Input } from "antd";
+const initialState = {};
 
-}
-
-const EDIT_TOOL = 'EDIT_TOOL';
+const EDIT_TOOL = "EDIT_TOOL";
 
 function reducer(state, action) {
-
   switch (action.type) {
     case EDIT_TOOL:
-      console.log(state)
-      return Object.assign(
-        { ...state },
-        { ...action.newStyle }
-      )
+      console.log(state);
+      return Object.assign({ ...state }, { ...action.newStyle });
     default:
-      return state
+      return state;
   }
-
 }
 
-function ResourceEditor({ visibility, onCancel,onDone,onDelete }) {
+function ResourceEditor({ visibility, onCancel, onDone, onDelete }) {
   const [stateStyles, _dispatch] = useReducer(reducer, initialState);
   const { state, dispatch } = useContext(TOOLS_STATE);
   const [audioFile, setAudioFile] = useState(null);
@@ -42,13 +41,9 @@ function ResourceEditor({ visibility, onCancel,onDone,onDelete }) {
 
   const { staggedTools, editTool } = state;
 
-
   useEffect(() => {
     setText(editTool.text);
     setIsModalVisible(visibility);
-
-    
-
   }, [editTool.text, visibility]);
 
   const onStyleChange = ({ newStyle }) => {
@@ -103,11 +98,8 @@ function ResourceEditor({ visibility, onCancel,onDone,onDelete }) {
     Object.keys(editTool).length && dispatch(editStaggedTools(tools));
     setNewStyle({});
     onDone && onDone();
-
-    $('.style-tool-clear').val('');
   };
 
-  console.log(editTool, "editTool");
   return (
     <React.Fragment>
       <RemoveToolModal
@@ -124,19 +116,7 @@ function ResourceEditor({ visibility, onCancel,onDone,onDelete }) {
         onOk={_onDone}
         onCancel={onCancel}
       >
-        {editTool && (
-          <RenderToolDelegator
-            tool={{
-              ...editTool,
-              style: _newStyle
-                ? { ...editTool.style, ..._newStyle }
-                : editTool.style,
-            }}
-            isRender={false}
-          />
-        )}
-
-        <div className="col m7 offset-m3 grey lighten-3 resource-editor">
+        <React.Fragment>
           <h6>Design</h6>
           <RenderSoundPicker
             _dispatch={_dispatch}
@@ -146,27 +126,64 @@ function ResourceEditor({ visibility, onCancel,onDone,onDelete }) {
             setCopies={(n) => setCopies(n)}
             onClick={duplicateTool}
           />
+          <Row gutter={[16, 16]}>
+            <Card
+              style={{
+                marginLeft: "320px",
+                position: "fixed",
+              }}
+            >
+              {editTool && (
+                <RenderToolDelegator
+                  tool={{
+                    ...editTool,
+                    text,
+                    style: _newStyle
+                      ? { ...editTool.style, ..._newStyle }
+                      : editTool.style,
+                  }}
+                  isRender={false}
+                />
+              )}
+            </Card>
 
-          <div className="row">
             {styles.map((style, key) => (
-              <RenderStyleTool
-                onStyleChange={onStyleChange}
-                style={style}
-                stateStyles={_newStyle}
-                _dispatch={_dispatch}
-                label={style.label}
-                name={style.name}
-                key={key}
-                index={key}
-              />
+              <Col span={8}>
+                <RenderStyleTool
+                  onStyleChange={onStyleChange}
+                  style={style}
+                  stateStyles={_newStyle}
+                  _dispatch={_dispatch}
+                  label={style.label}
+                  name={style.name}
+                  key={key}
+                  index={key}
+                />
+              </Col>
             ))}
 
-            <RenderText text={text} onChange={setText} />
-          </div>
-          {/* <button onClick={done} className="btn col 12 right">
-          Done
-        </button> */}
-          <div className={"col s6 center"}>
+            <Col>
+              <Input
+                style={{
+                  backgroundColor: "#4a4343",
+                  width: "200px",
+                  height: "70px",
+                  marginTop: "50px",
+                  color: "white",
+                }}
+                key={"index"}
+                defaultValue={editTool.text}
+                // addonBefore={label}
+                onChange={(e) => setText(e.target.value)}
+                value={text}
+                // placeholder={label}
+              />
+            </Col>
+
+            {/* <RenderText text={text} onChange={setText} /> */}
+          </Row>
+
+          {/* <div className={"col s6 center"}>
             <i
               style={stateStyles}
               className={`fa material-icons ${stateStyles.size}`}
@@ -174,8 +191,8 @@ function ResourceEditor({ visibility, onCancel,onDone,onDelete }) {
               {editTool.name}
             </i>
           </div>
-          <br />
-        </div>
+          <br /> */}
+        </React.Fragment>
 
         <a
           href={`#${REMOVE_TOOL_MODAL_ID}`}
@@ -195,16 +212,25 @@ function ResourceEditor({ visibility, onCancel,onDone,onDelete }) {
   );
 }
 
-
 function RenderDuplicateButton({ onClick, setCopies }) {
   return (
     <div className="col m4">
-      <input title="set the number of copies" onChange={e => setCopies(e.target.value)} type="number" className="validate col right m6" />
-      <i title='Make copies of this tool' onClick={onClick} className={` material-icons right col pointer`}>library_books</i>
+      <input
+        title="set the number of copies"
+        onChange={(e) => setCopies(e.target.value)}
+        type="number"
+        className="validate col right m6"
+      />
+      <i
+        title="Make copies of this tool"
+        onClick={onClick}
+        className={` material-icons right col pointer`}
+      >
+        library_books
+      </i>
     </div>
-  )
+  );
 }
-
 
 function RenderStyleTool({
   name,
@@ -218,17 +244,10 @@ function RenderStyleTool({
   console.log(stateStyles, "style");
 
   const initVal = (stateStyles && stateStyles[name]) || "";
-  const [val, setVal] = useState('');
+  const [val, setVal] = useState("");
   //initVal.length && alert(initVal)
 
-
-
-  useEffect(()=>{
-
-
-    
-    
-  },[])
+  useEffect(() => {}, []);
 
   const _onChange = (e) => {
     const formatedStyle = onToolEdit({ name, e });
@@ -238,63 +257,67 @@ function RenderStyleTool({
     onStyleChange && onStyleChange({ newStyle });
   };
 
-  $(`#${name}`).val(initVal);
   return (
-    <React.Fragment key={index} >
-      {/* <input
-        id={name}
-        defaultValue={initVal}
-        value={val}
-        onChange={_onChange}
-        type="text"
-        className="style-tool-clear"
-      /> */}
-      <label className="active" htmlFor={name}>
-        {label}
-      </label>
-      <Input onChange={_onChange} value={val} placeholder={``} />
-
-    </React.Fragment>
+    <Input
+      style={{
+        backgroundColor: "#4a4343",
+        width: "200px",
+        height: "70px",
+        marginTop: "50px",
+        color: "white",
+      }}
+      key={index}
+      defaultValue=""
+      // addonBefore={label}
+      onChange={_onChange}
+      value={val}
+      placeholder={label}
+    />
   );
 }
 
-
 function RenderText({ onChange, text }) {
-  return <div className='input-field col s12'>
-    <input defaultValue={text} autoFocus id={'r-text'} onChange={e => onChange(e.target.value)} type="text" className="validate" />
-    <label className="active " htmlFor={'r-text'}>Text</label>
-  </div>
+  return (
+    <div className="input-field col s12">
+      <input
+        defaultValue={text}
+        autoFocus
+        id={"r-text"}
+        onChange={(e) => onChange(e.target.value)}
+        type="text"
+        className="validate"
+      />
+      <label className="active " htmlFor={"r-text"}>
+        Text
+      </label>
+    </div>
+  );
 }
-
 
 function onToolEdit({ e, name }) {
   let newStyle = {};
   const formatedStyle = (e) => {
     newStyle[name] = e.target.value;
     return newStyle;
-  }
-  return formatedStyle(e)
+  };
+  return formatedStyle(e);
 }
 
 function RenderSoundPicker({ onSoundSet, _dispatch }) {
-
-  const [audioFiles, setAudioFiles] = useState([])
+  const [audioFiles, setAudioFiles] = useState([]);
 
   function fetchAudio(lessonNumber) {
-
-
-
     const lang = getUrlParam("lang");
     lessonNumber = parseInt(lessonNumber);
     //TODO: use RJX here for debouncing.
     getSound({ lang, lessonNumber })
-      .then(files => {
+      .then((files) => {
         console.log("files", files, lessonNumber, lang);
 
         _dispatch(addAudioFiles(files));
         setAudioFiles(files);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("error getting audions", err);
       });
   }
@@ -303,7 +326,7 @@ function RenderSoundPicker({ onSoundSet, _dispatch }) {
     <div>
       <div className="input-field col s2">
         <input
-          onChange={e => fetchAudio(e.target.value)}
+          onChange={(e) => fetchAudio(e.target.value)}
           type="number"
           className="validate"
         />
@@ -312,7 +335,7 @@ function RenderSoundPicker({ onSoundSet, _dispatch }) {
       <div className="input-field col s6">
         <select
           defaultValue={""}
-          onChange={val => onSoundSet(audioFiles[val.target.value])}
+          onChange={(val) => onSoundSet(audioFiles[val.target.value])}
           className="browser-default"
         >
           <option value={""}>Sound</option>
@@ -322,7 +345,6 @@ function RenderSoundPicker({ onSoundSet, _dispatch }) {
     </div>
   );
 }
-
 
 function RenderAudioOptions({ audioFiles }) {
   if (!audioFiles) return null;
