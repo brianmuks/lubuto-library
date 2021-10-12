@@ -108,16 +108,16 @@ function RenderTools({
     >
       <div
         onContextMenu={(e) => onContextMenu({ tool, e })}
-        // style={
-        //   (tool.style &&
-        //     editedTools.indexOf(tool.index) === -1 && {
-        //       position: "absolute",
-        //       backgroundColor: "red",
-        //       left: tool.style.x,
-        //       top: tool.style.y + 20,
-        //     }) ||
-        //   {}
-        // }
+        style={
+          (tool.style &&
+            editedTools.indexOf(tool.index) === -1 && {
+              position: "absolute",
+              backgroundColor: "red",
+              left: tool.style.x,
+              top: tool.style.y + 20,
+            }) ||
+          {}
+        }
       >
         <RenderToolDelegator
           dispatch={dispatch}
