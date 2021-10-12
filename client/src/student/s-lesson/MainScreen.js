@@ -172,7 +172,10 @@ function RenderText({ tool, playAudio }) {
       className={`  added-tool${tool.index} `}
       id={`added-tool${tool.index}`}
     >
-      <i className="l-tool-text" style={{ ...tool.style, ...wordWrap }}>
+      <i
+        className="l-tool-text"
+        style={{ padding: 10, ...tool.style, ...wordWrap }}
+      >
         <code>{tool.text}</code>
       </i>
     </div>
