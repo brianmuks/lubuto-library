@@ -108,16 +108,16 @@ function RenderTools({
     >
       <div
         onContextMenu={(e) => onContextMenu({ tool, e })}
-        style={
-          (tool.style &&
-            editedTools.indexOf(tool.index) === -1 && {
-              position: "absolute",
-              backgroundColor: "red",
-              left: tool.style.x,
-              top: tool.style.y + 20,
-            }) ||
-          {}
-        }
+        // style={
+        //   (tool.style &&
+        //     editedTools.indexOf(tool.index) === -1 && {
+        //       position: "absolute",
+        //       backgroundColor: "red",
+        //       left: tool.style.x,
+        //       top: tool.style.y + 20,
+        //     }) ||
+        //   {}
+        // }
       >
         <RenderToolDelegator
           dispatch={dispatch}
@@ -173,7 +173,7 @@ function RenderImage({ tool, onEditTool, dispatch }) {
     //...tool.style
     <div
       onClick={() => playAudio(tool.audioFile)}
-      className={`  added-tool${tool.index} `}
+      className={`added-tool${tool.index} `}
       id={`added-tool${tool.index}`}
     >
       {/* <img className="l-img-tool material-icons" style={tool.style} src={`${IMAGE_EXTERNAL_URL}/${tool.path}`}   /> */}
