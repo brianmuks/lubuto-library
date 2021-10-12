@@ -176,7 +176,7 @@ function ResourceEditor({ visibility, onCancel, onDone, onDelete }) {
                 defaultValue={editTool.text}
                 // addonBefore={label}
                 onChange={(e) => setText(e.target.value)}
-                value={text}
+                // value={text}
                 // placeholder={label}
               />
             </Col>
