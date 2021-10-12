@@ -2,7 +2,14 @@ import React, { useContext, useState } from "react";
 //import { useDragging } from "./ResourceEditor";
 import { STUDENT_LESSON_STATE } from "./../s-context";
 import { IMAGE_EXTERNAL_URL } from "../../utilities/constants";
-import { onDrop, playAudio, onDragOver, onDrag, onDragStart, onDragEnd } from "./methods";
+import {
+  onDrop,
+  playAudio,
+  onDragOver,
+  onDrag,
+  onDragStart,
+  onDragEnd,
+} from "./methods";
 import { recordAttempt } from "../s-statistics/methods";
 import { getFileUrl } from "../../utilities/Tasks";
 
@@ -154,7 +161,7 @@ function RenderText({ tool, playAudio }) {
       className={`  added-tool${tool.index} `}
       id={`added-tool${tool.index}`}
     >
-      <i className="l-tool-text " style={{padding:'8px', ...tool.style, }}>
+      <i className="l-tool-text " style={{ ...tool.style }}>
         <code>{tool.text}</code>
       </i>
     </div>
@@ -171,7 +178,13 @@ function RenderLine({ tool, playAudio }) {
       {/* <i className="l-tool-text" style={tool.style}>{tool.text}</i> */}
       <i
         className="material-icons"
-        style={{textAlign:'center',  width: "100px", height: "10px", ...tool.style,fontSize:"-1px" }}
+        style={{
+          textAlign: "center",
+          width: "100px",
+          height: "10px",
+          ...tool.style,
+          fontSize: "-1px",
+        }}
       >
         <hr style={{ width: "inherit", height: "inherit" }} />
       </i>
