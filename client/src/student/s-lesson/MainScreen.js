@@ -155,13 +155,24 @@ function RenderIcon({ tool, playAudio }) {
 }
 
 function RenderText({ tool, playAudio }) {
+  const wordWrap = {
+    "white-space": " -moz-pre-wrap !important" /* Mozilla, since 1999 */,
+    "white-space": "-pre-wrap" /* Opera 4-6 */,
+    "white-space": " -o-pre-wrap" /* Opera 7 */,
+    "white-space": " pre-wrap" /* css-3 */,
+    "word-wrap": " break-word" /* Internet Explorer 5.5+ */,
+    "white-space": "-webkit-pre-wrap" /* Newer versions of Chrome/Safari*/,
+    "word-break": " break-all",
+    "white-space": "normal",
+  };
+
   return (
     <div
       onClick={() => playAudio(tool.audioFile)}
       className={`  added-tool${tool.index} `}
       id={`added-tool${tool.index}`}
     >
-      <i className="l-tool-text " style={{ ...tool.style }}>
+      <i className="l-tool-text " style={{ ...tool.style, ...wordWrap }}>
         <code>{tool.text}</code>
       </i>
     </div>

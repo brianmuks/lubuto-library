@@ -43,7 +43,7 @@ function ResourceEditor({ visibility, onCancel, onDone, onDelete }) {
   const { staggedTools, editTool } = state;
 
   useEffect(() => {
-    setText(editTool.text);
+    // setText(editTool.text);
     setIsModalVisible(visibility);
   }, [editTool.text, visibility]);
 
