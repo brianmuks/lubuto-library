@@ -16,6 +16,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { RenderToolDelegator } from "./MainEditor";
 import RemoveToolModal, { REMOVE_TOOL_MODAL_ID } from "./RemoveToolModal";
 import { Card, Input } from "antd";
+import ElementStyle from "./elementStyle";
 const initialState = {};
 
 const EDIT_TOOL = "EDIT_TOOL";
@@ -149,7 +150,7 @@ function ResourceEditor({ visibility, onCancel, onDone, onDelete }) {
 
             {styles.map((style, key) => (
               <Col span={8}>
-                <RenderStyleTool
+                <ElementStyle
                   onStyleChange={onStyleChange}
                   style={style}
                   stateStyles={_newStyle}
@@ -232,50 +233,6 @@ function RenderDuplicateButton({ onClick, setCopies }) {
   );
 }
 
-function RenderStyleTool({
-  name,
-  label,
-  index,
-  _dispatch,
-  stateStyles,
-  style,
-  onStyleChange,
-}) {
-  console.log(stateStyles, "style");
-
-  const initVal = (stateStyles && stateStyles[name]) || "";
-  const [val, setVal] = useState("");
-  //initVal.length && alert(initVal)
-
-  useEffect(() => {}, []);
-
-  const _onChange = (e) => {
-    const formatedStyle = onToolEdit({ name, e });
-    setVal(e.target.value);
-    const newStyle = formatedStyle;
-    _dispatch({ type: EDIT_TOOL, newStyle });
-    onStyleChange && onStyleChange({ newStyle });
-  };
-
-  return (
-    <Input
-      style={{
-        backgroundColor: "#4a4343",
-        width: "200px",
-        height: "70px",
-        marginTop: "50px",
-        color: "white",
-      }}
-      key={index}
-      defaultValue=""
-      // addonBefore={label}
-      onChange={_onChange}
-      value={val}
-      placeholder={label}
-    />
-  );
-}
-
 function RenderText({ onChange, text }) {
   return (
     <div className="input-field col s12">
@@ -292,15 +249,6 @@ function RenderText({ onChange, text }) {
       </label>
     </div>
   );
-}
-
-function onToolEdit({ e, name }) {
-  let newStyle = {};
-  const formatedStyle = (e) => {
-    newStyle[name] = e.target.value;
-    return newStyle;
-  };
-  return formatedStyle(e);
 }
 
 function RenderSoundPicker({ onSoundSet, _dispatch }) {
