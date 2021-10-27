@@ -14,8 +14,8 @@ function ScoreBoard({ lesson, stats }) {
         if (_questions[key].isQuestion) {
           const questionIndex = _questions[key].index;
           const entry = { index: questionIndex };
+
           const _questionIndex = questionIndex.toString().replace(".", "-");
-          console.log(questionIndex, "questionIndex");
           if (stats && stats.question) {
             entry["passed"] =
               stats.question[_questionIndex] &&
@@ -78,8 +78,8 @@ function StyleTool({ name, passed, index, _dispatch }) {
 }
 
 export default withTracker((props) => {
-  Meteor.subscribe("col_tools");
-  Meteor.subscribe("users");
+  Meteor.subscribe("col_user-stats");
+  // Meteor.subscribe("users");
   const lessonId = getUrlParam("id");
   const query = { lessonId };
   return {
