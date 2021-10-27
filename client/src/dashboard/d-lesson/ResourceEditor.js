@@ -16,6 +16,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { RenderToolDelegator } from "./MainEditor";
 import RemoveToolModal, { REMOVE_TOOL_MODAL_ID } from "./RemoveToolModal";
 import { Card, Input } from "antd";
+import ElementStyleEditor from "./elementEditor/style";
 const initialState = {};
 
 const EDIT_TOOL = "EDIT_TOOL";
@@ -35,6 +36,7 @@ function ResourceEditor({ visibility, onCancel, onDone, onDelete }) {
   const { state, dispatch } = useContext(TOOLS_STATE);
   const [audioFile, setAudioFile] = useState(null);
   const [text, setText] = useState("");
+  const [toolLabel, setToolLabel] = useState("");
   const [copies, setCopies] = useState(1); //copies to make of the selected tool to be edited
   const [isModalVisible, setIsModalVisible] = useState(visibility);
   const [_newStyle, setNewStyle] = useState({});
@@ -43,8 +45,12 @@ function ResourceEditor({ visibility, onCancel, onDone, onDelete }) {
 
   useEffect(() => {
     setText(editTool.text);
+
+    setToolLabel(editTool.label);
     setIsModalVisible(visibility);
   }, [editTool.text, visibility]);
+
+  useEffect(() => {}, []);
 
   const onStyleChange = ({ newStyle }) => {
     setNewStyle({ ..._newStyle, ...newStyle });
@@ -91,6 +97,7 @@ function ResourceEditor({ visibility, onCancel, onDone, onDelete }) {
           ...i,
           audioFile,
           text,
+          label: toolLabel,
           style: { ...i.style, ...stateStyles },
         }) ||
         i
@@ -111,17 +118,36 @@ function ResourceEditor({ visibility, onCancel, onDone, onDelete }) {
         title="20px to Top"
         style={{ top: 20 }}
         width={700}
-        title="Edit Element"
+        title={`Edit Element ${toolLabel}`}
         visible={visibility}
         onOk={_onDone}
         onCancel={onCancel}
       >
         <React.Fragment>
-          <h6>Design</h6>
+          <Col>
+            <Input
+              id={"tool_label"}
+              style={{
+                backgroundColor: "#4a4343",
+                width: "200px",
+                height: "70px",
+                marginTop: "50px",
+                color: "white",
+              }}
+              key={"toolLabel"}
+              defaultValue={editTool.label}
+              // addonBefore={label}
+              onChange={(e) => setToolLabel(e.target.value)}
+              value={toolLabel}
+              // placeholder={label}
+            />
+          </Col>
+
           <RenderSoundPicker
             _dispatch={_dispatch}
             onSoundSet={(audioFile) => setAudioFile(audioFile)}
           />
+
           <RenderDuplicateButton
             setCopies={(n) => setCopies(n)}
             onClick={duplicateTool}
@@ -148,16 +174,17 @@ function ResourceEditor({ visibility, onCancel, onDone, onDelete }) {
             </Card>
 
             {styles.map((style, key) => (
-              <Col span={8}>
-                <RenderStyleTool
+              <Col index={key} span={4}>
+                <ElementStyleEditor
+                  visibility={visibility}
                   onStyleChange={onStyleChange}
                   style={style}
+                  tool={editTool}
                   stateStyles={_newStyle}
                   _dispatch={_dispatch}
                   label={style.label}
                   name={style.name}
                   key={key}
-                  index={key}
                 />
               </Col>
             ))}
@@ -232,50 +259,6 @@ function RenderDuplicateButton({ onClick, setCopies }) {
   );
 }
 
-function RenderStyleTool({
-  name,
-  label,
-  index,
-  _dispatch,
-  stateStyles,
-  style,
-  onStyleChange,
-}) {
-  console.log(stateStyles, "style");
-
-  const initVal = (stateStyles && stateStyles[name]) || "";
-  const [val, setVal] = useState("");
-  //initVal.length && alert(initVal)
-
-  useEffect(() => {}, []);
-
-  const _onChange = (e) => {
-    const formatedStyle = onToolEdit({ name, e });
-    setVal(e.target.value);
-    const newStyle = formatedStyle;
-    _dispatch({ type: EDIT_TOOL, newStyle });
-    onStyleChange && onStyleChange({ newStyle });
-  };
-
-  return (
-    <Input
-      style={{
-        backgroundColor: "#4a4343",
-        width: "200px",
-        height: "70px",
-        marginTop: "50px",
-        color: "white",
-      }}
-      key={index}
-      defaultValue=""
-      // addonBefore={label}
-      onChange={_onChange}
-      value={val}
-      placeholder={label}
-    />
-  );
-}
-
 function RenderText({ onChange, text }) {
   return (
     <div className="input-field col s12">
@@ -292,15 +275,6 @@ function RenderText({ onChange, text }) {
       </label>
     </div>
   );
-}
-
-function onToolEdit({ e, name }) {
-  let newStyle = {};
-  const formatedStyle = (e) => {
-    newStyle[name] = e.target.value;
-    return newStyle;
-  };
-  return formatedStyle(e);
 }
 
 function RenderSoundPicker({ onSoundSet, _dispatch }) {
