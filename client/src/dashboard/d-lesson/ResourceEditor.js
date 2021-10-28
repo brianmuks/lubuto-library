@@ -12,10 +12,10 @@ import Modal from "antd/lib/modal";
 import Button from "antd/lib/button";
 import Row from "antd/lib/row";
 import Col from "antd/lib/col";
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, SaveOutlined } from "@ant-design/icons";
 import { RenderToolDelegator } from "./MainEditor";
 import RemoveToolModal, { REMOVE_TOOL_MODAL_ID } from "./RemoveToolModal";
-import { Card, Input } from "antd";
+import { Card, Input, Space } from "antd";
 import ElementStyleEditor from "./elementEditor/style";
 const initialState = {};
 
@@ -123,6 +123,35 @@ function ResourceEditor({ visibility, onCancel, onDone, onDelete }) {
         onOk={_onDone}
         onCancel={onCancel}
       >
+        <Row gutter={[16, 16]}>
+          <Space>
+            <Col offset={10} span={4}>
+              <a
+                href={`#${REMOVE_TOOL_MODAL_ID}`}
+                data-tooltip="Remove Tool"
+                data-position="bottom"
+                className="waves-effect  modal-trigger waves-light right tooltipped"
+              >
+                <Button
+                  style={{ backgroundColor: "red" }}
+                  type="primary"
+                  shape="circle"
+                  icon={<DeleteOutlined />}
+                />
+              </a>
+            </Col>
+
+            <Col span={4}>
+              <Button
+                onClick={_onDone}
+                style={{ backgroundColor: "green" }}
+                type="primary"
+                shape="circle"
+                icon={<SaveOutlined />}
+              />
+            </Col>
+          </Space>
+        </Row>
         <React.Fragment>
           <Col>
             <Input

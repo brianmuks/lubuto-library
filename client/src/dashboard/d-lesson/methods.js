@@ -250,4 +250,5 @@ export const getResourceEditorStyles = () => [
   { name: "width", label: "Width" },
   { name: "height", label: "Height" },
   { name: "border-radius", label: "Radius" },
+  { name: "z-index", label: "Z-Index" },
 ];
