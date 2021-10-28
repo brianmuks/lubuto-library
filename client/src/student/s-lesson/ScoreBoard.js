@@ -81,7 +81,7 @@ export default withTracker((props) => {
   Meteor.subscribe("col_user-stats");
   // Meteor.subscribe("users");
   const lessonId = getUrlParam("id");
-  const query = { lessonId };
+  const query = { lessonId, userId: Meteor.userId() };
   return {
     // lessons: COL_Lessons.find(query).fetch(),
     stats: COL_USER_STATS.findOne(query),
