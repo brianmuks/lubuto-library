@@ -1,8 +1,5 @@
 import { HOST_URL } from "./constants";
 
-
-
-
 export const getUrlParam = param=>{
     const urlParams = getUrlParams();
     return urlParams.get(param);
@@ -14,7 +11,7 @@ export const getUrlParams = ()=>(
 
 
     export const generateFileUrl = ({file})=>(
-                `${HOST_URL}/${file._downloadRoute}/${
+                `${HOST_URL}${file._downloadRoute}/${
           file._collectionName
         }/${file._id}/original/${file._id}${file.ext}`
     )

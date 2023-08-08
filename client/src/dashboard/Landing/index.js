@@ -13,7 +13,7 @@ function Landing() {
     return <Redirect to='/login'/>
   }
   return (
-    <div id='app'>
+    <div id="app">
       <header>
         <NavBar />
       </header>
@@ -25,11 +25,12 @@ function Landing() {
             <div className="container">
               <br />
               <br />
-              <h1 className="header center text-color">Modern Lessons</h1>
+              <h1 className="header center text-color"> LubutoLiteracy</h1>
               <div className="row center">
-                <h5 className="header col s12 light">
-                  Libraries transforming Africa's next generation
-                </h5>
+                <h6 className="header col s12 light">
+                  High-quality mother-tongue materials to teach children to read
+                  on an accessible, low-cost digital platform
+                </h6>
               </div>
               <RenderAdminActions />
               <br />
@@ -49,15 +50,16 @@ function Landing() {
                         </i>
                       </Link>
                     </h2>
-                    <h5 className="center text-color">capture User Stats</h5>
+                    <h5 className="center text-color">Collect user data</h5>
 
                     <p className="light center">
-                      By utilizing elements and principles of Material Design,
-                      we were able to create a framework that incorporates
-                      components and animations that provide more feedback to
-                      users. Additionally, a single underlying responsive system
-                      across all platforms allow for a more unified user
-                      experience.
+                      Data dashboards allow administrators to view user
+                      profiles, including demographic information and location.
+                      The system tracks user-level data on cumulative length of
+                      time lessons have been used, time spent per lesson,
+                      average time spent per lesson, number of attempts made per
+                      exercise prior to correct answer (by lesson), and an
+                      average percentage score on exercises.
                     </p>
                   </div>
                 </div>
@@ -72,16 +74,18 @@ function Landing() {
                       </Link>
                     </h2>
                     <h5 className="center text-color">
-                      User Experience Focused
+                      Self-paced and user-friendly
                     </h5>
 
                     <p className="light center">
-                      By utilizing elements and principles of Material Design,
-                      we were able to create a framework that incorporates
-                      components and animations that provide more feedback to
-                      users. Additionally, a single underlying responsive system
-                      across all platforms allow for a more unified user
-                      experience.
+                      Lessons need no supervision of learners as they study.
+                      They are designed with gradual progression from learning
+                      single vowels to vowel combinations, then simple to
+                      complex syllables eventually combined into decodable
+                      words, and finally lessons consisting of short reading
+                      comprehension texts. Locally-produced images add context,
+                      and audio enhancement of the lessons provides the learner
+                      with instant feedback.
                     </p>
                   </div>
                 </div>
@@ -95,13 +99,12 @@ function Landing() {
                         </i>
                       </Link>
                     </h2>
-                    <h5 className="center text-color">Easy to work with</h5>
+                    <h5 className="center text-color">Open-source</h5>
 
                     <p className="light center">
-                      We will provided detailed documentation as well as
-                      specific code examples to help new users get started. We
-                      are also always open to feedback and can answer any
-                      questions a user may have about Materialize.
+                      This software uses React for building user interfaces
+                      (UI), with Meteor on the backend and MongoDB for data
+                      storage.
                     </p>
                   </div>
                 </div>

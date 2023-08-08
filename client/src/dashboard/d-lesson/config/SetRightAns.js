@@ -26,30 +26,73 @@ function SetRightAnsView({ staggedTools, dispatch, isExeLesson}){
         M.toast({ html: `Done` })
         setRightAns('');
         setRightQuestion('');
-    }         
+    }  
 
-        return(
-            <div className={`row ${isExeLesson && "white lighten-3"}`}>
-            <div className="input-field col s12 m6">
-                <h5 className='center'>Questions</h5>
-                    <select disabled={isExeLesson} value={questionIndex} onChange={e =>setRightQuestion(e.target.value)} className="browser-default ">
-                    <option value="" disabled >Choose A Question</option>
-                        <RenderQuestionOptions staggedTools={staggedTools} />
-                </select>
-            </div>
-            <div className="input-field col s12 m6">
-                  <h5 className='center'>Answers</h5>
-                    <select disabled={isExeLesson} value={rightAnsIndex} onChange={e => setRightAns(e.target.value)} className="icons browser-default">
-                    <option value="" disabled >Match An Answer</option>
-                        <RenderAnswerOptions staggedTools={staggedTools} />
-                </select>
 
+    const clear = ()=>{
+
+
+        let tools = staggedTools.map((i) => ({
+          ...i,
+          isAns: undefined,
+          questionIndex: undefined,
+          isQuestion: undefined,
+          rightAnsIndexs: undefined,
+        }));
+         dispatch(editStaggedTools(tools));
+        M.toast({ html: `Done` });
+        setRightAns("");
+        setRightQuestion("");
+
+    }       
+
+        return (
+          <div className={`row ${isExeLesson && "white lighten-3"}`}>
+            <div className="input-field col s12 m6">
+              <h5 className="center">Questions</h5>
+              <select
+                disabled={isExeLesson}
+                value={questionIndex}
+                onChange={(e) => setRightQuestion(e.target.value)}
+                className="browser-default "
+              >
+                <option value="" disabled>
+                  Choose A Question
+                </option>
+                <RenderQuestionOptions staggedTools={staggedTools} />
+              </select>
             </div>
-                <button  
-                    disabled={!rightAnsIndex || !questionIndex && true} 
-                onClick={set} className='btn teal center col s6 offset-s3'> Set </button>
+            <div className="input-field col s12 m6">
+              <h5 className="center">Answers</h5>
+              <select
+                disabled={isExeLesson}
+                value={rightAnsIndex}
+                onChange={(e) => setRightAns(e.target.value)}
+                className="icons browser-default"
+              >
+                <option value="" disabled>
+                  Match An Answer
+                </option>
+                <RenderAnswerOptions staggedTools={staggedTools} />
+              </select>
             </div>
-        )
+            <button
+              disabled={!rightAnsIndex || (!questionIndex && true)}
+              onClick={set}
+              className="btn teal center col s6 offset-s3"
+            >
+              {" "}
+              Set{" "}
+            </button>
+            <button
+              onClick={clear}
+              className="btn teal center col s3 offset-s6"
+            >
+              
+              clear{" "}
+            </button>
+          </div>
+        );
 }
 
 function RenderQuestionOptions({ staggedTools}){

@@ -14,6 +14,7 @@ function StagedToolsLabelEditor({toolIndex,oldLabel}) {
   })
 
   initModal('#' + STAGGED_TOOLS_MODAL_ID);
+  
   const done = () => {
     const newLabel =  $('#tool_label').val();
     if (newLabel.trim().length === 0) {

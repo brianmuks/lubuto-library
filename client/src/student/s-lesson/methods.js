@@ -10,7 +10,7 @@ export const getSound = src => {
             console.log(err, ok);
             if (err) {
                 reject(err)
-            }else{
+            } else {
                 resolve(ok);
             }
 
@@ -21,37 +21,44 @@ export const getSound = src => {
 }
 
 
-export const checkAns = (ans,question) => {
+export const checkAns = (ans, question) => {
     const ansIndex = ans.index;// is Int
     const questionIndex = question.index;//is Int
     const rightAnsIndexs = question.rightAnsIndexs;//is Array
-    const isCorrect = rightAnsIndexs.toString().indexOf(ansIndex);   
+    const isCorrect = rightAnsIndexs.toString().indexOf(ansIndex);
     // console.log('checkAns', ansIndex, rightAnsIndexs  );
     return isCorrect === 0 && true || false;
 }
 
-export const playAudio = audioFile=>{
+export const playAudio = async audioFile => {
     if (!audioFile) {
         return
     }
     var audio = document.getElementById("audio");
     // const src = AUDIO_URL + LANG + '/' + audioFile;
-    audio.src = generateFileUrl({ file: audioFile });
-    audio.play()
+   const src =  generateFileUrl({ file: audioFile });
+    console.log(" src && ",src);
+
+    if (src.indexOf('undefined') == -1){
+            audio.src = src;
+            await audio.play();
+    } 
+
 }
 
 export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
     ev.preventDefault();
-    const isCorrect = checkAns(ans,draggedQuestion);
+    const isCorrect = checkAns(ans, draggedQuestion);
     // console.log('isCorrect', isCorrect);
     const questionIndex = draggedQuestion.index;
-    
 
-    if(!isCorrect){
-    console.log('wrong Ans', draggedQuestion);
+
+    if (!isCorrect) {
+        console.log('wrong Ans', draggedQuestion);
         playAudio(NO_SOUND);
         //{ MinimongoError: Key question.[object Object] must not contain '.'
-        recordAttempt({ questionIndex, lessonId, passed:false});
+        recordAttempt({ questionIndex, lessonId, passed: false });
+ onAfterDrop({ isAdd: false });
 
         // TODO:placyAudio  
         return;
@@ -67,30 +74,74 @@ export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
     const data = ev.dataTransfer.getData("text");
     let draggedItem = document.getElementById(data);
 
-    draggedItem.style = `color:red;bottom:3git 0px;position:absolute;left:${left}px;top:-15px`
+    const childElem = draggedItem.children[0].children[0].children[0];
+
+    draggedItem.style = `bottom:30px;position:relative;`;
+    childElem.style = `padding:0px ; 
+    position:relative;
+    color:black;
+    margin: 0 auto`;
 
     if (draggedQuestion.type == 'text') {
         // draggedItem = `<code>${draggedItem}</code>`
     }
+    //  ev.target.style['font-size'] = '0px';
     ev.target.appendChild(draggedItem);
+
+ onAfterDrop({isAdd:false});
+
+
+     
 
     // console.log('ondrop', );
 }
 
 
- //TODO: move all to methods
-  export const onDragOver = (ev)=>{
+//TODO: move all to methods
+export const onDragOver = (ev) => {
+
     ev.preventDefault();
     console.log('ondragover');
-  }
 
-  export const onDrag = (ev) => {
+   
+
+}
+
+export const onDrag = (ev) => {
     console.log('onDrag');
-  }
+
+  
+
+}
+
+export const onDragEnd = (ev) => {
+  console.log("onDragEnd");
+  onAfterDrop({isAdd:false});
+};
 
 
-  export const onDragStart = (ev,question,setDraggedQuestion) => {
+export const onDragStart = (ev, question, setDraggedQuestion) => {
     ev.dataTransfer.setData("text", ev.target.id);
     setDraggedQuestion(question)
-    console.log('onDragStart');
-  }
+    // ev.target.style.display = "none";
+
+ onAfterDrop({});
+
+}
+
+
+
+const onAfterDrop = ({isAdd=true})=>{
+
+       const dropZones = document.getElementsByClassName("drop-zone");
+       for (let i of dropZones) {
+         const parent = i.children[0];
+         const line = parent.children[0];
+        //  console.log("onDragStart", parent.children[0].children[0]);
+
+       isAdd
+         ? line.children[0].classList.add("drop-zone-height")
+         : line.children[0].classList.remove("drop-zone-height");
+       }
+
+}

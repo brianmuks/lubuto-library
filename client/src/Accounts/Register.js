@@ -1,54 +1,60 @@
-import React, { useState,useEffect } from "react";
-import { Link, Redirect, withRouter } from 'react-router-dom'
-import { Accounts } from 'meteor/accounts-base'
-import {useFormInput, useError, validatePassword} from './accountsUtils'
-import { COL_CONFIG } from "../../../lib/Collections";
-import NavBar from "../components/Layout/NavBar";
+import { Accounts } from "meteor/accounts-base";
+import React, { useEffect, useState } from "react";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import Footer from "../components/Layout/Footer";
-function Register(props) {
-    const username = useFormInput('')
-    const name = useFormInput('')
-    const age = useFormInput('')
-    const password = useFormInput('')
-    const confirmedPassword = useFormInput('')
-    const gender = useFormInput('')
-    const isValid = validatePassword(password.value, confirmedPassword.value)
-    const {error, setError} = useError('')
-    const [isAuth, setAuth] = useState(false)
-    const { location: { pathname } } = props
-    
-    useEffect(()=>M.updateTextFields())
+import NavBar from "../components/Layout/NavBar";
+import { withTracker } from "meteor/react-meteor-data";
 
-    function handleRegister(e){
-      e.preventDefault()
-      if (!gender.value.length) {
-        setError('You need to choose a gender')
-        return;
-      }
-      if (!isValid) {
-        setError('There was a problem with the password')
-        return;
-      }
-      const {center} = COL_CONFIG.findOne({});
-      const profile = {
-        name: name.value,
-        center,
-        age:age.value,
-        gender: gender.value,
-        createdAt: new Date(),
-        pwd: password.value,
-        role: pathname === '/dashboard/register' ? 'admin' : 'user'
-        }
-        const user = {
-          username: username.value,
-          password: password.value,
-          profile,
-        }
-        Accounts.createUser(user, err => err ? setError(err.reason) : setAuth(true) )
+import { useError, useFormInput, validatePassword } from "./accountsUtils";
+function Register(props) {
+  const username = useFormInput("");
+  const name = useFormInput("");
+  const age = useFormInput("");
+  const password = useFormInput("");
+  const confirmedPassword = useFormInput("");
+  const gender = useFormInput("");
+  const isValid = validatePassword(password.value, confirmedPassword.value);
+  const { error, setError } = useError("");
+  const [isAuth, setAuth] = useState(false);
+  const {
+    location: { pathname },
+  } = props;
+
+  useEffect(() => M.updateTextFields());
+
+  function handleRegister(e) {
+    e.preventDefault();
+    if (!gender.value.length) {
+      setError("You need to choose a gender");
+      return;
     }
-  if(isAuth){
-    return <Redirect to='/' />
-  }  
+    if (!isValid) {
+      setError("There was a problem with the password");
+      return;
+    }
+    // const {center} = COL_CONFIG.findOne({});
+
+    const profile = {
+      name: name.value,
+      // center,
+      age: age.value,
+      gender: gender.value,
+      createdAt: new Date(),
+      pwd: password.value,
+      role: pathname === "/dashboard/register" ? "admin" : "user",
+    };
+    const user = {
+      username: username.value,
+      password: password.value,
+      profile,
+    };
+    Accounts.createUser(user, (err) =>
+      err ? setError(err.reason) : setAuth(true)
+    );
+  }
+  if (isAuth) {
+    return <Redirect to="/" />;
+  }
   return (
     <>
       <header>
@@ -182,6 +188,13 @@ function Register(props) {
   );
 }
 
+// const  ;
 
+const RegisterApp = withTracker((params) => {
+  Meteor.subscribe("col_config");
+  return {
+    // langs: COL_LANGUAGES.find({}, { sort: { name: 1 } }).fetch(),
+  };
+})(Register);
 
-export default withRouter(Register)
+export default withRouter(RegisterApp);

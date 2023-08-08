@@ -1,7 +1,7 @@
-import { Meteor } from 'meteor/meteor'
-import { check } from 'meteor/check'
-import { COL_LANGUAGES, COL_CONFIG } from '../../lib/Collections';
-import { fileDb } from '../fileUpload/MediaUpload';
+import { Meteor } from "meteor/meteor";
+import { check } from "meteor/check";
+import { COL_LANGUAGES, COL_CONFIG } from "../../lib/Collections";
+import { fileDb } from "../fileUpload/MediaUpload";
 
 Meteor.methods({
   "Settings.setCentre"({ centre, _id }) {
@@ -17,7 +17,7 @@ Meteor.methods({
   "Settings.deleteLanguage"(_id) {
     return COL_LANGUAGES.remove(_id);
   },
-  "Settings.deleteFile"({_id}) {
-   _id && fileDb.remove(_id);    
-  }
+  "Settings.deleteFile"({ _id }) {
+    _id && fileDb.remove(_id);
+  },
 });

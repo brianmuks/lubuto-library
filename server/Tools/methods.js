@@ -22,17 +22,20 @@ Meteor.methods({
    * @param {*} filter if passed, only files containing filter key word will be returned
    */
   "Tool.getSound"({ lang, lessonNumber }) {
-    const meta = {
-      lang,
-      lessonNumber,
-    };
+
 
     const query = {
       isAudio: true,
-      meta,
+      'meta.lang': lang,
+      'meta.lessonNumber': lessonNumber
     };
 
+
+
     return fileDb.find(query).fetch();
+
+
+
   },
   "Tool.getImages"() {
     return fileDb.find({ isImage: true }, { sort: { createdAt: -1 } }).fetch();
@@ -42,12 +45,8 @@ Meteor.methods({
 function sortFiles(files) {
   if (!files) return; // don't sort if there are no files
   return files.sort(function (a, b) {
-    if (a < b) {
-      return -1;
-    }
-    if (a > b) {
-      return 1;
-    }
+    if (a < b) { return -1; }
+    if (a > b) { return 1; }
     return 0;
   });
 }
