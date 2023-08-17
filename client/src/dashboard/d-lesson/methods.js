@@ -142,6 +142,16 @@ export const editLesson = ({ lessonId, lesson, meta }) => {
   });
 };
 
+
+export const resetLessonSettings_ = (lesson) => {
+  Meteor.call("resetLessonSettings", lesson, (err, ok) => {
+    console.log(err, ok);
+    (err && M.toast({ html: "Sorry error occured" })) ||
+      M.toast({ html: "Lesson reseted successfully " });
+  });
+};
+
+
 export const deleteLesson = (_id) => {
   Meteor.call("deleteLesson", _id, (err, ok) => {
     console.log(err, ok);

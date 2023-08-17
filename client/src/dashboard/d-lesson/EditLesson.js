@@ -78,7 +78,7 @@ function EditLesson({ lesson }) {
         <LessonNavBar />
 
         <div className="row">
-          <ToolConfig isEdit />
+          <ToolConfig isEdit lessonId={lesson && lesson._id} />
           <MainEditor
             isEdit
             setToolEditorVisibility={setToolEditorVisibility}
