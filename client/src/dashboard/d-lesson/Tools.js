@@ -15,7 +15,6 @@ function Tools(props) {
   const { state, dispatch } = useContext(TOOLS_STATE);
   const [lessonId, setLessonId] = useState(null);
 
-  console.log("props", props);
 
   useEffect(() => {
     // initModal('#' + MODAL_ID);
@@ -51,7 +50,6 @@ function Tools(props) {
     ev.preventDefault();
   };
   const _saveLesson = (ev) => {
-    //  alert(lessonId)
 
     if (lessonId !== null) {
       //user has already saved. the lesson should be updated this time around
