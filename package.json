@@ -1,17 +1,16 @@
-
 {
   "name": "lubuto-library",
   "private": true,
   "scripts": {
     "run-a": " react-native run-android",
-    "start": "MONGO_URL='mongodb://muks:muks@cluster0-shard-00-00.altcl.mongodb.net:27017,cluster0-shard-00-01.altcl.mongodb.net:27017,cluster0-shard-00-02.altcl.mongodb.net:27017/lubuto?replicaSet=atlas-5s9q63-shard-0&ssl=true&authSource=admin' meteor run --allow-superuser",
+    "start": "MONGO_URL='mongodb://muks:muks@cluster0-shard-00-00.altcl.mongodb.net:27017,cluster0-shard-00-01.altcl.mongodb.net:27017,cluster0-shard-00-02.altcl.mongodb.net:27017/lubuto?replicaSet=atlas-5s9q63-shard-0&ssl=true&authSource=admin' meteor run --allow-superuser --port=4000",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer"
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.4",
-    "@babel/runtime": "^7.1.2",
+    "@babel/runtime": "^7.22.3",
     "antd": "^4.1.5",
     "bcrypt": "^3.0.8",
     "dotenv": "^10.0.0",
