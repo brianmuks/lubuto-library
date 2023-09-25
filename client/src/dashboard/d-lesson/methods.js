@@ -77,7 +77,6 @@ export const saveLesson = (lesson, meta) => {
     }
 
     Meteor.call("saveLesson", lesson, (err, _id) => {
-      console.log(err, _id);
       if (err) {
         M.toast({ html: "Sorry error occured" });
         reject();
@@ -136,7 +135,6 @@ export const editLesson = ({ lessonId, lesson, meta }) => {
   }
 
   Meteor.call("editLesson", lesson, (err, ok) => {
-    console.log(err, ok);
     (err && M.toast({ html: "Sorry error occured" })) ||
       M.toast({ html: "Lesson Updated!" });
   });
@@ -144,8 +142,10 @@ export const editLesson = ({ lessonId, lesson, meta }) => {
 
 
 export const resetLessonSettings_ = (lesson) => {
+
+
+
   Meteor.call("resetLessonSettings", lesson, (err, ok) => {
-    console.log(err, ok);
     (err && M.toast({ html: "Sorry error occured" })) ||
       M.toast({ html: "Lesson reseted successfully " });
   });
@@ -154,7 +154,6 @@ export const resetLessonSettings_ = (lesson) => {
 
 export const deleteLesson = (_id) => {
   Meteor.call("deleteLesson", _id, (err, ok) => {
-    console.log(err, ok);
     (err && alert("Sorry error occured")) ||
       M.toast({ html: "Lesson deleted" });
   });
@@ -163,14 +162,12 @@ export const deleteLesson = (_id) => {
 export const getSound = ({ lang, lessonNumber }) => {
   return new Promise((resolve, reject) => {
     Meteor.call("Tool.getSound", { lang, lessonNumber }, (err, files) => {
-      // console.log(err, ok);
       if (err) {
         reject(err);
       } else if (!files) {
         const msg = `Sorry no audio found for language=${getUrlParam("lang")}`;
         M.toast({ html: msg });
       } else {
-        console.log(files, "files");
         resolve(files);
       }
     });
@@ -180,7 +177,6 @@ export const getSound = ({ lang, lessonNumber }) => {
 export const getImages = () => {
   return new Promise((resolve, reject) => {
     Meteor.call("Tool.getImages", (err, ok) => {
-      // console.log(err, ok);
       if (err) {
         reject(err);
       } else {
@@ -196,7 +192,6 @@ export const copyLesson = ({ lessonNumber, lang, newLangs }) => {
       "Lesson.copyLesson",
       { lessonNumber, lang, newLangs },
       (err, ok) => {
-        // console.log(err, ok);
         if (err) {
           const msg = `Sorry an error occured`;
           M.toast({ html: msg });
@@ -217,7 +212,6 @@ export const copPage = ({ lessonNumber, lessonPageNumber, lang, newLangs }) => {
       "Lesson.copyPage",
       { lessonNumber, lessonPageNumber, lang, newLangs },
       (err, ok) => {
-        // console.log(err, ok);
         if (err) {
           const msg = `Sorry an error occured`;
           M.toast({ html: msg });
@@ -233,7 +227,6 @@ export const copPage = ({ lessonNumber, lessonPageNumber, lang, newLangs }) => {
 };
 
 export const playAudio = async (audioFile) => {
-  console.log(audioFile, "audioFile");
 
   if (!audioFile) {
     return;

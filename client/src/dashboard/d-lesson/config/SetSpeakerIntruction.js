@@ -10,7 +10,6 @@ function SetSpeakerIntruction({ lessonNumber,dispatch }){
     const lang = getUrlParam('lang'); 
 
     useEffect(()=>{
-        console.log(lessonNumber, 'lessonNumber');
        
 
     }, [audioFiles,lessonNumber])
@@ -24,7 +23,6 @@ function SetSpeakerIntruction({ lessonNumber,dispatch }){
               lessonNumber && files.length && setAudioFiles(files);
             })
             .catch(err => {
-              console.log("error getting audions", err);
             })) ||
           M.toast({ html: "Please set Lesson number first" });
     }

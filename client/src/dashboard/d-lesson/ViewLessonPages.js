@@ -33,7 +33,6 @@ function ViewLessonPages(props) {
     val = val.toLowerCase();
     if (val.trim().length === 0) {
       setlessons(lessons);
-      console.log("set to default LANGS");
       return;
     }
     const _filteredLessons = LANGS.filter(
@@ -43,7 +42,6 @@ function ViewLessonPages(props) {
   };
 
   const _copyPage = newLangs => {
-    console.log(newLangs, 'langs', targetCopyPage);
     copPage({ ...targetCopyPage, newLangs })
   }
 
@@ -127,7 +125,6 @@ export default withTracker(() => {
   const lang = getUrlParam('lang');
   const lessonNumber = getUrlParam('ln');
   const query = { 'meta.lang': lang, 'meta.lessonNumber': parseInt(lessonNumber) };
-  console.log(query)
   return {
     lessons: COL_Lessons.find(query, { sort: { 'meta.lessonPageNumber': 1 } }).fetch()
   };

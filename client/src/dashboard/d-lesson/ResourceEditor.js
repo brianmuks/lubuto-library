@@ -24,7 +24,6 @@ const EDIT_TOOL = "EDIT_TOOL";
 function reducer(state, action) {
   switch (action.type) {
     case EDIT_TOOL:
-      console.log(state);
       return Object.assign({ ...state }, { ...action.newStyle });
     default:
       return state;
@@ -115,7 +114,6 @@ function ResourceEditor({ visibility, onCancel, onDone, onDelete }) {
         label={editTool.name}
       />
       <Modal
-        title="20px to Top"
         style={{ top: 20 }}
         width={700}
         title={`Edit Element ${toolLabel}`}
@@ -315,13 +313,11 @@ function RenderSoundPicker({ onSoundSet, _dispatch }) {
     //TODO: use RJX here for debouncing.
     getSound({ lang, lessonNumber })
       .then((files) => {
-        console.log("files", files, lessonNumber, lang);
 
         _dispatch(addAudioFiles(files));
         setAudioFiles(files);
       })
       .catch((err) => {
-        console.log("error getting audions", err);
       });
   }
 

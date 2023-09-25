@@ -29,7 +29,6 @@ function Tools(props) {
     // let dotIndex = path.indexOf('.');
     // dotIndex = dotIndex > 10 && 10 || dotIndex;
 
-    // console.log(index,path);
 
     // const label = path.toString().substr(0, dotIndex);
     dispatch(
@@ -122,7 +121,6 @@ function Tools(props) {
 function RenderTools(props) {
   const { state, dispatch } = useContext(TOOLS_STATE);
   useEffect(() => {
-    // console.log(state.addedTools)
   });
 
   return props.tools.map((tool, index) => (
@@ -143,7 +141,6 @@ function RenderTools(props) {
 function Renderalphabet(props) {
   const { state, dispatch } = useContext(TOOLS_STATE);
   useEffect(() => {
-    // console.log(state.addedTools)
   });
 
   return ALPHABET.map((tool, index) => (

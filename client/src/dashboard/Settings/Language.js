@@ -29,7 +29,6 @@ function Language(props) {
     val = val.toLowerCase();
     if (val.trim().length === 0) {
       setlanguages(languages);
-      console.log("set to degault LANGS");
       return;
     }
     const _filteredlanguages = languages.filter(

@@ -22,7 +22,6 @@ function ImageList({ onImageSelect }) {
 
     getImages()
     .then(files=>{
-      console.log(files, "files");
     setimageFiles(files);
     setimageFilesFiltered(files);
     dispatch(addImageFiles(files));
@@ -30,7 +29,6 @@ function ImageList({ onImageSelect }) {
     })
     .catch(err=>{
       M.toast({html:'failed to fetch imgaes'})
-      console.log("getImages():Err", err);
     })
 
 
@@ -39,11 +37,9 @@ function ImageList({ onImageSelect }) {
   const onFilter = event => {
     let val = event.target.value;
     val = val.toLowerCase();
-    console.log(val.trim().length);
     if (val.trim().length === 0) {
       setimageFilesFiltered(imageFiles);
 
-      console.log("set to degault _imageFiles");
       return;
     }
 

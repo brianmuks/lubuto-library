@@ -67,7 +67,6 @@ function RenderLessons({ dispatch, lessons, lang, match }) {
     const link = `${match.path}/?lang=${getUrlParam("lang")}&id=${
       lesson._id
     }&n=${lesson.meta.lessonNumber}`;
-    console.log();
 
     getUrlParam("id") !== lesson._id && addEndTime(lesson._id);
 
@@ -96,7 +95,6 @@ function Renderalphabet(props) {
   const { state, dispatch } = useContext(STUDENT_LESSON_STATE);
 
   useEffect(() => {
-    // console.log(state.addedTools)
   });
   let counter = 0;
   const colors = [
@@ -127,7 +125,6 @@ function RenderaNumbers(props) {
   const { state, dispatch } = useContext(STUDENT_LESSON_STATE);
 
   useEffect(() => {
-    // console.log(state.addedTools)
   });
   let counter = 0;
   const colors = [

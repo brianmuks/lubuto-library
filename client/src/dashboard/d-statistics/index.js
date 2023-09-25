@@ -93,7 +93,6 @@ function LessonSelector({ lessons, onChange }) {
 }
 
 function GetLessonsOptions({ lessons }) {
-  console.log(lessons)
   return lessons && lessons.map((item, index) => (
     item && <option value={`${item.lessonNumber},${item.lang}`}>{item.lessonNumber + ' | ' + item.lang}</option>
   )) || null

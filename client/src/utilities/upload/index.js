@@ -39,6 +39,5 @@ export const uploadImage = ({ image, collection, currentFileId, _id, updateProgr
   xhr.addEventListener("error", transferFailed);
   xhr.addEventListener("abort", transferCanceled);
 
-  // xhr.onprogress = event => console.log('progress', event.loaded, event.lengthComputable)
   var x = xhr.send(body);
 }

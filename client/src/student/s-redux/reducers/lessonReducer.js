@@ -47,7 +47,6 @@ export function lessonReducer(state, action) {
         }
       );
     case ADD_TOOL:
-    console.log(action.tool)
       return Object.assign(
         { ...state },
         {

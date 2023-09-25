@@ -17,7 +17,6 @@ function Centre({ config}) {
     const [state, setState] = useState(iniState);
 
     useEffect(()=>{
-        console.log(config)
         const { centre, location, province, country, _id}  = config || {};
         const _state = {centre:{centre,location,province,country},_id};
         config && setState(_state);

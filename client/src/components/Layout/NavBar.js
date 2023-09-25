@@ -5,7 +5,6 @@ import { Link, Redirect } from "react-router-dom";
  function NavBar({color}){
 
      const { isLoggedOut, logOutUser } = useLogout()
-  //  console.log()
   return (
     <nav className={`nav-color lighten-1 container-fluid`} role="navigation">
       <div className="nav-wrapper ">

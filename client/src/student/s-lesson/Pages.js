@@ -60,7 +60,6 @@ export default withTracker(({_id}) => {
   let lessonNumber = getUrlParam('n');
   lessonNumber = parseInt(lessonNumber)
   const query = { 'meta.lang': lang,'meta.lessonNumber':lessonNumber}
-  console.log(query)
   return {
     pages: COL_Lessons.find(query, { sort: { 'meta.lessonPageNumber':1}}).fetch()
   };

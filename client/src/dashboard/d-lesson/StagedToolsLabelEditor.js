@@ -30,7 +30,6 @@ function StagedToolsLabelEditor({toolIndex,oldLabel}) {
 
     setTimeout(() => {
       dispatch(editStaggedTools(tools));
-      console.log('label edited');
     }, 100);
 
   }  

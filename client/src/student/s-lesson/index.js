@@ -1,11 +1,14 @@
 //NOTE holds all create lesson components
 
-import React, { useReducer, useEffect,useState } from "react";
+import React, { useReducer, useEffect, useState } from "react";
 import { STUDENT_LESSON_STATE } from "./../s-context";
 import { lessonReducer } from "./../s-redux/reducers/lessonReducer";
 import { withTracker } from "meteor/react-meteor-data";
 import { COL_Lessons } from "../../../../lib/Collections";
-import { editStaggedTools, setLessonId } from "../s-redux/actions/lessonActions";
+import {
+  editStaggedTools,
+  setLessonId,
+} from "../s-redux/actions/lessonActions";
 import Lessons from "./Lessons";
 import MainScreen from "./MainScreen";
 import Pages from "./Pages";
@@ -15,12 +18,12 @@ import { addStartTime } from "../s-statistics/methods";
 import SpeakerIntruction from "./SpeakerIntruction";
 
 const initialState = {
-  language:getUrlParam('lang'),
+  language: getUrlParam("lang"),
   tools: [],
   addedTools: [],
   staggedTools: [],
-  editTool: {}
-}
+  editTool: {},
+};
 
 // todo: Push the icon name to the icon array, as items that have been moved
 
@@ -31,52 +34,48 @@ function StudentLesson(props) {
 
   useEffect(() => {
     if (!props.lesson) {
-      return
+      return;
     }
 
-
-  
-    const { lessonNumber, lang, lessonPageNumber,type } = props.lesson.meta;
+    const { lessonNumber, lang, lessonPageNumber, type } = props.lesson.meta;
     const lessonId = props.lesson._id;
 
-    addStartTime({ lessonId, lang, lessonNumber, lessonPageNumber})
-    let x = (props.lesson.content);
 
-    if(!x) return
-
+    let x = props.lesson.content;
+    
+    if (!x) return;
+    
+    addStartTime({ lessonId, lang, lessonNumber, lessonPageNumber });
     _setLessonId(props.lesson._id);
     dispatch(setLessonId(props.lesson._id));
     var result = Object.keys(x).map(function (key) {
       return x[key];
     });
-    // setTools(result)
-    // console.log(result);
     dispatch(editStaggedTools(result));
   }, [props.lesson]);
 
   return (
     <>
-    <main>
-    <STUDENT_LESSON_STATE.Provider value={{ state, dispatch }}>
-      <section style={{ position: 'relative' }}>
-      <SpeakerIntruction lesson={props.lesson}/>
-        <Lessons match={props.match}  />
-        <div className="row">
-          <MainScreen lesson={props.lesson} isPreview/>
-          <Pages match={props.match} lessonId={lessonId} />
-          <ScoreBoard lesson={props.lesson} />
-        </div>
-      </section>
-    
-    </STUDENT_LESSON_STATE.Provider>
+      <main>
+        <STUDENT_LESSON_STATE.Provider value={{ state, dispatch }}>
+          <section style={{ position: "relative" }}>
+            <SpeakerIntruction lesson={props.lesson} />
+            <Lessons match={props.match} />
+            <div className="row">
+              <MainScreen lesson={props.lesson} isPreview />
+              <Pages match={props.match} lessonId={lessonId} />
+              <ScoreBoard lesson={props.lesson} />
+            </div>
+          </section>
+        </STUDENT_LESSON_STATE.Provider>
       </main>
-      </>
+    </>
   );
 }
 
 // export default CreateLesson;
 
-export default withTracker(({props}) => {
+export default withTracker(({ props }) => {
   const lang = getUrlParam("lang");
   const _id = getUrlParam("id");
 

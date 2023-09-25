@@ -68,7 +68,6 @@ function handleDrop(
 
   // tools = tools.filter(i => i.index !== tool.index);
 
-  console.log(pos.x, pos.y, "Image position");
 
   tools = tools.map(
     (i) =>
@@ -81,7 +80,6 @@ function handleDrop(
 
   // tools = [...tools, { ...tool, style: { ...tool.style, position: 'absolute',x:pos.x,y:pos.y}}]
   dispatch(editStaggedTools(tools));
-  console.log(tools);
 }
 
 function RenderTools({
@@ -229,7 +227,6 @@ export function RenderToolDelegator({
   const Tool = COMPONENTS[tool.type];
 
   if (!isRender) {
-    console.log("RenderToolDelegator():tool", tool);
     return Tool ? <Tool tool={tool} /> : <span>TOOL NOT FOUND! </span>;
   }
 

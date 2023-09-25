@@ -7,7 +7,6 @@ export const getSound = src => {
     return new Promise((resolve, reject) => {
         Meteor.call('Tool.getSound', src, (err, ok) => {
 
-            console.log(err, ok);
             if (err) {
                 reject(err)
             } else {
@@ -37,7 +36,6 @@ export const playAudio = async audioFile => {
     var audio = document.getElementById("audio");
     // const src = AUDIO_URL + LANG + '/' + audioFile;
    const src =  generateFileUrl({ file: audioFile });
-    console.log(" src && ",src);
 
     if (src.indexOf('undefined') == -1){
             audio.src = src;
@@ -54,7 +52,6 @@ export const onDrop = (ev, ans, draggedQuestion, lessonId) => {
 
 
     if (!isCorrect) {
-        console.log('wrong Ans', draggedQuestion);
         playAudio(NO_SOUND);
         //{ MinimongoError: Key question.[object Object] must not contain '.'
         recordAttempt({ questionIndex, lessonId, passed: false });
@@ -137,7 +134,6 @@ const onAfterDrop = ({isAdd=true})=>{
        for (let i of dropZones) {
          const parent = i.children[0];
          const line = parent.children[0];
-        //  console.log("onDragStart", parent.children[0].children[0]);
 
        isAdd
          ? line.children[0].classList.add("drop-zone-height")

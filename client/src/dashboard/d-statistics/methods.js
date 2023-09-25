@@ -5,7 +5,6 @@ import { COL_Lessons, COL_USER_STATS } from "../../../../lib/Collections";
 export const getFilteredLessons = lessonStats=>{
 
     let filteredLessons = [];
-    console.log(lessonStats)
 lessonStats.map((stats,index)=>{
     const lang = stats.lang;
     const lessonNumber = stats.lessonNumber;
@@ -64,7 +63,6 @@ export const getlessonsGrandTotal = lessonStats => {
 
     }
     )
-    console.log(passMark,failMark, 'passStatus');
 
     return { students, filteredLessons, gTotalTime, passMark, failMark, attempts};
 }

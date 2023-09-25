@@ -34,8 +34,6 @@ function keepCopy(tools) {
     let data = JSON.parse(sessionStorage.getItem(EDIT_STAGGED_TOOL));
     data = Array.from(data);
     data.unshift(tools);
-    console.log('data', data);
-    // data[0] && console.log(data, 'sessionStorage Data')
     sessionStorage.setItem(EDIT_STAGGED_TOOL, JSON.stringify(data));
   }
 }

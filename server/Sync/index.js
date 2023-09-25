@@ -24,7 +24,6 @@ Meteor.methods({
 
                 })
                 .catch(err=>{
-                console.log(err)
                 })    
     },
     'Sync.exportLessons'(_id) {
@@ -43,7 +42,6 @@ Meteor.methods({
                 });
             })
             .catch(err => {
-                console.log(err)
             }) 
     },
     'Sync.exportTools'(_id) {
@@ -62,7 +60,6 @@ Meteor.methods({
                 });
             })
             .catch(err => {
-                console.log(err)
             })
     },
 

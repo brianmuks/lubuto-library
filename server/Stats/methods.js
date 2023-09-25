@@ -39,6 +39,9 @@ Meteor.methods({
 
 
     recordAttempt({ lessonId, questionIndex, passed }) {
+
+
+
         const coll = COL_USER_STATS;
         const _id = lessonId.substring(0, 8) + Meteor.userId().substring(0, 8);
         const query = { _id };
@@ -47,7 +50,6 @@ Meteor.methods({
         let update =lessonStats && lessonStats.question  && {question:lessonStats.question} || {question:{}};
         questionIndex = questionIndex.toString().replace('.', '-');
         if (update.question[questionIndex] && update.question[questionIndex].passed) {
-            console.log('passed already', lessonStats._id, update.question[questionIndex].passed)
             return true;//student already got it right;
         }
 

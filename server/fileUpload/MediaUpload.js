@@ -42,24 +42,20 @@ const _multerInstance = _multer(_multerInstanceConfig);
 Picker.middleware(_multerInstance.single('photo'));
 
 Picker.route('/api/upload', (params, req, res, next) => {
-    // console.log('upload',req.file);
 
     var mediaType = 'image';
-    // console.log('Picker.middleware():FILE:',req.file);
     if (req.file !== undefined && (req.file.mimetype.substr(0, 6) == 'image/')) {
         //media type is ok
 
     } else {
         //mediaType not recongnised
         // return(RESULT_CODES[0]);
-        console.log("Error=1", RESULT_CODES[0]);
         res.end(JSON.stringify(RESULT_CODES[0]));
         // return
     }
 
     if (req.body.authToken.length == 0) {
         // return(RESULT_CODES[2]);
-        console.log(RESULT_CODES[2]);
 
         res.end(JSON.stringify(RESULT_CODES[2]));
         return
@@ -76,13 +72,11 @@ Picker.route('/api/upload', (params, req, res, next) => {
     //user
 
     if (!user) {
-        // console.log('USER:',user,'hashedToken:',hashedToken,'req.body.authToken:',req.body.authToken);
 
         res.end(JSON.stringify(RESULT_CODES[3]));
         // return
 
     }
-    // console.log('req.body.postData:',req.body.postData);
     // res.end('Done');
 
     // return;
@@ -118,36 +112,27 @@ Picker.route('/api/upload', (params, req, res, next) => {
             if (_readError) {
                 res.end(JSON.stringify(RESULT_CODES[1]));
                 return
-                console.log(_readError);
             } else {
                 // TODO: REMOVE EXISTING FILE 
-                console.log(currentFileId == 'null')
                 fileDb.write(_readData, _addFileMeta, (_uploadError, _uploadData) => {
                     if (_uploadError) {
                         res.end(JSON.stringify(RESULT_CODES[1]));
-                        console.log(_uploadError);
 
                         return
 
 
                         // return(RESULT_CODES[0])
                     } else {
-                        console.log('upload data=', _uploadData);
                         // const path = _uploadData.versions.original.path;
                         const mediaId = _uploadData._id;
                         file = fileDb.findOne({ _id: mediaId });
                         let mediaUri = file.link();
-                        console.log(
-                            mediaUri,
-                            "mediaUri"
-                        );
+                  
                         if (mediaUri != undefined && process.env.NODE_ENV == 'development') {
                             // // NOTE:  development only
                             // const serverIP = ip.address();
                             // // mediaUri = mediaUri.replace('localhost', '192.168.8.');
-                            // console.log('mediaUri', mediaUri, mediaId,serverIP);
                         }
-                        //  _fs.unlink(req.file.path, err => console.log('Err removing old files', err)); // remove temp upload
 
 
                         if (_collections[coll]) {//validate collection
@@ -167,7 +152,6 @@ Picker.route('/api/upload', (params, req, res, next) => {
                             const query = {};
                             const randId = new Meteor.Collection.ObjectID().valueOf();
 
-                            console.log('sdfasdfdsafadsfsadfsda', currentFileId, mediaId)
                             if (_id == 'null') {
                                 query['_id'] = randId;
                             } else {

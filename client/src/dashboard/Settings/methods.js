@@ -31,7 +31,6 @@ export const saveLanguage = ({ name, _id, callback }) => {
   }
 
   Meteor.call("Settings.saveLanguage", { name, _id }, (err, ok) => {
-    console.log(err, ok);
     //TODO: custom msg
     (err && alert("Sorry error occured")) ||
       (M.toast({ html: "Done!" }) && callback());
@@ -91,7 +90,6 @@ export const importTools = () => {
 };
 
 export const deleteFile = ({ _id }) => {
-  console.log("jj", _id);
 
   return new Promise((resolve, reject) => {
     Meteor.call("Settings.deleteFile", { _id }, (err, ok) => {

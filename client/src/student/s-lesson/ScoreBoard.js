@@ -20,12 +20,7 @@ function ScoreBoard({ lesson, stats }) {
             entry["passed"] =
               stats.question[_questionIndex] &&
               stats.question[_questionIndex].passed;
-            console.log(
-              "entry",
-              stats.question["0-4236071277549145"],
-              "_questions=>",
-              _questions
-            );
+       
           }
 
           keyQuestions.push(entry);

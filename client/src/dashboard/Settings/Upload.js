@@ -24,7 +24,6 @@ function Upload({ files }) {
   const [filesCount, setFilesCount] = useState(0);
 
   useEffect(() => {
-    console.log(files, 'files')
   }, [files]);
 
 
@@ -55,7 +54,6 @@ function Upload({ files }) {
 
 
   const updateProgress = (loaded, computed) => {
-    console.log('updateProgress():data', loaded, computed);
     //    Message.success("Sorry, Search key word short");
   }
 
@@ -81,7 +79,6 @@ function Upload({ files }) {
   };
 
   const onUpload = (e, slider) => {
-    console.log(slider);
 
     setTargetId(slider && slider.mediaId);
     setAdvertsId(slider && slider._id);
@@ -134,11 +131,9 @@ function RenderFiles({ files }) {
       _id &&
       deleteFile({ _id })
         .then(resp => {
-          console.log(resp);
           M.toast({ html: `${file.name} deleted` });
         })
         .catch(err => {
-          console.log(err);
           M.toast({ html: "Sorry error occured !" });
         });
 

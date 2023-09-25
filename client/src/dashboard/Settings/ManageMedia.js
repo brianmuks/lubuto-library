@@ -49,11 +49,9 @@ function ManageMedia({ totalFiles }) {
             _id &&
             deleteFile({ _id })
                 .then(resp => {
-                    console.log(resp);
                     M.toast({ html: `${file.name} deleted` });
                 })
                 .catch(err => {
-                    console.log(err);
                     M.toast({ html: "Sorry error occured !" });
                 });
 
@@ -80,7 +78,6 @@ function ManageMedia({ totalFiles }) {
             return;
         }
         const files = fetchData();
-        console.log(files, 'files')
 
         data = data.concat(files);
         // alert(data.length)

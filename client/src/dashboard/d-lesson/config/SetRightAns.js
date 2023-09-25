@@ -49,7 +49,6 @@ function SetRightAnsView({ staggedTools, isExeLesson, isEdit, lessonId }) {
     const result = window.confirm("Are you sure you want to proceed?");
     if (result) {
       // User clicked "OK"
-      console.log("User confirmed.", lessonId);
       resetLessonSettings_({
         content: state.staggedTools,
         meta: state.meta,
@@ -59,7 +58,6 @@ function SetRightAnsView({ staggedTools, isExeLesson, isEdit, lessonId }) {
       // Perform your action here
     } else {
       // User clicked "Cancel"
-      console.log("User cancelled.");
       // Handle the cancellation or do nothing
     }
   };

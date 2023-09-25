@@ -31,7 +31,6 @@ function LanguageSelector(props) {
       langs ={};
     }
 
-    console.log(checkBoxesStatus)
   }
 
     const done = e=>{
@@ -80,7 +79,6 @@ function App(props) {
     val = val.toLowerCase();
     if (val.trim().length === 0) {
       setLANGs(props.langs);
-      console.log("set to degault LANGS");
       return;
     }
     const filteredLangs = props.langs.filter(
@@ -153,7 +151,6 @@ export default withTracker(params => {
   Meteor.subscribe("userStats");
   const label = getUrlParam('lang')
   const query = params.filter && { label:{$ne:label}} || {};
-  console.log(query,'query')
   return {
 
     langs: COL_LANGUAGES.find(

@@ -41,7 +41,6 @@ function Details({ gStats,pages}){
   const score = gStats.passMark + "/" + Math.floor(gStats.passMark + gStats.failMark)
   const scorePercent = Math.floor((gStats.passMark / (gStats.passMark + gStats.failMark)) * 100)
 
-  console.log(gStats.passMark , gStats.failMark)
   const time = gStats.gTotalTime;
   const attempts = gStats.attempts;
   return <>

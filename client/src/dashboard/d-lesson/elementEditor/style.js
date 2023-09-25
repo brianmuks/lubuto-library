@@ -22,14 +22,12 @@ const ElementStyleEditor = ({
   style,
   onStyleChange,
 }) => {
-  // console.log(style, "style", tool);
 
   const initVal = (stateStyles && stateStyles[name]) || "";
   const [val, setVal] = useState(null);
   //initVal.length && alert(initVal)
 
   useEffect(() => {
-    console.log("useEffect():ElementStyleEditor");
     // setVal("muks");
     visibility && tool.style && setVal(tool.style[name]);
     !visibility && setVal("muks");

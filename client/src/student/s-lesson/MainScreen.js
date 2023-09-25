@@ -17,7 +17,6 @@ function MainScreen(props) {
   const { state } = useContext(STUDENT_LESSON_STATE);
   const { staggedTools, color, bgColor, lessonId } = state;
 
-  console.log(props, "props");
 
   const [draggedQuestion, setDraggedQuestion] = useState(null);
   //for click to match lesson type
@@ -26,6 +25,8 @@ function MainScreen(props) {
   const onClickMatch = ({ a, q, index, rightAnsIndexs, questionIndex }) => {
     if (a && c2mAns && c2mAns.indexOf(index.toString()) !== -1) {
       setC2mAns(null);
+
+
       // playAudio("y.wav"); //y.wav is a default yes sound for every language;
       recordAttempt({ questionIndex, lessonId, passed: true });
     } else if (a && c2mAns && c2mAns.indexOf(index.toString()) == -1) {
@@ -76,7 +77,6 @@ function RenderTools({
   onClickMatch,
 }) {
   const { state, dispatch } = useContext(STUDENT_LESSON_STATE);
-  // console.log(state.le)
   return tools.map((tool, index) => (
     // marginLeft: tool.style.x, marginTop: tool.style.y
     <div

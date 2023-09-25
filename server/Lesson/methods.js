@@ -1,48 +1,50 @@
-import { Meteor } from 'meteor/meteor'
-import { check } from 'meteor/check'
-import { COL_Lessons } from '../../lib/Collections'
+import { Meteor } from "meteor/meteor";
+import { check } from "meteor/check";
+import { COL_Lessons } from "../../lib/Collections";
 
 // create an icon reference
 
-// Todo: Clean 
+// Todo: Clean
 Meteor.methods({
   saveLesson(lesson) {
     lesson["createdAt"] = new Date();
-    return COL_Lessons.insert(lesson, (err) =>
-      err ? console.log(err.reason) : "success"
-    );
+    return COL_Lessons.insert(lesson, (err) => {});
   },
   editLesson(lesson) {
     return COL_Lessons.update(
       { _id: lesson.lessonId },
       { $set: lesson },
-      (err) => (err ? console.log(err.reason) : "success")
+      (err) => {}
     );
   },
   resetLessonSettings(lesson) {
+    const newContent = lesson.content.map((i) => {
+      const lessonData = i;
 
+      delete lessonData["isQuestion"];
+      delete lessonData["isAns"];
+      delete lessonData["questionIndex"];
 
-    const newContent = lesson.content.map((i) => ({ ...i, rightAnsIndexs:[] }));
+      return lessonData;
+    });
 
     const updateData = {
-        ...lesson,
-        content:newContent,
+      ...lesson,
+      content: newContent,
       meta: {
         ...lesson.meta,
-        type:'instr'
+        type: "instr",
       },
     };
 
     return COL_Lessons.update(
       { _id: lesson.lessonId },
       { $set: updateData },
-      (err) => (err ? console.log(err.reason) : "success")
+      (err) => {}
     );
   },
   deleteLesson(_id) {
-    return COL_Lessons.remove(_id, (err) =>
-      err ? console.log(err.reason) : "success"
-    );
+    return COL_Lessons.remove(_id, (err) => {});
   },
   //newLangs is array of languages
   "Lesson.copyLesson"({ lessonNumber, lang, newLangs }) {
@@ -55,7 +57,6 @@ Meteor.methods({
     for (const newLang in newLangs) {
       //copy/update lesson to new language
       lesssons.forEach((v, i) => {
-        console.log(v, "lessons");
         const { meta, content } = v;
         const lesson = { meta: { ...meta, lang: newLang }, content };
         const query2 = {
@@ -63,8 +64,11 @@ Meteor.methods({
           "meta.lang": newLang,
           "meta.lessonPageNumber": meta.lessonPageNumber,
         };
-        COL_Lessons.update(query2, { $set: lesson }, { upsert: true }, (err) =>
-          err ? console.log(err.reason) : "success"
+        COL_Lessons.update(
+          query2,
+          { $set: lesson },
+          { upsert: true },
+          (err) => {}
         );
       });
     }
@@ -86,7 +90,6 @@ Meteor.methods({
     for (const newLang in newLangs) {
       //copy/update lesson to new language
       lesssons.forEach((v, i) => {
-        console.log(v, "lessons");
         const { meta, content } = v;
         const lesson = { meta: { ...meta, lang: newLang }, content };
         const query2 = {
@@ -94,8 +97,8 @@ Meteor.methods({
           "meta.lang": newLang,
           "meta.lessonPageNumber": meta.lessonPageNumber,
         };
-        COL_Lessons.update(query2, { $set: lesson }, { upsert: true }, (err) =>
-          err ? console.log(err.reason) : "success"
+        COL_Lessons.update(query2, { $set: lesson }, { upsert: true }, (err) =>{}
+          
         );
       });
     }

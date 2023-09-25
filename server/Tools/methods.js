@@ -11,8 +11,7 @@ const fs = require("fs");
 Meteor.methods({
   createIcon(name, label) {
     check(name, String);
-    COL_TOOLS.insert({ name, label }, (err) =>
-      err ? console.log(err.reason) : "success"
+    COL_TOOLS.insert({ name, label }, (err) =>{}
     );
   },
 

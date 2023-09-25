@@ -41,7 +41,6 @@ function LessonPreview(props) {
             return x[key];
         });
         // setTools(result)
-        console.log(result);
         dispatch(editStaggedTools(result));
     }, [props.lesson]);
 
