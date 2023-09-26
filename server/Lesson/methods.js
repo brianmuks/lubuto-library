@@ -63,7 +63,7 @@ Meteor.methods({
 
     const updateData = {
       meta: {
-        ...lessonDb,
+        ...lessonDb.meta,
         type: newType,
       },
     };
