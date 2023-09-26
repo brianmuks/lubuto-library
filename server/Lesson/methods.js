@@ -43,6 +43,33 @@ Meteor.methods({
       (err) => {}
     );
   },
+  changeLessonType({ lessonId, newType }) {
+    const query = { _id: lessonId };
+
+    const lessonDb = COL_Lessons.findOne(
+       query ,
+      {
+        fields: {
+          meta: 1,
+        },
+      }
+    );
+
+    if (!lessonDb)
+      return {
+        isError: true,
+        msg: "Sorry lesson does not exist",
+      };
+
+    const updateData = {
+      meta: {
+        ...lessonDb,
+        type: newType,
+      },
+    };
+
+    return COL_Lessons.update(query, { $set: updateData }, (err) => {});
+  },
   deleteLesson(_id) {
     return COL_Lessons.remove(_id, (err) => {});
   },
@@ -97,8 +124,11 @@ Meteor.methods({
           "meta.lang": newLang,
           "meta.lessonPageNumber": meta.lessonPageNumber,
         };
-        COL_Lessons.update(query2, { $set: lesson }, { upsert: true }, (err) =>{}
-          
+        COL_Lessons.update(
+          query2,
+          { $set: lesson },
+          { upsert: true },
+          (err) => {}
         );
       });
     }
