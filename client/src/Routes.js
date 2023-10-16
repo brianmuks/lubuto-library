@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Meteor } from 'meteor/meteor'
-// import IconEditor from "./dashboard/tools/iconEditor";
 import CreateLesson from "./dashboard/d-lesson/CreateLesson";
 import NotFound from './components/NotFound'
 // Containers (Roles)
@@ -26,6 +25,7 @@ import ViewLessonPages from "./dashboard/d-lesson/ViewLessonPages";
 import Landing from "./dashboard/Landing";
 import Settings from "./dashboard/Settings";
 import ManageMedia from "./dashboard/Settings/ManageMedia";
+import iconEditor from "./dashboard/tools/IconEditor";
 
 // Only here for prototyping
 const adminRole = "admin";
@@ -106,7 +106,7 @@ const Routes = () => (
       <User exact role={"user"} path="/lesson/page/:id" component={LessonView} />
       <User exact role={"user"} path="/language_selector" component={LanguageSelector} />
 
-      {/* <Route path="/add_icons" component={IconEditor} /> */}
+      <Route path="/node-build" component={iconEditor} />
       <Route path='/login' component={Login} />
       <Route path='/register' component={() => <Register role={userRole} />} />
 
